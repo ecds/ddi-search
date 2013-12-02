@@ -34,3 +34,7 @@ nosetests.xml
 .mr.developer.cfg
 .project
 .pydevproject
+
+# local project-specific items
+localsettings.py
+*.sqlite3
