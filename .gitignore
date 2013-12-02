@@ -38,3 +38,4 @@ nosetests.xml
 # local project-specific items
 localsettings.py
 *.sqlite3
+doc/_build
