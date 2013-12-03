@@ -1,0 +1,89 @@
+# Sample local settings file
+# Copy this to localsettings.py and edit settings as needed
+
+import os
+BASE_DIR = os.path.dirname(os.path.dirname(__file__))
+
+# Quick-start development settings - unsuitable for production
+# See https://docs.djangoproject.com/en/1.6/howto/deployment/checklist/
+
+# SECURITY WARNING: don't run with debug turned on in production!
+DEBUG = False
+TEMPLATE_DEBUG = False
+
+ALLOWED_HOSTS = []
+
+# SECURITY WARNING: keep the secret key used in production secret!
+# You can generate one here: http://www.miniwebtool.com/django-secret-key-generator/
+SECRET_KEY = ''
+
+# Database
+# https://docs.djangoproject.com/en/1.6/ref/settings/#databases
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    }
+}
+
+# Exist DB Settings
+# TBD: site may be able to run as guest
+#EXISTDB_SERVER_USER = 'user'
+#EXISTDB_SERVER_PASSWORD = 'pass'
+EXISTDB_SERVER_URL = "http://localhost:8080/exist"
+EXISTDB_ROOT_COLLECTION = "/ddi_data"
+
+# Logging
+# https://docs.djangoproject.com/en/1.6/topics/logging/
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': True,
+    'formatters': {
+        'verbose': {
+           # 'format': '[%(asctime)s] %(levelname)s:%(name)s::%(message)s',
+            'format': '%(levelname)s %(asctime)s %(module)s %(process)d %(thread)d %(message)s'
+        },
+        'simple': {
+            'format': '%(levelname)s %(message)s'
+        },
+    },
+    'filters': {
+        'require_debug_false': {
+            '()': 'django.utils.log.RequireDebugFalse'
+        }
+    },
+    'handlers': {
+        'null': {
+            'level': 'DEBUG',
+            'class': 'django.utils.log.NullHandler',
+        },
+        'console':{
+            'level': 'DEBUG',
+            'class': 'logging.StreamHandler',
+            'formatter': 'simple'
+        },
+        'mail_admins': {
+            'level': 'ERROR',
+            'class': 'django.utils.log.AdminEmailHandler',
+            'filters': ['require_debug_false'],
+            'include_html': True
+        }
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['null'],
+            'propagate': True,
+            'level': 'INFO',
+        },
+        'django.request': {
+            'handlers': ['mail_admins'],
+            'level': 'ERROR',
+            'propagate': False,
+        },
+        'ddisearch': {
+            'handlers': ['console', 'mail_admins'],
+            'level': 'INFO',
+        }
+    }
+}
