@@ -16,6 +16,14 @@
 
 <p>Found <b>{{ results.paginator.count }}</b> total results.</p>
 
+<p>Number of results to show per page:
+    {% for n in per_page_choices %}
+        {% ifequal n per_page %} {{ n }} {% else %}
+        <a href="?{{ rechunk_params }}&amp;per_page={{ n }}">{{ n }}</a>
+        {% endifequal %}
+    {% endfor %}
+    </p>
+
 {% pagination_links results pages  url_params=url_params %}
 
 <ul>

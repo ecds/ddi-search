@@ -39,12 +39,17 @@ def search(request):
         pages = pages_to_show(paginator, page)
 
         # NOTE: can we use cleaned_data directly here?
-        url_params = urlencode({
-            'keyword': keywords.encode('utf-8'),
-            'per_page': per_page
-        })
+        url_args = form.cleaned_data
+        url_params = urlencode(url_args)
+        # url params for changing chunk size
+        del url_args['per_page']
+        rechunk_params = urlencode(url_args)
+
 
         context.update({'keywords': keywords, 'results': results,
-            'pages': pages, 'url_params': url_params})
+            'pages': pages, 'url_params': url_params,
+            'per_page': int(per_page),
+            'rechunk_params': rechunk_params,
+            'per_page_choices': forms.AdvancedSearch.PER_PAGE_CHOICES})
 
     return render(request, 'ddi/search.html', context)

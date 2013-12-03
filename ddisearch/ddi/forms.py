@@ -9,7 +9,7 @@ class KeywordSearch(forms.Form):
 
 
 class AdvancedSearch(KeywordSearch):
-    page_opts = (10, 25, 50, 100)
-    page_choices = [(d, d) for d in page_opts]
+    PER_PAGE_CHOICES = (10, 25, 50, 100)
+    page_choices = [(d, d) for d in PER_PAGE_CHOICES]
     per_page = forms.ChoiceField(label='Results per page',
         choices=page_choices, initial=default_per_page)
