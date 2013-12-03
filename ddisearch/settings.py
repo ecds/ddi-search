@@ -21,6 +21,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'eulexistdb',
+    'eulcommon.searchutil',
     'ddisearch.ddi',
 ]
 

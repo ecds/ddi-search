@@ -1,4 +1,5 @@
 {% extends "site_base.html" %}
+{% load search_utils %}
 
 {% block content %}
 <h1>Search</h1>
@@ -13,10 +14,16 @@
 </form>
 {% endif %}
 
-<p><b>{{ results.count }}</b> results</p>
+<p>Found <b>{{ results.paginator.count }}</b> total results.</p>
 
-{% for r in results %}
-<div>{{ r.title }}</div>
+{% pagination_links results pages  url_params=url_params %}
+
+<ul>
+{% for r in results.object_list %}
+<li>{{ r.title }}</li>
+{% empty %}
+<li>No results found.</li>
 {% endfor %}
+<ul>
 
 {% endblock %}
