@@ -6,6 +6,8 @@
 DDI Search documentation
 ========================
 
+Contents:
+
 .. toctree::
    :maxdepth: 2
 

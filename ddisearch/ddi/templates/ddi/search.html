@@ -1,0 +1,22 @@
+{% extends "site_base.html" %}
+
+{% block content %}
+<h1>Search</h1>
+
+{% if keywords %}
+<p>Search terms: <b>{{ keywords }}</b>
+{% else %}
+{# display search form when no keywords / form invalid #}
+<form type="GET" action="{% url 'ddi:search' %}">
+  {{ form.as_p }}
+  <input type="submit"/>
+</form>
+{% endif %}
+
+<p><b>{{ results.count }}</b> results</p>
+
+{% for r in results %}
+<div>{{ r.title }}</div>
+{% endfor %}
+
+{% endblock %}
