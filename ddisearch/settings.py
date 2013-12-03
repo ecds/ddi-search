@@ -21,6 +21,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'eulexistdb',
+    'ddisearch.ddi',
 ]
 
 MIDDLEWARE_CLASSES = (
@@ -78,6 +79,7 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'sitemedia'),
 )
 
+EXISTDB_INDEX_CONFIGFILE = os.path.join(BASE_DIR, 'ddisearch', 'exist_index.xconf')
 
 try:
     from localsettings import *

@@ -1,0 +1,15 @@
+<collection xmlns="http://exist-db.org/collection-config/1.0">
+    <!-- <validation mode="no" /> -->
+    <!-- NOTE: disabling validation for now; need schema reference to validate -->
+
+    <index>
+        <!-- Disable the standard full text index -->
+        <fulltext default="none" attributes="false"/>
+        <!-- configure Lucene index -->
+        <lucene>
+            <analyzer class="org.apache.lucene.analysis.standard.StandardAnalyzer"/>
+            <!-- index everything for full-text keyword search at codebook level  -->
+            <text qname="codeBook"/>
+        </lucene>
+    </index>
+</collection>
