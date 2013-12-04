@@ -5,7 +5,7 @@ from eulexistdb.manager import Manager
 
 class CodeBook(XmlModel):
     # NOTE: may want to adjust xpaths for effeciency when/if we query on them
-    title = xmlmap.StringField('docDscr/citation/titlStmt/titl')
+    title = xmlmap.StringField('stdyDscr/citation/titlStmt/titl')
     abstract = xmlmap.StringField('stdyDscr/stdyInfo/abstract')
 
     keywords = xmlmap.StringListField('stdyDscr/stdyInfo/subject/keyword')
