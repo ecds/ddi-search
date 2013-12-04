@@ -19,8 +19,10 @@ def search(request):
         keywords = form.cleaned_data['keyword']
         per_page = form.cleaned_data['per_page']
 
-
-        results = CodeBook.objects.filter(fulltext_terms=keywords) \
+        results = CodeBook.objects \
+                    .filter(fulltext_terms=keywords) \
+                    .or_filter(fulltext_terms=keywords,
+                               boostfields__fulltext_terms=keywords) \
                     .order_by('-fulltext_score') \
                     .only('title', 'abstract', 'keywords', 'topics',
                           'fulltext_score')

@@ -9,7 +9,12 @@
         <lucene>
             <analyzer class="org.apache.lucene.analysis.standard.StandardAnalyzer"/>
             <!-- index everything for full-text keyword search at codebook level  -->
-            <text qname="codeBook"/>
+            <text qname="codeBook" boost="0.5"/>
+
+             <!-- boost more important fields -->
+            <text qname="title" boost="0.7"/>
+            <text qname="abstract" boost="0.7"/>
+            <text qname="geogCover" boost="0.7"/>
         </lucene>
     </index>
 </collection>
