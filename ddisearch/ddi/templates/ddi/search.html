@@ -45,7 +45,6 @@
         {# display numerical score in debug mode #}
         {% if debug %}{{ r.fulltext_score }}{% endif %}
     </div>
-    <div class="clearfix"/>
     {% endif %}
 
     <p>{{ r.abstract|truncatewords:100 }}</p>
