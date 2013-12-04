@@ -22,7 +22,8 @@ def search(request):
 
         results = CodeBook.objects.filter(fulltext_terms=keywords) \
                     .order_by('-fulltext_score') \
-                    .only('title', 'fulltext_score')
+                    .only('title', 'abstract', 'keywords', 'topics',
+                          'fulltext_score')
 
         paginator = Paginator(results, per_page, orphans=5)
         try:

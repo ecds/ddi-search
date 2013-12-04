@@ -25,10 +25,38 @@
     </p>
 
 {% pagination_links results pages  url_params=url_params %}
+{# TODO: consider using bootstrap pagination styles if we stick with bootstrap #}
+
+<div style="width:90px;" class="pull-right">Relevance</div>
 
 <ul>
 {% for r in results.object_list %}
-<li>{{ r.title }}</li>
+<li>
+    <b>{{ r.title }}</b>
+    {% if r.fulltext_score %} {# TODO: style this #}
+    <div style="width:100px;" class="pull-right">
+        <div class="progress">
+          <div class="progress-bar" role="progressbar"
+            aria-valuenow="{{ r.fulltext_score }}" aria-valuemin="0" aria-valuemax="1.5"
+            style="width:{% widthratio r.fulltext_score 1 90 %}px">&nbsp;
+           </div>
+           {# style="width:{% widthratio r.fulltext_score  1 100 %}px">&nbsp;</div> #}
+        </div>
+        {# display numerical score in debug mode #}
+        {% if debug %}{{ r.fulltext_score }}{% endif %}
+    </div>
+    <div class="clearfix"/>
+    {% endif %}
+
+    <p>{{ r.abstract|truncatewords:100 }}</p>
+    {% if r.keywords %}
+      <p><b>Keywords:</b> {{ r.keywords|join:'; ' }}</p>
+    {% endif %}
+    {% if r.topics %}
+      <p><b>Topics:</b> {{ r.topics|join:'; ' }}</p>
+    {% endif %}
+    <hr/>
+</li>
 {% empty %}
 <li>No results found.</li>
 {% endfor %}
