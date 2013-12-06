@@ -43,12 +43,9 @@ LOGGING = {
     'version': 1,
     'disable_existing_loggers': True,
     'formatters': {
-        'verbose': {
-           # 'format': '[%(asctime)s] %(levelname)s:%(name)s::%(message)s',
-            'format': '%(levelname)s %(asctime)s %(module)s %(process)d %(thread)d %(message)s'
-        },
-        'simple': {
-            'format': '%(levelname)s %(message)s'
+        'basic': {
+            'format': '[%(asctime)s] %(levelname)s:%(name)s::%(message)s',
+            'datefmt': '%d/%b/%Y %H:%M:%S',
         },
     },
     'filters': {
@@ -64,14 +61,22 @@ LOGGING = {
         'console':{
             'level': 'DEBUG',
             'class': 'logging.StreamHandler',
-            'formatter': 'simple'
+            'formatter': 'basic'
         },
         'mail_admins': {
             'level': 'ERROR',
             'class': 'django.utils.log.AdminEmailHandler',
             'filters': ['require_debug_false'],
             'include_html': True
-        }
+        },
+        'file': {
+            'level': 'INFO',
+            'class': 'logging.handlers.RotatingFileHandler',
+            'filename': '/home/httpd/sites/ddisearch/logs/django.log',
+            'maxBytes': 1024*1024*5,
+            'backupCount': 3,
+            'formatter': 'basic',
+        },
     },
     'loggers': {
         'django': {
@@ -85,7 +90,7 @@ LOGGING = {
             'propagate': False,
         },
         'ddisearch': {
-            'handlers': ['console', 'mail_admins'],
+            'handlers': ['console'],
             'level': 'INFO',
         }
     }
