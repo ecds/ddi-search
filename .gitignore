@@ -39,3 +39,6 @@ nosetests.xml
 localsettings.py
 *.sqlite3
 doc/_build
+parser.out
+parsetab.py
+
