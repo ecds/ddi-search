@@ -80,6 +80,10 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'sitemedia'),
 )
 
+# Absolute path to the directory static files should be collected to.
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
+
 EXISTDB_INDEX_CONFIGFILE = os.path.join(BASE_DIR, 'ddisearch', 'exist_index.xconf')
 
 try:
