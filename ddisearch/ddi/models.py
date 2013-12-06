@@ -7,6 +7,7 @@ class CodeBook(XmlModel):
     # NOTE: may want to adjust xpaths for effeciency when/if we query on them
     title = xmlmap.StringField('stdyDscr/citation/titlStmt/titl')
     abstract = xmlmap.StringField('stdyDscr/stdyInfo/abstract')
+    authors = xmlmap.StringListField('stdyDscr/citation/rspStmt/AuthEnty')
 
     keywords = xmlmap.StringListField('stdyDscr/stdyInfo/subject/keyword')
     topics = xmlmap.StringListField('stdyDscr/stdyInfo/subject/topcClas')

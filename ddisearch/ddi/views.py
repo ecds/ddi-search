@@ -25,7 +25,7 @@ def search(request):
                                boostfields__fulltext_terms=keywords) \
                     .order_by('-fulltext_score') \
                     .only('title', 'abstract', 'keywords', 'topics',
-                          'fulltext_score')
+                          'authors', 'fulltext_score')
 
         paginator = Paginator(results, per_page, orphans=5)
         try:

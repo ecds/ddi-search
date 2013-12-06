@@ -47,6 +47,9 @@
     </div>
     {% endif %}
 
+    {% if r.authors %}
+    <p><b>Principal Investigator{{ r.authors|pluralize }}:</b> {{ r.authors|join:'; '}}</p>
+    {% endif %}
     <p>{{ r.abstract|truncatewords:100 }}</p>
     {% if r.keywords %}
       <p><b>Keywords:</b> {{ r.keywords|join:'; ' }}</p>
