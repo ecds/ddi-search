@@ -6,13 +6,14 @@
 
 {% if keywords %}
 <p>Search terms: <b>{{ keywords }}</b>
-{% else %}
+{# {% else %} #}
+{% endif %}
 {# display search form when no keywords / form invalid #}
 <form type="GET" action="{% url 'ddi:search' %}">
   {{ form.as_p }}
   <input type="submit"/>
 </form>
-{% endif %}
+{# {% endif %} #}
 
 <p>Found <b>{{ results.paginator.count }}</b> total results.</p>
 
@@ -51,6 +52,9 @@
     {% if r.keywords %}
       <p><b>Keywords:</b> {{ r.keywords|join:'; ' }}</p>
     {% endif %}
+    <p>sort date: {{ r.sort_date }}</p>
+    <p>Dates: {{ r.start_dates|join:'; ' }} {{ r.end_dates|join:'; ' }}
+        {% for d in r.dates %} {{ d.serialize }}{% endfor %}
     <hr/>
 </li>
 {% empty %}
