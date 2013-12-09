@@ -9,7 +9,20 @@
         <lucene>
             <analyzer class="org.apache.lucene.analysis.standard.StandardAnalyzer"/>
             <!-- index everything for full-text keyword search at codebook level  -->
-            <text qname="codeBook" boost="0.5"/>
+            <text qname="codeBook" boost="0.5">
+                <ignore qname="docDscr"/>
+                <ignore qname="prodStmt"/>
+                <ignore qname="distStmt"/>
+                <ignore qname="serStmt"/>
+                <ignore qname="biblCit"/>
+                <ignore qname="holdings"/>
+                <ignore qname="method"/>
+                <ignore qname="dataAccs"/>
+                <ignore qname="othrStdyMat"/>
+                <ignore qname="fileDscr"/>
+                <ignore qname="dataDscr"/>
+                <ignore qname="otherMat"/>
+            </text>
 
              <!-- boost more important fields -->
             <text qname="title" boost="0.7"/>
