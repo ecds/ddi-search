@@ -2,13 +2,14 @@ from django import forms
 
 default = {
     'per_page': 10,
-    'sort': '-fulltext_score'
+    'sort': 'relevance'
 }
 
 class KeywordSearch(forms.Form):
     keyword = forms.CharField(required=True,
         help_text='One or more keywords; can include wildcards * and ?, and exact phrases in quotes.')
     per_page = forms.IntegerField(initial=default['per_page'], widget=forms.HiddenInput)
+    sort = forms.CharField(initial=default['sort'], widget=forms.HiddenInput)
 
 
 class AdvancedSearch(KeywordSearch):
