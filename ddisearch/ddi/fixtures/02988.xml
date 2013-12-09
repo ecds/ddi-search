@@ -1,0 +1,294 @@
+<codeBook>
+    <docDscr>
+        <citation>
+            <titlStmt>
+                <titl>Israeli Election Study, 1973</titl>
+                <IDNo>2988</IDNo>
+            </titlStmt>
+            <prodStmt>
+                <producer abbr="ICPSR">
+                    <ExtLink URI="http://www.icpsr.umich.edu/images/icpsr-logo.gif" title="ICPSR Logo" role="image"/>
+                        Inter-university Consortium for Political and Social Research
+                        <ExtLink URI="http://www.icpsr.umich.edu/" title="URL of ICPSR Web Site"/>
+                </producer>
+            </prodStmt>
+            <verStmt>
+                <version date="2009-03-02"/>
+            </verStmt>
+            <holdings URI="/cocoon/xml/STUDY/02988.xml"/>
+        </citation>
+    </docDscr>
+    <stdyDscr>
+        <citation>
+            <titlStmt>
+                <titl>Israeli Election Study, 1973</titl>
+                <IDNo agency="ICPSR">2988</IDNo>
+            </titlStmt>
+            <rspStmt>
+                <AuthEnty affiliation="Tel-Aviv University. Department of Political Science">Arian, Asher</AuthEnty>
+                <AuthEnty affiliation="Tel-Aviv University. Department of Political Science">Turgovnik, Ephraim</AuthEnty>
+            </rspStmt>
+            <prodStmt>
+                <prodDate>Please see full citation.</prodDate>
+            </prodStmt>
+            <distStmt>
+                <distrbtr abbr="ICPSR" affiliation="Institute for Social Research, University of Michigan" URI="http://www.icpsr.umich.edu">
+                    <ExtLink URI="http://www.icpsr.umich.edu/images/icpsr-logo.gif" title="Logo"/>
+                        Inter-university Consortium for Political and Social Research
+                        <ExtLink URI="http://www.icpsr.umich.edu/" title="URL"/>
+                </distrbtr>
+                <distDate date="2008-08-27">2008-08-27</distDate>
+            </distStmt>
+            <serStmt>
+                <serName ID="Series183">Israeli Election Study Series</serName>
+            </serStmt>
+            <verStmt>
+                <version date="2008-08-27">2008-08-27</version>
+            </verStmt>
+            <biblCit>Arian, Asher, and Ephraim Turgovnik. ISRAELI ELECTION STUDY, 1973 [Computer file]. ICPSR02988-v1. Jerusalem, Israel: Israel Institute for Applied Social Research [producer], 1977. Ann Arbor, MI: Inter-university Consortium for Political and Social Research [distributor], 2008-08-27. doi:10.3886/ICPSR02988</biblCit>
+        </citation>
+        <stdyInfo>
+            <subject>
+                <keyword vocab="thesaurus">Arab Israeli conflict</keyword>
+                <keyword vocab="thesaurus">attitudes</keyword>
+                <keyword vocab="thesaurus">Begin, Menachem</keyword>
+                <keyword vocab="thesaurus">candidates</keyword>
+                <keyword vocab="thesaurus">Dayan, Moshe</keyword>
+                <keyword vocab="thesaurus">election forecasting</keyword>
+                <keyword vocab="thesaurus">government performance</keyword>
+                <keyword vocab="thesaurus">government</keyword>
+                <keyword vocab="thesaurus">Israeli Knesset</keyword>
+                <keyword vocab="thesaurus">Israeli Palestinian conflict</keyword>
+                <keyword vocab="thesaurus">land ownership</keyword>
+                <keyword vocab="thesaurus">mass media</keyword>
+                <keyword vocab="thesaurus">media coverage</keyword>
+                <keyword vocab="thesaurus">media influence</keyword>
+                <keyword vocab="thesaurus">media use</keyword>
+                <keyword vocab="thesaurus">Meir, Golda</keyword>
+                <keyword vocab="thesaurus">national elections</keyword>
+                <keyword vocab="thesaurus">peace negotiations</keyword>
+                <keyword vocab="thesaurus">political attitudes</keyword>
+                <keyword vocab="thesaurus">political behavior</keyword>
+                <keyword vocab="thesaurus">political campaigns</keyword>
+                <keyword vocab="thesaurus">political influence</keyword>
+                <keyword vocab="thesaurus">political interest</keyword>
+                <keyword vocab="thesaurus">political issues</keyword>
+                <keyword vocab="thesaurus">political knowledge</keyword>
+                <keyword vocab="thesaurus">political leaders</keyword>
+                <keyword vocab="thesaurus">political parties</keyword>
+                <keyword vocab="thesaurus">public opinion</keyword>
+                <keyword vocab="thesaurus">religion</keyword>
+                <keyword vocab="thesaurus">Sharon, Ariel</keyword>
+                <keyword vocab="thesaurus">social attitudes</keyword>
+                <keyword vocab="thesaurus">social movements</keyword>
+                <keyword vocab="thesaurus">voting behavior</keyword>
+                <keyword vocab="thesaurus">war</keyword>
+                <keyword vocab="thesaurus">youths</keyword>
+                <topcClas source="archive" vocab="ICPSR subject classifications">ICPSR XIV.A.2.b. Mass Political Behavior and Attitudes, Historical and Contemporary Electoral Processes, Election Studies Series, Nations Other Than the United States</topcClas>
+                <topcClas source="archive" vocab="IDRC subject classifications">IDRC I. Conflict Data</topcClas>
+                <topcClas source="archive" vocab="IDRC subject classifications">IDRC III. Electoral Systems and Political Behavior</topcClas>
+                <topcClas source="archive" vocab="IDRC subject classifications">IDRC VII. Public Opinion Data</topcClas>
+            </subject>
+            <abstract>This study is one in a series of election studies conducted since 1969 by Alan Arian and Michal Shamir that investigated voting patterns, public opinion, and political participation in Israel. This study in particular was conducted during May 1973-January 1974, prior to the elections of the 8th Knesset, and carried out in five phases. Respondents were asked to evaluate their general personal situations and that of Israel, and identify their knowledge of politics, interest and involvement in politics, previous participation in a youth movement, access to media (television, radio, and newspaper) pertaining to political affairs, and factors which would influence voting decisions including the October 1973 Yom Kippur War. Views were also elicited from respondents in regard to the Israeli government including the main problems it faces, a time estimate for resolution, and the development of a peace agreement with the Palestinians to end the Arab-Israeli conflict. Respondents were asked to define and evaluate political parties such as an ideal party, Gahal Party, and Alignment Party, and to evaluate other political parties such as the Labor Party and National Religious Party. In addition, respondents were queried about their knowledge of the new Likud Party and Gahal Party and whether each party, if elected, would bring changes to the government and represent a substitute for the Labor Party. Respondents' opinions were sought in regard to Prime Minister Golda Meir, Defense Minister Moshe Dayan, Likud Party Chairman Menachem Begin, and Knesset member Ariel Sharon and other political leaders including the city mayor and several combinations of political coalitions. Respondents also gave their level of satisfaction with the elections and government, and their views on social and economic issues, foreign, security, and peace matters (including occupied territories), the positions of political parties (including the opposition), and attributes of political parties and leaders. The survey queried respondents about both the election's and their own personal ability to influence government policy. Questions covered voting intention and history (personal and paternal), the importance of voting in the election versus supporting a particular party, coverage of elections in the media, perception of leaders, the effects of the election campaign, their views on public polls, and their participation in the election. Respondents also identified the role of the Histadrut as a trade union, whether they were members of this organization or a medical insurance plan, and how they received medical treatment. Post-war surveys asked respondents for their opinions about the political parties and candidates and for whom to vote, the influence of the Yom Kippur War on Israel and factors responsible for the changes, and whether the elections should be held on December 31, 1973, or postponed for a length of time. Demographic questions include gender, age, birthplace and education (personal and paternal), marital status, head of household, occupation, employment status and sector, employer, monthly family income, household characteristics, and left-right political self-placement. In addition, respondents were queried about the year they immigrated to Israel, their observation of religious tradition, and whether and how long the husband belonged to the army during the war. Place and date of the interview have only been included in the December 1973 Survey and January 1974 Survey.</abstract>
+            <sumDscr>
+                <timePrd event="single" date="1973" cycle="P1">May, September, November, December</timePrd>
+                <timePrd event="start" date="1974-01-13" cycle="P2"/>
+                <timePrd event="end" date="1974-01-15" cycle="P2"/>
+                <timePrd event="start" date="1973-12-19" cycle="P3"/>
+                <timePrd event="end" date="1973-12-20" cycle="P3"/>
+                <collDate event="single" date="1973-05" cycle="P1">First pre-war</collDate>
+                <collDate event="single" date="1973-09" cycle="P2">Second pre-war</collDate>
+                <collDate event="single" date="1973-11" cycle="P3">First post-war</collDate>
+                <collDate event="start" date="1973-12-19" cycle="P4">Second post-war</collDate>
+                <collDate event="end" date="1973-12-20" cycle="P4">Second post-war</collDate>
+                <collDate event="start" date="1974-01-13" cycle="P5">Third post-war</collDate>
+                <collDate event="end" date="1974-01-15" cycle="P5">Third post-war</collDate>
+                <nation>Please see geographic coverage.</nation>
+                <geogCover>Israel</geogCover>
+                <geogCover>Global</geogCover>
+                <geogUnit>state</geogUnit>
+                <anlyUnit>individual</anlyUnit>
+                <universe>Urban adult Jewish population in Israel aged 20 and over, who were, eligible voters, in Greater Tel Aviv, Haifa, and Jerusalem.</universe>
+                <dataKind>survey data</dataKind>
+            </sumDscr>
+        </stdyInfo>
+        <method>
+            <dataColl>
+                <sources>
+                    <dataSrc>face-to-face interview</dataSrc>
+                </sources>
+                <cleanOps>DDEF.ICPSR/ FREQ.ICPSR/ REFORM.DATA/ REFORM.DOC/ UNDOCCHK.ICPSR</cleanOps>
+            </dataColl>
+            <notes>(1) The fieldwork was carried out by the Israeli Institute for Applied Social Research. (2) The data for this study are also available through the Israel Social Sciences Data Center Web site <ExtLink URI="http://isdc.huji.ac.il/mainpage_e.html"/>. (3) This survey was carried out in five phases: the first two before the Yom Kippur War of October 1973, and the following three after the war. The May 1973 Survey was based on a representative sample of the urban adult Jewish population and included 1,939 respondents. The September 1973 Survey is a panel of the May sample with 548 of the May interviewees reinterviewed in September. Three interviews were held after the war on three representative samples of the adult urban Jewish population: the first in November with 642 respondents, the second in December with 530 respondents (the elections were held on December 31, 1973, after the December survey), and the third post-war survey was conducted in January 1974, with 1,066 respondents. (4) The total number of interviews for the May 1973 Survey is 1,917. For the September 1973 Survey, the total is 523. For the January 1974 Survey, the total is 1,085. The documentation incorrectly shows the total number of interviews for the May 1973 Survey as 1,939, for the September 1973 Survey as 548, and for the January 1974 Survey as 1,066. (5) Five original variables, V75 and B44 (Part 1), and C67, D61, and E20 (Part 2) with variable label "RECORD TYPE", are present in, but no longer relevant to, the current data. (6) Variables pertaining to three questions in the November 1973 Survey do not appear in the data. Please refer to the "Processing Notes" section in the ICPSR codebook for further information.</notes>
+        </method>
+        <dataAccs>
+            <setAvail media="online">
+                <accsPlac URI="http://www.icpsr.umich.edu">Ann Arbor, Mi.:  Inter-university Consortium for Political and Social Research</accsPlac>
+                <collSize>SAS SPSS STATA</collSize>
+                <notes>Stata system file(s), sav Data file(s), stc Data file(s), tsv Data file(s), Data file(s), and electronic documentation.</notes>
+            </setAvail>
+            <useStmt>
+                <specPerm>Additional special permissions, where applicable, are described in the restrictions field.</specPerm>
+                <conditions>
+		    
+		    &lt;p&gt;Please read the terms of use below. If you agree to them, click on the "I
+Agree" button to proceed. If you do not agree, you can click on the "I Do
+Not Agree" button to return to the home page.&lt;/p&gt;
+
+&lt;p&gt;ICPSR adheres to the principles of the &lt;a
+href="http://www.datasealofapproval.org/"&gt;Data Seal of Approval&lt;/a&gt;, which,
+in part, require the data consumer to comply with access regulations imposed
+both by law and by the data repository; and to conform to codes of conduct
+that are generally accepted in higher education and scientific research for
+the exchange of knowledge and information. &lt;/p&gt;
+
+&lt;p&gt;These data are distributed under the following terms of use, which are
+governed by ICPSR. By continuing past this point to the data retrieval
+process, you signify your agreement to comply with the below-stated
+requirements:&lt;/p&gt;
+
+&lt;h2&gt;Privacy of RESEARCH SUBJECTS&lt;/h2&gt;
+
+&lt;p&gt;Any intentional identification or disclosure of a RESEARCH SUBJECT
+(whether an individual or an organization) violates the assurances of
+confidentiality given to the providers of the information. Therefore, users
+of data agree:&lt;/p&gt;
+
+&lt;ul&gt;
+
+&lt;li&gt;&lt;p&gt;To use these datasets solely for statistical analysis and reporting
+of aggregated information, and not for investigation of specific RESEARCH
+SUBJECTS, except when identification is authorized in writing by ICPSR (&lt;a
+href="mailto:netmail@icpsr.umich.edu"&gt;netmail@icpsr.umich.edu&lt;/a&gt; )&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;To make no use of the identity of any RESEARCH SUBJECT discovered
+inadvertently, and to advise ICPSR of any such discovery (&lt;a
+href="mailto:netmail@icpsr.umich.edu"&gt;netmail@icpsr.umich.edu&lt;/a&gt; )&lt;/p&gt;&lt;/li&gt;
+
+&lt;/ul&gt;
+
+&lt;h2&gt;Redistribution of Data&lt;/h2&gt;
+
+&lt;p&gt;You agree not to redistribute data or other materials without the written
+agreement of ICPSR, unless: &lt;/p&gt;
+
+&lt;ol&gt;
+
+&lt;li&gt;&lt;p&gt;you serve as the OFFICIAL or DESIGNATED REPRESENTATIVE at an ICPSR
+MEMBER INSTITUTION and are assisting AUTHORIZED USERS with obtaining data,
+or&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;you are collaborating with other AUTHORIZED USERS to analyze the data
+for research or instructional purposes.&lt;/p&gt;&lt;/li&gt;
+
+&lt;/ol&gt;
+
+&lt;p&gt;When sharing data or other materials in these approved ways, you must
+include all accompanying files with the data, including terms of use. More
+information on &lt;a
+href="http://www.icpsr.umich.edu/ICPSR/org/policies/redistribute.html"&gt;permi
+ssion to redistribute data&lt;/a&gt; can be found on the ICPSR Web site.&lt;/p&gt;
+
+&lt;h2&gt;Citing Data&lt;/h2&gt;
+
+&lt;p&gt;You agree to reference the recommended bibliographic citation in any
+publication that employs resources provided by ICPSR. Authors of
+publications based on ICPSR data are required to send citations of their
+published works to ICPSR for inclusion in a database of related publications
+(&lt;a
+href="mailto:bibliography@icpsr.umich.edu"&gt;bibliography@icpsr.umich.edu&lt;/a&gt;)
+.&lt;/p&gt;
+
+&lt;h2&gt;Disclaimer&lt;/h2&gt;
+
+&lt;p&gt;You acknowledge that the original collector of the data, ICPSR, and the
+relevant funding agency bear no responsibility for use of the data or for
+interpretations or inferences based upon such uses.&lt;/p&gt; 
+&lt;h2&gt;Violations&lt;/h2&gt;
+
+&lt;p&gt;If ICPSR determines that the terms of this use agreement has been
+violated, ICPSR will act according to our &lt;a
+href="http://www.icpsr.umich.edu/cocoon/ICPSR/FAQ/0245.xml"&gt;policy on terms
+of use violations&lt;/a&gt;. Punishments can include:&lt;/p&gt;
+
+&lt;ul&gt;
+
+&lt;li&gt;&lt;p&gt;ICPSR may revoke the existing agreement, demand the return of the
+data in question, and deny all future access to ICPSR data.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;The violation may be reported to the Research Integrity Officer,
+Institutional Review Board, or Human Subjects Review Committee of the user's
+institution. A range of sanctions are available to institutions including
+revocation of tenure and termination.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;If the confidentiality of human subjects has been violated, the case
+may be reported to the Federal Office for Human Research Protections. This
+may result in an investigation of the user's institution, which can result
+in institution-wide sanctions including the suspension of all research
+grants. &lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;A court may award the payment of damages to any
+individual(s)/organization(s) harmed by the breach of the
+agreement.&lt;/p&gt;&lt;/li&gt;
+
+&lt;/ul&gt;
+
+&lt;h2&gt;Definitions&lt;/h2&gt;
+
+&lt;dl&gt;
+
+&lt;dt&gt;research subject&lt;/dt&gt;&lt;dd&gt;A person or organization observed for purposes
+of research.  Also called a &lt;em&gt;respondent&lt;/em&gt;.&lt;/dd&gt;
+
+&lt;dt&gt;ICPSR&lt;/dt&gt;&lt;dd&gt;Inter-university Consortium for Political and Social
+Research.&lt;/dd&gt;
+
+&lt;dt&gt;Official/Designated Representative&lt;/dt&gt;&lt;dd&gt;An individual appointed to
+represent a university's interests in ICPSR. This individual is also charged
+with providing user support to campus users.&lt;/dd&gt;
+
+&lt;dt&gt;member institution&lt;/dt&gt;&lt;dd&gt;An institutional member of ICPSR&lt;/dd&gt;
+
+&lt;dt&gt;authorized user&lt;/dt&gt;&lt;dd&gt;A faculty member, staff member, or student at a
+member institution.&lt;/dd&gt;
+
+&lt;/dl&gt;
+
+
+
+		    
+		    <p>AVAILABLE.  This study is freely available to ICPSR member institutions.</p>
+                </conditions>
+                <disclaimer>The original collector of the data, ICPSR,
+		and the relevant funding agency bear no responsibility
+		for use of the data or for interpretations or inferences
+		based upon such uses.  </disclaimer>
+            </useStmt>
+        </dataAccs>
+    </stdyDscr>
+    <fileDscr ID="F1">
+        <fileTxt ID="Part1">
+            <fileName>May 1973 Survey</fileName>
+        </fileTxt>
+    </fileDscr>
+    <fileDscr ID="F2">
+        <fileTxt ID="Part2">
+            <fileName>September 1973 Survey</fileName>
+        </fileTxt>
+    </fileDscr>
+    <fileDscr ID="F3">
+        <fileTxt ID="Part3">
+            <fileName>November 1973 Survey</fileName>
+        </fileTxt>
+    </fileDscr>
+    <fileDscr ID="F4">
+        <fileTxt ID="Part4">
+            <fileName>December 1973 Survey</fileName>
+        </fileTxt>
+    </fileDscr>
+    <fileDscr ID="F5">
+        <fileTxt ID="Part5">
+            <fileName>January 1974 Survey</fileName>
+        </fileTxt>
+    </fileDscr>
+</codeBook>
