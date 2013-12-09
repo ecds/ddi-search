@@ -67,6 +67,8 @@
       <p><b>Keywords:</b> {{ r.keywords|join:'; ' }}</p>
     {% endif %}
 
+    <p><b>Date{{ r.dates|pluralize }}:</b> {{ r.dates|join:'; '|default:'(not specified)' }}</p>
+
     <hr/>
 </li>
 {% endfor %}

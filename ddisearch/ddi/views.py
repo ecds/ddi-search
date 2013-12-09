@@ -35,7 +35,7 @@ def search(request):
                                boostfields__fulltext_terms=keywords) \
                     .order_by(sort) \
                     .only('title', 'abstract', 'keywords', 'topics',
-                          'authors', 'dates', 'fulltext_score')
+                          'authors', 'time_periods', 'fulltext_score')
 
         if sort == 'title':
             results = results.order_by(sort)
