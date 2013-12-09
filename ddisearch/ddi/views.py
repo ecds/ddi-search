@@ -14,7 +14,15 @@ def site_index(request):
 def search(request):
     form = forms.AdvancedSearch(request.GET)
     context = {'form': form}
-    if form.is_valid():
+
+    required_terms = ['keyword', 'per_page', 'sort']
+    # if the form is not valid and *none* of the required terms are present,
+    # assume this is a new search and display an empty search form
+    if not form.is_valid() and not any(d in request.GET for d in required_terms):
+        # re-init for display, without any 'required field' error messages
+        context['form'] = forms.AdvancedSearch()
+
+    elif form.is_valid():
         # generate query here
         keywords = form.cleaned_data['keyword']
         per_page = form.cleaned_data['per_page']
@@ -42,7 +50,6 @@ def search(request):
 
         paginator = Paginator(results, per_page, orphans=5)
 
-        print '**** query time results are ?', results.queryTime()
         try:
             page = int(request.GET.get('page', '1'))
         except ValueError:
@@ -60,14 +67,20 @@ def search(request):
         url_args = form.cleaned_data
         url_params = urlencode(url_args)
         # url params for changing chunk size
-        del url_args['per_page']
-        rechunk_params = urlencode(url_args)
-
+        partial_args = url_args.copy()
+        del partial_args['per_page']
+        rechunk_params = urlencode(partial_args)
+        partial_args = url_args.copy()
+        del partial_args['sort']
+        sort_params = urlencode(partial_args)
 
         context.update({'keywords': keywords, 'results': results,
             'pages': pages, 'url_params': url_params,
             'per_page': int(per_page),
             'rechunk_params': rechunk_params,
-            'per_page_choices': forms.AdvancedSearch.PER_PAGE_CHOICES})
+            'per_page_options': forms.AdvancedSearch.PER_PAGE_OPTIONS,
+            'sort': sort,
+            'sort_params': sort_params,
+            'sort_options': forms.AdvancedSearch.SORT_OPTIONS})
 
     return render(request, 'ddi/search.html', context)

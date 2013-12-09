@@ -4,26 +4,37 @@
 {% block content %}
 <h1>Search</h1>
 
-{% if keywords %}
-<p>Search terms: <b>{{ keywords }}</b>
-{# {% else %} #}
-{% endif %}
-{# display search form when no keywords / form invalid #}
+{# always display search form; initial search, or revise current search #}
 <form type="GET" action="{% url 'ddi:search' %}">
   {{ form.as_p }}
   <input type="submit"/>
-</form>
-{# {% endif %} #}
 
+</form>
+
+{% if keywords %}
+<hr/>
+<p>Search terms: <b>{{ keywords }}</b>
+{% endif %}
+{% if results %}
 <p>Found <b>{{ results.paginator.count }}</b> total results.</p>
 
 <p>Number of results to show per page:
-    {% for n in per_page_choices %}
+    {% for n in per_page_options %}
         {% ifequal n per_page %} {{ n }} {% else %}
         <a href="?{{ rechunk_params }}&amp;per_page={{ n }}">{{ n }}</a>
         {% endifequal %}
     {% endfor %}
     </p>
+
+<p>Sort by:
+    {% for s in sort_options %}
+        {% ifequal s sort %} {{ s }} {% else %}
+        <a href="?{{ sort_params }}&amp;sort={{ s }}">{{ s }}</a>
+        {% endifequal %}
+        {% if not forloop.last %} | {% endif %}
+    {% endfor %}
+    </p>
+
 
 {% pagination_links results pages  url_params=url_params %}
 {# TODO: consider using bootstrap pagination styles if we stick with bootstrap #}
@@ -52,14 +63,11 @@
     {% if r.keywords %}
       <p><b>Keywords:</b> {{ r.keywords|join:'; ' }}</p>
     {% endif %}
-    <p>sort date: {{ r.sort_date }}</p>
-    <p>Dates: {{ r.start_dates|join:'; ' }} {{ r.end_dates|join:'; ' }}
-        {% for d in r.dates %} {{ d.serialize }}{% endfor %}
+
     <hr/>
 </li>
-{% empty %}
-<li>No results found.</li>
 {% endfor %}
 <ul>
+{% endif %}  {# search results present #}
 
 {% endblock %}

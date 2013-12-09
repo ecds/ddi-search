@@ -12,8 +12,8 @@ class KeywordSearch(forms.Form):
 
 
 class AdvancedSearch(KeywordSearch):
-    PER_PAGE_CHOICES = (10, 25, 50, 100)
-    page_choices = [(d, d) for d in PER_PAGE_CHOICES]
+    PER_PAGE_OPTIONS = (10, 25, 50, 100)
+    page_choices = [(d, d) for d in PER_PAGE_OPTIONS]
     per_page = forms.ChoiceField(label='Results per page',
         choices=page_choices, initial=default['per_page'])
     SORT_OPTIONS = ('relevance', 'title', 'date (recent)', 'date (oldest)')
