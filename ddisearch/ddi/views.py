@@ -20,8 +20,6 @@ def search(request):
         per_page = form.cleaned_data['per_page']
         sort = form.cleaned_data['sort']
 
-        from ddisearch.ddi.models import patch_codebook
-        patch_codebook()
 
         results = CodeBook.objects \
                     .filter(fulltext_terms=keywords) \
@@ -29,10 +27,19 @@ def search(request):
                                boostfields__fulltext_terms=keywords) \
                     .order_by(sort) \
                     .only('title', 'abstract', 'keywords', 'topics',
-                          # 'sort_date__min',
-                          'dates',
-                          # 'start_dates', 'end_dates', 'sort_date', 'dates',
-                          'fulltext_score')
+                          'dates', 'fulltext_score')
+
+        if sort == 'title':
+            results = results.order_by(sort)
+        elif sort == 'relevance':
+            results = results.order_by('-fulltext_score')
+        elif sort.startswith('date'):
+            if sort == 'date (recent)':
+                asc = False
+            elif sort == 'date (oldest)':
+                asc = True
+            results = results.order_by_raw(CodeBook.sort_date_xpath, ascending=asc)
+
         paginator = Paginator(results, per_page, orphans=5)
 
         print '**** query time results are ?', results.queryTime()

@@ -16,11 +16,7 @@ class AdvancedSearch(KeywordSearch):
     page_choices = [(d, d) for d in PER_PAGE_CHOICES]
     per_page = forms.ChoiceField(label='Results per page',
         choices=page_choices, initial=default['per_page'])
-    sort_choices = [
-        ('-fulltext_score', 'relevance'),
-        ('title', 'title'),
-        ('-sort_date', 'date (most recent)'),
-        ('sort_date', 'date (oldest)')
-    ]
+    SORT_OPTIONS = ('relevance', 'title', 'date (recent)', 'date (oldest)')
+    sort_choices = [(d, d) for d in SORT_OPTIONS]
     sort = forms.ChoiceField(label='Sort by',
         choices=sort_choices, initial=default['sort'])
