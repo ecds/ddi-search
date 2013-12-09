@@ -14,20 +14,44 @@ def site_index(request):
 def search(request):
     form = forms.AdvancedSearch(request.GET)
     context = {'form': form}
-    if form.is_valid():
+
+    required_terms = ['keyword', 'per_page', 'sort']
+    # if the form is not valid and *none* of the required terms are present,
+    # assume this is a new search and display an empty search form
+    if not form.is_valid() and not any(d in request.GET for d in required_terms):
+        # re-init for display, without any 'required field' error messages
+        context['form'] = forms.AdvancedSearch()
+
+    elif form.is_valid():
         # generate query here
         keywords = form.cleaned_data['keyword']
         per_page = form.cleaned_data['per_page']
+        sort = form.cleaned_data['sort']
+
 
         results = CodeBook.objects \
                     .filter(fulltext_terms=keywords) \
                     .or_filter(fulltext_terms=keywords,
                                boostfields__fulltext_terms=keywords) \
-                    .order_by('-fulltext_score') \
+                    .order_by(sort) \
                     .only('title', 'abstract', 'keywords', 'topics',
-                          'authors', 'fulltext_score')
+                          'authors', 'dates', 'fulltext_score')
+
+        if sort == 'title':
+            results = results.order_by(sort)
+        elif sort == 'relevance':
+            results = results.order_by('-fulltext_score')
+        elif sort.startswith('date'):
+            # either date sorting requires a raw xpath to sort on earlist date
+            # check which type to determine if results should be ascending or note
+            if sort == 'date (recent)':
+                asc = False
+            elif sort == 'date (oldest)':
+                asc = True
+            results = results.order_by_raw(CodeBook.sort_date_xpath, ascending=asc)
 
         paginator = Paginator(results, per_page, orphans=5)
+
         try:
             page = int(request.GET.get('page', '1'))
         except ValueError:
@@ -41,18 +65,24 @@ def search(request):
 
         pages = pages_to_show(paginator, page)
 
-        # NOTE: can we use cleaned_data directly here?
         url_args = form.cleaned_data
         url_params = urlencode(url_args)
         # url params for changing chunk size
-        del url_args['per_page']
-        rechunk_params = urlencode(url_args)
-
+        partial_args = url_args.copy()
+        del partial_args['per_page']
+        rechunk_params = urlencode(partial_args)
+        # url params for changing sort
+        partial_args = url_args.copy()
+        del partial_args['sort']
+        sort_params = urlencode(partial_args)
 
         context.update({'keywords': keywords, 'results': results,
             'pages': pages, 'url_params': url_params,
             'per_page': int(per_page),
             'rechunk_params': rechunk_params,
-            'per_page_choices': forms.AdvancedSearch.PER_PAGE_CHOICES})
+            'per_page_options': forms.AdvancedSearch.PER_PAGE_OPTIONS,
+            'sort': sort,
+            'sort_params': sort_params,
+            'sort_options': forms.AdvancedSearch.SORT_OPTIONS})
 
     return render(request, 'ddi/search.html', context)

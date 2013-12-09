@@ -12,9 +12,15 @@ class CodeBook(XmlModel):
     keywords = xmlmap.StringListField('stdyDscr/stdyInfo/subject/keyword')
     topics = xmlmap.StringListField('stdyDscr/stdyInfo/subject/topcClas')
 
+    dates = xmlmap.NodeListField('.//timePrd', xmlmap.XmlObject)
+    # technically probably a datefield; could be 4 digit year, or YYYY-MM
+    # full xpath is stdyDscr/stdyInfo/sumDscr
+    sort_date_xpath = 'min(%(xq_var)s//timePrd/string(@date))'
+
     # boosted fields in the index that should be searched to get a tuned
     # relevance score
     boostfields = xmlmap.StringField('.//titl | .//abstract | .//geogCover')
 
     objects = Manager('/codeBook')
+
 

@@ -1,4 +1,6 @@
 Django>=1.6
 eulxml
-eulexistdb
+#eulexistdb
+# dev eulexistdb for raw xpath sort; should be eulexistdb 0.19
+-e git://github.com/emory-libraries/eulexistdb.git@develop#egg=eulexistdb
 eulcommon
