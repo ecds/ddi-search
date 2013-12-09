@@ -32,4 +32,25 @@ Bootstrapping a development environment
   your virtualenv, run unit tests, and build sphinx documentation: ``fab build``
 
 
-Deploy to QA and Production should be done using ``fab deploy``
+Deploy to QA and Production should be done using ``fab deploy``.
+
+
+After the **EXIST_** settings for accessing an eXist-db collection have
+been configured in the local settings, load the index via::
+
+    python manage.py existdb load-index -u dbauser -p
+
+If data was loaded before the index conifguration was loaded, you should
+reindex the data::
+
+    python manage.py existdb reindex -u dbauser -p
+
+.. Note::
+
+  Because this site is configured to access the content in the eXist
+  database anonymously, credentials for an eXist account with dba access
+  must be passed to the existdb script when managing the index configuration
+  or reindexing content.
+
+ICPSR and any local DDI XML files should be loaded to the appropriate eXist
+collection using the Java client, WebDAV, or similar.
