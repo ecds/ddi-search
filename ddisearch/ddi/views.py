@@ -32,7 +32,9 @@ def search(request):
         results = CodeBook.objects \
                     .filter(fulltext_terms=keywords) \
                     .or_filter(fulltext_terms=keywords,
-                               boostfields__fulltext_terms=keywords) \
+                               boostfields__fulltext_terms=keywords,
+                               highlight=False,    # disable highlighting in search results list
+                               ) \
                     .order_by(sort) \
                     .only('title', 'abstract', 'keywords', 'topics',
                           'authors', 'time_periods', 'fulltext_score')
