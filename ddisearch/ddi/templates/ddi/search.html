@@ -1,6 +1,7 @@
 {% extends "site_base.html" %}
 {% load search_utils %} {% load humanize %}
 
+    <title>{% block page-title %}{% block page-subtitle %}{% endblock %}{% endblock %}</title>
 {% block content %}
 <h1>Search</h1>
 

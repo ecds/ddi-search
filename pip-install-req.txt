@@ -4,3 +4,5 @@ eulxml
 # dev eulexistdb for raw xpath sort; should be eulexistdb 0.19
 -e git://github.com/emory-libraries/eulexistdb.git@develop#egg=eulexistdb
 eulcommon
+# development version of eultheme
+-e git://github.com/emory-libraries/django-eultheme@develop#egg=django_eultheme

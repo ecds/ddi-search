@@ -23,6 +23,7 @@ INSTALLED_APPS = [
     'django.contrib.humanize',
     'eulexistdb',
     'eulcommon.searchutil',
+    'eultheme',
     'ddisearch.ddi',
 ]
 
