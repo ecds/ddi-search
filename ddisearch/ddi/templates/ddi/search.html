@@ -1,5 +1,5 @@
 {% extends "site_base.html" %}
-{% load search_utils %}
+{% load search_utils %} {% load humanize %}
 
 {% block content %}
 <h1>Search</h1>
@@ -16,7 +16,7 @@
 <p>Search terms: <b>{{ keywords }}</b>
 {% endif %}
 {% if results %}
-<p>Found <b>{{ results.paginator.count }}</b> total results.</p>
+<p>Found <b>{{ results.paginator.count|intcomma }}</b> total results.</p>
 
 <p>Number of results to show per page:
     {% for n in per_page_options %}
