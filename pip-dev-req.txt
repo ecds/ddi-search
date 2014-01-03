@@ -1,6 +1,5 @@
 Sphinx
 coverage
-MySQL-python
 unittest2
 mock
 django-nose
