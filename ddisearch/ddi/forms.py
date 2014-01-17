@@ -6,13 +6,8 @@ default = {
 }
 
 class KeywordSearch(forms.Form):
-    keyword = forms.CharField(required=True,
+    keyword = forms.CharField(required=True, widget=forms.TextInput(attrs={'class':'form-control'}),
         help_text='One or more keywords; can include wildcards * and ?, and exact phrases in quotes.')
-    per_page = forms.IntegerField(initial=default['per_page'], widget=forms.HiddenInput)
-    sort = forms.CharField(initial=default['sort'], widget=forms.HiddenInput)
-
-
-class AdvancedSearch(KeywordSearch):
     PER_PAGE_OPTIONS = (10, 25, 50, 100)
     page_choices = [(d, d) for d in PER_PAGE_OPTIONS]
     per_page = forms.ChoiceField(label='Results per page',
@@ -21,3 +16,7 @@ class AdvancedSearch(KeywordSearch):
     sort_choices = [(d, d) for d in SORT_OPTIONS]
     sort = forms.ChoiceField(label='Sort by',
         choices=sort_choices, initial=default['sort'])
+
+    @property 
+    def advanced_fields(self):
+        return [self.sort, self.per_page]

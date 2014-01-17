@@ -1,0 +1,72 @@
+
+{% comment %}
+<form type="GET" action="{% url 'ddi:search' %}">
+	{% for field in form %}
+		{% if field.label != 'Keyword'%}
+    		{{field.label}}
+    	{% endif %}
+	{% endfor %}
+
+	{{ form.keyword.label }}
+	{{ form.keyword }}
+	{{ form.keyword.help_text }}
+</form>
+{% endcomment %}
+
+<form type="GET" action="{% url 'ddi:search' %}">
+	<label class="sr-only" for="id_keyword">{{ form.keyword }}</label>
+
+	<div class="row search-bar">
+	  <div class="container">
+	    <div class="col-xs-12 col-sm-offset-1 col-sm-10 col-md-offset-2 col-md-8">
+	      <div class="input-group">
+	        {{ form.keyword }}
+	        <span class="input-group-btn">
+	          <button id="submit" class="btn btn-primary" type="button"><span class="glyphicon glyphicon-search"></span></button>
+	        </span>
+	      </div><!-- /input-group -->
+	    </div>
+
+	    <div class="col-xs-12 col-sm-offset-1 col-sm-10 col-md-offset-2 col-md-8">
+	      <p class="text-muted inverse">{{ form.keyword.help_text }}</p>
+	    </div>
+	  </div><!--/.container-->
+	</div>
+	<div class="row filter">
+	  <div class="container">
+	    <fieldset>
+			<div class="option">
+				<label for="id_per_page"><span>{{form.per_page.label}}</span></label>
+				<select id="id_per_page" name="per_page">
+					{% for d in form.PER_PAGE_OPTIONS %}
+					<option value="{{d}}" 
+					{% if forloop.parentloop.first %}
+					selected="selected"
+					{% endif %}
+					>
+						{{d}}
+					</option>
+					{% endfor %}
+				</select>
+			</div>
+
+			<div class="option">
+				<label for="id_sort"><span>{{form.sort.label}}</span></label>
+				<select id="id_sort" name="sort">
+					{% for d in form.SORT_OPTIONS %}
+					<option value="{{d}}" 
+					{% if forloop.parentloop.first %}
+					selected="selected"
+					{% endif %}
+					>
+						{{d}}
+					</option>
+					{% endfor %}
+				</select>
+			</div>	
+			
+	    </fieldset>
+	  </div><!--/.container-->
+	</div>
+</form>
+

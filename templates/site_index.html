@@ -1,13 +1,28 @@
 {% extends "site_base.html" %}
 
+{% block body_class %}home{% endblock %}
+
 {% block content %}
-<h1>placeholder index page</h1>
-<hr/>
 
-<h3>Search</h3>
-<form type="GET" action="{% url 'ddi:search' %}">
-{{ form.as_p }}
-<input type="submit"/>
-</form>
+<div class="container" id="search">
+	<h1>Search for resources here.</h1>
+	{% include 'ddi/snippets/home_search_form.html' %}
+</div><!-- /.container -->
 
+<div class="wrapper recent">
+	<div class="container">
+		<div class="col-sm-offset-3 col-sm-6">
+			<div class="tile">
+				<h3>New Additions</h3>
+				<ul>
+					<li>This is a name of a recent resource</li>
+					<li>This is a name of a recent resource</li>
+					<li>This is a name of a recent resource</li>
+					<li>This is a name of a recent resource</li>
+					<li>This is a name of a recent resource</li>
+				</ul>
+			</div>
+		</div>
+	</div><!-- /.container -->
+</div><!-- /.wrapper -->
 {% endblock %}

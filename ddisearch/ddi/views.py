@@ -12,7 +12,7 @@ def site_index(request):
 
 
 def search(request):
-    form = forms.AdvancedSearch(request.GET)
+    form = forms.KeywordSearch(request.GET)
     context = {'form': form}
 
     required_terms = ['keyword', 'per_page', 'sort']
@@ -20,7 +20,7 @@ def search(request):
     # assume this is a new search and display an empty search form
     if not form.is_valid() and not any(d in request.GET for d in required_terms):
         # re-init for display, without any 'required field' error messages
-        context['form'] = forms.AdvancedSearch()
+        context['form'] = forms.KeywordSearch()
 
     elif form.is_valid():
         # generate query here
@@ -80,9 +80,9 @@ def search(request):
             'pages': pages, 'url_params': url_params,
             'per_page': int(per_page),
             'rechunk_params': rechunk_params,
-            'per_page_options': forms.AdvancedSearch.PER_PAGE_OPTIONS,
+            'per_page_options': forms.KeywordSearch.PER_PAGE_OPTIONS,
             'sort': sort,
             'sort_params': sort_params,
-            'sort_options': forms.AdvancedSearch.SORT_OPTIONS})
+            'sort_options': forms.KeywordSearch.SORT_OPTIONS})
 
     return render(request, 'ddi/search.html', context)
