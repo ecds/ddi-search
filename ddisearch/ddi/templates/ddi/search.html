@@ -2,77 +2,81 @@
 {% load search_utils %}
 
 {% block content %}
-<h1>Search</h1>
-
 {# always display search form; initial search, or revise current search #}
-<form type="GET" action="{% url 'ddi:search' %}">
-  {{ form.as_p }}
-  <input type="submit"/>
+<div class="container" id="search">
+    {% include 'ddi/snippets/search_form.html' %}
+</div>
 
-</form>
-
-{% if keywords %}
-<hr/>
-<p>Search terms: <b>{{ keywords }}</b>
-{% endif %}
-{% if results %}
-<p>Found <b>{{ results.paginator.count }}</b> total results.</p>
-
-<p>Number of results to show per page:
-    {% for n in per_page_options %}
-        {% ifequal n per_page %} {{ n }} {% else %}
-        <a href="?{{ rechunk_params }}&amp;per_page={{ n }}">{{ n }}</a>
-        {% endifequal %}
-    {% endfor %}
-    </p>
-
-<p>Sort by:
-    {% for s in sort_options %}
-        {% ifequal s sort %} {{ s }} {% else %}
-        <a href="?{{ sort_params }}&amp;sort={{ s }}">{{ s }}</a>
-        {% endifequal %}
-        {% if not forloop.last %} | {% endif %}
-    {% endfor %}
-    </p>
-
-
-{% pagination_links results pages  url_params=url_params %}
-{# TODO: consider using bootstrap pagination styles if we stick with bootstrap #}
-
-<div style="width:90px;" class="pull-right">Relevance</div>
-
-<ul>
-{% for r in results.object_list %}
-<li>
-    <b>{{ r.title }}</b>
-    {% if r.fulltext_score %} {# TODO: style this #}
-    <div style="width:100px;" class="pull-right">
-        <div class="progress">
-          <div class="progress-bar" role="progressbar"
-            aria-valuenow="{{ r.fulltext_score }}" aria-valuemin="0" aria-valuemax="1.5"
-            style="width:{% widthratio r.fulltext_score 1 90 %}px">&nbsp;
-           </div>
-           {# style="width:{% widthratio r.fulltext_score  1 100 %}px">&nbsp;</div> #}
-        </div>
-        {# display numerical score in debug mode #}
-        {% if debug %}{{ r.fulltext_score }}{% endif %}
-    </div>
+<div class="wrapper results">
+    {% if keywords %}
+    {# <p>Search terms: <b>{{ keywords }}</b></p> #}
     {% endif %}
+    {% if results %}
 
-    {% if r.authors %}
-    <p><b>Principal Investigator{{ r.authors|pluralize }}:</b> {{ r.authors|join:'; '}}</p>
-    {% endif %}
-    <p>{{ r.abstract|truncatewords:100 }}</p>
-    {% if r.keywords %}
-      <p><b>Keywords:</b> {{ r.keywords|join:'; ' }}</p>
-    {% endif %}
+    <div class="container">
+        <article class="results">
+            <header>
+                <h3>Found <strong>{{ results.paginator.count }}</strong> total results.</h3>
+                <div class="pagination">
+                    <h4>Pages</h4>
+                    <div class="pagination">
+                        {# TODO: consider using bootstrap pagination styles if we stick with bootstrap #}
+                        {% pagination_links results pages  url_params=url_params %}
+                    </div>
+                </div>
+            </header>
+            <div class="row result-listing cards">
+                {% for r in results.object_list %}
+                <div class="col-sm-6 col-lg-4">
+                    <article class="result">
+                        <header class="row title">
+                            <div class="col-xs-10">
+                                <h3>{{ r.title }}</h3>
+                                {% if r.authors %}
+                                <h4>Principal Investigator{{ r.authors|pluralize }}: <span>{{ r.authors|join:'; '}}</span></h4>
+                                {% endif %}
+                            </div>
+                            <div class="col-xs-2">
+                                {% if r.fulltext_score %} {# TODO: style this #}
+                                <div class="progress">
+                                    <div class="progress-bar" role="progressbar" aria-valuenow="{{ r.fulltext_score }}" aria-valuemin="0" aria-valuemax="1.5" style="width:{% widthratio r.fulltext_score 1 90 %}%"> </div>
+                                    {# display numerical score in debug mode #}
+                                    {% if debug %}<p>{{ r.fulltext_score }}</p>{% endif %}
+                                </div>
+                                {% endif %}
+                            </div>
+                        </header>
 
-    <p><b>Date{{ r.dates|pluralize }}:</b> {{ r.dates|join:'; '|default:'(not specified)' }}</p>
+                        <section class="summary">
+                            <p> <a class="readmore">expand</a></p>
+                            <p>{{ r.abstract|truncatewords:100 }}</p>
+                            {% if r.keywords %}
+                            <p><b>Keywords:</b> {{ r.keywords|join:'; ' }}</p>
+                            {% endif %}
 
-    <hr/>
-</li>
-{% endfor %}
-<ul>
-{% endif %}  {# search results present #}
+                            <p><b>Date{{ r.dates|pluralize }}:</b> {{ r.dates|join:'; '|default:'(not specified)' }}</p>
+                        </section>
+                    </article>
+                </div>
+                {% endfor %}
 
+
+                <div class="row">
+                    <footer class="col-xs-12">
+
+                        <div class="pagination">
+                            {# TODO: consider using bootstrap pagination styles if we stick with bootstrap #}
+                            {% pagination_links results pages  url_params=url_params %}
+                        </div>
+
+                    </footer>
+                </div>
+            </article>
+        </div><!--/.cards-->
+    </div><!-- /.container -->
+
+
+
+    {% endif %}  {# search results present #}
+</div><!-- /.wrapper.results -->
 {% endblock %}
