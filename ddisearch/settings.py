@@ -20,8 +20,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.humanize',
     'eulexistdb',
     'eulcommon.searchutil',
+    'eultheme',
     'ddisearch.ddi',
 ]
 
@@ -85,6 +87,9 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 
 EXISTDB_INDEX_CONFIGFILE = os.path.join(BASE_DIR, 'ddisearch', 'exist_index.xconf')
+EXISTDB_FULLTEXT_OPTIONS = {'default-operator': 'and'}
+# connection timeout for requests to eXist in seconds
+EXISTDB_TIMEOUT = 30
 
 try:
     from localsettings import *

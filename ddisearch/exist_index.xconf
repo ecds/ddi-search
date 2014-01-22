@@ -25,7 +25,7 @@
             </text>
 
              <!-- boost more important fields -->
-            <text qname="title" boost="0.7"/>
+            <text qname="titl" boost="0.7"/>
             <text qname="abstract" boost="0.7"/>
             <text qname="geogCover" boost="0.7"/>
         </lucene>

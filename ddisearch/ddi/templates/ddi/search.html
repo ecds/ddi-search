@@ -1,6 +1,7 @@
 {% extends "site_base.html" %}
-{% load search_utils %}
+{% load search_utils %} {% load humanize %}
 
+    <title>{% block page-title %}{% block page-subtitle %}{% endblock %}{% endblock %}</title>
 {% block content %}
 {# always display search form; initial search, or revise current search #}
 <!-- content push wrapper -->
@@ -26,7 +27,7 @@
                 <div class="container">
                     <article class="results">
                         <header>
-                            <h3>Found <strong>{{ results.paginator.count }}</strong> total results.</h3>
+                            <h3>Found <strong>{{ results.paginator.count|intcomma }}</strong> total results.</h3>
                             <div class="pagination">
                                 <h4>Pages</h4>
                                 <div class="pagination">
