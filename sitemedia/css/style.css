@@ -8,9 +8,8 @@ body {
 	background-color: #F7F7F7;
 }
 
-.row {
-	float: left;
-	width: 100%;
+.no-padding-right{
+	padding-right: 0;
 }
 
 .tooltip.in {
@@ -211,18 +210,23 @@ body {
 
 article.results footer{
 	background-color: transparent;
+	width: 100%;
+	float:left;
 }
 
 article.result h3 {
 	margin-top: 0;
 	font-size: 1.1em;
+	text-align: left;
 }
 
 article.result h4 {
 	font-size: 0.8em;
+	text-align: left;
 }
 
-article.result h4 span {
+article.result h4 span,
+.content h4 span{
 	font-weight: normal;
 }
 
@@ -237,4 +241,44 @@ article.result p {
 .result .title {
 	background-color: #FFFFFF;
 	border-bottom: 1px solid #F0F0F0;
+}
+
+.readmore {
+    font-size: 1.4em;
+    line-height: 0;
+    float: left;
+    color: rgb(194, 205, 216);
+    cursor: pointer;
+    background-color: rgb(238, 238, 238);
+    position: absolute;
+    right: -4px;
+    padding: 6px 14px;
+}
+.readmore:hover {
+    background-color: rgb(235, 235, 235);
+}
+
+#menu-7 .content .readmore{
+	display: none;
+	visibility: hidden;
+}
+
+#menu-7 .progress {
+    margin-top: 20px;
+}
+.st-menu h2 {
+    background: rgb(60, 60, 60);
+    color: #8A8A8A;
+}
+.st-menu {
+    background: rgb(230, 230, 230);
+    color: rgb(54, 54, 54);
+}
+.st-menu .content p {
+    font-size: 0.8em;
+}
+#menu-7 .close {
+    color: #EEEEEE;
+    text-shadow: none;
+    margin: 40px 20px 0;
 }

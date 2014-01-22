@@ -20,45 +20,7 @@ $(document).ready(function(){
 	if(q.indexOf(params.search_term)>0){
 		$('#id_keyword').val(unescape(term));
 	}
-	var card = '.cards > div';
-	$(document).on('click',card, function(){
-		$article=$(this).not('.clone');
-
-		$copy = $article.clone().addClass('clone');
-
-		// var position =$(this).offset(),
-		// top = position.top,
-		// left = position.left;
-
-		// $copy.css({
-		// 	'top'	: top,
-		// 	'left'	: left
-		// });
-
-		// var centerTop = Math.max(0, (($(window).height() - $copy.outerHeight()) / 2) + $(window).scrollTop())/2 + "px",
-		// centerLeft = Math.max(0, (($(window).width() - $copy.outerWidth()) / 2) + $(window).scrollLeft())/2 + "px";
-
-
-		$copy.insertAfter($article).find('article')
-		.css({'left':'0px','max-height':'100%'});
-
-		$copy
-		.removeClass('col-sm-6')
-		.addClass('col-sm-5');
-
-		$('.cards > div').not('.clone').animate({'opacity':'0.2'});
-
-		$copy.on('click', function(){
-			close(this);	
-		});
-
-		function close(elem){
-			$(elem).animate({'margin-left':'0%'},500);
-			$(elem).remove();
-			$(card).not('.clone').animate({'opacity':'1'});
-		}
-
-	});
+	
 
 
 	$( "input" )
@@ -75,24 +37,29 @@ $(document).ready(function(){
 		if(code == 13){
 			$(this).submit();
 		}
-	}).on('submit',function(e){
+	});
+	$(".home form").on('submit',function(e){
+		e.preventDefault();
+		search.get(true);
+	});
+	$('#submit').on('click', function(e){
+		e.preventDefault();
 		search.get();
 	});
 
-	$('#submit').on('click', function(){
-		search.get();
-		//moveElementsForResults();
+	$('.home #submit').on('click', function(e){
+		e.preventDefault();
+		search.get(true);
 	});
 });
 
 var search = {
-
 	get: getResults,
 	load: loadResults
 }
 
 
-function getResults(){
+function getResults(move){
 	var $form = $('form'),
 	protocol = window.location.protocol,
 	host = window.location.host,
@@ -103,8 +70,12 @@ function getResults(){
 		path='/search/';
 	}
 	request = protocol+'//'+host+path+'?'+query;
-	log(request);
-	//loadResults(request, query);
+	if(move){
+		moveElementsForResults(request);
+	}
+	else{
+		loadResults(request, query);
+	}
 }
 
 function loadResults(request_url){
@@ -121,12 +92,9 @@ function loadResults(request_url){
 		.animate({'opacity':'1'},500,function(){
 			$results_listing.animate({'opacity':'1'},500);
 		});
-		if(".home"){
-			moveElementsForResults(request_url);
-		}
-		else{
-			changeLocation(request_url);
-		}
+			
+		changeLocation(request_url);
+		
 	});
 }
 

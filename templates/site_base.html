@@ -12,7 +12,9 @@ by default; use page_rdf_type to override with a webpage subclass.
     <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet"/>
     <!-- Styles -->
     <link href="{% static 'css/flat-ui.css' %}" rel="stylesheet"/>
+    <link href="{% static 'css/component.css' %}" rel="stylesheet"/>
     <link href="{% static 'css/style.css' %}" rel="stylesheet"/>
+
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -39,7 +41,7 @@ by default; use page_rdf_type to override with a webpage subclass.
   </head>
   <body class="{% block body_class %}{% endblock %}"> {# FIXME: request not available in template view? #}
     {# <body typeof="{{ page_rdf_type|default:'schema:Webpage' }}" about="{{ page_rdf_url|default:request.build_absolute_uri }}"> #}
-    <div id="st-container" class="st-container">
+    
       <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
         <div class="container">
           <div class="navbar-header">
@@ -60,7 +62,7 @@ by default; use page_rdf_type to override with a webpage subclass.
           </div><!--/.nav-collapse -->
         </div>
       </div>
-
+      <div id="st-container" class="st-container">
       {% block content %}{% endblock %}
 
       <div class="container footer">

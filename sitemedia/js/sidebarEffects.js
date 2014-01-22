@@ -9,14 +9,6 @@
  * http://www.codrops.com
  */
  var SidebarMenuEffects = (function() {
- 	function hasParentClass( e, classname ) {
-		if(e === document) return false;
-		if( classie.has( e, classname ) ) {
-			return true;
-		}
-		return e.parentNode && hasParentClass( e.parentNode, classname );
-	}
-
 	// http://coveroverflow.com/a/11381730/989439
 	function mobilecheck() {
 		var check = false;
@@ -26,38 +18,68 @@
 
 	function init() {
 
-		var container = document.getElementById( 'st-container' ),
-			buttons = Array.prototype.slice.call( document.querySelectorAll( '#st-trigger-effects > button' ) ),
+		var container = '#st-container',
+		def_class= 'st-container',
+		buttons = Array.prototype.slice.call( document.querySelectorAll( '#st-trigger-effects > button' ) ),
 			// event type (if mobile use touch events)
 			eventtype = mobilecheck() ? 'touchstart' : 'click',
 			resetMenu = function() {
-				classie.remove( container, 'st-menu-open' );
+				$(container).removeClass('st-menu-open' );
 			},
 			bodyClickFn = function(evt) {
 				if( !hasParentClass( evt.target, 'st-menu' ) ) {
 					resetMenu();
 					document.removeEventListener( eventtype, bodyClickFn );
 				}
-			};
-
-		buttons.forEach( function( el, i ) {
-			var effect = el.getAttribute( 'data-effect' );
-
-			el.addEventListener( eventtype, function( ev ) {
-				alert(1);
-				ev.stopPropagation();
-				ev.preventDefault();
-				container.className = 'st-container'; // clear
-				classie.add( container, effect );
+			},
+			closeMenu = function(){
+				$('body').removeClass('st-menu-open');
 				setTimeout( function() {
-					classie.add( container, 'st-menu-open' );
+					$(container).attr({'class':def_class});
+
 				}, 25 );
-				document.addEventListener( eventtype, bodyClickFn );
+			},
+			hasParent = function(child, parent){
+				return $(child).parents(parent).length>0;
+			},
+			openMenu = function(content){
+				var scrollTop = $(window).scrollTop(),
+				html = content;
+
+				$('#menu-7 .content').html(html);
+				$(container).addClass('st-effect-7');
+				$('.st-menu').css({'top':scrollTop, 'height':$(window).height()});
+				$('body').addClass('st-menu-open');
+				setTimeout( function() {
+					$(container).addClass('st-menu-open' );
+				}, 25 );
+			}
+
+			$(document).on('click', '.st-pusher', function(ev){
+				var target = ev.target,
+				menuIsClosed = !$('body').hasClass('st-menu-open');
+
+				if(menuIsClosed){
+					if(target.className=='readmore' || target.parentElement.className == 'readmore'){
+						ev.preventDefault();
+						var html = $(target).parents('.result').html();
+						openMenu(html);
+					}
+				}
+				else{
+					if(!hasParent(target,'#menu-7')){
+						ev.preventDefault();
+						closeMenu();
+					}
+					else if(hasParent(target,'.close')){
+						ev.preventDefault();
+						closeMenu();
+					}
+				}
 			});
-		} );
 
-	}
+		}
 
-	init();
+		init();
 
-})();
+	})();
