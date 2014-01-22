@@ -1,4 +1,18 @@
 {% extends "eultheme/site_base.html" %}
-
+{% load static %}
 {% block nav-title %}EDC Dataset Search{% endblock %}
 {% block page-title %}EDC Dataset Search{% block page-subtitle %}{% endblock %}{% endblock %}
+
+
+{% block css %}
+<!--css-->
+<link href="{% static 'css/flat-ui.css' %}" rel="stylesheet"/>
+<link href="{% static 'css/component.css' %}" rel="stylesheet"/>
+<link href="{% static 'css/style.css' %}" rel="stylesheet"/>
+{% endblock %}
+{% block javascript %}
+<!--js-->
+<script type="text/javascript" src="{% static 'js/sidebarEffects.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/bootstrap-select-picker.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/icpsr.js' %}"></script>
+{% endblock %}

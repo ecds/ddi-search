@@ -3,6 +3,7 @@
 
     <title>{% block page-title %}{% block page-subtitle %}{% endblock %}{% endblock %}</title>
 {% block content %}
+<div id="st-container">
 {# always display search form; initial search, or revise current search #}
 <!-- content push wrapper -->
 <div class="st-pusher">
@@ -93,6 +94,6 @@
     </div><!-- /st-content-inner -->
 </div><!-- /st-content -->
 </div><!-- /st-pusher -->
-
+</div>
 
 {% endblock %}
