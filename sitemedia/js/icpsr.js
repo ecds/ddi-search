@@ -6,13 +6,22 @@ $(document).ready(function(){
 	var q = window.location.search,
 	params = {
 		load_results: 'load=',
-		search_term: 'term='
+		search_term: 'term=',
+		per_page: 'per_page='
 	};
 
 	q = q.substring(1,q.length);
 
 	var load = q.substring(q.indexOf(params.load_results)+params.load_results.length, q.indexOf(params.search_term)),
-	term = q.substring(q.indexOf(params.search_term)+params.search_term.length, q.length);
+	term = getParam(q,params.search_term),
+	per_page = getParam(q,params.per_page);
+
+	function getParam(q,term){
+		var str = q.substring(q.indexOf(term)+term.length, q.length);
+		if(str.indexOf('&')>0)
+			str = str.substring(0,str.indexOf('&'));
+		return str;
+	}
 
 	if(load.replace('&','')=='true'){
 		//loadResults();
@@ -20,8 +29,19 @@ $(document).ready(function(){
 	if(q.indexOf(params.search_term)>0){
 		$('#id_keyword').val(unescape(term));
 	}
-	
-
+	console.log(per_page)
+	var $buttonLabel = $("#id_per_page + .btn-group .dropdown-toggle .filter-option"),
+		current = $buttonLabel.html().trim();
+	console.log(current);
+	if(current !==per_page){
+		$("#id_per_page + .btn-group li span").each(function(){
+			var num = $(this).html().trim();
+			if(num == per_page){
+				$buttonLabel.html(num);
+				$(this).parents('li').addClass('selected').siblings().removeClass('selected');
+			}
+		});
+	}
 
 	$( "input" )
   	.keyup(function() {
@@ -81,7 +101,7 @@ function getResults(move){
 function loadResults(request_url){
 	$.get(request_url,function(data){
 		$data = $('<div/>').attr('class','cards');
-		$data.append(data);
+		//$data.append(data);
 		$results = $('.results');
 		$results_listing = $('.results .result-listing');
 
