@@ -7,14 +7,16 @@ $(document).ready(function(){
 	params = {
 		load_results: 'load=',
 		search_term: 'term=',
-		per_page: 'per_page='
+		per_page: 'per_page=',
+		sort: 'sort='
 	};
 
 	q = q.substring(1,q.length);
 
 	var load = q.substring(q.indexOf(params.load_results)+params.load_results.length, q.indexOf(params.search_term)),
 	term = getParam(q,params.search_term),
-	per_page = getParam(q,params.per_page);
+	per_page = getParam(q,params.per_page),
+	sort = getParam(q,params.sort);
 
 	function getParam(q,term){
 		var str = q.substring(q.indexOf(term)+term.length, q.length);
@@ -29,15 +31,27 @@ $(document).ready(function(){
 	if(q.indexOf(params.search_term)>0){
 		$('#id_keyword').val(unescape(term));
 	}
-	console.log(per_page)
-	var $buttonLabel = $("#id_per_page + .btn-group .dropdown-toggle .filter-option"),
-		current = $buttonLabel.html().trim();
-	console.log(current);
-	if(current !==per_page){
-		$("#id_per_page + .btn-group li span").each(function(){
+
+	var $perPage = $("#id_per_page + .btn-group .dropdown-toggle .filter-option"),
+		currentVisiblePageNumber = $perPage.html().trim();
+
+	var $sort = $("#id_sort + .btn-group .dropdown-toggle .filter-option"),
+		currentVisibleSort = $sort.html().trim();
+
+	if(currentVisiblePageNumber !==per_page){
+		getCurrentDropdownSetting('per_page', per_page);
+	}
+
+	if(currentVisibleSort !==sort){
+		getCurrentDropdownSetting('sort', sort);
+	}
+
+	function getCurrentDropdownSetting(id, value){
+		var val = unescape(value)
+		$("#id_"+id+" + .btn-group li span").each(function(){
 			var num = $(this).html().trim();
-			if(num == per_page){
-				$buttonLabel.html(num);
+			if(num == val){
+				$(this).parents('.dropdown-menu').siblings('button').find('.filter-option').html(num);
 				$(this).parents('li').addClass('selected').siblings().removeClass('selected');
 			}
 		});
