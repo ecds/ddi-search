@@ -42,3 +42,5 @@ doc/_build
 parser.out
 parsetab.py
 
+
+*.log

@@ -85,7 +85,20 @@ $(document).ready(function(){
 		e.preventDefault();
 		search.get(true);
 	});
-});
+
+	$('.toggle.switch').on('click',function(e){
+		e.preventDefault();
+		toggleGroup(this);
+	});
+
+});//end doc.ready
+
+
+function toggleGroup(elem){
+	var $this = $(elem),
+		group = $this.attr('data-type');
+	$(".group[data-type='"+ group +"']").slideToggle(500);
+}
 
 var search = {
 	get: getResults,
@@ -184,11 +197,6 @@ function getQueryStringFromForm(form){
 	return str;
 }
 
-//debug 
-function log(){
-	console.log.apply(console, arguments);
-}
-
 
 function replaceQueryString(url,param,value) {
 	var re = new RegExp("([?|&])" + param + "=.*?(&|$)","i");
@@ -197,3 +205,10 @@ function replaceQueryString(url,param,value) {
 	else
 		return url + '&' + param + "=" + value;
 }
+
+
+//debug 
+function log(){
+	console.log.apply(console, arguments);
+}
+

@@ -43,7 +43,9 @@
                                 <article class="result">
                                     <header class="row title">
                                         <div class="col-xs-10">
-                                            <h3>{{ r.title }}</h3>
+                                            {# TODO: Place Link here #}
+                                            <h3><a href="#" >{{ r.title }}</a></h3>
+
                                             {% if r.authors %}
                                             <h4>Principal Investigator{{ r.authors|pluralize }}: <span>{{ r.authors|join:'; '}}</span></h4>
                                             {% endif %}

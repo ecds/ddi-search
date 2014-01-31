@@ -169,6 +169,45 @@ body {
 	visibility: visible;
 }
 
+.adv.group .form-group {
+	position: relative;
+	float: left;
+	width: 100%;
+}
+
+.adv.toggle.switch {
+    text-align: center;
+    width: 100%;
+    display: block;
+    font-size: 0.9em;
+    margin-top: 15px;
+}
+
+.adv.toggle.switch a{
+    color: rgb(150, 150, 150);
+}
+
+.adv.toggle.switch a:hover, 
+.adv.toggle.switch a:focus {
+    color: #f6f6f6;
+}
+
+.adv.group header h4 {
+	text-align: center;
+	color: #BDC3C7;
+	border-bottom: 1px solid rgb(112, 112, 112);
+	margin-bottom: 4px;
+	padding-bottom: 7px;
+}
+
+.adv.group input {
+	margin-bottom: 15px;
+}
+.adv.group label{
+	font-size: .8em;
+	color: rgb(213, 213, 213);
+	margin-bottom: 0;
+}
 
 /*Results*/
 
