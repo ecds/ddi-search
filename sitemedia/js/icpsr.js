@@ -207,7 +207,10 @@ function moveElementsForResults(url){
 	}
 	$recent.fadeOut(500);
 	$header.slideUp(500, function(){
-		changeLocation(url);
+		$(this).animate({'opacity':'0'},1000,function(){
+			changeLocation(url);
+		})
+		
 	});
 }
 function changeLocation(url){
