@@ -48,13 +48,24 @@ body {
 
 .filter {
 	background-color: #666;
-	padding-bottom: 15px;
 }
 
 .filter fieldset{
 	margin: auto;
 	width: 100%;
 	max-width: 500px;
+	padding-bottom: 15px;
+}
+
+.filter .page-options{
+	background-color: #BDC3C7;
+}
+
+.filter .page-options .btn-default{
+	background-color: #8E969C;
+}
+.filter .page-options .option label{
+	color:#6A7175;
 }
 
 #search{
@@ -83,8 +94,7 @@ body {
 	padding-bottom: 1em;
 }	
 
-.home #search .filter{
-	display: none;
+.home .page-options{
 }
 
 .recent{
@@ -108,7 +118,7 @@ body {
 }
 
 .search-bar{
-	padding-bottom: 1em;
+
 }
 
 .search-bar .form-control,
@@ -169,6 +179,10 @@ body {
 	visibility: visible;
 }
 
+.adv.group {
+	max-width: 700px;
+}
+
 .adv.group .form-group {
 	position: relative;
 	float: left;
@@ -180,7 +194,6 @@ body {
     width: 100%;
     display: block;
     font-size: 0.9em;
-    margin-top: 15px;
 }
 
 .adv.toggle.switch a{
@@ -188,7 +201,8 @@ body {
 }
 
 .adv.toggle.switch a:hover, 
-.adv.toggle.switch a:focus {
+.adv.toggle.switch a:focus,
+.toggle.switch.active a {
     color: #f6f6f6;
 }
 

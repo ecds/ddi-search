@@ -8,7 +8,8 @@ $(document).ready(function(){
 		load_results: 'load=',
 		search_term: 'term=',
 		per_page: 'per_page=',
-		sort: 'sort='
+		sort: 'sort=',
+		adv:  'adv='
 	};
 
 	q = q.substring(1,q.length);
@@ -28,8 +29,13 @@ $(document).ready(function(){
 	if(load.replace('&','')=='true'){
 		//loadResults();
 	}
+
 	if(q.indexOf(params.search_term)>0){
 		$('#id_keyword').val(unescape(term));
+	}
+
+	if(q.indexOf(params.adv)>0){
+		$('.adv.group').slideToggle(0);
 	}
 
 	var $perPage = $("#id_per_page + .btn-group .dropdown-toggle .filter-option"),
@@ -57,13 +63,16 @@ $(document).ready(function(){
 		});
 	}
 
+
+	var $form = $('form');
+
 	$( "input" )
   	.keyup(function() {
     var value = $( this ).val();
     $(this).attr('value',value);
 	});
 
-	$('form').on('keyup',function(e){
+	$form.on('keyup',function(e){
 		e.preventDefault();
 		var code = e.keyCode || e.which,
 		$input = $(document.activeElement);
@@ -86,10 +95,31 @@ $(document).ready(function(){
 		search.get(true);
 	});
 
+	$advOptionsGroup =  $(".adv.group");
+
+	$('.adv.group .controls .btn').bind('click', function(e){
+		e.preventDefault();
+
+		var $this = $(this);
+		if($this.hasClass('submit')){
+			search.get();
+		}
+		else if($this.hasClass('reset')){
+			reset($advOptionsGroup);
+		}
+	});
+
+	function reset(elem){
+		var $elem = $(elem),
+			$inputs = $elem.find('input');
+		$inputs.val('');
+	}
+
 	$('.toggle.switch').on('click',function(e){
 		e.preventDefault();
 		toggleGroup(this);
 	});
+
 
 });//end doc.ready
 
@@ -97,7 +127,9 @@ $(document).ready(function(){
 function toggleGroup(elem){
 	var $this = $(elem),
 		group = $this.attr('data-type');
-	$(".group[data-type='"+ group +"']").slideToggle(500);
+
+	$(this).toggleClass('active');
+	$(".group[data-type='"+ group +"']").stop(false,true).slideToggle(500);
 }
 
 var search = {
@@ -111,18 +143,30 @@ function getResults(move){
 	protocol = window.location.protocol,
 	host = window.location.host,
 	path = window.location.pathname;
-	query = getQueryStringFromForm($form);
+	query = getQueryStringFromForm($form),
+	$keywordInput = $('.input-group input#id_keyword'),
+	keyword=$keywordInput.attr('value');
 
-	if(path.indexOf('serach')<0){
+	if(path.indexOf('search')<0){
 		path='/search/';
 	}
 	request = protocol+'//'+host+path+'?'+query;
-	if(move){
-		moveElementsForResults(request);
-	}
-	else{
-		loadResults(request, query);
-	}
+
+	// if(keyword!='' && keyword!==undefined){
+		$('.dropdown-menu, .dropdown-arrow').hide();
+
+		if(move){
+			moveElementsForResults(request);
+		}
+		else{
+			loadResults(request, query);
+		}
+	// }
+	// //keyword input is empty
+	// else{
+	// 	$keywordInput.parent().addClass('has-error');
+	// 	$keywordInput.parent().shake();
+	// }
 }
 
 function loadResults(request_url){
@@ -148,16 +192,19 @@ function loadResults(request_url){
 function moveElementsForResults(url){
 	var $header = $('#search h1'),
 	$recent = $('.recent'),
-	$filter = $('.filter'),
+	$filter = $('.page-options'),
 	$footer =$('.footer');
 
-	if(!$filter.hasClass('show')){
+	if($filter.not(":visible").length>0){
 		$filter.slideUp(0);
 	}
+	$('.slideup').slideUp(500);
 	$footer.hide();
 	$('.home').css({'background-color':'#F7F7F7'});
-	$filter.slideDown(500)
-	$filter.fadeIn(500);
+	if($filter.not(":visible").length>0){
+		$filter.slideDown(500)
+		$filter.fadeIn(500);
+	}
 	$recent.fadeOut(500);
 	$header.slideUp(500, function(){
 		changeLocation(url);
@@ -177,10 +224,14 @@ function getQueryStringFromForm(form){
 	$form.find('input').each(function(){
 		var $this = $(this);
 		if($this.parent('.sr-only').length<=0){
-			if(count>0){
-				str+='&amp;';
+			if($this.attr('name')!=undefined){
+				if(count>0){
+					str+='&amp;';
+				}
+				var value = $this.attr('value') || '';
+				
+				str+=$this.attr('name')+'='+escape(value);
 			}
-			str+=$this.attr('name')+'='+escape($this.attr('value'));
 			count++;
 		}
 	});
@@ -194,6 +245,9 @@ function getQueryStringFromForm(form){
 			count++;
 		}
 	});
+	if($('.adv.group:visible').length>0){
+		str+='&amp;adv=true';
+	}
 	return str;
 }
 
@@ -205,6 +259,21 @@ function replaceQueryString(url,param,value) {
 	else
 		return url + '&' + param + "=" + value;
 }
+
+//Shake function
+(function( $ ){
+   $.fn.shake = function() {
+      var $this = $(this);
+
+      $this.animate({'left':'-20px'},40, function(){
+      	$(this).animate({left:'10px'},80, function(){
+      		$(this).animate({'left':'0px'},50)
+      	})
+      });
+
+      return this;
+   }; 
+})( jQuery );
 
 
 //debug 
