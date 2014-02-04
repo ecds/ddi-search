@@ -28,7 +28,7 @@
                 <div class="container">
                     <article class="results">
                         <header>
-                            <h3>Found <strong>{{ results.paginator.count|intcomma }}</strong> total results.</h3>
+                            <h3>Found <strong>{{ results.paginator.count|intcomma }}</strong> result{{ results.paginator.count|pluralize }}.</h3>
                             <div class="pagination">
                                 <h4>Pages</h4>
                                 <div class="pagination">
@@ -52,10 +52,11 @@
                                         </div>
                                         <div class="col-xs-2 no-padding-right">
                                             {% if r.fulltext_score %} {# TODO: style this #}
+                                            {# display numerical score in debug mode #}
+                                            {% if debug %}<p>{{ r.fulltext_score }}</p>{% endif %}
                                             <div class="progress">
                                                 <div class="progress-bar" role="progressbar" aria-valuenow="{{ r.fulltext_score }}" aria-valuemin="0" aria-valuemax="1.5" style="width:{% widthratio r.fulltext_score 1 90 %}%"> </div>
-                                                {# display numerical score in debug mode #}
-                                                {% if debug %}<p>{{ r.fulltext_score }}</p>{% endif %}
+
                                             </div>
                                             {% endif %}
                                             <p> <a class="readmore" title="Preview"><span class="glyphicon glyphicon-eye-open"></span></a></p>
