@@ -15,13 +15,13 @@ class KeywordSearch(forms.Form):
 
     title = forms.CharField(required=False,
         help_text='Search by title (keywords or phrase)',
-        widget=forms.TextInput(attrs={'placeholder':'Search by title'}))
+        widget=forms.TextInput(attrs={'placeholder':'Search by title', 'class': 'form-control'}))
     summary = forms.CharField(required=False,
         help_text='Search by summary (keywords or phrase)',
-        widget=forms.TextInput(attrs={'placeholder':'Search by summary'}))
+        widget=forms.TextInput(attrs={'placeholder':'Search by summary', 'class': 'form-control'}))
     source = forms.CharField(required=False,
         help_text='Search by source organization or principial investigator (keywords or phrase)',
-        widget=forms.TextInput(attrs={'placeholder':'Search by source'}))
+        widget=forms.TextInput(attrs={'placeholder':'Search by source', 'class': 'form-control'}))
 
     _adv_fields = ['title', 'summary', 'source']
 

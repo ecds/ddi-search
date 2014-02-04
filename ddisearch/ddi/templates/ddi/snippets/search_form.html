@@ -14,6 +14,7 @@
 {% endcomment %}
 
 <form type="GET" id="search-form" action="{% url 'ddi:search' %}">
+	{{ form.non_field_errors }}  {# display any form-wide validation errors #}
 	<label class="sr-only" for="id_keyword">{{ form.keyword }}</label>
 
 	<div class="search-bar">
@@ -34,7 +35,7 @@
 	</div>
 	<span class="adv toggle switch" data-type="advfields">
 				<a href="#">search options <span class="glyphicon glyphicon-chevron-down"></span></a>
-			</span>	
+			</span>
 	<div class="filter">
 
 		{# start Advanced Filter #}
@@ -44,18 +45,13 @@
 					<h4>Advanced Search Options</h4>
 				</header>
 				{# for each advanced field #}
+				{% for field in form.advanced_fields %}
 				<div class="col-sm-4">
-					<label for="testInput1">Test Advanced Field 1</label>
-					<input type="text" class="form-control" id="testInput1" placeholder="Test Advanced Field">
+					<label for="{{ field.name }}">{{ field.label }}</label>
+					{{ field }}
+					{# <input type="text" class="form-control" id="testInput1" placeholder="Test Advanced Field"> #}
 				</div>
-				<div class="col-sm-4">
-					<label for="testInput1">Test Advanced Field 2</label>
-					<input type="text" class="form-control" id="testInput1" placeholder="Test Advanced Field">
-				</div>
-				<div class="col-sm-4">
-					<label for="testInput1">Test Advanced Field 1</label>
-					<input type="text" class="form-control" id="testInput1" placeholder="Test Advanced Field">
-				</div>
+				{% endfor %}
 			</div>
 
 			<div class="row">
@@ -73,7 +69,7 @@
 					<label for="id_per_page"><span>{{form.per_page.label}}</span></label>
 					<select id="id_per_page" name="per_page">
 						{% for d in form.PER_PAGE_OPTIONS %}
-						<option value="{{d}}" 
+						<option value="{{d}}"
 							{% if forloop.parentloop.first %}
 							selected="selected"
 							{% endif %}
@@ -88,14 +84,14 @@
 					<label for="id_sort"><span>{{form.sort.label}}</span></label>
 					<select id="id_sort" name="sort">
 						{% for d in form.SORT_OPTIONS %}
-						<option value="{{d}}" 
+						<option value="{{d}}"
 						{% if forloop.parentloop.first %}
 						selected="selected"
 						{% endif %}
 						>
 						{{d}}
 					</option>
-					{% endfor %} 
+					{% endfor %}
 					</select>
 				</div>
 			</fieldset>
