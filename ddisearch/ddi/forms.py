@@ -1,22 +1,57 @@
 from django import forms
 
-default = {
-    'per_page': 10,
-    'sort': 'relevance'
-}
 
 class KeywordSearch(forms.Form):
-    keyword = forms.CharField(required=True, widget=forms.TextInput(attrs={'class':'form-control'}),
+    keyword = forms.CharField(required=False, widget=forms.TextInput(attrs={'class':'form-control'}),
         help_text='One or more keywords; can include wildcards * and ?, and exact phrases in quotes.')
     PER_PAGE_OPTIONS = (10, 25, 50, 100)
     page_choices = [(d, d) for d in PER_PAGE_OPTIONS]
     per_page = forms.ChoiceField(label='Results per page',
-        choices=page_choices, initial=default['per_page'])
+        choices=page_choices, initial=10)
     SORT_OPTIONS = ('relevance', 'title', 'date (recent)', 'date (oldest)')
     sort_choices = [(d, d) for d in SORT_OPTIONS]
     sort = forms.ChoiceField(label='Sort by',
-        choices=sort_choices, initial=default['sort'])
+        choices=sort_choices, initial='relevance')
 
-    @property 
+    title = forms.CharField(required=False,
+        help_text='Search by title (keywords or phrase)',
+        widget=forms.TextInput(attrs={'placeholder':'Search by title'}))
+    summary = forms.CharField(required=False,
+        help_text='Search by summary (keywords or phrase)',
+        widget=forms.TextInput(attrs={'placeholder':'Search by summary'}))
+    source = forms.CharField(required=False,
+        help_text='Search by source organization or principial investigator (keywords or phrase)',
+        widget=forms.TextInput(attrs={'placeholder':'Search by source'}))
+
+    _adv_fields = ['title', 'summary', 'source']
+
+    search_fields = ['keyword', 'title', 'summary', 'source']
+    # fields that can contain search term; at least one of these is required
+    # for validation; all combined generate a list of all search terms
+
+    @property
     def advanced_fields(self):
-        return [self.sort, self.per_page]
+        'fields that are considered part of the "advanced" search'
+        return [self[f] for f in self._adv_fields]
+
+    def clean(self):
+        'custom validation to ensure at least one search field is populated'
+        cleaned_data = super(KeywordSearch, self).clean()
+        # any one search term is sufficient, but at least one is required
+        if not any([cleaned_data.get(f, None) for f in self.search_fields]):
+            raise forms.ValidationError('You must enter search terms for at least one of %s or %s' % \
+                                        (', '.join(self.search_fields[:-1]),
+                                         self.search_fields[-1]))
+        return cleaned_data
+
+    @property
+    def all_search_terms(self):
+        'string of all search terms present in any search fields'
+        try:
+            cleaned_data = self.clean()
+            return ' '.join([cleaned_data.get(f) for f in self.search_fields
+                             if f in cleaned_data and cleaned_data[f]])
+        except:
+            # if form is not valid, then there are no search terms
+            return ''
+
