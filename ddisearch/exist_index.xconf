@@ -28,6 +28,12 @@
             <text qname="titl" boost="0.7"/>
             <text qname="abstract" boost="0.7"/>
             <text qname="geogCover" boost="0.7"/>
+            <text qname="AuthEnty"/>
+
+            <!-- xpath for advanced search fields (currently using full paths) -->
+            <text xpath="stdyDscr/citation/titlStmt/titl"/>
+            <text xpath="stdyDscr/stdyInfo/abstract"/>
+            <text xpath="stdyDscr/citation/rspStmt/AuthEnty"/>
         </lucene>
     </index>
 </collection>
