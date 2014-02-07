@@ -170,22 +170,17 @@ function getResults(move){
 }
 
 function loadResults(request_url){
-	$.get(request_url,function(data){
-		$data = $('<div/>').attr('class','cards');
-		//$data.append(data);
-		$results = $('.results');
-		$results_listing = $('.results .result-listing');
 
-		$results_listing.css({'opacity':'0'}).html($data);
-		$('.results')
-		.css({'opacity':'0'})
-		.removeClass('hidden')
-		.animate({'opacity':'1'},500,function(){
-			$results_listing.animate({'opacity':'1'},500);
-		});
-			
-		changeLocation(request_url);
-		
+	var $loader = $('.loader'),
+		$results = $('.results');
+
+	$('.loader').slideDown(500);
+	$('.loader').animate({'opacity':'1'},1000);
+
+	$('.results').animate({'opacity':'0'},300)
+
+	$.get(request_url,function(data){
+		changeLocation(request_url);	
 	});
 }
 
@@ -200,6 +195,9 @@ function moveElementsForResults(url){
 	}
 	$('.slideup').slideUp(500);
 	$footer.hide();
+
+	$('.loader').slideDown(500);
+
 	$('.home').css({'background-color':'#F7F7F7'});
 	if($filter.not(":visible").length>0){
 		$filter.slideDown(500)
