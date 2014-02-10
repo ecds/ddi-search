@@ -79,6 +79,7 @@ body {
 
 #search form{
 	margin-bottom: 0px;
+	clear: both;
 }
 
 /* Home */
@@ -235,6 +236,20 @@ body {
 	margin-bottom: 0;
 }
 
+.reset-form {
+    margin-right: 30px;
+    margin-top: -20px;
+    margin-bottom: 20px;
+    font-size: 0.9em;
+}
+.reset-form a {
+    color: rgb(131, 133, 141);
+    text-shadow: 1px 1px 3px rgb(209, 209, 209);
+}
+.reset-form a:hover {
+    color: #F7F7F7;
+}
+
 /*Results*/
 
 .results.wrapper{
@@ -253,6 +268,18 @@ body {
 .results header > .pagination h4 {
 	margin: 12px 0 5px;
 	color: #BABEC0;
+}
+
+.pagination ul li > a.last {
+    background-color: rgb(255, 255, 255);
+    color: #4488DF;
+    border-color: #FFF;
+    border-width: 4px;
+}
+.pagination ul li > a.last:hover{
+    background-color: #4488DF;
+    border-color:#4488DF;
+    color:#FFF;
 }
 
 .cards article {

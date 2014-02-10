@@ -12,11 +12,11 @@
 	{{ form.keyword.help_text }}
 </form>
 {% endcomment %}
-
+<div class="reset-form pull-right"><a href="/search"><span class="glyphicon glyphicon-repeat"></span> New Search</a></div>
 <form type="GET" id="search-form" action="{% url 'ddi:search' %}">
 	{{ form.non_field_errors }}  {# display any form-wide validation errors #}
-	<label class="sr-only" for="id_keyword">{{ form.keyword }}</label>
 
+	<label class="sr-only" for="id_keyword">{{ form.keyword }}</label>
 	<div class="search-bar">
 		<div class="container">
 			<div class="col-xs-12 col-sm-offset-1 col-sm-10 col-md-offset-2 col-md-8">
@@ -40,7 +40,7 @@
 
 		{# start Advanced Filter #}
 		<fieldset class="adv toggle group" data-type="advfields" style="display:none;">
-			<div class="form-group row">
+			<div class="form-group">
 				<header class="col-sm-12">
 					<h4>Advanced Search Options</h4>
 				</header>
@@ -54,7 +54,7 @@
 				{% endfor %}
 			</div>
 
-			<div class="row">
+			<div>
 				<div class="controls btn-group-sm col-sm-3 pull-right">
 					<button class="reset btn btn-default">Clear Criteria</button>
 					{# <button class="submit btn btn-primary" type="submit">New Search</button> #}

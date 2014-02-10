@@ -1,102 +1,214 @@
 {% extends "site_base.html" %}
 {% load search_utils %} {% load humanize %}
 
-    <title>{% block page-title %}{% block page-subtitle %}{% endblock %}{% endblock %}</title>
+<title>{% block page-title %}{% block page-subtitle %}{% endblock %}{% endblock %}</title>
 {% block content %}
 <div id="st-container">
-{# always display search form; initial search, or revise current search #}
-<!-- content push wrapper -->
-<div class="st-pusher">
-    <aside class="st-menu st-effect-7" id="menu-7">
-        <span class="close">
-            <span class="glyphicon glyphicon-remove-circle"></span>
-        </span>
-        <h2 class="icon icon-lab">Preview</h2>
-        <section class="content"></section>
-    </aside>
-    <div class="container" id="search">
-        {% include 'ddi/snippets/search_form.html' %}
-    </div>
-    <div class="st-content"><!-- this is the wrapper for the content -->
-        <div class="main clearfix">
-            {% include 'ddi/snippets/loading.html' %}
-            <div class="wrapper results">
-                {% if keywords %}
-                {# <p>Search terms: <b>{{ keywords }}</b></p> #}
-                {% endif %}
-                {% if results %}
+    {# always display search form; initial search, or revise current search #}
+    <!-- content push wrapper -->
+    <div class="st-pusher">
+        <aside class="st-menu st-effect-7" id="menu-7">
+            <span class="close">
+                <span class="glyphicon glyphicon-remove-circle"></span>
+            </span>
+            <h2 class="icon icon-lab">Preview</h2>
+            <section class="content"></section>
+        </aside>
+        <div class="container" id="search">
+            {% include 'ddi/snippets/search_form.html' %}
+        </div>
+        <div class="st-content"><!-- this is the wrapper for the content -->
+            <div class="main clearfix">
+                {% include 'ddi/snippets/loading.html' %}
+                <div class="wrapper results">
+                    {% if keywords %}
+                    {# <p>Search terms: <b>{{ keywords }}</b></p> #}
+                    {% endif %}
+                    {% if results %}
 
-                <div class="container">
-                    <article class="results">
-                        <header>
-                            <h3>Found <strong>{{ results.paginator.count|intcomma }}</strong> result{{ results.paginator.count|pluralize }}.</h3>
-                            <div class="pagination">
-                                <h4>Pages</h4>
+                    <div class="container">
+                        <article class="results">
+                            <header>
+                                <h3>Found <strong>{{ results.paginator.count|intcomma }}</strong> result{{ results.paginator.count|pluralize }}.</h3>
                                 <div class="pagination">
-                                    {# TODO: consider using bootstrap pagination styles if we stick with bootstrap #}
-                                    {% pagination_links results pages  url_params=url_params %}
+                                    <h4>Pages</h4>
+                                    <div class="pagination">
+                                        {# TODO: consider using bootstrap pagination styles if we stick with bootstrap #}
+                                        {% pagination_links results pages  url_params=url_params %}
+                                    </div>
                                 </div>
-                            </div>
-                        </header>
-                        <div class="row result-listing cards">
-                            {% for r in results.object_list %}
-                            <div class="col-sm-6 col-lg-4">
-                                <article class="result">
-                                    <header class="row title">
-                                        <div class="col-xs-10">
-                                            {# TODO: Place Link here #}
-                                            <h3><a href="#" >{{ r.title }}</a></h3>
+                            </header>
+                            <div class="row result-listing cards">
+                                {% for r in results.object_list %}
+                                <div class="col-sm-6 col-lg-4">
+                                    <article class="result">
+                                        <header class="row title">
+                                            <div class="col-xs-10">
+                                                {# TODO: Place Link here #}
+                                                <h3><a href="#" >{{ r.title }}</a></h3>
 
-                                            {% if r.authors %}
-                                            <h4>Principal Investigator{{ r.authors|pluralize }}: <span>{{ r.authors|join:'; '}}</span></h4>
-                                            {% endif %}
-                                        </div>
-                                        <div class="col-xs-2 no-padding-right">
-                                            {% if r.fulltext_score %} {# TODO: style this #}
-                                            {# display numerical score in debug mode #}
-                                            {% if debug %}<p>{{ r.fulltext_score }}</p>{% endif %}
-                                            <div class="progress">
-                                                <div class="progress-bar" role="progressbar" aria-valuenow="{{ r.fulltext_score }}" aria-valuemin="0" aria-valuemax="1.5" style="width:{% widthratio r.fulltext_score 1 90 %}%"> </div>
-
+                                                {% if r.authors %}
+                                                <h4>Principal Investigator{{ r.authors|pluralize }}: <span>{{ r.authors|join:'; '}}</span></h4>
+                                                {% endif %}
                                             </div>
+                                            <div class="col-xs-2 no-padding-right">
+                                                {% if r.fulltext_score %} {# TODO: style this #}
+                                                {# display numerical score in debug mode #}
+                                                {% if debug %}<p>{{ r.fulltext_score }}</p>{% endif %}
+                                                <div class="progress">
+                                                    <div class="progress-bar" role="progressbar" aria-valuenow="{{ r.fulltext_score }}" aria-valuemin="0" aria-valuemax="1.5" style="width:{% widthratio r.fulltext_score 1 90 %}%"> </div>
+
+                                                </div>
+                                                {% endif %}
+                                                <p> <a class="readmore" title="Preview"><span class="glyphicon glyphicon-eye-open"></span></a></p>
+                                            </div>
+                                        </header>
+
+                                        <section class="summary">
+                                            <p>{{ r.abstract|truncatewords:100 }}</p>
+                                            {% if r.keywords %}
+                                            <p><b>Keywords:</b> {{ r.keywords|join:'; ' }}</p>
                                             {% endif %}
-                                            <p> <a class="readmore" title="Preview"><span class="glyphicon glyphicon-eye-open"></span></a></p>
-                                        </div>
-                                    </header>
 
-                                    <section class="summary">
-                                        <p>{{ r.abstract|truncatewords:100 }}</p>
-                                        {% if r.keywords %}
-                                        <p><b>Keywords:</b> {{ r.keywords|join:'; ' }}</p>
-                                        {% endif %}
-
-                                        <p><b>Date{{ r.dates|pluralize }}:</b> {{ r.dates|join:'; '|default:'(not specified)' }}</p>
-                                    </section>
-                                </article>
-                            </div>
-                            {% endfor %}
-
-
-
-                            <footer>
-                                <div class="pagination">
-                                    {# TODO: consider using bootstrap pagination styles if we stick with bootstrap #}
-                                    {% pagination_links results pages  url_params=url_params %}
+                                            <p><b>Date{{ r.dates|pluralize }}:</b> {{ r.dates|join:'; '|default:'(not specified)' }}</p>
+                                        </section>
+                                    </article>
                                 </div>
-                            </footer>
-
-                        </article>
-                    </div><!--/.cards-->
-                </div><!-- /.container -->
-                {% endif %}  {# search results present #}
-            </div><!-- /.wrapper.results -->
+                                {% endfor %}
 
 
+<!-- 
+                                <footer>
+                                    <div class="b-paginator">
+                                        <div class="paginator" id="js-paginator" style="width: 99%;">
+                                            <table>
+                                                <tbody>
+                                                    <tr>
+                                                        <td class="active"><span><a href="#">  1   </em></a></span></td>
+                                                        <td><span><a href="#">  2   </em></a></span></td>
+                                                        <td><span><a href="#">  3   </em></a></span></td>
+                                                        <td><span><a href="#">  4   </em></a></span></td>
+                                                        <td><span><a href="#">  5   </em></a></span></td>
+                                                        <td><span><a href="#">  6   </em></a></span></td>
+                                                        <td><span><a href="#">  7   </em></a></span></td>
+                                                        <td><span><a href="#">  8   </em></a></span></td>
+                                                        <td><span><a href="#">  9   </em></a></span></td>
+                                                        <td><span><a href="#">  10  </em></a></span></td>
+                                                        <td><span><a href="#">  11  </em></a></span></td>
+                                                        <td><span><a href="#">  12  </em></a></span></td>
+                                                        <td><span><a href="#">  13  </em></a></span></td>
+                                                        <td><span><a href="#">  14  </em></a></span></td>
+                                                        <td><span><a href="#">  15  </em></a></span></td>
+                                                        <td><span><a href="#">  16  </em></a></span></td>
+                                                        <td><span><a href="#">  17  </em></a></span></td>
+                                                        <td><span><a href="#">  18  </em></a></span></td>
+                                                        <td><span><a href="#">  19  </em></a></span></td>
+                                                        <td><span><a href="#">  20  </em></a></span></td>
+                                                        <td><span><a href="#">  21  </em></a></span></td>
+                                                        <td><span><a href="#">  22  </em></a></span></td>
+                                                        <td><span><a href="#">  23  </em></a></span></td>
+                                                        <td><span><a href="#">  24  </em></a></span></td>
+                                                        <td><span><a href="#">  25  </em></a></span></td>
+                                                        <td><span><a href="#">  26  </em></a></span></td>
+                                                        <td><span><a href="#">  27  </em></a></span></td>
+                                                        <td><span><a href="#">  28  </em></a></span></td>
+                                                        <td><span><a href="#">  29  </em></a></span></td>
+                                                        <td><span><a href="#">  30  </em></a></span></td>
+                                                        <td><span><a href="#">  31  </em></a></span></td>
+                                                        <td><span><a href="#">  32  </em></a></span></td>
+                                                        <td><span><a href="#">  33  </em></a></span></td>
+                                                        <td><span><a href="#">  34  </em></a></span></td>
+                                                        <td><span><a href="#">  35  </em></a></span></td>
+                                                        <td><span><a href="#">  36  </em></a></span></td>
+                                                        <td><span><a href="#">  37  </em></a></span></td>
+                                                        <td><span><a href="#">  38  </em></a></span></td>
+                                                        <td><span><a href="#">  39  </em></a></span></td>
+                                                        <td><span><a href="#">  40  </em></a></span></td>
+                                                        <td><span><a href="#">  41  </em></a></span></td>
+                                                        <td><span><a href="#">  42  </em></a></span></td>
+                                                        <td><span><a href="#">  43  </em></a></span></td>
+                                                        <td><span><a href="#">  44  </em></a></span></td>
+                                                        <td><span><a href="#">  45  </em></a></span></td>
+                                                        <td><span><a href="#">  46  </em></a></span></td>
+                                                        <td><span><a href="#">  47  </em></a></span></td>
+                                                        <td><span><a href="#">  48  </em></a></span></td>
+                                                        <td><span><a href="#">  49  </em></a></span></td>
+                                                        <td><span><a href="#">  50  </em></a></span></td>
+                                                        <td><span><a href="#">  51  </em></a></span></td>
+                                                        <td><span><a href="#">  52  </em></a></span></td>
+                                                        <td><span><a href="#">  53  </em></a></span></td>
+                                                        <td><span><a href="#">  54  </em></a></span></td>
+                                                        <td><span><a href="#">  55  </em></a></span></td>
+                                                        <td><span><a href="#">  56  </em></a></span></td>
+                                                        <td><span><a href="#">  57  </em></a></span></td>
+                                                        <td><span><a href="#">  58  </em></a></span></td>
+                                                        <td><span><a href="#">  59  </em></a></span></td>
+                                                        <td><span><a href="#">  60  </em></a></span></td>
+                                                        <td><span><a href="#">  61  </em></a></span></td>
+                                                        <td><span><a href="#">  62  </em></a></span></td>
+                                                        <td><span><a href="#">  63  </em></a></span></td>
+                                                        <td><span><a href="#">  64  </em></a></span></td>
+                                                        <td><span><a href="#">  65  </em></a></span></td>
+                                                        <td><span><a href="#">  66  </em></a></span></td>
+                                                        <td><span><a href="#">  67  </em></a></span></td>
+                                                        <td><span><a href="#">  68  </em></a></span></td>
+                                                        <td><span><a href="#">  69  </em></a></span></td>
+                                                        <td><span><a href="#">  70  </em></a></span></td>
+                                                        <td><span><a href="#">  71  </em></a></span></td>
+                                                        <td><span><a href="#">  72  </em></a></span></td>
+                                                        <td><span><a href="#">  73  </em></a></span></td>
+                                                        <td><span><a href="#">  74  </em></a></span></td>
+                                                        <td><span><a href="#">  75  </em></a></span></td>
+                                                        <td><span><a href="#">  76  </em></a></span></td>
+                                                        <td><span><a href="#">  77  </em></a></span></td>
+                                                        <td><span><a href="#">  78  </em></a></span></td>
+                                                        <td><span><a href="#">  79  </em></a></span></td>
+                                                        <td><span><a href="#">  80  </em></a></span></td>
+                                                        <td><span><a href="#">  81  </em></a></span></td>
+                                                        <td><span><a href="#">  82  </em></a></span></td>
+                                                        <td><span><a href="#">  83  </em></a></span></td>
+                                                        <td><span><a href="#">  84  </em></a></span></td>
+                                                        <td><span><a href="#">  85  </em></a></span></td>
+                                                        <td><span><a href="#">  86  </em></a></span></td>
+                                                        <td><span><a href="#">  87  </em></a></span></td>
+                                                        <td><span><a href="#">  88  </em></a></span></td>
+                                                        <td><span><a href="#">  89  </em></a></span></td>
+                                                        <td><span><a href="#">  90  </em></a></span></td>
+                                                        <td><span><a href="#">  91  </em></a></span></td>
+                                                        <td><span><a href="#">  92  </em></a></span></td>
+                                                        <td><span><a href="#">  93  </em></a></span></td>
+                                                        <td><span><a href="#">  94  </em></a></span></td>
+                                                        <td><span><a href="#">  95  </em></a></span></td>
+                                                        <td><span><a href="#">  96  </em></a></span></td>
+                                                        <td><span><a href="#">  97  </em></a></span></td>
+                                                        <td><span><a href="#">  98  </em></a></span></td>
+                                                        <td><span><a href="#">  99  </em></a></span></td>
+                                                        <td><span><a href="#">  100 </em></a></span></td>
+                                                        <td><span><a href="#">  101 </em></a></span></td>
+                                                        <td><span><a href="#">  102 </em></a></span></td>
+                                                        <td><span><a href="#">  103 </em></a></span></td>
+                                                        <td><span><a href="#">  104 </em></a></span></td>
+                                                        <td><span><a href="#">  105 </em></a></span></td>
+                                                        <td><span><a href="#">  106 </em></a></span></td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </footer>
+-->
+                            </article>
+                        </div><!--/.cards-->
+                    </div><!-- /.container -->
+                    {% endif %}  {# search results present #}
+                </div><!-- /.wrapper.results -->
 
 
-        </div><!-- /main -->
-    </div><!-- /st-content-inner -->
-</div><!-- /st-content -->
+
+
+            </div><!-- /main -->
+        </div><!-- /st-content-inner -->
+    </div><!-- /st-content -->
 </div><!-- /st-pusher -->
 </div>
 
