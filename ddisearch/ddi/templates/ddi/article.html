@@ -1,0 +1,90 @@
+{% extends "site_base.html" %}
+{% load search_utils %} {% load humanize %} {% load static %}
+
+<title>{% block page-title %}{% block page-subtitle %}{% endblock %}{% endblock %}</title>
+{% block content %}
+
+<article>
+    <header>
+        <div class="container">
+            <h1>Data Confrontation Seminar, 1969: United States Data</h1>
+            
+            <h2 class="h3">Principal Investigator</h2> 
+            <p class="lead">Inter-university Consortium for Political and Social Research</p>
+            <h2 class="h3">Date</h2>
+            <p class="lead">1969</p>
+        </div>
+    </header>
+    <section>
+        <div class="container">
+            <p>This study contains national data prepared for the Data Confrontation Seminar on the Use of Ecological Data in Comparative Cross-National Research held under the auspices of the Inter-university Consortium for Political and Social Research on April 1-18, 1969. One of the primary concerns of this international seminar was the need for cooperation in the development of data resources in order to facilitate exchange of data between individual scholars and research groups. This data collection contains returns for all elections for 3,143 counties of 50 states of the United States to the offices of president, senator and representative, and governor, ecological ...</p>
+        </div>
+    </section>
+    <section>
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-6">
+                    <h2>Keywords</h2> 
+                    <ul class="tagsinput">
+                        <li class="tag"><a href="#">congressional elections</a></li>
+                        <li class="tag"><a href="#">demographic characteristics</a></li>
+                        <li class="tag"><a href="#">election returns</a></li>
+                        <li class="tag"><a href="#">national elections</a></li>
+                        <li class="tag"><a href="#">political parties</a></li>
+                        <li class="tag"><a href="#">presidential elections</a></li>
+                        <li class="tag"><a href="#">state elections</a></li>
+                        <li class="tag"><a href="#">voting behavior</a></li>
+                    </ul>
+                </div>
+                <div class="col-sm-6">
+                    <h2>Geographic Locations</h2>
+                    <div class="map">
+                        <img src="{% static 'img/Flat-World-Map.gif' %}"/>
+
+                        <div class="location-marker north-america">
+                            <span class="glyphicon glyphicon-map-marker" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="North America"></span>
+                        </div>
+                        <div class="location-marker south-america">
+                            <span class="glyphicon glyphicon-map-marker" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="South America"></span>
+                        </div>
+                        <div class="location-marker europe">
+                            <span class="glyphicon glyphicon-map-marker" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Europe"></span>
+                        </div>
+                        <div class="location-marker africa">
+                            <span class="glyphicon glyphicon-map-marker" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Africa"></span>
+                        </div>
+                        <div class="location-marker asia">
+                            <span class="glyphicon glyphicon-map-marker" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Asia"></span>
+                        </div>
+                        <div class="location-marker australia">
+                            <span class="glyphicon glyphicon-map-marker" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Australia"></span>
+                        </div>
+                    </div>
+
+                </div>
+            </div><!-- /row -->
+        </div>
+    </section>
+
+    <section>
+        <div class="container">
+            <h2>More Text</h2>
+            <p>At the sight of the sea, Mrs. Elphinstone, in spite of the assurances of her sister-in-law, gave way to panic.  She had never been out of England before, she would rather die than trust herself friendless in a foreign country, and so forth.  She seemed, poor woman, to imagine that the French and the Martians might prove very similar. She had been growing increasingly hysterical, fearful, and depressed during the two days' journeyings.  Her great idea was to return to Stanmore.  Things had been always well and safe at Stanmore.  They would find George at Stanmore.</p>
+
+            <p>It was with the greatest difficulty they could get her down to the beach, where presently my brother succeeded in attracting the attention of some men on a paddle steamer from the Thames.  They sent a boat and drove a bargain for thirty-six pounds for the three.  The steamer was going, these men said, to Ostend.</p>
+
+            <p>It was about two o'clock when my brother, having paid their fares at the gangway, found himself safely aboard the steamboat with his charges.  There was food aboard, albeit at exorbitant prices, and the three of them contrived to eat a meal on one of the seats forward.</p>
+            <h3>This is an &lt;h3&gt; </h3>
+            <p>There were already a couple of score of passengers aboard, some of whom had expended their last money in securing a passage, but the captain lay off the Blackwater until five in the afternoon, picking up passengers until the seated decks were even dangerously crowded.  He would probably have remained longer had it not been for the sound of guns that began about that hour in the south.  As if in answer, the ironclad seaward fired a small gun and hoisted a string of flags.  A jet of smoke sprang out of her funnels.</p>
+
+            <p>Some of the passengers were of opinion that this firing came from Shoeburyness, until it was noticed that it was growing louder.  At the same time, far away in the southeast the masts and upperworks of three ironclads rose one after the other out of the sea, beneath clouds of black smoke.  But my brother's attention speedily reverted to the distant firing in the south.  He fancied he saw a column of smoke rising out of the distant grey haze.</p>
+
+            <p>The little steamer was already flapping her way eastward of the big crescent of shipping, and the low Essex coast was growing blue and hazy, when a Martian appeared, small and faint in the remote distance, advancing along the muddy coast from the direction of Foulness.  At that the captain on the bridge swore at the top of his voice with fear and anger at his own delay, and the paddles seemed infected with his terror.  Every soul aboard stood at the bulwarks or on the seats of the steamer and stared at that distant shape, higher than the trees or church towers inland, and advancing with a leisurely parody of a human stride.</p>
+        </div>
+    </section>
+
+
+</article>
+
+
+{% endblock %}
