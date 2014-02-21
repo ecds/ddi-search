@@ -1,3 +1,10 @@
+'''
+Django website for search and display access to DDI XML descriptions
+of research datasets such as those provided by the ICPSR.  Uses
+eXist-db for powerful full text searching.
+
+'''
+
 __version_info__ = (0, 1, 0, 'dev')
 
 # Dot-connect all but the last. Last is dash-connected if not None.

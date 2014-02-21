@@ -1,8 +1,9 @@
 {% extends "site_base.html" %}
-{% load search_utils %} {% load humanize %} {% load static %}
+{% load humanize %} {% load static %}
 
-<title>{% block page-title %}{% block page-subtitle %}{% endblock %}{% endblock %}</title>
-{% block body_class %}resource{% endblock %}
+
+{% block page-subtitle %}| {{ resource.title }}{% endblock %}
+
 {% block content %}
 
 <article>
@@ -11,7 +12,8 @@
             <h1>{{ resource.title }}</h1>
 
             {% if resource.authors %}
-            <h2 class="h3">Principal Investigator{{ r.authors|pluralize }}</h2>
+            <h2 class="h3">Principal Investigator{{ resource.authors|pluralize }}</h2>
+
             <p class="lead">{{ resource.authors|join:'; ' }}</p>
             {% endif %}
 

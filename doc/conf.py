@@ -270,3 +270,9 @@ intersphinx_mapping = {
     'eulxml': ('http://eulxml.readthedocs.org/en/latest/', None),
     'eulexistdb': ('http://eulexistdb.readthedocs.org/en/latest/', None),
 }
+
+
+autodoc_member_order = 'bysource'
+
+
+

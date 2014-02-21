@@ -8,10 +8,13 @@ from ddisearch.ddi import forms
 from ddisearch.ddi.models import CodeBook
 
 def site_index(request):
+    'Site index page; currently just displays the search form.'
     return render(request, 'site_index.html', {'form': forms.KeywordSearch()})
 
 
 def search(request):
+    '''Search all available DDI content by keyword, title, summary, or source
+    with sorting by relevance (default), title, or date.'''
     form = forms.KeywordSearch(request.GET)
     context = {'form': form}
 
@@ -52,7 +55,7 @@ def search(request):
         # only return fields needed to generate search results
         results = results.only('title', 'abstract', 'keywords', 'topics',
                                'authors', 'time_periods', 'fulltext_score',
-                               'id', 'id_agency')
+                               'id')
 
         # simple sort mapping
         sort_map = {'title': 'title', 'relevance': '-fulltext_score'}
@@ -110,9 +113,15 @@ def search(request):
     return render(request, 'ddi/search.html', context)
 
 def resource(request, agency, id):
-    # view to display a single ddi record
+    '''Display a single DDI document with all relevant details.  Uses
+    id number and agency to identify a single document; returns a 404
+    if no record matching the specified agency and id is found.
+
+    :param agency: agency identifier (from document title statement)
+    :param id: id number (from title statement)
+    '''
     try:
-        res = CodeBook.objects.get(id=id, id_agency=agency)
+        res = CodeBook.objects.get(id__val=id, id__agency=agency)
     except DoesNotExist:
         raise Http404
 

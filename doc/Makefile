@@ -1,11 +1,15 @@
 # Makefile for Sphinx documentation
 #
 
+export PYTHONPATH=.:..
+export DJANGO_SETTINGS_MODULE=ddisearch.settings
+
 # You can set these variables from the command line.
 SPHINXOPTS    =
 SPHINXBUILD   = sphinx-build
 PAPER         =
 BUILDDIR      = _build
+
 
 # User-friendly check for sphinx-build
 ifeq ($(shell which $(SPHINXBUILD) >/dev/null 2>&1; echo $$?), 1)
