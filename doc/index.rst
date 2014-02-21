@@ -14,6 +14,7 @@ Contents:
    readme
    changelog
    deploynotes
+   apidocs
 
 
 
