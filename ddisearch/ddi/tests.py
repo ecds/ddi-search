@@ -7,7 +7,7 @@ from django.test import TestCase
 from eulxml.xmlmap import load_xmlobject_from_file
 from eulexistdb import testutil as eulexistdb_testutil
 
-from ddisearch.ddi.models import CodeBook, TimePeriod
+from ddisearch.ddi.models import CodeBook, TimePeriod, IDNumber
 from ddisearch.ddi.forms import KeywordSearch
 
 FIXTURE_DIR = os.path.join(os.path.dirname(__file__), 'fixtures')
@@ -22,6 +22,9 @@ class CodeBookTest(TestCase):
     def test_properties(self):
         self.assertEqual('Israeli Election Study, 1973', self.cb.title)
         self.assert_(self.cb.abstract.startswith('This study is one in a series of election studies conducted since 1969 by Alan Arian'))
+        self.assert_(isinstance(self.cb.id, IDNumber))
+        self.assertEqual("2988", self.cb.id.val)
+        self.assertEqual("ICPSR", self.cb.id.agency)
         self.assertEqual(2, len(self.cb.authors))
         self.assert_('Arian, Asher' in self.cb.authors)
         self.assert_('Turgovnik, Ephraim' in self.cb.authors)
@@ -179,7 +182,7 @@ class ViewsTest(eulexistdb_testutil.TestCase):
     def test_resource(self):
         # single document display
         resource_url = reverse('ddi:resource',
-            kwargs={'id': self.cb.id, 'agency': self.cb.id_agency })
+            kwargs={'id': self.cb.id, 'agency': self.cb.id.agency })
         response = self.client.get(resource_url)
         self.assertContains(response, '<h1>%s</h1>' % self.cb.title,
             html=True)
@@ -194,7 +197,7 @@ class ViewsTest(eulexistdb_testutil.TestCase):
 
         # bogus id should 404
         resource_url = reverse('ddi:resource',
-            kwargs={'id': '12345678', 'agency': self.cb.id_agency })
+            kwargs={'id': '12345678', 'agency': self.cb.id.agency })
         response = self.client.get(resource_url)
         expected, got = 404, response.status_code
         self.assertEqual(expected, got,
