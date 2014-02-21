@@ -1,6 +1,7 @@
 {% extends "site_base.html" %}
 {% load humanize %} {% load static %}
 
+{% block body_class %}resource{% endblock %}
 
 {% block page-subtitle %}| {{ resource.title }}{% endblock %}
 
@@ -30,6 +31,7 @@
     </header>
     <section>
         <div class="container">
+            <h2>Abstract</h2>
             <p>{{ resource.abstract }}</p>
         </div>
     </section>
