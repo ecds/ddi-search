@@ -14,6 +14,8 @@ class CodeBook(XmlModel):
     abstract = xmlmap.StringField('.//abstract')
     # authors = xmlmap.StringListField('stdyDscr/citation/rspStmt/AuthEnty')
     authors = xmlmap.StringListField('.//AuthEnty')
+    id = xmlmap.StringField('stdyDscr/citation/titlStmt/IDNo')  # possible int, but don't constrain
+    id_agency = xmlmap.StringField('stdyDscr/citation/titlStmt/IDNo/@agency')
 
     keywords = xmlmap.StringListField('stdyDscr/stdyInfo/subject/keyword')
     topics = xmlmap.StringListField('stdyDscr/stdyInfo/subject/topcClas')

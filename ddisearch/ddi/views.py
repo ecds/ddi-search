@@ -1,6 +1,8 @@
 from django.shortcuts import render
+from django.http import Http404
 from django.core.paginator import Paginator, EmptyPage, InvalidPage
 from urllib import urlencode
+from eulexistdb.exceptions import DoesNotExist
 
 from ddisearch.ddi import forms
 from ddisearch.ddi.models import CodeBook
@@ -49,7 +51,8 @@ def search(request):
 
         # only return fields needed to generate search results
         results = results.only('title', 'abstract', 'keywords', 'topics',
-                               'authors', 'time_periods', 'fulltext_score')
+                               'authors', 'time_periods', 'fulltext_score',
+                               'id', 'id_agency')
 
         # simple sort mapping
         sort_map = {'title': 'title', 'relevance': '-fulltext_score'}
@@ -105,3 +108,13 @@ def search(request):
         context['form'] = forms.KeywordSearch()
 
     return render(request, 'ddi/search.html', context)
+
+def resource(request, agency, id):
+    # view to display a single ddi record
+    try:
+        res = CodeBook.objects.get(id=id, id_agency=agency)
+    except DoesNotExist:
+        raise Http404
+
+    return render(request, 'ddi/resource.html', {'resource': res})
+

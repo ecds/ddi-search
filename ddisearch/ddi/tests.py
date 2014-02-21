@@ -109,7 +109,7 @@ class ViewsTest(eulexistdb_testutil.TestCase):
     def test_search(self):
         # no search terms
         search_url = reverse('ddi:search')
-        response = self.client.get(search_url)
+        response = self.client.get(search_url, {'keyword': ''})
         self.assert_('form' in response.context)
         self.assert_(isinstance(response.context['form'], KeywordSearch))
         # validation error when no search terms are entered
@@ -120,7 +120,7 @@ class ViewsTest(eulexistdb_testutil.TestCase):
             {'per_page': 10, 'sort': 'relevance', 'keyword' : 'israeli election'})
 
         # basic tests for template display of search result
-        self.assertContains(response, 'Found <strong>1</strong> result.',
+        self.assertContains(response, 'Found <strong>1</strong> resource.',
             msg_prefix='response should indicate number of matches found')
         self.assertContains(response, self.cb.title,
             msg_prefix='response should include title for matching document')
@@ -175,3 +175,30 @@ class ViewsTest(eulexistdb_testutil.TestCase):
             {'per_page': 10, 'sort': 'relevance', 'title': 'israeli',
              'summary': 'voting', 'source' : 'horse'})
         self.assertEqual(0, response.context['results'].paginator.count)
+
+    def test_resource(self):
+        # single document display
+        resource_url = reverse('ddi:resource',
+            kwargs={'id': self.cb.id, 'agency': self.cb.id_agency })
+        response = self.client.get(resource_url)
+        self.assertContains(response, '<h1>%s</h1>' % self.cb.title,
+            html=True)
+        for author in self.cb.authors:
+            self.assertContains(response, author)
+        # check subset of keyword terms
+        for i in range(10):
+            self.assertContains(response, self.cb.keywords[i])
+        # just test for part of the abstract (full thing too long for comparison)
+        self.assertContains(response, '<p>%s' % self.cb.abstract[:150])
+        self.assertContains(response, '%s</p>' % self.cb.abstract[-150:])
+
+        # bogus id should 404
+        resource_url = reverse('ddi:resource',
+            kwargs={'id': '12345678', 'agency': self.cb.id_agency })
+        response = self.client.get(resource_url)
+        expected, got = 404, response.status_code
+        self.assertEqual(expected, got,
+            'expected status code %s for %s with bogus id, got %s' % \
+            (expected, resource_url, got))
+
+

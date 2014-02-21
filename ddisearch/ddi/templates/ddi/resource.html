@@ -7,33 +7,31 @@
 <article>
     <header>
         <div class="container">
-            <h1>Data Confrontation Seminar, 1969: United States Data</h1>
-            
-            <h2 class="h3">Principal Investigator</h2> 
-            <p class="lead">Inter-university Consortium for Political and Social Research</p>
-            <h2 class="h3">Date</h2>
-            <p class="lead">1969</p>
+            <h1>{{ resource.title }}</h1>
+
+            {% if resource.authors %}
+            <h2 class="h3">Principal Investigator{{ resource.authors|pluralize }}</h2>
+                                                <h4>Principal Investigator{{ r.authors|pluralize }}: <span>{{ r.authors|join:'; ' }}</span></h4>
+            {% endif %}
+            <p class="lead">{{ resource.authors|join:'; ' }}</p>
+            <h2 class="h3">Date{{ resource.dates|pluralize }}</h2>
+            <p class="lead">{{ resource.dates|join:'; ' }}</p>
         </div>
     </header>
     <section>
         <div class="container">
-            <p>This study contains national data prepared for the Data Confrontation Seminar on the Use of Ecological Data in Comparative Cross-National Research held under the auspices of the Inter-university Consortium for Political and Social Research on April 1-18, 1969. One of the primary concerns of this international seminar was the need for cooperation in the development of data resources in order to facilitate exchange of data between individual scholars and research groups. This data collection contains returns for all elections for 3,143 counties of 50 states of the United States to the offices of president, senator and representative, and governor, ecological ...</p>
+            <p>{{ resource.abstract }}</p>
         </div>
     </section>
     <section>
         <div class="container">
             <div class="row">
                 <div class="col-sm-6">
-                    <h2>Keywords</h2> 
+                    <h2>Keywords</h2>
                     <ul class="tagsinput">
-                        <li class="tag"><a href="#">congressional elections</a></li>
-                        <li class="tag"><a href="#">demographic characteristics</a></li>
-                        <li class="tag"><a href="#">election returns</a></li>
-                        <li class="tag"><a href="#">national elections</a></li>
-                        <li class="tag"><a href="#">political parties</a></li>
-                        <li class="tag"><a href="#">presidential elections</a></li>
-                        <li class="tag"><a href="#">state elections</a></li>
-                        <li class="tag"><a href="#">voting behavior</a></li>
+                        {% for kw in resource.keywords %}
+                        <li class="tag"><a href="#">{{ kw }}</a></li>
+                        {% endfor %}
                     </ul>
                 </div>
                 <div class="col-sm-6">
