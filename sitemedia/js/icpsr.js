@@ -43,10 +43,10 @@ $(document).ready(function(){
 	}
 
 	var $perPage = $("#id_per_page + .btn-group .dropdown-toggle .filter-option"),
-	currentVisiblePageNumber = $perPage.html().trim();
+	currentVisiblePageNumber = $.trim($perPage.html());
 
 	var $sort = $("#id_sort + .btn-group .dropdown-toggle .filter-option"),
-	currentVisibleSort = $sort.html().trim();
+	currentVisibleSort = $.trim($sort.html());
 
 	if(currentVisiblePageNumber !==per_page){
 		getCurrentDropdownSetting('per_page', per_page);
@@ -61,7 +61,7 @@ $(document).ready(function(){
 		$("#id_"+id+" + .btn-group li span").each(function(){
 			var num = $(this).html();
 			if(num.length>0){
-				num = num.trim();
+				num = $.trim(num);
 			}
 			if(num == val){
 				$(this).parents('.dropdown-menu').siblings('button').find('.filter-option').html(num);
@@ -258,7 +258,7 @@ function getQueryStringFromForm(form){
 			if(count>0){
 				str+='&amp;';
 			}
-			str+=$this.attr('name')+'='+$this.children('option:selected').html().trim();
+			str+=$this.attr('name')+'='+$.trim($this.children('option:selected').html());
 			count++;
 		}
 	});

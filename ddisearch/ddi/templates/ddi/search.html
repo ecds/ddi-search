@@ -29,10 +29,13 @@
                     <div class="container">
                         <article class="results">
                             <header>
-                                <h3>Found <strong>{{ results.paginator.count|intcomma }}</strong> resource{{ results.paginator.count|pluralize }}{% if results.has_other_pages and results.object_list|length > 1 %};
-                                 displaying {{ results.start_index }} - {{ results.end_index }}{% endif %}.
+                                <h2>Found <strong>{{ results.paginator.count|intcomma }}</strong> resource{{ results.paginator.count|pluralize }}
+                                </h2>
+                                <p class="lead">
+                                    {% if results.has_other_pages and results.object_list|length > 1 %}
+                                 displaying {{ results.start_index }} - {{ results.end_index }}{% endif %}
                                  {# if more than one item on this page, display range of results #}
-                             </h3>
+                             </p>
 
                             </header>
                             <div class="row result-listing cards">
@@ -70,7 +73,7 @@
                                         </section>
 
                                         <div class="preview hidden">
-                                            <h3><a href="#" >{{ r.title }}</a></h3>
+                                            <h3><a href="{% url 'ddi:resource' id=r.id agency=r.id_agency %}" >{{ r.title }}</a></h3>
 
                                             {% if r.authors %}
                                             <h4>Principal Investigator{{ r.authors|pluralize }}: <span>{{ r.authors|join:'; '}}</span></h4>

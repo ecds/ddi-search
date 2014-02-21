@@ -150,10 +150,10 @@ body {
 	float: left;
 }
 .loader img {
-    margin: auto;
-    width: 70px;
-    display: block;
-    opacity: 0.7;
+	margin: auto;
+	width: 70px;
+	display: block;
+	opacity: 0.7;
 }
 
 @media (max-width: 767px){
@@ -204,20 +204,20 @@ body {
 }
 
 .adv.toggle.switch {
-    text-align: center;
-    width: 100%;
-    display: block;
-    font-size: 0.9em;
+	text-align: center;
+	width: 100%;
+	display: block;
+	font-size: 0.9em;
 }
 
 .adv.toggle.switch a{
-    color: rgb(150, 150, 150);
+	color: rgb(150, 150, 150);
 }
 
 .adv.toggle.switch a:hover, 
 .adv.toggle.switch a:focus,
 .toggle.switch.active a {
-    color: #f6f6f6;
+	color: #f6f6f6;
 }
 
 .adv.group header h4 {
@@ -238,17 +238,17 @@ body {
 }
 
 .reset-form {
-    margin-right: 30px;
-    margin-top: -20px;
-    margin-bottom: 20px;
-    font-size: 0.9em;
+	margin-right: 30px;
+	margin-top: -20px;
+	margin-bottom: 20px;
+	font-size: 0.9em;
 }
 .reset-form a {
-    color: rgb(131, 133, 141);
-    text-shadow: 1px 1px 3px rgb(209, 209, 209);
+	color: rgb(131, 133, 141);
+	text-shadow: 1px 1px 3px rgb(209, 209, 209);
 }
 .reset-form a:hover {
-    color: #F7F7F7;
+	color: #F7F7F7;
 }
 
 .glyphicon{
@@ -275,6 +275,14 @@ body {
 	text-align: center;
 }
 
+.results header h2 {
+	font-weight: normal;
+	margin-bottom: 0;
+}
+.results header .lead {
+	color: rgb(156, 156, 156);
+}
+
 .results header .pagination,
 .results footer .pagination {
 	margin-top: 0;
@@ -285,16 +293,20 @@ body {
 	color: #BABEC0;
 }
 
+.results footer h2 {
+	margin-bottom: 0;
+}
+
 .pagination ul li > a.last {
-    background-color: rgb(255, 255, 255);
-    color: #4488DF;
-    border-color: #FFF;
-    border-width: 4px;
+	background-color: rgb(255, 255, 255);
+	color: #4488DF;
+	border-color: #FFF;
+	border-width: 4px;
 }
 .pagination ul li > a.last:hover{
-    background-color: #4488DF;
-    border-color:#4488DF;
-    color:#FFF;
+	background-color: #4488DF;
+	border-color:#4488DF;
+	color:#FFF;
 }
 
 .cards article {
@@ -351,18 +363,18 @@ article.result p {
 }
 
 .readmore {
-    font-size: 1.4em;
-    line-height: 0;
-    float: left;
-    color: rgb(194, 205, 216);
-    cursor: pointer;
-    background-color: rgb(238, 238, 238);
-    position: absolute;
-    right: -4px;
-    padding: 6px 14px;
+	font-size: 1.4em;
+	line-height: 0;
+	float: left;
+	color: rgb(194, 205, 216);
+	cursor: pointer;
+	background-color: rgb(238, 238, 238);
+	position: absolute;
+	right: -4px;
+	padding: 6px 14px;
 }
 .readmore:hover {
-    background-color: rgb(235, 235, 235);
+	background-color: rgb(235, 235, 235);
 }
 
 #menu-7 .content .readmore{
@@ -371,30 +383,34 @@ article.result p {
 }
 
 #menu-7 .progress {
-    margin-top: 20px;
+	margin-top: 20px;
 }
 .st-menu h2 {
-    background: rgb(60, 60, 60);
-    color: #8A8A8A;
+	background: rgb(60, 60, 60);
+	color: #8A8A8A;
 }
 .st-menu {
-    background: rgb(230, 230, 230);
-    color: rgb(54, 54, 54);
+	background: rgb(230, 230, 230);
+	color: rgb(54, 54, 54);
 }
 .st-menu .content p {
-    font-size: 0.8em;
+	font-size: 0.8em;
 }
 #menu-7 .close {
-    color: #EEEEEE;
-    text-shadow: none;
-    margin: 40px 20px 0;
+	color: #EEEEEE;
+	text-shadow: none;
+	margin: 40px 20px 0;
 }
 
 /**** INDIVIDUAL RESULT PAGE ARTICLE ****/
-/* (name a wip) */
+/* (.resource) */
+
+.resource article > header{
+	background-color: #EDEEF1;
+}
 
 header .h3 {
-    margin-bottom: 0;
+	margin-bottom: 0;
 }
 
 header .lead{
@@ -417,41 +433,41 @@ header .lead{
 }
 
 .map {
-    height: 200px;
-    position: relative;
+	height: 200px;
+	position: relative;
 }
 .map img {
-    height: 100%;
+	height: 100%;
 }
 
 .location-marker{
-    position: absolute;
-    color: rgb(184, 64, 41);
-    font-size: 1.25em;
+	position: absolute;
+	color: rgb(184, 64, 41);
+	font-size: 1.25em;
 }
 
 .location-marker.north-america {
-    top: 40px;
-    left: 54px;
+	top: 40px;
+	left: 54px;
 }
 .location-marker.south-america {
-    top: 100px;
-    left: 87px;
+	top: 100px;
+	left: 87px;
 }
 .location-marker.europe {
-    top: 27px;
-    left: 173px;
+	top: 27px;
+	left: 173px;
 }
 .location-marker.africa {
-    top: 90px;
-    left: 184px;
+	top: 90px;
+	left: 184px;
 }
 .location-marker.asia {
-    top: 40px;
-    left: 254px;
+	top: 40px;
+	left: 254px;
 }
 .location-marker.australia {
-    top: 120px;
-    left: 314px;
+	top: 120px;
+	left: 314px;
 }
 
