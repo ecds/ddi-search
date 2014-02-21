@@ -2,8 +2,6 @@ from django.shortcuts import render
 from django.core.paginator import Paginator, EmptyPage, InvalidPage
 from urllib import urlencode
 
-from eulcommon.searchutil import pages_to_show
-
 from ddisearch.ddi import forms
 from ddisearch.ddi.models import CodeBook
 
@@ -79,8 +77,6 @@ def search(request):
             page = paginator.num_pages
             results = paginator.page(paginator.num_pages)
 
-        pages = pages_to_show(paginator, page)
-
         url_args = form.cleaned_data
         url_params = urlencode(url_args)
         # url params for changing chunk size
@@ -94,7 +90,7 @@ def search(request):
 
         context.update({'keywords': search_opts.get('keywords', ''),
             'results': results,
-            'pages': pages, 'url_params': url_params,
+            'url_params': url_params,
             'per_page': int(per_page),
             'rechunk_params': rechunk_params,
             'per_page_options': forms.KeywordSearch.PER_PAGE_OPTIONS,

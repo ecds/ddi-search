@@ -4,9 +4,11 @@
 			<table>
 				<tbody>
 					<tr>
-						<td class="active"><span><a href="#">  1   </em></a></span></td>
-						<td><span><a href="#">  2   </em></a></span></td>
-						
+						{% for i in results.paginator.page_range %}
+						<td {% if i == results.number %}class="active"{% endif %}><span>
+							<a href="?{% if url_params %}{{ url_params }}&amp;{% endif %}page={{ i }}">{{ i }}</a>
+						</span></td>
+						{% endfor %}
 					</tr>
 				</tbody>
 			</table>

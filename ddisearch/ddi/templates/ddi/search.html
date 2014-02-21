@@ -1,5 +1,5 @@
 {% extends "site_base.html" %}
-{% load search_utils %} {% load humanize %}
+{% load humanize %}
 
 <title>{% block page-title %}{% block page-subtitle %}{% endblock %}{% endblock %}</title>
 {% block content %}
@@ -29,14 +29,11 @@
                     <div class="container">
                         <article class="results">
                             <header>
-                                <h3>Found <strong>{{ results.paginator.count|intcomma }}</strong> result{{ results.paginator.count|pluralize }}.</h3>
-                                <div class="pagination">
-                                    <h4>Pages</h4>
-                                    <div class="pagination">
-                                        {# TODO: consider using bootstrap pagination styles if we stick with bootstrap #}
-                                        {% pagination_links results pages  url_params=url_params %}
-                                    </div>
-                                </div>
+                                <h3>Found <strong>{{ results.paginator.count|intcomma }}</strong> resource{{ results.paginator.count|pluralize }}{% if results.has_other_pages and results.object_list|length > 1 %};
+                                 displaying {{ results.start_index }} - {{ results.end_index }}{% endif %}.
+                                 {# if more than one item on this page, display range of results #}
+                             </h3>
+
                             </header>
                             <div class="row result-listing cards">
                                 {% for r in results.object_list %}
@@ -72,7 +69,7 @@
 
                                             <p><b>Date{{ r.dates|pluralize }}:</b> {{ r.dates|join:'; '|default:'(not specified)' }}</p>
                                         </section>
-                                        
+
                                         <div class="preview hidden">
                                             <h3><a href="#" >{{ r.title }}</a></h3>
 
