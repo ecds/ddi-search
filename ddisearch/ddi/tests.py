@@ -7,7 +7,7 @@ from django.test import TestCase
 from eulxml.xmlmap import load_xmlobject_from_file
 from eulexistdb import testutil as eulexistdb_testutil
 
-from ddisearch.ddi.models import CodeBook, TimePeriod, IDNumber
+from ddisearch.ddi.models import CodeBook, Date, IDNumber, Nation
 from ddisearch.ddi.forms import KeywordSearch
 
 FIXTURE_DIR = os.path.join(os.path.dirname(__file__), 'fixtures')
@@ -33,12 +33,32 @@ class CodeBookTest(TestCase):
         self.assert_('social attitudes' in self.cb.keywords)
         self.assertEqual(4, len(self.cb.topics))
         self.assert_('Mass Political Behavior and Attitudes' in self.cb.topics[0])
+        # time periods
         self.assertEqual(5, len(self.cb.time_periods))
-        self.assert_(isinstance(self.cb.time_periods[0], TimePeriod))
+        self.assert_(isinstance(self.cb.time_periods[0], Date))
         self.assertEqual('single', self.cb.time_periods[0].event)
         self.assertEqual('1973', self.cb.time_periods[0].date)
         self.assertEqual('P1', self.cb.time_periods[0].cycle)
         self.assertEqual('start', self.cb.time_periods[1].event)
+        # collection dates
+        self.assertEqual(7, len(self.cb.collection_dates))
+        self.assert_(isinstance(self.cb.collection_dates[0], Date))
+        self.assertEqual('single', self.cb.collection_dates[0].event)
+        self.assertEqual('1973-05', self.cb.collection_dates[0].date)
+        self.assertEqual('P1', self.cb.collection_dates[0].cycle)
+        self.assertEqual('First pre-war', self.cb.collection_dates[0].label)
+        # nations
+        self.assertEqual(1, len(self.cb.nations))
+        self.assert_(isinstance(self.cb.nations[0], Nation))
+        self.assertEqual('Please see geographic coverage.', self.cb.nations[0].val)
+        # geo coverage
+        self.assertEqual(2, len(self.cb.geo_coverage))
+        self.assertEqual('Israel', self.cb.geo_coverage[0])
+        self.assertEqual('Global', self.cb.geo_coverage[1])
+
+        self.assertEqual('individual', self.cb.analysis_unit[0])
+        self.assert_(self.cb.universe[0].startswith('Urban adult Jewish population'))
+        self.assertEqual('survey data', self.cb.kind_of_data[0])
 
     def test_dates(self):
         dates = self.cb.dates

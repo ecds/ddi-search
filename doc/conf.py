@@ -272,6 +272,9 @@ intersphinx_mapping = {
 }
 
 
+# generate autodocumentatoin in the order listed in the source
+# e.g. so xml object attributes will be listed in the order defined
+# rather than alphabetically
 autodoc_member_order = 'bysource'
 
 

@@ -3,6 +3,7 @@ from eulxml import xmlmap
 from eulexistdb.models import XmlModel
 from eulexistdb.manager import Manager
 
+
 class IDNumber(xmlmap.XmlObject):
     'XML model for DDI codebook IDNo'
     #: id value
@@ -13,18 +14,45 @@ class IDNumber(xmlmap.XmlObject):
     def __unicode__(self):
         return self.val
 
-class TimePeriod(xmlmap.XmlObject):
-    'XML model for a time period in a DDI codebook'
+class Date(xmlmap.XmlObject):
+    'XML model for a DDI date (e.g., time period or collection date)'
     #: **start** or **end** if date is part or a range; **single** if not
     event = xmlmap.StringField('@event')  # start, end, single
     #: actual date value
     date = xmlmap.StringField('@date')
     #: identifier for cycle of date ranges; used to group related start and end dates
     cycle = xmlmap.StringField('@cycle')
+    #: text content of the date, if any (e.g., collection date label)
+    label = xmlmap.StringField('text()')
+
+    def __unicode__(self):
+        return self.label
+
+class Nation(xmlmap.XmlObject):
+    'XML model for a DDI nation'
+    #: full name of the nation
+    val = xmlmap.StringField('text()')
+    #: abbreviated name (may be ISO country code)
+    abbr = xmlmap.StringField('@abbr')
+
+    def __unicode__(self):
+        return self.val
 
 
 class CodeBook(XmlModel):
-    '''XML model for interacting with a single DDI CodeBook document.'''
+    '''XML model for interacting with a single Data Dcoument Initiative (DDI)
+    CodeBook document.
+
+    For more information on DDI, see the `DDI Alliance`_ website.
+
+    For technical information, refer to the list of `"DDI-Lite" recommended elements`_ or
+    `field-level documentation`_.
+
+.. _DDI Alliance: http://www.ddialliance.org/
+.. _"DDI-Lite" recommended elements: http://www.ddialliance.org/sites/default/files/ddi-lite.html
+.. _field-level documentation: http://www.ddialliance.org/Specification/DDI-Codebook/2.5/XMLSchema/field_level_documentation.html
+
+    '''
     # NOTE: may want to adjust xpaths for effeciency when/if we query on them
 
     #: title for the study
@@ -39,8 +67,22 @@ class CodeBook(XmlModel):
     keywords = xmlmap.StringListField('stdyDscr/stdyInfo/subject/keyword')
     #: list of topics
     topics = xmlmap.StringListField('stdyDscr/stdyInfo/subject/topcClas')
-    #: list of :class:`TimePeriod` elements
-    time_periods = xmlmap.NodeListField('.//timePrd', TimePeriod)
+    #: time periods covered by the data; list of :class:`Date`
+    time_periods = xmlmap.NodeListField('.//timePrd', Date)
+    #: dates when data were collected; list of :class:`Date`
+    collection_dates = xmlmap.NodeListField('stdyDscr/stdyInfo/sumDscr/collDate', Date)
+    #: list of nations as :class:`Nation`
+    nations = xmlmap.NodeListField('stdyDscr/stdyInfo/sumDscr/nation', Nation)
+    #: list of terms indicating the geographical coverage or scope of the data
+    geo_coverage = xmlmap.StringListField('stdyDscr/stdyInfo/sumDscr/geogCover')
+    #: list of terms indicating the unit of analysis
+    analysis_unit = xmlmap.StringListField('stdyDscr/stdyInfo/sumDscr/anlyUnit')
+    #: list of terms describing the person or elements that are the object of research
+    universe = xmlmap.StringListField('stdyDscr/stdyInfo/sumDscr/universe')
+    #: list of terms describing the kind of data
+    kind_of_data = xmlmap.StringListField('stdyDscr/stdyInfo/sumDscr/dataKind')
+    #: list of notes fields, which may contain other details about the study
+    study_notes = xmlmap.StringListField('stdyDscr/stdyInfo/notes')
 
     # technically probably a datefield; could be 4 digit year, or YYYY-MM
     # full xpath is stdyDscr/stdyInfo/sumDscr
