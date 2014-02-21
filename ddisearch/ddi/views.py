@@ -98,4 +98,10 @@ def search(request):
             'sort_params': sort_params,
             'sort_options': forms.KeywordSearch.SORT_OPTIONS})
 
+    # if form is not valid but *nothing* was submitted (i.e., new search)
+    # don't consider the form to be invalid, but just display it
+    elif not request.GET:
+        # re-init as new form without any validation errors
+        context['form'] = forms.KeywordSearch()
+
     return render(request, 'ddi/search.html', context)
