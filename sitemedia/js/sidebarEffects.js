@@ -62,7 +62,8 @@
 				if(menuIsClosed){
 					if(target.className=='readmore' || target.parentElement.className == 'readmore'){
 						ev.preventDefault();
-						var html = $(target).parents('.result').html();
+						var html = $(target).parents('.result').find('.preview').html();
+						console.log(html);
 						openMenu(html);
 					}
 				}
