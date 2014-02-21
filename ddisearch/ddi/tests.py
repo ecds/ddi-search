@@ -143,7 +143,7 @@ class ViewsTest(eulexistdb_testutil.TestCase):
             {'per_page': 10, 'sort': 'relevance', 'keyword' : 'israeli election'})
 
         # basic tests for template display of search result
-        self.assertContains(response, 'Found <strong>1</strong> resource.',
+        self.assertContains(response, 'Found <strong>1</strong> resource',
             msg_prefix='response should indicate number of matches found')
         self.assertContains(response, self.cb.title,
             msg_prefix='response should include title for matching document')

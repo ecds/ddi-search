@@ -73,7 +73,7 @@
                                         </section>
 
                                         <div class="preview hidden">
-                                            <h3><a href="{% url 'ddi:resource' id=r.id agency=r.id_agency %}" >{{ r.title }}</a></h3>
+                                            <h3><a href="{% url 'ddi:resource' id=r.id agency=r.id.agency %}" >{{ r.title }}</a></h3>
 
                                             {% if r.authors %}
                                             <h4>Principal Investigator{{ r.authors|pluralize }}: <span>{{ r.authors|join:'; '}}</span></h4>
