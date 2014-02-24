@@ -197,6 +197,17 @@ class ViewsTest(eulexistdb_testutil.TestCase):
         response = self.client.get(search_url,
             {'per_page': 10, 'sort': 'relevance', 'source' : 'horse'})
         self.assertEqual(0, response.context['results'].paginator.count)
+        # location search
+        # - matches fixture
+        response = self.client.get(search_url,
+            {'per_page': 10, 'sort': 'relevance', 'location' : 'israel'})
+        self.assertEqual(1, response.context['results'].paginator.count,
+            'expected 1 result for search on location:israel')
+        # - does not match fixture
+        response = self.client.get(search_url,
+            {'per_page': 10, 'sort': 'relevance', 'location' : 'brazil'})
+        self.assertEqual(0, response.context['results'].paginator.count,
+            'expected no results for search on location:brazil')
 
         # combined fields - match
         response = self.client.get(search_url,

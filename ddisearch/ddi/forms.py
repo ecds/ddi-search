@@ -22,10 +22,13 @@ class KeywordSearch(forms.Form):
     source = forms.CharField(required=False,
         help_text='Search by source organization or principial investigator (keywords or phrase)',
         widget=forms.TextInput(attrs={'placeholder':'Search by source', 'class': 'form-control'}))
+    location = forms.CharField(required=False,
+        help_text='Search by geographic location, including nation, country, or economic entity',
+        widget=forms.TextInput(attrs={'placeholder':'Search by location', 'class': 'form-control'}))
 
-    _adv_fields = ['title', 'summary', 'source']
+    _adv_fields = ['title', 'summary', 'source', 'location']
 
-    search_fields = ['keyword', 'title', 'summary', 'source']
+    search_fields = ['keyword'] + _adv_fields #, 'title', 'summary', 'source', 'location']
     # fields that can contain search term; at least one of these is required
     # for validation; all combined generate a list of all search terms
 

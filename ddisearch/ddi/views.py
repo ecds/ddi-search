@@ -42,6 +42,8 @@ def search(request):
             results = results.filter(abstract__fulltext_terms=search_opts['summary'])
         if 'source' in search_opts and search_opts['source']:
             results = results.filter(authors__fulltext_terms=search_opts['source'])
+        if 'location' in search_opts and search_opts['location']:
+            results = results.filter(location__fulltext_terms=search_opts['location'])
 
         # To make relevance scores more meaningful, run *all* search terms
         # from any field against the full text and boost fields

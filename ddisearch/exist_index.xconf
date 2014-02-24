@@ -28,6 +28,8 @@
             <text qname="titl" boost="0.7"/>
             <text qname="abstract" boost="0.7"/>
             <text qname="geogCover" boost="0.7"/>
+            <text qname="nation"/>
+            <text qname="universe"/>
             <text qname="AuthEnty"/>
 
             <!-- xpath for advanced search fields (currently using full paths) -->

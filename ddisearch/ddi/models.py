@@ -89,9 +89,13 @@ class CodeBook(XmlModel):
     # XPath for sorting by date; sort on the earliest date available (single or date range)
     sort_date_xpath = 'min(%(xq_var)s//timePrd/string(@date))'
 
-    # boosted fields in the index that should be searched to get a tuned
-    # relevance score
+    #: boosted fields in the index that should be searched to get a tuned
+    #: relevance score - titl, abstract, geogCover
     boostfields = xmlmap.StringField('.//titl | .//abstract | .//geogCover')
+
+    #: geographical fields to be used in "location" search:
+    #: geogCover, nation, universe
+    location = xmlmap.StringField('.//geogCover | .//nation | .//universe')
 
     objects = Manager('/codeBook')
 
