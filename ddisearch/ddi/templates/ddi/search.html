@@ -33,7 +33,7 @@
                                 </h2>
                                 <p class="lead">
                                     {% if results.has_other_pages and results.object_list|length > 1 %}
-                                 displaying {{ results.start_index }} - {{ results.end_index }}{% endif %}
+                                 displaying {{ results.start_index|intcomma }} - {{ results.end_index|intcomma }}{% endif %}
                                  {# if more than one item on this page, display range of results #}
                              </p>
 
