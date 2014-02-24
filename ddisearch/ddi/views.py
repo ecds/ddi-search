@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.http import Http404
+from django.http import Http404, HttpResponse
 from django.core.paginator import Paginator, EmptyPage, InvalidPage
 from urllib import urlencode
 from eulexistdb.exceptions import DoesNotExist
@@ -129,3 +129,18 @@ def resource(request, agency, id):
 
     return render(request, 'ddi/resource.html', {'resource': res})
 
+
+def resource_xml(request, agency, id):
+    '''Display the raw DDI XML for a single document; returns a 404
+    if no record matching the specified agency and id is found.
+
+    :param agency: agency identifier (from document title statement)
+    :param id: id number (from title statement)
+    '''
+    try:
+        res = CodeBook.objects.get(id__val=id, id__agency=agency)
+    except DoesNotExist:
+        raise Http404
+
+    xml = res.serialize(pretty=True)
+    return HttpResponse(xml, mimetype='application/xml')
