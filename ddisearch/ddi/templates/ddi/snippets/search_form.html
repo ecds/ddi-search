@@ -1,18 +1,6 @@
+{% url 'site-index' as index_url %}
 
-{% comment %}
-<form type="GET" action="{% url 'ddi:search' %}">
-	{% for field in form %}
-		{% if field.label != 'Keyword'%}
-    		{{field.label}}
-    	{% endif %}
-	{% endfor %}
-
-	{{ form.keyword.label }}
-	{{ form.keyword }}
-	{{ form.keyword.help_text }}
-</form>
-{% endcomment %}
-<div class="reset-form pull-right"><a href="/search"><span class="glyphicon glyphicon-repeat"></span> New Search</a></div>
+<div class="reset-form pull-right" {% if request.path = index_url %} style="display:none;"{% endif %}><a href="/search"><span class="glyphicon glyphicon-repeat"></span> New Search</a></div>
 <form type="GET" id="search-form" action="{% url 'ddi:search' %}">
 	{{ form.non_field_errors }}  {# display any form-wide validation errors #}
 
@@ -57,12 +45,12 @@
 			<div>
 				<div class="controls btn-group-sm col-sm-3 pull-right">
 					<button class="reset btn btn-default">Clear Criteria</button>
-					{# <button class="submit btn btn-primary" type="submit">New Search</button> #}
 				</div>
 			</div>
 		</fieldset>
 		{# end Advanced Filter #}
-		<div class="page-options">
+           
+		<div class="page-options" {% if request.path = index_url %} style="display:none;"{% endif %}>
 		<div class="container">
 			<fieldset>
 				<div class="option">

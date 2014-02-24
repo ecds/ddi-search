@@ -1733,7 +1733,7 @@ fieldset[disabled] .form-control + .input-icon,
   padding-left: 12px;
   padding-right: 20px;
 }
-.tagsinput .tag:hover .tagsinput-remove-link {
+.tagsinput .tag:hover .tagsinput-link {
   color: #ffffff;
   opacity: 1;
   display: block\9;
@@ -1751,7 +1751,7 @@ fieldset[disabled] .form-control + .input-icon,
   vertical-align: top;
   width: 12px;
 }
-.tagsinput-remove-link {
+.tagsinput-link {
   bottom: 0;
   color: #ffffff;
   cursor: pointer;
@@ -1767,11 +1767,7 @@ fieldset[disabled] .form-control + .input-icon,
   z-index: 2;
   display: none\9;
 }
-.tagsinput-remove-link:before {
-  color: #ffffff;
-  content: "\e00b";
-  font-family: "Flat-UI-Icons";
-}
+
 .tagsinput-add-container {
   vertical-align: middle;
   display: inline-block;

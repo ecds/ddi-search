@@ -1,18 +1,4 @@
 
-{% comment %}
-<form type="GET" action="{% url 'ddi:search' %}">
-	{% for field in form %}
-		{% if field.label != 'Keyword'%}
-    		{{field.label}}
-    	{% endif %}
-	{% endfor %}
-
-	{{ form.keyword.label }}
-	{{ form.keyword }}
-	{{ form.keyword.help_text }}
-</form>
-{% endcomment %}
-
 <form type="GET" id="search-form" action="{% url 'ddi:search' %}">
 	<label class="sr-only" for="id_keyword">{{ form.keyword }}</label>
 

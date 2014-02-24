@@ -9,6 +9,10 @@ body {
 	color:#525C66;
 }
 
+.centered{
+	text-align: center;
+}
+
 .no-padding-right{
 	padding-right: 0;
 }
@@ -471,3 +475,25 @@ header .lead{
 	left: 314px;
 }
 
+.info-card {
+    list-style: none;
+    padding: 0;
+    border: 1px solid #CECECE;
+    float: left;
+    background-color: #FFF;
+}
+
+.info-card li {
+	border-top:1px solid #C9C7C7;
+}
+
+@media (min-width:767px){
+	.info-card li {
+		border-top:none;
+		border-left: 1px solid #C9C7C7;
+		min-height: 8em;
+	}
+}
+.info-card li:first-child{
+    border: none;
+}

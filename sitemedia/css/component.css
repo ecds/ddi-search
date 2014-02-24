@@ -256,11 +256,13 @@ body.st-menu-open .st-pusher{
 	table-layout:fixed;
 	width:100%;
 }
+.paginator table tr {
+    float: left;
+}
 .paginator table td {
-	padding:0;
 	white-space:nowrap;
 	text-align: center;
-	width: 40px;
+	padding: 0;
 }
 .paginator span {
 	display:block;
@@ -270,8 +272,8 @@ body.st-menu-open .st-pusher{
 .paginator span strong,
 .paginator span a {
 	display:block;
-	padding:6px 2px;
 	font-size:0.85em;
+	padding: 6px 15px;
 }
 .paginator a {
 	color: #888888;
