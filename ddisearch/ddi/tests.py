@@ -1,14 +1,24 @@
 import os
 from copy import copy
+import datetime
+import shutil
+from StringIO import StringIO
+import tempfile
+from mock import patch
+
 from django.conf import settings
 from django.core.urlresolvers import reverse
+from django.core.management.base import CommandError
 from django.test import TestCase
+from django.test.utils import override_settings
 
 from eulxml.xmlmap import load_xmlobject_from_file
 from eulexistdb import testutil as eulexistdb_testutil
+from eulexistdb.db import ExistDB
 
 from ddisearch.ddi.models import CodeBook, Date, IDNumber, Nation
 from ddisearch.ddi.forms import KeywordSearch
+from ddisearch.ddi.management.commands import load
 
 FIXTURE_DIR = os.path.join(os.path.dirname(__file__), 'fixtures')
 
@@ -224,4 +234,72 @@ class ViewsTest(eulexistdb_testutil.TestCase):
             'expected status code %s for %s with bogus id, got %s' % \
             (expected, resource_url, got))
 
+
+class LoadCommandTest(TestCase):
+    testfile = os.path.join(FIXTURE_DIR, '02988.xml')
+
+
+
+    def setUp(self):
+        self.cmd = load.Command()
+        self.cmd.stdout = StringIO()
+        self.db = ExistDB()
+        self._exist_content = []
+
+    def tearDown(self):
+        # remove any tempfiles loaded to exist
+        for f in self._exist_content:
+            self.db.removeDocument(f)
+
+    def test_errors(self):
+
+        # config error
+        with override_settings(EXISTDB_ROOT_COLLECTION=''):
+            self.assertRaises(CommandError, self.cmd.handle)
+
+        # invalid file error
+        self.cmd.handle('/tmp/notarealfile.xml')
+        self.assert_('Error opening' in self.cmd.stdout.getvalue())
+
+    def test_load(self):
+        tmp = tempfile.NamedTemporaryFile(suffix='.xml', delete=False)
+        # delete false to avoid error, since the script will remove
+        shutil.copyfile(self.testfile, tmp.name)
+
+        self.cmd.handle(tmp.name)
+
+        # check that document was loaded to exist
+        exist_path = '%s/%s' % (settings.EXISTDB_ROOT_COLLECTION,
+                                os.path.basename(tmp.name))
+        desc = self.db.describeDocument(exist_path)
+        self.assert_(desc,
+            'document description should be non-empty for loaded content')
+        self._exist_content.append(exist_path)  # queue for removal in cleanup
+        mod = desc['modified']
+        self.assertEqual(datetime.date(mod.year, mod.month, mod.day),
+            datetime.date.today(),
+            'loaded document should show modification date of today')
+        # check file was removed
+        self.assertFalse(os.path.exists(tmp.name),
+            'local copy of file should be deleted after loaded to eXist')
+
+    def test_load_remove_error(self):
+        # simulate error removing local copy of file
+        tmp = tempfile.NamedTemporaryFile(suffix='.xml')
+        shutil.copyfile(self.testfile, tmp.name)
+
+        # simulate deletion error
+        with patch('ddisearch.ddi.management.commands.load.os.remove') as mockremove:
+            mockremove.side_effect = OSError('Permission Denied')
+            self.cmd.handle(tmp.name)
+
+        cmd_output = self.cmd.stdout.getvalue()
+        self.assert_('Error removing ' in cmd_output,
+            'script should report when there is an error removing local file')
+        self.assert_('Permission Denied' in cmd_output)
+
+        # queue for removal in cleanup
+        exist_path = '%s/%s' % (settings.EXISTDB_ROOT_COLLECTION,
+                                os.path.basename(tmp.name))
+        self._exist_content.append(exist_path)
 
