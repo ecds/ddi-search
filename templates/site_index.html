@@ -1,4 +1,5 @@
 {% extends "site_base.html" %}
+{% load humanize %}
 
 {% block body_class %}home{% endblock %}
 
@@ -14,11 +15,13 @@
 			<div class="tile">
 				<h3>New Additions</h3>
 				<ul>
-					<li>This is a name of a recent resource</li>
-					<li>This is a name of a recent resource</li>
-					<li>This is a name of a recent resource</li>
-					<li>This is a name of a recent resource</li>
-					<li>This is a name of a recent resource</li>
+                    {% for res in new_resources %}
+					<li><a href="{% url 'ddi:resource' id=res.id agency=res.id.agency %}">{{ res.title }}</a>
+                        <small>({{ res.document_version.date|naturalday }})</small>
+                    </li>
+                    {% empty %}
+                    <li>No resources have been added since {{ new_since|naturalday }}.</li>
+                    {% endfor %}
 				</ul>
 			</div>
 		</div>

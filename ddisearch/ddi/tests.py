@@ -35,6 +35,7 @@ class CodeBookTest(TestCase):
         self.assert_(isinstance(self.cb.id, IDNumber))
         self.assertEqual("2988", self.cb.id.val)
         self.assertEqual("ICPSR", self.cb.id.agency)
+        self.assertEqual("2009-03-02", self.cb.document_version.date.isoformat())
         self.assertEqual(2, len(self.cb.authors))
         self.assert_('Arian, Asher' in self.cb.authors)
         self.assert_('Turgovnik, Ephraim' in self.cb.authors)
@@ -133,11 +134,35 @@ class ViewsTest(eulexistdb_testutil.TestCase):
         'directory': FIXTURE_DIR,
         'index': settings.EXISTDB_INDEX_CONFIGFILE  # required for fulltext search
     }
+    fixture_filename = '02988.xml'
 
     def setUp(self):
         # load fixture xml for access to content
-        self.cb = load_xmlobject_from_file(os.path.join(FIXTURE_DIR, '02988.xml'),
+        self.cb = load_xmlobject_from_file(os.path.join(FIXTURE_DIR,
+                                                        self.fixture_filename),
                                            CodeBook)
+
+    def test_site_index(self):
+        index_url = reverse('site-index')
+
+        response = self.client.get(index_url)
+        self.assert_('form' in response.context)
+        self.assertContains(response, "No resources have been added since ",
+            msg_prefix='fixture data results in no new items on home page')
+
+        # Test showing a new object by updating the date in our fixture
+        # and reloading to exist
+        self.cb.document_version.date = datetime.date.today()
+        dbpath = settings.EXISTDB_ROOT_COLLECTION + "/" + self.fixture_filename
+        db = ExistDB()
+        db.load(self.cb.serialize(), dbpath, overwrite=True)
+        response = self.client.get(index_url)
+        self.assertContains(response, self.cb.title,
+            msg_prefix='title of new resource should be displayed on home page')
+        self.assertContains(response,
+                reverse('ddi:resource', kwargs={'id': self.cb.id.val,
+                                                 'agency': self.cb.id.agency}),
+            msg_prefix='link to new resource should be included on home page')
 
     def test_search(self):
         # no search terms

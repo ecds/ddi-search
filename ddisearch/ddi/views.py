@@ -1,3 +1,4 @@
+import datetime
 from django.shortcuts import render
 from django.http import Http404, HttpResponse
 from django.core.paginator import Paginator, EmptyPage, InvalidPage
@@ -9,7 +10,17 @@ from ddisearch.ddi.models import CodeBook
 
 def site_index(request):
     'Site index page; currently just displays the search form.'
-    return render(request, 'site_index.html', {'form': forms.KeywordSearch()})
+    # find all documents that are new within some arbitrary window
+    # currently using 90 days
+    new_since = datetime.date.today() - datetime.timedelta(days=90)
+    new_resources = CodeBook.objects \
+          .filter(document_version__date__gte=new_since.isoformat()) \
+          .only('id', 'title', 'document_version') \
+          .order_by('-document_version__date')  # newest first
+    # should we limit the list at some point?
+    return render(request, 'site_index.html',
+        {'form': forms.KeywordSearch(), 'new_resources': new_resources,
+        'new_since': new_since})
 
 
 def search(request):
