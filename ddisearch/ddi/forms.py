@@ -26,6 +26,14 @@ class KeywordSearch(forms.Form):
         help_text='Search by geographic location, including nation, country, or economic entity',
         widget=forms.TextInput(attrs={'placeholder':'Search by location', 'class': 'form-control'}))
 
+    # NOTE: could use min_value and max_value here, if we have reasonable values
+    # default widget is number input; we can switch to text input if helpful
+    start_date = forms.IntegerField(required=False,
+        help_text=''''Search by start year of time period covered by data;
+        use with end date to specify a range or single year''')
+    end_date = forms.IntegerField(required=False,
+        help_text='Search by end date; use with start date to specify a range or single year')
+
     _adv_fields = ['title', 'summary', 'source', 'location']
 
     search_fields = ['keyword'] + _adv_fields #, 'title', 'summary', 'source', 'location']
