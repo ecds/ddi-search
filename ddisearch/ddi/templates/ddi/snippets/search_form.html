@@ -1,6 +1,12 @@
 {% url 'site-index' as index_url %}
 
-<div class="reset-form pull-right" {% if request.path = index_url %} style="display:none;"{% endif %}><a href="/search"><span class="glyphicon glyphicon-repeat"></span> New Search</a></div>
+{# new search link; only show when *not* on home page #}
+{% if request.path != index_url %}
+<div class="reset-form pull-right">
+	<a href="{% url 'ddi:search' %}"><span class="glyphicon glyphicon-repeat"></span> New Search</a>
+</div>
+{% endif %}
+
 <form type="GET" id="search-form" action="{% url 'ddi:search' %}">
 	{{ form.non_field_errors }}  {# display any form-wide validation errors #}
 
@@ -59,37 +65,19 @@
 			</div>
 		</fieldset>
 		{# end Advanced Filter #}
-		<div class="page-options" {% if request.path = index_url %} style="display:none;"{% endif #}>
+
+		{# suppress display of per-page and sort options on home page; but should be present to submit #}
+		<div class="page-options" {% if request.path = index_url %} style="display:none;"{% endif %}>
 		<div class="container">
 			<fieldset>
 				<div class="option">
-					<label for="id_per_page"><span>{{form.per_page.label}}</span></label>
-					<select id="id_per_page" name="per_page">
-						{% for d in form.PER_PAGE_OPTIONS %}
-						<option value="{{d}}"
-							{% if forloop.parentloop.first %}
-							selected="selected"
-							{% endif %}
-							>
-							{{d}}
-						</option>
-						{% endfor %}
-					</select>
+					<label for="id_per_page"><span>{{ form.per_page.label }}</span></label>
+					{{ form.per_page }}
 				</div>
 
 				<div class="option">
-					<label for="id_sort"><span>{{form.sort.label}}</span></label>
-					<select id="id_sort" name="sort">
-						{% for d in form.SORT_OPTIONS %}
-						<option value="{{d}}"
-						{% if forloop.parentloop.first %}
-						selected="selected"
-						{% endif %}
-						>
-						{{d}}
-					</option>
-					{% endfor %}
-					</select>
+					<label for="id_sort"><span>{{ form.sort.label }}</span></label>
+					{{ form.sort }}
 				</div>
 			</fieldset>
 		</div><!--/.page-options-->
