@@ -28,6 +28,15 @@ class Date(xmlmap.XmlObject):
     def __unicode__(self):
         return self.label
 
+class Version(xmlmap.XmlObject):
+    'XML model for a DDI version in the document version statement'
+    #: actual date value
+    date = xmlmap.DateField('@date')
+    # could also have source and type attirbutes...
+
+    def __unicode__(self):
+        return self.date
+
 class Nation(xmlmap.XmlObject):
     'XML model for a DDI nation'
     #: full name of the nation
@@ -91,6 +100,10 @@ class CodeBook(XmlModel):
     # full xpath is stdyDscr/stdyInfo/sumDscr
     # XPath for sorting by date; sort on the earliest date available (single or date range)
     sort_date_xpath = 'min(%(xq_var)s//timePrd/string(@date))'
+
+    #: document version, as an instance of :class:`Version`
+    #: intended for use in identifying new additions
+    document_version = xmlmap.NodeField('docDscr//verStmt/version', Version)
 
     #: boosted fields in the index that should be searched to get a tuned
     #: relevance score - titl, abstract, geogCover
