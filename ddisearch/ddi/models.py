@@ -67,7 +67,10 @@ class CodeBook(XmlModel):
     keywords = xmlmap.StringListField('stdyDscr/stdyInfo/subject/keyword')
     #: list of topics
     topics = xmlmap.StringListField('stdyDscr/stdyInfo/subject/topcClas')
-    #: time periods covered by the data; list of :class:`Date`
+    #: time periods covered by the data, as a list of :class:`Date`.
+    #:
+    #: **Recommended:** use the :attr:`dates` property for display, which collects
+    #: range and single dates into a list of dates and date ranges.
     time_periods = xmlmap.NodeListField('.//timePrd', Date)
     #: dates when data were collected; list of :class:`Date`
     collection_dates = xmlmap.NodeListField('stdyDscr/stdyInfo/sumDscr/collDate', Date)
@@ -101,11 +104,14 @@ class CodeBook(XmlModel):
 
     @property
     def dates(self):
-        '''List of dates or date ranges associated with this dataset.
+        '''Dynamic property to generate a list of dates and/or date ranges
+        associated with this dataset.
 
-        Iterates through all the timePrd elements and groups any start/end
+        Iterates through all the :attr:`time_periods` and groups any start/end
         dates for the same cycle to generate a list of dates or date ranges
         that can easily be displayed.
+
+        :rtype: list
         '''
         dates = []
         start = {}
