@@ -43,14 +43,23 @@
 			</div>
 
 			<div>
+				<div class="col-sm-4">
+					<label for="{{ form.end_date.name }}">{{ form.start_date.label }}</label>
+					{{ form.start_date }}
+				</div>
+				<div class="col-sm-4">
+					<label for="{{ form.end_date.name }}">{{ form.end_date.label }}</label>
+					{{ form.end_date }}
+				</div>
+			</div>
+			<div>
 				<div class="controls btn-group-sm col-sm-3 pull-right">
 					<button class="reset btn btn-default">Clear Criteria</button>
 				</div>
 			</div>
 		</fieldset>
 		{# end Advanced Filter #}
-           
-		<div class="page-options" {% if request.path = index_url %} style="display:none;"{% endif %}>
+		<div class="page-options" {% if request.path = index_url %} style="display:none;"{% endif #}>
 		<div class="container">
 			<fieldset>
 				<div class="option">
