@@ -220,6 +220,55 @@ class ViewsTest(eulexistdb_testutil.TestCase):
              'summary': 'voting', 'source' : 'horse'})
         self.assertEqual(0, response.context['results'].paginator.count)
 
+    def test_search_by_date(self):
+        search_url = reverse('ddi:search')
+
+        # single date - partial date match in the fixture (1974-01-15)
+        response = self.client.get(search_url,
+            {'per_page': 10, 'sort': 'relevance', 'keyword' : 'israeli election',
+            'start_date': 1974, 'end_date': 1974})
+        self.assertEqual(1, response.context['results'].paginator.count,
+            'expected one result from date search on 1974')
+        # single date that does not match
+        response = self.client.get(search_url,
+            {'per_page': 10, 'sort': 'relevance', 'keyword' : 'israeli election',
+            'start_date': 1975, 'end_date': 1975})
+        self.assertEqual(0, response.context['results'].paginator.count,
+            'expected no results from date search on 1975')
+        # after date
+        response = self.client.get(search_url,
+            {'per_page': 10, 'sort': 'relevance', 'keyword' : 'israeli election',
+            'start_date': 1960})
+        self.assertEqual(1, response.context['results'].paginator.count,
+            'expected one result from date search on items after 1960')
+        response = self.client.get(search_url,
+            {'per_page': 10, 'sort': 'relevance', 'keyword' : 'israeli election',
+            'start_date': 1980})
+        self.assertEqual(0, response.context['results'].paginator.count,
+            'expected no results from date search on items after 1980')
+        # before date
+        response = self.client.get(search_url,
+            {'per_page': 10, 'sort': 'relevance', 'keyword' : 'israeli election',
+            'end_date': 1974})
+        self.assertEqual(1, response.context['results'].paginator.count,
+            'expected one result from date search on items before 1974')
+        response = self.client.get(search_url,
+            {'per_page': 10, 'sort': 'relevance', 'keyword' : 'israeli election',
+            'end_date': 1972})
+        self.assertEqual(0, response.context['results'].paginator.count,
+            'expected no results from date search on items before 1972')
+        # date range
+        response = self.client.get(search_url,
+            {'per_page': 10, 'sort': 'relevance', 'keyword' : 'israeli election',
+            'start_date': 1960, 'end_date': 2000})
+        self.assertEqual(1, response.context['results'].paginator.count,
+            'expected one result from date search on items from 1960-2000')
+        response = self.client.get(search_url,
+            {'per_page': 10, 'sort': 'relevance', 'keyword' : 'israeli election',
+            'start_date': 1960, 'end_date': 1972})
+        self.assertEqual(0, response.context['results'].paginator.count,
+            'expected no results from date search on items from 1960-1972')
+
     def test_resource(self):
         # single document display
         resource_url = reverse('ddi:resource',

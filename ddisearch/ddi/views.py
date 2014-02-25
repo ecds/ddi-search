@@ -45,6 +45,27 @@ def search(request):
         if 'location' in search_opts and search_opts['location']:
             results = results.filter(location__fulltext_terms=search_opts['location'])
 
+        # date search
+        if 'start_date' in search_opts and 'end_date' in search_opts:
+            sdate = search_opts['start_date']
+            edate = search_opts['end_date']
+            # NOTE: needs to handle date format variation (YYYY, YYYY-MM, etc)
+
+            # single date search: start and end date should be the same;
+            # using same logic as range to match any dates within that year
+            # if only one of start or end is specified, results in an open range
+            # i.e. anything after start date or anything before end date
+            if sdate is not None:
+                # restrict by start date
+                # YYYY will be before any date in that year, e.g. "2001" >= "2001-11"
+                results = results.filter(time_periods__date__gte=str(sdate))
+            if edate is not None:
+                # restrict by end date
+                # convert to end of year to catch any date variants within that year
+                # e.g. 2001-12-31 will always come after 2001-04, etc
+                edate = "%s-12-31" % edate
+                results = results.filter(time_periods__date__lte=str(edate))
+
         # To make relevance scores more meaningful, run *all* search terms
         # from any field against the full text and boost fields
         results = results.or_filter(fulltext_terms=form.all_search_terms,
