@@ -18,7 +18,7 @@
             <p class="lead">{{ resource.authors|join:'; ' }}</p>
             {% endif %}
 
-            
+
             <h2 class="h3">Date{{ resource.dates|pluralize }}</h2>
             <p class="lead">
                 {% if resource.dates %}
@@ -43,8 +43,8 @@
                     <ul class="tagsinput">
                         {% for kw in resource.keywords %}
                         <li class="tag">
-                            <a href="#">{{ kw }}</a>
-                            <a class="tagsinput-link">
+                            <a href="{% url 'ddi:browse-terms' mode='keywords' %}?keyword={{ kw|urlencode }}">{{ kw }}{# </a> #}
+                            {# <a class="tagsinput-link"> #}
                                 <span class="glyphicon glyphicon-chevron-right"></span>
                             </a>
                         </li>
@@ -53,7 +53,7 @@
                 </div>
                 <div class="col-sm-6">
                     <h2>Geographic Locations</h2>
-                    
+
                     <div class="map">
                         <img src="{% static 'img/Flat-World-Map.gif' %}"/>
 

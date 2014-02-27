@@ -6,7 +6,7 @@ from urllib import urlencode
 from eulexistdb.exceptions import DoesNotExist
 
 from ddisearch.ddi import forms
-from ddisearch.ddi.models import CodeBook
+from ddisearch.ddi.models import CodeBook, Keyword, Topic
 
 def site_index(request):
     'Site index page; currently just displays the search form.'
@@ -176,3 +176,63 @@ def resource_xml(request, agency, id):
 
     xml = res.serialize(pretty=True)
     return HttpResponse(xml, mimetype='application/xml')
+
+
+def browse_terms(request, mode):
+    '''Browse list of distinct keywords or topics (depending on the
+    specified mode), or browse documents by keyword or topic if a term
+    is specified as a request parameter.
+
+    :param mode: keywords or topics
+    '''
+
+    fltr = mode.rstrip('s')
+    term = request.GET.get(fltr, None)
+
+    if term is not None:
+        results = CodeBook.objects.filter(**{mode:term}) \
+                    .only('title', 'abstract', 'keywords', 'topics',
+                          'authors', 'time_periods', 'id')
+
+        # TODO: re-use sort (w/o relevance) & pagination options from search
+        per_page = 10
+
+    else:
+        # FIXME: how to sort *after* the distinct?
+        if mode == 'keywords':
+            results = Keyword.objects.all().distinct().order_by_raw('%(xq_var)s')
+
+        elif mode == 'topics':
+            results = Topic.objects.all().distinct().order_by_raw('%(xq_var)s')
+
+        per_page = 50
+
+    # returns a list of string, not xml objects
+
+    paginator = Paginator(results, per_page, orphans=5)
+
+    try:
+        page = int(request.GET.get('page', '1'))
+    except ValueError:
+        page = 1
+    # If page request (9999) is out of range, deliver last page of results.
+    try:
+        results = paginator.page(page)
+    except (EmptyPage, InvalidPage):
+        page = paginator.num_pages
+        results = paginator.page(paginator.num_pages)
+
+    # counting per item is TOO slow; how to correlate with the terms?
+    # counts = []
+    # for t in terms.object_list:
+    #     counts.append(CodeBook.objects.filter(topics=t).count())
+    label = mode.title()
+    url_args = {}
+    if term:
+        label = label.rstrip('s')
+        # url params to preserve when jumping to another page
+        url_args[fltr] = term
+
+    return render(request, 'ddi/browse_terms.html',
+        {'mode': mode, 'label': label, 'term': term, 'results': results,
+        'fltr': fltr, 'url_params': urlencode(url_args)})

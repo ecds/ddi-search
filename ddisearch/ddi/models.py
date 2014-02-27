@@ -251,9 +251,13 @@ class CodeBook(XmlModel):
     #: list of authors, as :class:`Author`
     authors = xmlmap.NodeListField('.//AuthEnty', Author)
     #: list of keywords
-    keywords = xmlmap.StringListField('stdyDscr/stdyInfo/subject/keyword')
+    keywords = xmlmap.StringListField('.//keyword')
+    # keywords = xmlmap.StringListField('stdyDscr/stdyInfo/subject/keyword')
+
     #: list of topics
-    topics = xmlmap.StringListField('stdyDscr/stdyInfo/subject/topcClas')
+    topics = xmlmap.StringListField('.//topcClas')
+    # topics = xmlmap.StringListField('stdyDscr/stdyInfo/subject/topcClas')
+
     #: time periods covered by the data, as a list of :class:`Date`.
     #:
     #: **Recommended:** use the :attr:`dates` property for display, which collects
@@ -337,6 +341,16 @@ class CodeBook(XmlModel):
         return dates
 
 
+class Keyword(XmlModel):
+    'xml model to allow searching for distinct keywords'
+    text = xmlmap.StringField('text()')
+
+    objects = Manager('distinct-values(//keyword)')
+
+
+class Topic(XmlModel):
+    'xml model to allow searching for distinct codebooks'
+    objects = Manager('distinct-values(//topcClas)')
 
 
 

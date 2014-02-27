@@ -1,0 +1,22 @@
+{% extends "site_base.html" %}
+{# template to browse list of keywords or topics #}
+{# OR browse documents by a single keyword or topic #}
+
+{% block page-subtitle %}| {{ label }}{% if term %} | {{ term }}{% endif %}{% endblock %}
+
+{% block content %}
+
+<div class="container">
+    <h1>{{ label }}{% if term %} : {{ term }}{% endif %}</h1>
+
+    {% if term %} {# display resources matching requested term #}
+        {% include 'ddi/snippets/search_results.html' %}
+    {% else %} {# display list of keywords or topics #}
+    <ul>
+        {% for t in results.object_list %}
+        <li><a href="?{{ fltr }}={{ t }}">{{ t }}</a></li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+</div>
+{% endblock %}
