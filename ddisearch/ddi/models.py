@@ -192,6 +192,37 @@ class DataAccess(xmlmap.XmlObject):
     #: notes
     notes = xmlmap.StringListField('notes')
 
+## file description section
+
+class DataFile(xmlmap.XmlObject):
+    '''A single file in a :class:`FileDescription`.
+
+    Not mapped: fileStrc (file structure), dimensions, format, place of
+    file production, data checks, processing status, missing data,
+    software, version statement
+    '''
+    #: id
+    id = xmlmap.StringField('@ID')
+    #: name or short title
+    name = xmlmap.StringField('fileName')
+    #: description of the file
+    contents = xmlmap.StringField('fileCont')
+    #: type of file
+    type = xmlmap.StringField('fileType')
+
+
+class FileDescription(xmlmap.XmlObject):
+    '''Information about the data files in a collection.
+
+    Not mapped: location map (physical storage locations)
+    '''
+    #: id
+    id = xmlmap.StringField('@ID')
+    #: list of individual files, as :class:`DataFile`
+    files = xmlmap.NodeListField('fileTxt', DataFile)
+    #: notes
+    notes = xmlmap.StringListField('notes')
+
 
 ### top-level document
 
@@ -252,6 +283,10 @@ class CodeBook(XmlModel):
     #: data access section, list of :class:`DataAccess`; could be multiple when
     #: conditions differ across files or variables within the collection
     data_access = xmlmap.NodeListField('stdyDscr/dataAccs', DataAccess)
+
+    #: file descriptions, as :class:`FileDescription`; can be repeated if
+    #: collection has multiple files
+    file_descriptions = xmlmap.NodeListField('fileDscr', FileDescription)
 
     # technically probably a datefield; could be 4 digit year, or YYYY-MM
     # full xpath is stdyDscr/stdyInfo/sumDscr

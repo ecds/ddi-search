@@ -102,6 +102,13 @@ class CodeBookTest(TestCase):
         self.assert_('read the terms of use below' in access.use.conditions)
         self.assert_('original collector of the data, ICPSR,' in access.use.disclaimer)
 
+        # file descriptions
+        self.assertEqual(5, len(self.cb.file_descriptions))
+        fd1 = self.cb.file_descriptions[0]
+        self.assert_(isinstance(fd1, ddixml.FileDescription))
+        self.assertEqual('F1', fd1.id)
+        self.assertEqual('Part1', fd1.files[0].id)
+        self.assertEqual('May 1973 Survey', fd1.files[0].name)
 
     def test_dates(self):
         dates = self.cb.dates
