@@ -1,7 +1,7 @@
 {% extends "site_base.html" %}
 {% load humanize %}
 
-<title>{% block page-title %}{% block page-subtitle %}{% endblock %}{% endblock %}</title>
+{# <title>{% block page-title %}{% block page-subtitle %}{% endblock %}{% endblock %}</title> #}
 {% block content %}
 <div id="st-container">
     {# always display search form; initial search, or revise current search #}
@@ -21,93 +21,8 @@
             <div class="main clearfix">
                 {% include 'ddi/snippets/loading.html' %}
                 <div class="wrapper results">
-                    {% if keywords %}
-                    {# <p>Search terms: <strong>{{ keywords }}</strong></p> #}
-                    {% endif %}
-                    
-                    <div class="container">
-                        <article class="results">
-                            <header>
-                                {% if results %}
-                                <h2>Found <strong>{{ results.paginator.count|intcomma }}</strong> resource{{ results.paginator.count|pluralize }}
-                                   
-                                </h2>
-                                <p class="lead">
-                                    {% if results.has_other_pages and results.object_list|length > 1 %}
-                                 displaying {{ results.start_index|intcomma }} - {{ results.end_index|intcomma }}{% endif %}
-                                 {# if more than one item on this page, display range of results #}
-                             </p>
-                             {% else %}
-                              <h2 id="no-results-found">No results found for your criteria.</h2>
-                             {% endif %}
-                            </header>
-
-                            {% if results %}
-                            <div class="row result-listing cards">
-                                {% for r in results.object_list %}
-                                <div class="col-sm-6 col-lg-4">
-                                    <article class="result">
-                                        <header class="row title">
-                                            <div class="col-xs-10">
-                                                <h3><a href="{% url 'ddi:resource' id=r.id agency=r.id.agency %}">{{ r.title }}</a></h3>
-
-                                                {% if r.authors %}
-                                                <h4>Principal Investigator{{ r.authors|pluralize }}: <span>{{ r.authors|join:'; '}}</span></h4>
-                                                {% endif %}
-                                                <h4>Date{{ r.dates|pluralize }}:<span> {{ r.dates|join:'; '|default:'(not specified)' }}</span></h4>
-                                            </div>
-                                            <div class="col-xs-2 no-padding-right">
-                                                {% if r.fulltext_score %} {# TODO: style this #}
-                                                {# display numerical score in debug mode #}
-                                                {% if debug %}<p>{{ r.fulltext_score }}</p>{% endif %}
-                                                <div class="progress">
-                                                    <div class="progress-bar" role="progressbar" aria-valuenow="{{ r.fulltext_score }}" aria-valuemin="0" aria-valuemax="1.5" style="width:{% widthratio r.fulltext_score 1 90 %}%"> </div>
-
-                                                </div>
-                                                {% endif %}
-                                                <p> <a class="readmore" title="Preview"><span class="glyphicon glyphicon-eye-open"></span></a></p>
-                                            </div>
-                                        </header>
-
-                                        <section class="summary">
-                                            <p>{{ r.abstract|truncatewords:20 }}</p>
-                                            {% if r.keywords %}
-                                            <p><strong>Keywords:</strong> {{ r.keywords|join:'; '|truncatewords:10 }}</p>
-                                            {% endif %}
-
-                                            <p><strong>Date{{ r.dates|pluralize }}:</strong> {{ r.dates|join:'; '|default:'(not specified)' }}</p>
-                                        </section>
-
-                                        {# This is the preview section that will appear in the aside. #}
-                                        <div class="preview hidden">
-                                            <h3><a href="{% url 'ddi:resource' id=r.id agency=r.id.agency %}" >{{ r.title }}</a></h3>
-
-                                            {% if r.authors %}
-                                            <h4>Principal Investigator{{ r.authors|pluralize }}: <span>{{ r.authors|join:'; '}}</span></h4>
-                                            <p><strong>Date{{ r.dates|pluralize }}:</strong> {{ r.dates|join:'; '|default:'(not specified)' }}</p>
-                                            {% endif %}
-                                            <p>{{ r.abstract|truncatewords:150 }}</p>
-                                            {% if r.keywords %}
-                                            <p><strong>Keywords:</strong> {{ r.keywords|join:'; ' }}</p>
-                                            {% endif %}
-                                            <p class="centered">
-                                                <a class="btn btn-primary" href="{% url 'ddi:resource' id=r.id agency=r.id.agency %}" >Open Resource</a>
-                                            </p>
-                                        </div>
-                                    </article>
-                                </div>
-                                {% endfor %}
-
-                                {% include 'ddi/snippets/pagination.html' %}
-                            </article>
-                        </div><!--/.cards-->
-                    </div><!-- /.container -->
-                    {% endif %}  {# search results present #}
-                </div><!-- /.wrapper.results -->
-
-
-
-
+                    {% include 'ddi/snippets/search_results.html' %}
+                </div><!-- /wrapper -->
             </div><!-- /main -->
         </div><!-- /st-content-inner -->
     </div><!-- /st-content -->
