@@ -3,6 +3,7 @@ from eulxml import xmlmap
 from eulexistdb.models import XmlModel
 from eulexistdb.manager import Manager
 
+### top-level info and descriptive information about the study
 
 class IDNumber(xmlmap.XmlObject):
     'XML model for DDI codebook IDNo'
@@ -86,6 +87,66 @@ class Nation(xmlmap.XmlObject):
         return self.val
 
 
+## methodology section
+
+class SourceStatement(xmlmap.XmlObject):
+    '''description of sources used for :class:`DataCollection`
+
+    **NOTE:** sources could be recursive; currently not mapped.'''
+    #: data sources (books, articles, etc)
+    data_sources = xmlmap.StringListField('dataSrc')
+    #: information about origin of sources
+    origins = xmlmap.StringListField('srcOrig')
+    #: characteristics & quality of source material
+    characteristics = xmlmap.StringListField('srcChar')
+    #: documentation & access of sources
+    #: (could be repeated for multiple languages; only first mapped)
+    documentation = xmlmap.StringField('srcDocu')
+
+
+class DataCollection(xmlmap.XmlObject):
+    '''data collection methodology
+
+    Not mapped: actMin, ConOps
+    '''
+    #: time method or dimension of data collection
+    time_methods = xmlmap.StringListField('timeMeth')
+    #: entities responsible for collecting the data
+    collectors = xmlmap.StringListField('dataCollector')
+    #: frequency of collection
+    frequency = xmlmap.StringListField('frequenc')
+    #: sampling procedure for selecting participants
+    sample_proc = xmlmap.StringListField('sampProc')
+    #: deviations from sample design
+    deviations = xmlmap.StringListField('deviat')
+    #: methods used to collect the data
+    methods = xmlmap.StringListField('collMode')
+    #: type of data collection instruments used
+    research_instruments = xmlmap.StringListField('resInstru')
+    #: description of sources used for data collection, list of :class:`SourceStatement`
+    sources = xmlmap.NodeListField('sources', SourceStatement)
+    #: noteworthy aspects of data collection situation
+    situation = xmlmap.StringListField('collSitu')
+    #: criteria for using weights in analysis of a collection
+    weights = xmlmap.StringListField('weight')
+    #: methods used to clean the data for consistency, etc.
+    cleaning = xmlmap.StringListField('cleanOps')
+
+
+class Method(xmlmap.XmlObject):
+    'Methodology and processing'
+    data_collection = xmlmap.NodeListField('dataColl', DataCollection)
+    #: notes
+    notes = xmlmap.StringListField('notes')
+    #: response rates; could be broader description or related info
+    response_rates = xmlmap.StringListField('anlyInfo/respRate')
+    #: information on sample estimates and precision
+    sample_error_estimates = xmlmap.StringListField('anlyInfo/EstSmpErr')
+    #: other issues pertaining to data appraisal
+    data_appraisail = xmlmap.StringListField('anlyInfo/dataAppr')
+
+### data access and availability section
+
 class DataAvailability(xmlmap.XmlObject):
     'information about data availability'
     #: media (e.g.online)
@@ -128,7 +189,11 @@ class DataAccess(xmlmap.XmlObject):
     #: information on terms of use; could be repeated to support multiple
     #: languages (currently only mapping the first)
     use = xmlmap.NodeField('useStmt', UseStatement)
+    #: notes
+    notes = xmlmap.StringListField('notes')
 
+
+### top-level document
 
 class CodeBook(XmlModel):
     '''XML model for interacting with a single Data Dcoument Initiative (DDI)
@@ -181,10 +246,11 @@ class CodeBook(XmlModel):
     # some additional work to display as html with clickable links
     study_notes = xmlmap.StringListField('stdyDscr/stdyInfo/notes')
 
-    # TODO: method section
+    #: methodology section; list of :class:`Method`
+    methods = xmlmap.NodeListField('stdyDscr/method', Method)
 
-    #: data access section; could be multiple when conditions differ across
-    #: files or variables within the collection
+    #: data access section, list of :class:`DataAccess`; could be multiple when
+    #: conditions differ across files or variables within the collection
     data_access = xmlmap.NodeListField('stdyDscr/dataAccs', DataAccess)
 
     # technically probably a datefield; could be 4 digit year, or YYYY-MM

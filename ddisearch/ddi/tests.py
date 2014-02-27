@@ -75,7 +75,15 @@ class CodeBookTest(TestCase):
         self.assert_(self.cb.universe[0].startswith('Urban adult Jewish population'))
         self.assertEqual('survey data', self.cb.kind_of_data[0])
 
-        # methodology section TODO
+        # methodology section
+        method = self.cb.methods[0]
+        self.assert_(isinstance(method, ddixml.Method))
+        datacoll = method.data_collection[0]
+        self.assert_(isinstance(datacoll, ddixml.DataCollection))
+        self.assert_('face-to-face interview' in datacoll.sources[0].data_sources)
+        self.assert_('DDEF.ICPSR/ FREQ.ICPSR/' in datacoll.cleaning[0])
+        self.assert_('carried out by the Israeli Institute' in method.notes[0])
+        # NOTE: fixture doesn't include many of the sections mapped in the mdoels
 
         # data access section
         access = self.cb.data_access[0]
