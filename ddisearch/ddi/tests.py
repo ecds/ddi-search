@@ -16,7 +16,7 @@ from eulxml.xmlmap import load_xmlobject_from_file
 from eulexistdb import testutil as eulexistdb_testutil
 from eulexistdb.db import ExistDB
 
-from ddisearch.ddi.models import CodeBook, Date, IDNumber, Nation
+from ddisearch.ddi import models as ddixml
 from ddisearch.ddi.forms import KeywordSearch
 from ddisearch.ddi.management.commands import load
 
@@ -27,18 +27,22 @@ class CodeBookTest(TestCase):
 
     def setUp(self):
         self.cb = load_xmlobject_from_file(os.path.join(FIXTURE_DIR, '02988.xml'),
-                                           CodeBook)
+                                           ddixml.CodeBook)
 
     def test_properties(self):
         self.assertEqual('Israeli Election Study, 1973', self.cb.title)
         self.assert_(self.cb.abstract.startswith('This study is one in a series of election studies conducted since 1969 by Alan Arian'))
-        self.assert_(isinstance(self.cb.id, IDNumber))
+        self.assert_(isinstance(self.cb.id, ddixml.IDNumber))
         self.assertEqual("2988", self.cb.id.val)
         self.assertEqual("ICPSR", self.cb.id.agency)
         self.assertEqual("2009-03-02", self.cb.document_version.date.isoformat())
         self.assertEqual(2, len(self.cb.authors))
-        self.assert_('Arian, Asher' in self.cb.authors)
-        self.assert_('Turgovnik, Ephraim' in self.cb.authors)
+        self.assert_(isinstance(self.cb.authors[0], ddixml.Author))
+        author_list = [unicode(a) for a in self.cb.authors]
+        self.assert_('Arian, Asher' in author_list)
+        self.assert_('Turgovnik, Ephraim' in author_list)
+        self.assertEqual('Tel-Aviv University. Department of Political Science',
+            self.cb.authors[0].affiliation)
         self.assertEqual(35, len(self.cb.keywords))
         self.assert_('Arab Israeli conflict' in self.cb.keywords)
         self.assert_('social attitudes' in self.cb.keywords)
@@ -46,21 +50,21 @@ class CodeBookTest(TestCase):
         self.assert_('Mass Political Behavior and Attitudes' in self.cb.topics[0])
         # time periods
         self.assertEqual(5, len(self.cb.time_periods))
-        self.assert_(isinstance(self.cb.time_periods[0], Date))
+        self.assert_(isinstance(self.cb.time_periods[0], ddixml.Date))
         self.assertEqual('single', self.cb.time_periods[0].event)
         self.assertEqual('1973', self.cb.time_periods[0].date)
         self.assertEqual('P1', self.cb.time_periods[0].cycle)
         self.assertEqual('start', self.cb.time_periods[1].event)
         # collection dates
         self.assertEqual(7, len(self.cb.collection_dates))
-        self.assert_(isinstance(self.cb.collection_dates[0], Date))
+        self.assert_(isinstance(self.cb.collection_dates[0], ddixml.Date))
         self.assertEqual('single', self.cb.collection_dates[0].event)
         self.assertEqual('1973-05', self.cb.collection_dates[0].date)
         self.assertEqual('P1', self.cb.collection_dates[0].cycle)
         self.assertEqual('First pre-war', self.cb.collection_dates[0].label)
         # nations
         self.assertEqual(1, len(self.cb.nations))
-        self.assert_(isinstance(self.cb.nations[0], Nation))
+        self.assert_(isinstance(self.cb.nations[0], ddixml.Nation))
         self.assertEqual('Please see geographic coverage.', self.cb.nations[0].val)
         # geo coverage
         self.assertEqual(2, len(self.cb.geo_coverage))
@@ -70,6 +74,26 @@ class CodeBookTest(TestCase):
         self.assertEqual('individual', self.cb.analysis_unit[0])
         self.assert_(self.cb.universe[0].startswith('Urban adult Jewish population'))
         self.assertEqual('survey data', self.cb.kind_of_data[0])
+
+        # methodology section TODO
+
+        # data access section
+        access = self.cb.data_access[0]
+        self.assert_(isinstance(access, ddixml.DataAccess))
+        # availabilty
+        self.assert_(isinstance(access.availability[0], ddixml.DataAvailability))
+        avail = access.availability[0]
+        self.assertEqual('online', avail.media)
+        self.assertEqual('http://www.icpsr.umich.edu', avail.access_uri)
+        self.assert_('Ann Arbor, Mi.:  Inter-university Consortium' in avail.access_place)
+        self.assertEqual('SAS SPSS STATA', avail.collection_size[0])
+        self.assert_('Stata system file(s), sav Data file(s)' in avail.notes[0])
+        # usage
+        self.assert_(isinstance(access.use, ddixml.UseStatement))
+        self.assert_('Additional special permissions, where applicable' in access.use.special_perms)
+        self.assert_('read the terms of use below' in access.use.conditions)
+        self.assert_('original collector of the data, ICPSR,' in access.use.disclaimer)
+
 
     def test_dates(self):
         dates = self.cb.dates
@@ -140,7 +164,7 @@ class ViewsTest(eulexistdb_testutil.TestCase):
         # load fixture xml for access to content
         self.cb = load_xmlobject_from_file(os.path.join(FIXTURE_DIR,
                                                         self.fixture_filename),
-                                           CodeBook)
+                                           ddixml.CodeBook)
 
     def test_site_index(self):
         index_url = reverse('site-index')

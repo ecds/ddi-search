@@ -14,6 +14,28 @@ class IDNumber(xmlmap.XmlObject):
     def __unicode__(self):
         return self.val
 
+
+class Version(xmlmap.XmlObject):
+    'XML model for a DDI version in the document version statement'
+    #: actual date value
+    date = xmlmap.DateField('@date')
+    # could also have source and type attirbutes...
+
+    def __unicode__(self):
+        return self.date
+
+
+class Author(xmlmap.XmlObject):
+    'XML model for DDI codebook Authoring Entity'
+    #: name of the person or organization
+    text = xmlmap.StringField('text()')
+    #: author affiliation (optional)
+    affiliation = xmlmap.StringField('@affiliation')
+
+    def __unicode__(self):
+        return self.text
+
+
 class Date(xmlmap.XmlObject):
     'XML model for a DDI date (e.g., time period or collection date)'
     #: **start** or **end** if date is part or a range; **single** if not
@@ -28,14 +50,30 @@ class Date(xmlmap.XmlObject):
     def __unicode__(self):
         return self.label
 
-class Version(xmlmap.XmlObject):
-    'XML model for a DDI version in the document version statement'
-    #: actual date value
-    date = xmlmap.DateField('@date')
-    # could also have source and type attirbutes...
 
-    def __unicode__(self):
-        return self.date
+class Producer(Author):
+    '''Producer in the :class:`ProductionStatement`; inherits
+    :attr:`text`, attr:`affiliation`, and unicode method from :class:`Author`'''
+    #: abbreviation (optional)
+    abbr = xmlmap.StringField('@abbr')
+    #: role (optional)
+    role = xmlmap.StringField('@role')
+
+
+class ProductionStatement(xmlmap.XmlObject):
+    '''Production statement (prodStmt) section of a DDI Codebook
+
+    Not currently mapped: production place, software, grantNo
+    '''
+    #: list of producers, if any, as :class:`Producer`
+    producers = xmlmap.NodeListField('producer', Producer)
+    #: copyright statement
+    copyright = xmlmap.StringField('copyright')
+    #: production date or dates; list of :class:`Date`
+    dates = xmlmap.NodeListField('date', Date)
+    #: funding agencies or sponsors
+    #: (mapping as string, but could have role or abbreviation attributes)
+    funding_agencies = xmlmap.StringListField('fundAg')
 
 class Nation(xmlmap.XmlObject):
     'XML model for a DDI nation'
@@ -46,6 +84,50 @@ class Nation(xmlmap.XmlObject):
 
     def __unicode__(self):
         return self.val
+
+
+class DataAvailability(xmlmap.XmlObject):
+    'information about data availability'
+    #: media (e.g.online)
+    media = xmlmap.StringField('@media')
+    #: access place - location of the data collection
+    access_place = xmlmap.StringField('accsPlac')
+    #: URI associated with :attr:`access_place`
+    access_uri = xmlmap.StringField('accsPlac/@URI')
+    #: availability status
+    status = xmlmap.StringListField('avlStatus')
+    #: extent of collection, or number & type of files
+    collection_size = xmlmap.StringListField('collSize')
+    #: number of files in the collection
+    file_quantity = xmlmap.StringListField('fileQnty')
+    #: notes
+    notes = xmlmap.StringListField('notes')
+
+class UseStatement(xmlmap.XmlObject):
+    '''More information about terms of use for the data
+
+    Not currently mapped: confidentiality declaration, contact,
+    citation requirement, deposit requirement
+
+    '''
+    #: text describing any special permissions required to access the resource
+    special_perms = xmlmap.StringField('specPerm')
+    #: text describing restrictions on access or use of the collection
+    restriction = xmlmap.StringField('restrctn')
+    #: additional information about conditions of access and use;
+    #: **NOTE:** may contain HTML tags
+    conditions = xmlmap.StringField('conditions')
+    #: disclaimer regarding responsibility of use
+    #: (could be repeated to support multiple languages; only mapping first)
+    disclaimer = xmlmap.StringField('disclaimer')
+
+class DataAccess(xmlmap.XmlObject):
+    'Data Access (dataAccs) section of the DDI Codebook'
+    #: information about dataset availability
+    availability = xmlmap.NodeListField('setAvail', DataAvailability)
+    #: information on terms of use; could be repeated to support multiple
+    #: languages (currently only mapping the first)
+    use = xmlmap.NodeField('useStmt', UseStatement)
 
 
 class CodeBook(XmlModel):
@@ -66,12 +148,12 @@ class CodeBook(XmlModel):
 
     #: title for the study
     title = xmlmap.StringField('stdyDscr/citation/titlStmt/titl')
-    #: study abstract
-    abstract = xmlmap.StringField('.//abstract')
-    #: list of authors
-    authors = xmlmap.StringListField('.//AuthEnty')
     #: id information, via :class:`IDNumber`
     id = xmlmap.NodeField('stdyDscr/citation/titlStmt/IDNo', IDNumber)
+    #: study abstract
+    abstract = xmlmap.StringField('.//abstract')
+    #: list of authors, as :class:`Author`
+    authors = xmlmap.NodeListField('.//AuthEnty', Author)
     #: list of keywords
     keywords = xmlmap.StringListField('stdyDscr/stdyInfo/subject/keyword')
     #: list of topics
@@ -94,7 +176,16 @@ class CodeBook(XmlModel):
     #: list of terms describing the kind of data
     kind_of_data = xmlmap.StringListField('stdyDscr/stdyInfo/sumDscr/dataKind')
     #: list of notes fields, which may contain other details about the study
+    #:
+    #: **NOTE:** this and other fields may contain tagged links, which will require
+    # some additional work to display as html with clickable links
     study_notes = xmlmap.StringListField('stdyDscr/stdyInfo/notes')
+
+    # TODO: method section
+
+    #: data access section; could be multiple when conditions differ across
+    #: files or variables within the collection
+    data_access = xmlmap.NodeListField('stdyDscr/dataAccs', DataAccess)
 
     # technically probably a datefield; could be 4 digit year, or YYYY-MM
     # full xpath is stdyDscr/stdyInfo/sumDscr
