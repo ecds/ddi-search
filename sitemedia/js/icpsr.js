@@ -120,7 +120,7 @@ $(document).ready(function(){
 	function reset(elem){
 		var $elem = $(elem),
 		$inputs = $elem.find('input');
-		$inputs.val('');
+		$inputs.attr('value','').val('');
 	}
 
 	var $toggleSwitch = $('.toggle.switch');
