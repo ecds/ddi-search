@@ -1,454 +1,4 @@
-*,
-*:after,
-*::before {
-	-moz-box-sizing: border-box;
-	box-sizing: border-box;
-}
-
-html,
-body,
-.st-container,
-.st-pusher,
-.st-content {
-	height: 100%;
-}
-
-
-body.st-menu-open{
-	overflow: hidden;
-}
-
-.st-content {
-}
-
-.st-content,
-.st-content-inner {
-	position: relative;
-}
-
-.st-container {
-	position: relative;
-}
-
-.st-container.fixed{
-	position: fixed;
-}
-
-body.st-menu-open .st-menu{
-	position: fixed;
-	top: 0;
-}
-.st-pusher {
-	position: relative;
-	left: 0;
-	z-index: 99;
-	height: 100%;
-	-webkit-transition: -webkit-transform 0.5s;
-	transition: transform 0.5s;
-}
-
-body.st-menu-open .st-pusher{
-	height: 10000em;
-}
-
-.st-pusher::after {
-	position: absolute;
-	top: 0;
-	right: 0;
-	width: 0;
-	height: 0;
-	background: rgba(0, 0, 0, 0.5);
-	content: '';
-	opacity: 0;
-	-webkit-transition: opacity 0.5s, width 0.1s 0.5s, height 0.1s 0.5s;
-	transition: opacity 0.5s, width 0.1s 0.5s, height 0.1s 0.5s;
-}
-
-.st-menu-open .st-pusher::after {
-	width: 100%;
-	height: 10000em;
-	opacity: 1;
-	-webkit-transition: opacity 0.5s;
-	transition: opacity 0.5s;
-}
-
-.st-menu {
-	position: absolute;
-	top: 0;
-	right: 0;
-	z-index: 100;
-	visibility: hidden;
-	width: 600px;
-	height: 100%;
-	background: #48a770;
-	-webkit-transition: all 0.5s;
-	transition: all 0.5s;
-}
-
-@media (max-width: 600px){
-	.st-menu {
-		width: 100%;
-	}
-}
-
-.st-menu::after {
-	position: absolute;
-	top: 0;
-	right: 0;
-	width: 100%;
-	height: 100%;
-	background: rgba(0,0,0,0.2);
-	content: '';
-	opacity: 1;
-	-webkit-transition: opacity 0.5s;
-	transition: opacity 0.5s;
-}
-
-.st-menu-open .st-menu::after {
-	width: 0;
-	height: 0;
-	opacity: 0;
-	-webkit-transition: opacity 0.5s, width 0.1s 0.5s, height 0.1s 0.5s;
-	transition: opacity 0.5s, width 0.1s 0.5s, height 0.1s 0.5s;
-}
-
-.st-menu .content{
-	overflow-y: scroll;
-	height: 100%;
-	float: left;
-	width: 100%;
-	padding-left: 2em;
-	padding-right: 2em;
-	padding-bottom: 200px;
-}
-
-/* content style */
-
-.st-menu ul {
-	margin: 0;
-	padding: 0;
-	list-style: none;
-}
-
-.st-menu h2 {
-	margin: 0;
-	padding: 1em;
-	color: rgba(0,0,0,0.4);
-	text-shadow: 0 0 1px rgba(0,0,0,0.1);
-	font-weight: 300;
-	font-size: 2em;
-}
-
-.st-menu ul li a {
-	display: block;
-	padding: 1em 1em 1em 1.2em;
-	outline: none;
-	box-shadow: inset 0 -1px rgba(0,0,0,0.2);
-	color: #f3efe0;
-	text-transform: uppercase;
-	text-shadow: 0 0 1px rgba(255,255,255,0.1);
-	letter-spacing: 1px;
-	font-weight: 400;
-	-webkit-transition: background 0.3s, box-shadow 0.3s;
-	transition: background 0.3s, box-shadow 0.3s;
-}
-
-.st-menu ul li:first-child a {
-	box-shadow: inset 0 -1px rgba(0,0,0,0.2), inset 0 1px rgba(0,0,0,0.2);
-}
-
-.st-menu ul li a:hover {
-	background: rgba(0,0,0,0.2);
-	box-shadow: inset 0 -1px rgba(0,0,0,0);
-	color: #fff;
-}
-
-/* Individual effects */
-
-/* Effect 3: Push*/
-.st-effect-3.st-menu-open .st-pusher {
-	-webkit-transform: translate3d(600px, 0, 0);
-	transform: translate3d(600px, 0, 0);
-}
-
-.st-effect-3.st-menu {
-	-webkit-transform: translate3d(-100%, 0, 0);
-	transform: translate3d(-100%, 0, 0);
-}
-
-.st-effect-3.st-menu-open .st-effect-3.st-menu {
-	visibility: visible;
-	-webkit-transition: -webkit-transform 0.5s;
-	transition: transform 0.5s;
-}
-
-.st-effect-3.st-menu::after {
-	display: none;
-}
-
-/* Effect 7: 3D rotate in */
-
-.st-effect-7.st-container {
-	-webkit-perspective: 1500px;
-	perspective: 1500px;
-	-webkit-perspective-origin: 0% 50%;
-	perspective-origin: 0% 50%;
-}
-
-.st-effect-7 .st-pusher {
-	-webkit-transform-style: preserve-3d;
-	transform-style: preserve-3d;
-}
-
-.st-effect-7.st-menu-open .st-pusher {
-	-webkit-transform: translate3d(-600px, 0, 0);
-	transform: translate3d(-600px, 0, 0);
-}
-
-@media (max-width: 600px){
-	.st-effect-7.st-menu-open .st-pusher {
-		-webkit-transform: translate3d(-100%, 0, 0);
-		transform: translate3d(-100%, 0, 0);
-	}
-}
-
-.st-effect-7.st-menu {
-	-webkit-transform: translate3d(100%, 0, 0) rotateY(90deg);
-	transform: translate3d(100%, 0, 0) rotateY(90deg);
-	-webkit-transform-origin: 0% -50%;
-	transform-origin: 0% -50%;
-	-webkit-transform-style: preserve-3d;
-	transform-style: preserve-3d;
-}
-
-.st-effect-7.st-menu-open .st-effect-7.st-menu {
-	visibility: visible;
-	-webkit-transition: -webkit-transform 0.5s;
-	transition: transform 0.5s;
-	-webkit-transform: translate3d(100%, 0, 0) rotateY(0deg);
-	transform: translate3d(100%, 0, 0) rotateY(0deg);
-	-webkit-transition-delay: 0.1s!important;
-}
-
-/* Fallback example for browsers that don't support 3D transforms (and no JS fallback) */
-.no-csstransforms3d .st-pusher,
-.no-js .st-pusher {
-	padding-left: 600px;
-}
-
-
-
-
-
-/*paginator*/
-
-.paginator {
-	overflow-x: scroll;
-	font-size:1em;
-	width:100%;
-	padding: 10px 40px 0;
-	box-sizing:border-box;
-	-moz-box-sizing:border-box;
-	-webkit-box-sizing:border-box;
-}
-.paginator table {
-	border-collapse:collapse;
-	table-layout:fixed;
-	width:100%;
-}
-.paginator table tr {
-    float: left;
-}
-.paginator table td {
-	white-space:nowrap;
-	text-align: center;
-	padding: 0;
-}
-.paginator span {
-	display:block;
-	padding:0;
-	color:#fff;
-}
-.paginator span strong,
-.paginator span a {
-	display:block;
-	font-size:0.85em;
-	padding: 6px 15px;
-}
-.paginator a {
-	color: #888888;
-	text-decoration:none;
-}
-
-.paginator .active a{
-	color:#FFF;
-	background-color: #888888;
-}
-
-.paginator a:hover{
-	color:#FFF;
-	background-color: #C7C7C7;
-}
-.paginator span em {
-	font-style:normal;
-	padding:3px 5px 4px;
-}
-.paginator a:hover em {
-	background-color:#888888;
-}
-.paginator span strong {
-	font-weight:normal; 
-}
-.paginator span strong em {
-	background-color:#556E8C;
-}
-.paginator .scroll_bar {
-	width:100%;	height:20px;
-	position:relative;
-	margin-top:4px; 
-}
-.paginator .scroll_trough {
-	width:100%;	height:3px;
-	background:#F4F4F2;
-	border-bottom:1px solid #E0E0E0;
-	overflow:hidden;
-}
-.paginator .scroll_thumb {
-	position:absolute;
-	z-index:2;
-	width:0; height:3px;
-	top:0; left:0;
-	font-size:1px;
-	background:#556E8C;
-}
-.paginator .scroll_knob {
-	position:absolute;
-	top:-3px; left:50%;
-	margin-left:-10px;
-	width:20px; height:20px;
-	overflow:hidden;
-	background:url(/static/i/sprite.png) no-repeat -140px -20px;
-	cursor:pointer; cursor:hand;
-}
-.paginator .scroll_knob:hover {
-	background-position:-59px -20px;
-}
-.paginator .current_page_mark {
-	position:absolute;
-	z-index:1;
-	top:0; left:0;
-	width:0; height:3px;
-	overflow:hidden;
-	background:#556E8C;
-}
-
-.fullsize .scroll_thumb {
-	display:none;
-}
-
-
-.paginator_pages {
-	text-align:left;
-	font-size:0.85em; 
-	color:#888888;
-	margin:-6px 0 0 46px;
-}
-
-
-.paginator_go_to_pages {
-	height:21px;
-	position:relative;
-	width:100%;
-	padding:0 40px;
-	-webkit-box-sizing: border-box;
-	-ms-box-sizing: border-box;
-	-moz-box-sizing: border-box;
-}
-.paginator_go_to_page {
-	background:url(/static/i/sprite.png) no-repeat;
-	width:34px;
-	height:21px;
-	display:block;
-	text-decoration:none;
-	position:absolute;
-	top:0;
-}
-.paginator_go_to_page span {
-	display:block;
-	position:absolute;
-	background:url(/static/i/sprite.png) no-repeat;
-	width:20px;
-	height:20px;
-	top:1px;
-}
-.paginator_go_to_previous {
-	background-position:-140px -70px;
-	left:0;
-}
-.paginator_go_to_previous span {
-	background-position:-320px 0;
-	left:4px;
-}
-.paginator_go_to_next {
-	background-position:-174px -70px;
-	right:0;
-}
-.paginator_go_to_next span {
-	background-position:-20px 0;
-	right:4px;
-}
-
-/*
- * Scroller Plugin [Formstone Library]
- * @author Ben Plum
- * @version 0.6.4
- *
- * Copyright © 2013 Ben Plum <mr@benplum.com>
- * Released under the MIT License <http://www.opensource.org/licenses/mit-license.php>
- */
- 
-	.scroller { overflow: hidden; overflow-x: hidden; overflow-y: hidden; position: relative; }
-	.scroller-content { height: 100%; overflow: auto; overflow-x: hidden; overflow-y: auto; position: relative; z-index: 1; }
-	.scroller-bar { display: none; height: 100%; position: absolute; right: 0; top: 0; width: 20px; z-index: 2; }
-	.scroller-track { height: 100%; overflow: hidden; position: relative; width: 100%; border-top: 1px solid rgb(224, 224, 224); cursor: pointer;}
-	.scroller-handle { 
-		border-top: 5px solid #888;
-		height: 20px; overflow: hidden; position: absolute; right: 5px; top: 0; width: 10px; z-index: 2; 
-		-webkit-transition: right 0.1s linear, width 0.1s linear, border-top 0.5s linear;
-		   -moz-transition: right 0.1s linear, width 0.1s linear, border-top 0.5s linear;
-		   	-ms-transition: right 0.1s linear, width 0.1s linear, border-top 0.5s linear;
-		   	 -o-transition: right 0.1s linear, width 0.1s linear, border-top 0.5s linear;
-		   	 	transition: right 0.1s linear, width 0.1s linear, border-top 0.5s linear;
-	}
-	.scroller-bar:hover .scroller-handle,
-	.scroller-bar:active .scroller-handle {
-		border-top: 20px solid #888;;
-	}
-	
-	/* Webkit Fix */
-	.scroller-content::-webkit-scrollbar,
-	.scroller-content::-webkit-scrollbar-button,
-	.scroller-content::-webkit-scrollbar-track,
-	.scroller-content::-webkit-scrollbar-track-piece,
-	.scroller-content::-webkit-scrollbar-thumb,
-	.scroller-content::-webkit-scrollbar-corner,
-	.scroller-content::-webkit-resizer { background: transparent; opacity: 0; }
-	
-	/* Active Scrollbar */
-	.scroller-active .scroller-content { padding: 20px; }
-	.scroller-active .scroller-bar { display: block; }
-	
-	/* Setup Scrollbar - Should match 'active' styles for proper sizing */
-	.scroller-active .scroller-content { padding: 20px; }
-	.scroller-active .scroller-bar { display: block; }
-	
-	/* Horizontal */
-	.scroller-horizontal .scroller-content { overflow: auto; overflow-x: auto; overflow-y: hidden; padding-bottom: 0px !important; }
-	.scroller-horizontal .scroller-bar { border-left: none; border-top: 1px solid rgba(238, 238, 238, 0); bottom: 0; height: 15px; top: auto; width: 100%; left: 50px;}
-	.scroller-horizontal .scroller-handle { height: 100%; right: auto; top: auto; width: 20px; left:0; }
-
-
-	/*!
+/*!
  * Datepicker for Bootstrap
  *
  * Copyright 2012 Stefan Petre
@@ -821,9 +371,20 @@ body.st-menu-open .st-pusher{
 .datepicker table tr td span.active:hover,
 .datepicker table tr td span.active.disabled,
 .datepicker table tr td span.active.disabled:hover {
-	color: #ffffff;
-	background-color: #bdc3c7;
-	border-color: #358885;
+  background-color: #006dcc;
+  background-image: -moz-linear-gradient(top, #0088cc, #0044cc);
+  background-image: -ms-linear-gradient(top, #0088cc, #0044cc);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#0088cc), to(#0044cc));
+  background-image: -webkit-linear-gradient(top, #0088cc, #0044cc);
+  background-image: -o-linear-gradient(top, #0088cc, #0044cc);
+  background-image: linear-gradient(top, #0088cc, #0044cc);
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#0088cc', endColorstr='#0044cc', GradientType=0);
+  border-color: #0044cc #0044cc #002a80;
+  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+  filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
+  color: #fff;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
 }
 .datepicker table tr td span.active:hover,
 .datepicker table tr td span.active:hover:hover,
@@ -845,7 +406,7 @@ body.st-menu-open .st-pusher{
 .datepicker table tr td span.active:hover[disabled],
 .datepicker table tr td span.active.disabled[disabled],
 .datepicker table tr td span.active.disabled:hover[disabled] {
-  background-color: #45BAB7;
+  background-color: #0044cc;
 }
 .datepicker table tr td span.active:active,
 .datepicker table tr td span.active:hover:active,
@@ -919,15 +480,12 @@ body.st-menu-open .st-pusher{
 }
 .datepicker.dropdown-menu {
   position: absolute;
-  top: 50%;
-  left:20%;
+  top: 100%;
+  left: 0;
   z-index: 1000;
   float: left;
   display: none;
-  width: 200px;
   min-width: 160px;
-  visibility: visible;
-  opacity: 1;
   list-style: none;
   background-color: #ffffff;
   border: 1px solid #ccc;
@@ -944,6 +502,7 @@ body.st-menu-open .st-pusher{
   *border-right-width: 2px;
   *border-bottom-width: 2px;
   color: #333333;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 13px;
   line-height: 20px;
 }

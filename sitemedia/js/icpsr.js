@@ -141,7 +141,11 @@ $(document).ready(function(){
 		$scrollbar.scroller("scroll", '.active');
 
 	}
-	
+	$("#id_start_date").datepicker( {
+	    format: " yyyy",
+	    viewMode: "years", 
+	    minViewMode: "years"
+	});
 
 });//end doc.ready
 
@@ -251,7 +255,7 @@ function getQueryStringFromForm(form){
 				if(count>0){
 					str+='&amp;';
 				}
-				var value = $this.attr('value') || '';
+				var value = $this.attr('value') || $this.val() || '';
 				
 				str+=$this.attr('name')+'='+escape(value);
 			}

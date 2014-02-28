@@ -28,11 +28,13 @@ class KeywordSearch(forms.Form):
 
     # NOTE: could use min_value and max_value here, if we have reasonable values
     # default widget is number input; we can switch to text input if helpful
+    # this will nned to be a tel input to allow for devices to display the number pad automatically
+    # also would be good to add the class form-control to the <input> element
     start_date = forms.IntegerField(required=False,
         help_text=''''Search by start year of time period covered by data;
-        use with end date to specify a range or single year''')
+        use with end date to specify a range or single year''',label='Starting at this Year')
     end_date = forms.IntegerField(required=False,
-        help_text='Search by end date; use with start date to specify a range or single year')
+        help_text='Search by end date; use with start date to specify a range or single year',label='Ending at this Year')
 
     _adv_fields = ['title', 'summary', 'source', 'location']
 

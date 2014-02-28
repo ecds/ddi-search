@@ -51,6 +51,20 @@
                         {% endfor %}
                     </ul>
                 </div>
+                <div class="row">
+                <div class="col-sm-6">
+                    <h2>geo_coverage</h2>
+                    <ul class="tagsinput">
+                        {% for gl in resource.geo_coverage %}
+                        <li class="tag">
+                            <a href="#">{{ gl }}</a>
+                            <a class="tagsinput-link">
+                                <span class="glyphicon glyphicon-chevron-right"></span>
+                            </a>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
                 <div class="col-sm-6">
                     <h2>Geographic Locations</h2>
                     
