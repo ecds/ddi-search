@@ -93,12 +93,12 @@ $(document).ready(function(){
 		e.preventDefault();
 		search.get(true);
 	});
-	$('#submit').on('click', function(e){
+	$('#submit, #submit2').on('click', function(e){
 		e.preventDefault();
 		search.get();
 	});
 
-	$('.home #submit').on('click', function(e){
+	$('.home #submit, .home #submit2').on('click', function(e){
 		e.preventDefault();
 		search.get(true);
 	});
@@ -141,7 +141,7 @@ $(document).ready(function(){
 		$scrollbar.scroller("scroll", '.active');
 
 	}
-	$("#id_start_date").datepicker( {
+	$("#date-range input").datepicker( {
 	    format: " yyyy",
 	    viewMode: "years", 
 	    minViewMode: "years"

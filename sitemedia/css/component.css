@@ -37,6 +37,7 @@ body.st-menu-open{
 body.st-menu-open .st-menu{
 	position: fixed;
 	top: 0;
+	padding-bottom: 200px;
 }
 .st-pusher {
 	position: relative;

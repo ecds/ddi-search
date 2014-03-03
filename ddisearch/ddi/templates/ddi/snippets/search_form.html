@@ -41,7 +41,7 @@
 			{# for each advanced field #}
 			{% for field in form.advanced_fields %}
 			<div class="form-group">
-				<label for="{{ field.name }}" class="col-sm-2 control-label">{{ field.label }}</label>
+				<label for="id_{{ field.name }}" class="col-sm-2 control-label">{{ field.label }}</label>
 				<div class="col-sm-10">
 					{{ field }}
 					{# <input type="text" class="form-control" id="testInput1" placeholder="Test Advanced Field"> #}
@@ -50,10 +50,21 @@
 			{% endfor %}
 
 
-			<div class="form-group">
-				<label for="{{ field.name }}" class="col-sm-3 control-label">Set Annual Ranges:</label>
-				<div class="col-sm-9">
-					{{ form.start_date }} to {{ form.end_date }}
+			<div class="form-group" id="date-range">
+				<label for="{{ field.name }}" class="col-sm-5 control-label">Return datasets between these years:</label>
+				<div class="col-sm-7">
+					<div class="row">
+						{# {{ form.start_date }} to {{ form.end_date }} #}
+						<div class="col-xs-5">
+							{{ form.start_date }}
+							{# <input type="text" class="form-control" id="testInput1" placeholder="Test Advanced Field"> #}
+						</div>
+						<div class="col-xs-1"><p class="small centered">to</p></div>
+						<div class="col-xs-5">
+							{{ form.end_date }}
+							{# <input type="text" class="form-control" id="testInput1" placeholder="Test Advanced Field"> #}
+						</div>
+					</div>
 				</div>
 			</div>
 			<div class="form-group">
@@ -63,7 +74,7 @@
 							<button class="reset btn btn-default btn-adv">Clear Criteria</button>
 						</div>
 						<div class="controls btn-group-sm col-xs-6">
-							<button id="submit" class="btn btn-primary btn-adv" type="submit"><span class="glyphicon glyphicon-search"></span></button>
+							<button id="submit2" class="btn btn-primary btn-adv" type="submit"><span class="glyphicon glyphicon-search"></span></button>
 						</div>
 					</div>
 				</div>
