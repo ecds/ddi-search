@@ -142,7 +142,7 @@ $(document).ready(function(){
 
 	}
 	$("#date-range input").datepicker( {
-	    format: " yyyy",
+	    format: "yyyy",
 	    viewMode: "years", 
 	    minViewMode: "years"
 	});
