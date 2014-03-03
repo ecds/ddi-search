@@ -200,14 +200,20 @@ body {
 }
 
 .adv.group {
-	max-width: none;
+	max-width: 800px;
 	color: #BDC3C7;
-	padding: 10px 10%;
+	padding: 15px;
 }
 
 .adv.group .form-group {
 	position: relative;
 	float: left;
+	width: 100%;
+	margin-bottom: 0;
+}
+
+.adv.group .btn.btn-adv {
+	margin-top: 25px;
 	width: 100%;
 }
 
@@ -232,17 +238,21 @@ body {
 	text-align: center;
 	color: #BDC3C7;
 	border-bottom: 1px solid rgb(112, 112, 112);
-	margin-bottom: 4px;
+	margin-bottom: 18px;
 	padding-bottom: 7px;
 }
 
-.adv.group input {
+.adv.group .form-control {
 	margin-bottom: 15px;
+	font-size: 12px;
+	height: 32px;
 }
 .adv.group label{
 	font-size: .8em;
 	color: rgb(213, 213, 213);
 	margin-bottom: 0;
+	font-size: 16px;
+	text-align: right;
 }
 
 .reset-form {

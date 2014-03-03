@@ -28,43 +28,44 @@
 		</div><!--/.container-->
 	</div>
 	<span class="adv toggle switch" data-type="advfields">
-				<a href="#">search options <span class="glyphicon glyphicon-chevron-down"></span></a>
-			</span>
+		<a href="#">search options <span class="glyphicon glyphicon-chevron-down"></span></a>
+	</span>
 	<div class="filter">
 
 		{# start Advanced Filter #}
 		<fieldset class="adv toggle group" data-type="advfields" style="display:none;">
+
+			<header class="col-sm-12">
+				<h4>Advanced Search Options</h4>
+			</header>
+			{# for each advanced field #}
+			{% for field in form.advanced_fields %}
 			<div class="form-group">
-				<header class="col-sm-12">
-					<h4>Advanced Search Options</h4>
-				</header>
-				{# for each advanced field #}
-				{% for field in form.advanced_fields %}
-				<div class="col-sm-6 col-md-3">
-					<label for="{{ field.name }}">{{ field.label }}</label>
+				<label for="{{ field.name }}" class="col-sm-2 control-label">{{ field.label }}</label>
+				<div class="col-sm-10">
 					{{ field }}
 					{# <input type="text" class="form-control" id="testInput1" placeholder="Test Advanced Field"> #}
 				</div>
-				{% endfor %}
 			</div>
+			{% endfor %}
+
 
 			<div class="form-group">
-				<div class="col-sm-4 col-md-3">
-					<h4>Set Annual Ranges:</h4>
-					<p class="small">You can choose to limit the results to a specific year or range</p>
-				</div>
-				<div class="col-xs-6 col-sm-4 col-md-3">
-					<label for="{{ form.end_date.name }}">{{ form.start_date.label }}</label>
-					{{ form.start_date }}
-				</div>
-				<div class="col-xs-6 col-sm-4 col-md-3">
-					<label for="{{ form.end_date.name }}">{{ form.end_date.label }}</label>
-					{{ form.end_date }}
+				<label for="{{ field.name }}" class="col-sm-3 control-label">Set Annual Ranges:</label>
+				<div class="col-sm-9">
+					{{ form.start_date }} to {{ form.end_date }}
 				</div>
 			</div>
-			<div>
-				<div class="controls btn-group-sm col-sm-3 pull-right">
-					<button class="reset btn btn-default">Clear Criteria</button>
+			<div class="form-group">
+				<div class="col-xs-12 col-sm-6 pull-right">
+					<div class="row">
+						<div class="controls btn-group-sm col-xs-6">
+							<button class="reset btn btn-default btn-adv">Clear Criteria</button>
+						</div>
+						<div class="controls btn-group-sm col-xs-6">
+							<button id="submit" class="btn btn-primary btn-adv" type="submit"><span class="glyphicon glyphicon-search"></span></button>
+						</div>
+					</div>
 				</div>
 			</div>
 		</fieldset>
@@ -72,19 +73,19 @@
 
 		{# suppress display of per-page and sort options on home page; but should be present to submit #}
 		<div class="page-options" {% if request.path = index_url %} style="display:none;"{% endif %}>
-		<div class="container">
-			<fieldset>
-				<div class="option">
-					<label for="id_per_page"><span>{{ form.per_page.label }}</span></label>
-					{{ form.per_page }}
-				</div>
+			<div class="container">
+				<fieldset>
+					<div class="option">
+						<label for="id_per_page"><span>{{ form.per_page.label }}</span></label>
+						{{ form.per_page }}
+					</div>
 
-				<div class="option">
-					<label for="id_sort"><span>{{ form.sort.label }}</span></label>
-					{{ form.sort }}
-				</div>
-			</fieldset>
-		</div><!--/.page-options-->
+					<div class="option">
+						<label for="id_sort"><span>{{ form.sort.label }}</span></label>
+						{{ form.sort }}
+					</div>
+				</fieldset>
+			</div><!--/.page-options-->
 		</div><!--/.container-->
 	</div>
 </form>
