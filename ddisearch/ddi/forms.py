@@ -1,6 +1,9 @@
 from django import forms
 
 
+class TelephoneInput(forms.TextInput):
+    input_type = 'tel'
+
 class KeywordSearch(forms.Form):
     keyword = forms.CharField(required=False, widget=forms.TextInput(attrs={'class':'form-control'}),
         help_text='One or more keywords; can include wildcards * and ?, and exact phrases in quotes.')
@@ -32,9 +35,11 @@ class KeywordSearch(forms.Form):
     # also would be good to add the class form-control to the <input> element
     start_date = forms.IntegerField(required=False,
         help_text=''''Search by start year of time period covered by data;
-        use with end date to specify a range or single year''',label='Starting at this Year')
+        use with end date to specify a range or single year''',
+        widget=TelephoneInput(attrs={'class': 'form-control', 'placeholder': 'Start year'}))
     end_date = forms.IntegerField(required=False,
-        help_text='Search by end date; use with start date to specify a range or single year',label='Ending at this Year')
+        help_text='Search by end date; use with start date to specify a range or single year',
+        widget=TelephoneInput(attrs={'class': 'form-control', 'placeholder': 'End year'}))
 
     _adv_fields = ['title', 'summary', 'source', 'location']
 
