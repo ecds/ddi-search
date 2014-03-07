@@ -80,6 +80,10 @@ $(document).ready(function(){
 		$(this).attr('value',value);
 	});
 
+	$('.option select').bind('change',function(){
+		search.get();
+	})
+
 	$form.on('keyup',function(e){
 		e.preventDefault();
 		var code = e.keyCode || e.which,

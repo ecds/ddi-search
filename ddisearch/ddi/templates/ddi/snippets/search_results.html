@@ -49,8 +49,6 @@
                         {% if r.keywords %}
                         <p><strong>Keywords:</strong> {{ r.keywords|join:'; '|truncatewords:10 }}</p>
                         {% endif %}
-
-                        <p><strong>Date{{ r.dates|pluralize }}:</strong> {{ r.dates|join:'; '|default:'(not specified)' }}</p>
                     </section>
 
                     {# This is the preview section that will appear in the aside. #}
@@ -66,7 +64,7 @@
                         <p><strong>Keywords:</strong> {{ r.keywords|join:'; ' }}</p>
                         {% endif %}
                         {{ r.geo_coverage|join:'; ' }}
-                        <p>Location</p>
+                        
                         {% if r.geo_coverage %}
                         <p><strong>Geographical coverage or scope of the data</strong> {{ r.geo_coverage|join:'; ' }}</p>
                         {% endif %}
