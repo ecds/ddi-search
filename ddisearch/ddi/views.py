@@ -135,6 +135,7 @@ def search(request):
 
         context.update({'keywords': search_opts.get('keywords', ''),
             'results': results,
+            'querytime': [results.object_list.queryTime()],
             'url_params': url_params,
             'per_page': int(per_page),
             'rechunk_params': rechunk_params,
