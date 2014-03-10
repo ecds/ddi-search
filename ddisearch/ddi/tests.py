@@ -47,7 +47,10 @@ class CodeBookTest(TestCase):
         self.assert_('Arab Israeli conflict' in self.cb.keywords)
         self.assert_('social attitudes' in self.cb.keywords)
         self.assertEqual(4, len(self.cb.topics))
-        self.assert_('Mass Political Behavior and Attitudes' in self.cb.topics[0])
+        self.assert_(isinstance(self.cb.topics[0], ddixml.Topic))
+        topics = [unicode(t) for t in self.cb.topics]
+        self.assert_('Mass Political Behavior and Attitudes' in topics[0])
+        self.assertEqual('archive', self.cb.topics[0].source)
         # time periods
         self.assertEqual(5, len(self.cb.time_periods))
         self.assert_(isinstance(self.cb.time_periods[0], ddixml.Date))

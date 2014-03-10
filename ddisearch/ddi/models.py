@@ -86,6 +86,19 @@ class Nation(xmlmap.XmlObject):
     def __unicode__(self):
         return self.val
 
+class Topic(xmlmap.XmlObject):
+    'XML model for topcClas'
+    ROOT_NAME = 'topcClas'
+    #: text value of the topic
+    val = xmlmap.StringField('text()')
+    #: source
+    source = xmlmap.StringField('@source')
+    #: vocabulary
+    vocab = xmlmap.StringField('@vocab')
+
+    def __unicode__(self):
+        return self.val
+
 
 ## methodology section
 
@@ -253,7 +266,7 @@ class CodeBook(XmlModel):
     #: list of keywords
     keywords = xmlmap.StringListField('stdyDscr/stdyInfo/subject/keyword')
     #: list of topics
-    topics = xmlmap.StringListField('stdyDscr/stdyInfo/subject/topcClas')
+    topics = xmlmap.NodeListField('stdyDscr/stdyInfo/subject/topcClas', Topic)
     #: time periods covered by the data, as a list of :class:`Date`.
     #:
     #: **Recommended:** use the :attr:`dates` property for display, which collects
@@ -335,8 +348,6 @@ class CodeBook(XmlModel):
                     dates.append('%s%s%s' % (start[t.cycle], sep, t.date))
 
         return dates
-
-
 
 
 
