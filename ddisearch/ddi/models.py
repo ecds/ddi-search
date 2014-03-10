@@ -86,6 +86,19 @@ class Nation(xmlmap.XmlObject):
     def __unicode__(self):
         return self.val
 
+class Topic(xmlmap.XmlObject):
+    'XML model for topcClas'
+    ROOT_NAME = 'topcClas'
+    #: text value of the topic
+    val = xmlmap.StringField('text()')
+    #: source
+    source = xmlmap.StringField('@source')
+    #: vocabulary
+    vocab = xmlmap.StringField('@vocab')
+
+    def __unicode__(self):
+        return self.val
+
 
 ## methodology section
 
@@ -255,8 +268,7 @@ class CodeBook(XmlModel):
     # keywords = xmlmap.StringListField('stdyDscr/stdyInfo/subject/keyword')
 
     #: list of topics
-    topics = xmlmap.StringListField('.//topcClas')
-    # topics = xmlmap.StringListField('stdyDscr/stdyInfo/subject/topcClas')
+    topics = xmlmap.NodeListField('.//topcClas', Topic)
 
     #: time periods covered by the data, as a list of :class:`Date`.
     #:
@@ -351,6 +363,4 @@ class Keyword(XmlModel):
 class Topic(XmlModel):
     'xml model to allow searching for distinct codebooks'
     objects = Manager('distinct-values(//topcClas)')
-
-
 

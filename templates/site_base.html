@@ -15,5 +15,14 @@
 <script type="text/javascript" src="{% static 'js/sidebarEffects.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/bootstrap-select-picker.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/scroller.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/bootstrap-datepicker.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/icpsr.js' %}"></script>
+{% endblock %}
+
+{% block footer-content %}
+  {# display eXist query times (when present) in debug mode only #}
+  {% if querytime and debug %}
+    <div class="query-time dev-note">quer{{ querytime|pluralize:"y,ies" }} took
+      {{ querytime|join:", " }} ms</div>
+  {% endif %}
 {% endblock %}

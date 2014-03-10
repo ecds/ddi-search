@@ -49,8 +49,6 @@
                         {% if r.keywords %}
                         <p><strong>Keywords:</strong> {{ r.keywords|join:'; '|truncatewords:10 }}</p>
                         {% endif %}
-
-                        <p><strong>Date{{ r.dates|pluralize }}:</strong> {{ r.dates|join:'; '|default:'(not specified)' }}</p>
                     </section>
 
                     {# This is the preview section that will appear in the aside. #}
@@ -65,6 +63,12 @@
                         {% if r.keywords %}
                         <p><strong>Keywords:</strong> {{ r.keywords|join:'; ' }}</p>
                         {% endif %}
+                        {{ r.geo_coverage|join:'; ' }}
+                        
+                        {% if r.geo_coverage %}
+                        <p><strong>Geographical coverage or scope of the data</strong> {{ r.geo_coverage|join:'; ' }}</p>
+                        {% endif %}
+
                         <p class="centered">
                             <a class="btn btn-primary" href="{% url 'ddi:resource' id=r.id agency=r.id.agency %}" >Open Resource</a>
                         </p>
@@ -78,5 +82,3 @@
     {% endif %}  {# search results present #}
 </article>
 </div><!-- /.container -->
-
-

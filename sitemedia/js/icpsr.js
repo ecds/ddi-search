@@ -80,6 +80,10 @@ $(document).ready(function(){
 		$(this).attr('value',value);
 	});
 
+	$('.option select').bind('change',function(){
+		search.get();
+	})
+
 	$form.on('keyup',function(e){
 		e.preventDefault();
 		var code = e.keyCode || e.which,
@@ -93,12 +97,12 @@ $(document).ready(function(){
 		e.preventDefault();
 		search.get(true);
 	});
-	$('#submit').on('click', function(e){
+	$('#submit, #submit2').on('click', function(e){
 		e.preventDefault();
 		search.get();
 	});
 
-	$('.home #submit').on('click', function(e){
+	$('.home #submit, .home #submit2').on('click', function(e){
 		e.preventDefault();
 		search.get(true);
 	});
@@ -120,7 +124,7 @@ $(document).ready(function(){
 	function reset(elem){
 		var $elem = $(elem),
 		$inputs = $elem.find('input');
-		$inputs.val('');
+		$inputs.attr('value','').val('');
 	}
 
 	var $toggleSwitch = $('.toggle.switch');
@@ -141,7 +145,11 @@ $(document).ready(function(){
 		$scrollbar.scroller("scroll", '.active');
 
 	}
-	
+	$("#date-range input").datepicker( {
+	    format: "yyyy",
+	    viewMode: "years", 
+	    minViewMode: "years"
+	});
 
 });//end doc.ready
 
@@ -251,7 +259,7 @@ function getQueryStringFromForm(form){
 				if(count>0){
 					str+='&amp;';
 				}
-				var value = $this.attr('value') || '';
+				var value = $this.attr('value') || $this.val() || '';
 				
 				str+=$this.attr('name')+'='+escape(value);
 			}

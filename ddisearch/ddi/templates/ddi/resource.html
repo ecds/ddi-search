@@ -10,14 +10,16 @@
 <article>
     <header>
         <div class="container">
-            <h1>{{ resource.title }}</h1>
+            <h1>
+            <small>ICPSR {{resource.id}}</small class="muted-text"><br/>
+            <span class="resource-title">{{ resource.title }}</span>
+            </h1>
 
             {% if resource.authors %}
             <h2 class="h3">Principal Investigator{{ resource.authors|pluralize }}</h2>
 
             <p class="lead">{{ resource.authors|join:'; ' }}</p>
             {% endif %}
-
 
             <h2 class="h3">Date{{ resource.dates|pluralize }}</h2>
             <p class="lead">
@@ -51,12 +53,14 @@
                         {% endfor %}
                     </ul>
                 </div>
+
                 <div class="col-sm-6">
-                    <h2>Geographic Locations</h2>
+                    <h2>Geographic Coverage</h2>
 
                     <div class="map">
                         <img src="{% static 'img/Flat-World-Map.gif' %}"/>
 
+                        <!--
                         <div class="location-marker north-america">
                             <span class="glyphicon glyphicon-map-marker" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="North America"></span>
                         </div>
@@ -75,7 +79,24 @@
                         <div class="location-marker australia">
                             <span class="glyphicon glyphicon-map-marker" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Australia"></span>
                         </div>
+                        -->
+                        {% for gl in resource.geo_coverage %}
+                        <div class="location-marker {{ gl|lower }}">
+                            <span class="glyphicon glyphicon-map-marker" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="{{ gl }}"></span>
+                        </div>
+                        {% endfor %}
                     </div>
+
+                    <ul class="tagsinput">
+                        {% for gl in resource.geo_coverage %}
+                        <li class="tag">
+                            <a href="#">{{ gl }}</a>
+                            <a class="tagsinput-link">
+                                <span class="glyphicon glyphicon-chevron-right"></span>
+                            </a>
+                        </li>
+                        {% endfor %}
+                    </ul>
 
                 </div>
             </div><!-- /row -->
@@ -89,36 +110,40 @@
             </div>
         </header>
         <div class="container">
-            <ul class="info-card">
-                <li class="col-sm-3">
-                    <h3>Time Periods</h3>
-                    {% for tp in resource.time_periods %}
+            <table class="table table-bordered info-card">
+                <tr>
+                    <th>Time Periods</th>
+                    <th>Collection Dates</th>
+                    <th>Unit of Analysis</th>
+                    <th>Kind of Data</th>
+                </tr>
+                <tr>
+                    <td>
+                        {% for tp in resource.time_periods %}
                         {% if tp %}
-                            <p>{{tp}}</p>
+                        <p>{{tp}}</p>
                         {% endif %}
-                    {% endfor %}
-                </li>
-                <li class="col-sm-3">
-                    <h3>Collection Dates</h3>
-                    {% for d in resource.dates %}
+                        {% endfor %}
+                    </td>
+                    <td>
+                        {% for d in resource.dates %}
                         {% if d %}
-                            <p>{{d}}</p>
+                        <p>{{d}}</p>
                         {% endif %}
-                    {% endfor %}
-                </li>
-                <li class="col-sm-3">
-                    <h3>Unit of Analysis</h3>
-                    {% for au in resource.analysis_unit %}
+                        {% endfor %}
+                    </td>
+                    <td>
+                        {% for au in resource.analysis_unit %}
                         <p>{{au}}</p>
-                    {% endfor %}
-                </li>
-                <li class="col-sm-3">
-                    <h3>Kind of Data</h3>
-                    {% for kd in resource.kind_of_data %}
+                        {% endfor %}
+                    </td>
+                    <td>
+                        {% for kd in resource.kind_of_data %}
                         <p>{{kd}}</p>
-                    {% endfor %}
-                </li>
-            </ul>
+                        {% endfor %}
+                    </td>
+                </tr>
+            </table>
         </div>
     </section>
 

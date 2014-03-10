@@ -118,6 +118,11 @@ def search(request):
             results = paginator.page(paginator.num_pages)
 
         url_args = form.cleaned_data
+        # clear out blank fields
+        # (in particular, without this numeric date fields come through as None)
+        for k in list(url_args.keys()):
+            if url_args[k] is None or url_args[k] == '':
+                del url_args[k]
         url_params = urlencode(url_args)
         # url params for changing chunk size
         partial_args = url_args.copy()
@@ -130,6 +135,7 @@ def search(request):
 
         context.update({'keywords': search_opts.get('keywords', ''),
             'results': results,
+            'querytime': [results.object_list.queryTime()],
             'url_params': url_params,
             'per_page': int(per_page),
             'rechunk_params': rechunk_params,

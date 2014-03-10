@@ -9,6 +9,10 @@ body {
 	color:#525C66;
 }
 
+h1 small, h2 small, h3 small, h4 small, h5 small, h6 small, .h1 small, .h2 small, .h3 small, .h4 small, .h5 small, .h6 small {
+	color: #B1B4B9;
+}
+
 .centered{
 	text-align: center;
 }
@@ -52,7 +56,9 @@ body {
 }
 
 .filter {
-	background-color: #666;
+	background-color: #63696D;
+	float: left;
+	width:100%;
 }
 
 .filter fieldset{
@@ -121,6 +127,36 @@ body {
 
 .recent li {
 	font-size: 14px;    
+	text-align: left;
+	border-top: 1px solid rgba(179, 188, 194, 0.26);
+	padding: 5px 10px;
+}
+
+.recent li:first-child {
+	border-top: none;
+	padding-top: 0.5em;
+}
+
+
+.recent .tile {
+    float: left;
+}
+.list-group-content {
+    float: left;
+    width: 76%;
+    font-size: 0.8em;
+    text-align: left;
+}
+.list-group-item {
+    float: left;
+    width: 100%;
+}
+.list-group-item>.badge {
+    background-color: #BDC3C7;
+    color: #FFF;
+}
+.list-group-item {
+    border-color: #E9E9E9;
 }
 
 .search-bar{
@@ -198,12 +234,20 @@ body {
 }
 
 .adv.group {
-	max-width: 700px;
+	max-width: 800px;
+	color: #BDC3C7;
+	padding: 15px;
 }
 
 .adv.group .form-group {
 	position: relative;
 	float: left;
+	width: 100%;
+	margin-bottom: 0;
+}
+
+.adv.group .btn.btn-adv {
+	margin-top: 25px;
 	width: 100%;
 }
 
@@ -228,17 +272,21 @@ body {
 	text-align: center;
 	color: #BDC3C7;
 	border-bottom: 1px solid rgb(112, 112, 112);
-	margin-bottom: 4px;
+	margin-bottom: 18px;
 	padding-bottom: 7px;
 }
 
-.adv.group input {
+.adv.group .form-control {
 	margin-bottom: 15px;
+	font-size: 12px;
+	height: 32px;
 }
 .adv.group label{
 	font-size: .8em;
 	color: rgb(213, 213, 213);
 	margin-bottom: 0;
+	font-size: 15px;
+	text-align: right;
 }
 
 .reset-form {
@@ -270,6 +318,11 @@ body {
 
 
 /*Results*/
+
+.resource-title {
+	padding-top: 5px;
+	display: inline-block;
+}
 
 .results.wrapper{
 	background-color: #F7F7F7;
@@ -318,7 +371,7 @@ body {
 	border: 1px solid #E2E2E2;
 	padding-bottom: 0.5em;
 	margin-bottom: 1.5em;
-	max-height: 300px;
+	height: 300px;
 	overflow: hidden;
 	transition:all 1s;
 }
@@ -424,6 +477,7 @@ header .lead{
 .tagsinput {
 	height: auto;
 	border-color: #E6EAEE;
+	float: left;
 }
 
 .tagsinput .tag a{
@@ -448,13 +502,28 @@ header .lead{
 	position: absolute;
 	color: rgb(184, 64, 41);
 	font-size: 1.25em;
+	display: none;
 }
 
-.location-marker.north-america {
+.location-marker.north-america,
+.location-marker.united.states,
+.location-marker.south-america,
+.location-marker.south.america,
+.location-marker.europe,
+.location-marker.africa,
+.location-marker.asia,
+.location-marker.australia{
+	display: block;
+}
+
+
+.location-marker.north-america,
+.location-marker.united.states {
 	top: 40px;
 	left: 54px;
 }
-.location-marker.south-america {
+.location-marker.south-america,
+.location-marker.south.america {
 	top: 100px;
 	left: 87px;
 }
