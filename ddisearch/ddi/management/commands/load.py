@@ -1,13 +1,22 @@
+import logging
 import os
 import re
+import sys
+import time
+
 from django.conf import settings
 from django.core.management.base import BaseCommand, CommandError
+
+from progressbar import ProgressBar, Bar, Percentage, ETA, SimpleProgress
 
 from eulexistdb.db import ExistDB, ExistDBException
 from eulxml.xmlmap import load_xmlobject_from_file
 
 from ddisearch.ddi.models import CodeBook, Topic
 from ddisearch.ddi.topics import topic_mappings, conditional_topics
+
+
+logger = logging.getLogger(__name__)
 
 
 class Command(BaseCommand):
@@ -27,20 +36,40 @@ class Command(BaseCommand):
 
         self.db = ExistDB()
 
+        # initalize progress bar
+        pbar = None
+        total = len(files)
+        # init progress bar if processing enough files, running on a terminal
+        if total >= 10 and os.isatty(sys.stderr.fileno()):
+            widgets = [Percentage(), ' (', SimpleProgress(), ')',
+                       Bar(), ETA()]
+            pbar = ProgressBar(widgets = widgets, maxval=total).start()
+
         errored = 0
         loaded = 0
         for f in files:
             success = False
+
+            if pbar:
+                pbar.update(errored + loaded)
+
             try:
                 # full path location where file will be loaded in exist db collection
                 dbpath = settings.EXISTDB_ROOT_COLLECTION + "/" + os.path.basename(f)
                 # TODO: any error checking? validation?
 
+                start = time.time()
                 cb = load_xmlobject_from_file(f, CodeBook)
+                logger.debug('%s loaded as xml in %f sec' % (f, time.time() - start))
+
+                start = time.time()
                 self.prep(cb)
+                logger.debug('%s prepped in %f sec' % (f, time.time() - start))
                 # load to eXist from string since DDI documents aren't that large,
                 # rather than reloading the file
+                start = time.time()
                 success = self.db.load(cb.serialize(pretty=True), dbpath, overwrite=True)
+                logger.debug('%s loaded to eXist in %f sec' % (f, time.time() - start))
 
             except IOError as e:
                 self.stdout.write("Error opening %s: %s" % (f, e))
@@ -60,6 +89,9 @@ class Command(BaseCommand):
                     os.remove(f)
                 except OSError as e:
                     self.stdout.write('Error removing %s: %s' % (f, e))
+
+        if pbar:
+           pbar.finish()
 
         # output a summary of what was done if more than one file was processed
         if verbosity >= self.v_normal:

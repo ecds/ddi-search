@@ -1,4 +1,5 @@
 import datetime
+import logging
 from django.shortcuts import render
 from django.http import Http404, HttpResponse
 from django.core.paginator import Paginator, EmptyPage, InvalidPage
@@ -6,13 +7,15 @@ from urllib import urlencode
 from eulexistdb.exceptions import DoesNotExist
 
 from ddisearch.ddi import forms
-from ddisearch.ddi.models import CodeBook
+from ddisearch.ddi.models import CodeBook, DistinctKeywords, DistinctTopics
+
+logger = logging.getLogger(__name__)
 
 def site_index(request):
     'Site index page; currently just displays the search form.'
     # find all documents that are new within some arbitrary window
     # currently using 90 days
-    new_since = datetime.date.today() - datetime.timedelta(days=90)
+    new_since = datetime.date.today() - datetime.timedelta(days=30)
     new_resources = CodeBook.objects \
           .filter(document_version__date__gte=new_since.isoformat()) \
           .only('id', 'title', 'document_version') \
@@ -21,6 +24,27 @@ def site_index(request):
     return render(request, 'site_index.html',
         {'form': forms.KeywordSearch(), 'new_resources': new_resources,
         'new_since': new_since})
+
+
+def _sort_results(results, sort):
+    # sort codebook queryset by the specified sort option
+    # used for both search and browse by keyword/topic
+
+    # simple sort mapping
+    sort_map = {'title': 'title', 'relevance': '-fulltext_score'}
+    if sort in sort_map:
+        results = results.order_by(sort_map[sort])
+    elif sort.startswith('date'):
+        # either date sorting requires a raw xpath to sort on earlist date
+        # check which type to determine if results should be ascending or note
+        if sort == 'date (recent)':
+            asc = False
+        elif sort == 'date (oldest)':
+            asc = True
+        results = results.order_by_raw(CodeBook.sort_date_xpath, ascending=asc)
+
+    # return the sorted queryset
+    return results
 
 
 def search(request):
@@ -79,10 +103,12 @@ def search(request):
 
         # To make relevance scores more meaningful, run *all* search terms
         # from any field against the full text and boost fields
-        results = results.or_filter(fulltext_terms=form.all_search_terms,
-                                    boostfields__fulltext_terms=form.all_search_terms,
-                                    highlight=False    # disable highlighting in search results list
-                                    )
+        # *IF* we are doing a fultext search (i.e., not a date-only query)
+        if form.all_search_terms:
+            results = results.or_filter(fulltext_terms=form.all_search_terms,
+                                        boostfields__fulltext_terms=form.all_search_terms,
+                                        highlight=False    # disable highlighting in search results list
+                                        )
         # FIXME: redundancy in boost fields seems to generate very high relevance scores
         # see if we can avoid repeating filters (e.g. search by title then search again in boost fields)
 
@@ -90,19 +116,8 @@ def search(request):
         results = results.only('title', 'abstract', 'keywords', 'topics',
                                'authors', 'time_periods', 'fulltext_score',
                                'id')
-
-        # simple sort mapping
-        sort_map = {'title': 'title', 'relevance': '-fulltext_score'}
-        if sort in sort_map:
-            results = results.order_by(sort_map[sort])
-        elif sort.startswith('date'):
-            # either date sorting requires a raw xpath to sort on earlist date
-            # check which type to determine if results should be ascending or note
-            if sort == 'date (recent)':
-                asc = False
-            elif sort == 'date (oldest)':
-                asc = True
-            results = results.order_by_raw(CodeBook.sort_date_xpath, ascending=asc)
+        # sort the queryset based on the requested sort option
+        results = _sort_results(results, sort)
 
         paginator = Paginator(results, per_page, orphans=5)
 
@@ -182,3 +197,86 @@ def resource_xml(request, agency, id):
 
     xml = res.serialize(pretty=True)
     return HttpResponse(xml, mimetype='application/xml')
+
+
+def browse_terms(request, mode):
+    '''Browse list of distinct keywords or topics (depending on the
+    specified mode), or browse documents by keyword or topic if a term
+    is specified as a request parameter.
+
+    .. Note::
+
+      Browse by keyword is **deprecated** because there are so many
+      keywords that
+
+    :param mode: keywords or topics
+    '''
+
+    fltr = mode.rstrip('s')
+    term = request.GET.get(fltr, None)
+    label = mode.title()
+    context = {'mode': mode, 'fltr': fltr, 'term': term, 'label': label}
+
+    url_args = {}
+    if term:
+        label = label.rstrip('s')
+        # url params to preserve when jumping to another page
+        url_args[fltr] = term
+
+    if term is not None:
+        form = forms.SearchOptions(request.GET)
+        context['form'] = form
+
+        # validation required before accessing cleaned data
+        if form.is_valid():
+            per_page = form.cleaned_data['per_page']
+            sort = form.cleaned_data['sort']
+        else:
+            # if not valid, init as new and use defaults
+            form = forms.SearchOptions()
+            per_page = form.fields['per_page'].initial
+            sort = form.fields['sort'].initial
+
+        # add sort & per page to url args for use with pagination
+        url_args.update({'per_page': per_page, 'sort': sort})
+
+        results = CodeBook.objects.filter(**{mode:term}) \
+                    .only('title', 'abstract', 'keywords', 'topics',
+                          'authors', 'time_periods', 'id')
+
+        # sort the queryset based on the requested sort option
+        results = _sort_results(results, sort)
+
+    else:
+        per_page = 50
+
+        if mode == 'keywords':
+            results = DistinctKeywords.objects.all().distinct() \
+                                      .order_by_raw(DistinctKeywords.text_xpath)
+
+            # NOTE: returns a list of string, not xml objects
+
+        elif mode == 'topics':
+            results = DistinctTopics.objects.all() \
+                                    .also_raw(count=DistinctTopics.count_xpath,
+                                              text=DistinctTopics.text_xpath) \
+                                    .order_by_raw(DistinctTopics.text_xpath)
+
+    paginator = Paginator(results, per_page, orphans=5)
+
+    try:
+        page = int(request.GET.get('page', '1'))
+    except ValueError:
+        page = 1
+    # If page request (9999) is out of range, deliver last page of results.
+    try:
+        results = paginator.page(page)
+    except (EmptyPage, InvalidPage):
+        page = paginator.num_pages
+        results = paginator.page(paginator.num_pages)
+
+
+    context.update({'results': results, 'url_params': urlencode(url_args),
+                    'querytime': [results.object_list.queryTime()]})
+
+    return render(request, 'ddi/browse_terms.html', context)

@@ -1,0 +1,17 @@
+{# per-page and sort options; for search results and browse by topic/keyword #}
+{# suppress display of per-page and sort options on home page; but should be present to submit #}
+<div class="page-options" {% if request.path = index_url %} style="display:none;"{% endif %}>
+    <div class="container">
+        <fieldset>
+            <div class="option">
+                <label for="id_per_page"><span>{{ form.per_page.label }}</span></label>
+                {{ form.per_page }}
+            </div>
+
+            <div class="option">
+                <label for="id_sort"><span>{{ form.sort.label }}</span></label>
+                {{ form.sort }}
+            </div>
+        </fieldset>
+    </div><!--/.container-->
+</div><!--/.page-options-->

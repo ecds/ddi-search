@@ -3,6 +3,10 @@
 {% block nav-title %}EDC Dataset Search{% endblock %}
 {% block page-title %}EDC Dataset Search{% block page-subtitle %}{% endblock %}{% endblock %}
 
+{% block navlinks %}
+    <li><a href="{% url 'ddi:browse-terms' mode='topics' %}">Browse by Topic</a></li>
+{% endblock %}
+
 
 {% block css %}
 <!--css-->

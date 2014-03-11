@@ -296,6 +296,12 @@ class ViewsTest(eulexistdb_testutil.TestCase):
             'start_date': 1974, 'end_date': 1974})
         self.assertEqual(1, response.context['results'].paginator.count,
             'expected one result from date search on 1974')
+        # single date with no keyword should also be allowed
+        response = self.client.get(search_url,
+            {'per_page': 10, 'sort': 'relevance',
+            'start_date': 1974, 'end_date': 1974})
+        self.assertEqual(1, response.context['results'].paginator.count,
+            'expected one result from date search on 1974 without keyword')
         # single date that does not match
         response = self.client.get(search_url,
             {'per_page': 10, 'sort': 'relevance', 'keyword' : 'israeli election',

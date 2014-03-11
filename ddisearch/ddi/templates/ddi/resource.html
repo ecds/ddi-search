@@ -45,8 +45,8 @@
                     <ul class="tagsinput">
                         {% for kw in resource.keywords %}
                         <li class="tag">
-                            <a href="#">{{ kw }}</a>
-                            <a class="tagsinput-link">
+                            <a href="{% url 'ddi:browse-terms' mode='keywords' %}?keyword={{ kw|urlencode }}">{{ kw }}{# </a> #}
+                            {# <a class="tagsinput-link"> #}
                                 <span class="glyphicon glyphicon-chevron-right"></span>
                             </a>
                         </li>
