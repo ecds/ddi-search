@@ -341,8 +341,8 @@ class ViewsTest(eulexistdb_testutil.TestCase):
         resource_url = reverse('ddi:resource',
             kwargs={'id': self.cb.id, 'agency': self.cb.id.agency })
         response = self.client.get(resource_url)
-        self.assertContains(response, '<h1>%s</h1>' % self.cb.title,
-            html=True)
+        self.assertContains(response, '<span class="resource-title">%s</span>' \
+            % self.cb.title, html=True)
         for author in self.cb.authors:
             self.assertContains(response, author)
         # check subset of keyword terms
