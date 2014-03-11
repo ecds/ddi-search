@@ -365,13 +365,14 @@ class ViewsTest(eulexistdb_testutil.TestCase):
 class LoadCommandTest(TestCase):
     testfile = os.path.join(FIXTURE_DIR, '02988.xml')
 
-
-
     def setUp(self):
         self.cmd = load.Command()
         self.cmd.stdout = StringIO()
         self.db = ExistDB()
         self._exist_content = []
+
+        self.cb = load_xmlobject_from_file(os.path.join(FIXTURE_DIR, '02988.xml'),
+                                           ddixml.CodeBook)
 
     def tearDown(self):
         # remove any tempfiles loaded to exist
@@ -429,4 +430,38 @@ class LoadCommandTest(TestCase):
         exist_path = '%s/%s' % (settings.EXISTDB_ROOT_COLLECTION,
                                 os.path.basename(tmp.name))
         self._exist_content.append(exist_path)
+
+    def test_icpsr_topic_id(self):
+        # icpsr topic picked up correctly
+        self.assertEqual('ICPSR.XIV.A.2.b', self.cmd.icpsr_topic_id(self.cb.topics[0].val))
+        # non-icpsr topic
+        self.assertEqual(None, self.cmd.icpsr_topic_id(self.cb.topics[1].val))
+
+    def test_local_topics(self):
+        topic_count = len(self.cb.topics)
+        self.cmd.local_topics(self.cb)
+        self.assertEqual(topic_count + 1, len(self.cb.topics),
+            'one new local topic should be added to test record')
+        self.assertEqual('Elections and Electoral Politics', self.cb.topics[-1].val)
+        # local vocabulary name subject to change
+        self.assertEqual('local', self.cb.topics[-1].vocab)
+
+        # simulate topic with conditional global topic
+        topic_count = len(self.cb.topics)
+        self.cb.topics[0].val = 'ICPSR IV.a'
+        self.cmd.local_topics(self.cb)
+        self.assertEqual(topic_count + 2, len(self.cb.topics),
+            'two new local topic should be added to test record with global coverage')
+        self.assertEqual('Economic and Financial', self.cb.topics[-2].val)
+        self.assertEqual('International Political Economy', self.cb.topics[-1].val)
+        self.assertEqual('local', self.cb.topics[-1].vocab)
+
+        # simulate topic with conditional global topic *without* global geog coverage
+        topic_count = len(self.cb.topics)
+        self.cb.topics[0].val = 'ICPSR IV.a'
+        self.cb.geo_coverage[-1] = 'not global'
+        self.cmd.local_topics(self.cb)
+        self.assertEqual(topic_count + 1, len(self.cb.topics),
+            'only one new local topic should be added to test record without  global coverage')
+        self.assertEqual('Economic and Financial', self.cb.topics[-1].val)
 

@@ -16,6 +16,9 @@ COURTS_CRIMINAL_JUSTICE = 'Courts, Criminal Justice and Violence'
 PUBLIC_OPINION = 'Public Opinion'
 SOCIAL_INDICATORS = 'Social Indicators'
 
+# NOTE: ICPSR topic ids without a corresponding topic will not be
+# given a local topic, and will not be displayed in the site topic browse
+
 topic_mappings = {
     'ICPSR.I': CENSUS_AND_DEMOGRAPHY,
     'ICPSR.I.A': CENSUS_AND_DEMOGRAPHY,

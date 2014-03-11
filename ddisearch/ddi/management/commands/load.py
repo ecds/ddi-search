@@ -37,7 +37,9 @@ class Command(BaseCommand):
                 # TODO: any error checking? validation?
 
                 cb = load_xmlobject_from_file(f, CodeBook)
-                modified = self.prep(cb)
+                self.prep(cb)
+                # load to eXist from string since DDI documents aren't that large,
+                # rather than reloading the file
                 success = self.db.load(cb.serialize(pretty=True), dbpath, overwrite=True)
 
             except IOError as e:
@@ -72,32 +74,34 @@ class Command(BaseCommand):
 
 
     def prep(self, cb):
-        modified = False
+        # do any prep work or cleanup that needs to be done
+        # before loading to exist
+        self.local_topics(cb)
 
+    def icpsr_topic_id(self, topic):
+        # generate icpsr topic id in the format needed for lookup in our
+        # topic dictionary; returns None if not an ICPSR topic
+        m = self.topic_id.match(topic)
+        if m:
+            match_info = m.groupdict()
+            if match_info['org'] == 'ICPSR':
+                return '%(org)s.%(id)s' % match_info
+
+    def local_topics(self, cb):
         # convert ICPSR topics to local topics
         for t in cb.topics:
-            m = self.topic_id.match(t.val)
-            if m:
-                match_info = m.groupdict()
+            topic_id = self.icpsr_topic_id(t.val)
+            if topic_id is not None:
+                new_topic = topic_mappings.get(topic_id, None)
+                if new_topic:
+                    cb.topics.append(Topic(val=new_topic,
+                        vocab='local'))
 
-                if match_info['org'] == 'ICPSR':
-                    # topic id in the format needed for lookup in our topic dictionary
-                    topic_id = '%(org)s.%(id)s' % match_info
+                # conditional topics if the geographic coverage is global
+                if topic_id in conditional_topics['global'] and \
+                  'Global' in cb.geo_coverage:
+                    cb.topics.append(Topic(val=conditional_topics['global'][topic_id],
+                                           vocab='local'))
 
-                    new_topic = topic_mappings.get(topic_id, None)
-                    if new_topic:
-                        cb.topics.append(Topic(val=new_topic,
-                            vocab='local'))
-                        modified = True
-
-                    # conditional topics if the geographic coverage is global
-                    if topic_id in conditional_topics['global'] and \
-                       'Global' in cb.geo_coverage:
-                        cb.topics.append(Topic(val=conditional_topics['global'][topic_id],
-                            vocab='local'))
-
-                        modified = True
-
-        return modified
 
 
