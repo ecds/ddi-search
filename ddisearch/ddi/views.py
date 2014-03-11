@@ -26,6 +26,27 @@ def site_index(request):
         'new_since': new_since})
 
 
+def _sort_results(results, sort):
+    # sort codebook queryset by the specified sort option
+    # used for both search and browse by keyword/topic
+
+    # simple sort mapping
+    sort_map = {'title': 'title', 'relevance': '-fulltext_score'}
+    if sort in sort_map:
+        results = results.order_by(sort_map[sort])
+    elif sort.startswith('date'):
+        # either date sorting requires a raw xpath to sort on earlist date
+        # check which type to determine if results should be ascending or note
+        if sort == 'date (recent)':
+            asc = False
+        elif sort == 'date (oldest)':
+            asc = True
+        results = results.order_by_raw(CodeBook.sort_date_xpath, ascending=asc)
+
+    # return the sorted queryset
+    return results
+
+
 def search(request):
     '''Search all available DDI content by keyword, title, summary, or source
     with sorting by relevance (default), title, or date.'''
@@ -95,19 +116,8 @@ def search(request):
         results = results.only('title', 'abstract', 'keywords', 'topics',
                                'authors', 'time_periods', 'fulltext_score',
                                'id')
-
-        # simple sort mapping
-        sort_map = {'title': 'title', 'relevance': '-fulltext_score'}
-        if sort in sort_map:
-            results = results.order_by(sort_map[sort])
-        elif sort.startswith('date'):
-            # either date sorting requires a raw xpath to sort on earlist date
-            # check which type to determine if results should be ascending or note
-            if sort == 'date (recent)':
-                asc = False
-            elif sort == 'date (oldest)':
-                asc = True
-            results = results.order_by_raw(CodeBook.sort_date_xpath, ascending=asc)
+        # sort the queryset based on the requested sort option
+        results = _sort_results(results, sort)
 
         paginator = Paginator(results, per_page, orphans=5)
 
@@ -204,14 +214,38 @@ def browse_terms(request, mode):
 
     fltr = mode.rstrip('s')
     term = request.GET.get(fltr, None)
+    label = mode.title()
+    context = {'mode': mode, 'fltr': fltr, 'term': term, 'label': label}
+
+    url_args = {}
+    if term:
+        label = label.rstrip('s')
+        # url params to preserve when jumping to another page
+        url_args[fltr] = term
 
     if term is not None:
+        form = forms.SearchOptions(request.GET)
+        context['form'] = form
+
+        # validation required before accessing cleaned data
+        if form.is_valid():
+            per_page = form.cleaned_data['per_page']
+            sort = form.cleaned_data['sort']
+        else:
+            # if not valid, init as new and use defaults
+            form = forms.SearchOptions()
+            per_page = form.fields['per_page'].initial
+            sort = form.fields['sort'].initial
+
+        # add sort & per page to url args for use with pagination
+        url_args.update({'per_page': per_page, 'sort': sort})
+
         results = CodeBook.objects.filter(**{mode:term}) \
                     .only('title', 'abstract', 'keywords', 'topics',
                           'authors', 'time_periods', 'id')
 
-        # TODO: re-use sort (w/o relevance) & pagination options from search
-        per_page = 10
+        # sort the queryset based on the requested sort option
+        results = _sort_results(results, sort)
 
     else:
         per_page = 50
@@ -220,13 +254,13 @@ def browse_terms(request, mode):
             results = DistinctKeywords.objects.all().distinct() \
                                       .order_by_raw(DistinctKeywords.text_xpath)
 
+            # NOTE: returns a list of string, not xml objects
+
         elif mode == 'topics':
             results = DistinctTopics.objects.all() \
                                     .also_raw(count=DistinctTopics.count_xpath,
                                               text=DistinctTopics.text_xpath) \
                                     .order_by_raw(DistinctTopics.text_xpath)
-
-    # returns a list of string, not xml objects
 
     paginator = Paginator(results, per_page, orphans=5)
 
@@ -241,14 +275,8 @@ def browse_terms(request, mode):
         page = paginator.num_pages
         results = paginator.page(paginator.num_pages)
 
-    label = mode.title()
-    url_args = {}
-    if term:
-        label = label.rstrip('s')
-        # url params to preserve when jumping to another page
-        url_args[fltr] = term
 
-    return render(request, 'ddi/browse_terms.html',
-        {'mode': mode, 'label': label, 'term': term, 'results': results,
-        'fltr': fltr, 'url_params': urlencode(url_args),
-        'querytime': [results.object_list.queryTime(),]})
+    context.update({'results': results, 'url_params': urlencode(url_args),
+                    'querytime': [results.object_list.queryTime()]})
+
+    return render(request, 'ddi/browse_terms.html', context)
