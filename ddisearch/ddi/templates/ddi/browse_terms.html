@@ -1,6 +1,7 @@
 {% extends "site_base.html" %}
 {# template to browse list of keywords or topics #}
 {# OR browse documents by a single keyword or topic #}
+{% load humanize %}
 
 {% block page-subtitle %}| {{ label }}{% if term %} | {{ term }}{% endif %}{% endblock %}
 
@@ -14,7 +15,12 @@
     {% else %} {# display list of keywords or topics #}
     <ul>
         {% for t in results.object_list %}
+        {# t.text / t.count for topics #}
+        {% if t.text and t.count %}
+        <li><a href="?{{ fltr }}={{ t.text|urlencode }}">{{ t.text }}</a> ({{ t.count|intcomma }})</li>
+        {% else %} {# value only for keywords #}
         <li><a href="?{{ fltr }}={{ t }}">{{ t }}</a></li>
+        {% endif %}
         {% endfor %}
     </ul>
     {% endif %}
