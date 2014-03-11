@@ -2,16 +2,27 @@ from django import forms
 
 
 class TelephoneInput(forms.TextInput):
+    'HTML5 telephone input (prompt for numeric entry)'
     input_type = 'tel'
 
-class KeywordSearch(forms.Form):
-    keyword = forms.CharField(required=False, widget=forms.TextInput(attrs={'class':'form-control'}),
-        help_text='One or more keywords; can include wildcards * and ?, and exact phrases in quotes.')
+class SearchOptions(forms.Form):
+    # base form with common options for search and browse result pages
     PER_PAGE_OPTIONS = (10, 25, 50, 100)
     page_choices = [(d, d) for d in PER_PAGE_OPTIONS]
     per_page = forms.ChoiceField(label='Results per page',
         choices=page_choices, initial=10)
-    SORT_OPTIONS = ('relevance', 'title', 'date (recent)', 'date (oldest)')
+    SORT_OPTIONS = ['title', 'date (recent)', 'date (oldest)']
+    sort_choices = [(d, d) for d in SORT_OPTIONS]
+    sort = forms.ChoiceField(label='Sort by',
+        choices=sort_choices, initial='title')
+
+class KeywordSearch(SearchOptions):
+    keyword = forms.CharField(required=False, widget=forms.TextInput(attrs={'class':'form-control'}),
+        help_text='One or more keywords; can include wildcards * and ?, and exact phrases in quotes.')
+
+    # inherit per-page options and input
+    # extend sort options to include relevance
+    SORT_OPTIONS = ['relevance'] + SearchOptions.SORT_OPTIONS
     sort_choices = [(d, d) for d in SORT_OPTIONS]
     sort = forms.ChoiceField(label='Sort by',
         choices=sort_choices, initial='relevance')
