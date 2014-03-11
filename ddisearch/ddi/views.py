@@ -15,7 +15,7 @@ def site_index(request):
     'Site index page; currently just displays the search form.'
     # find all documents that are new within some arbitrary window
     # currently using 90 days
-    new_since = datetime.date.today() - datetime.timedelta(days=90)
+    new_since = datetime.date.today() - datetime.timedelta(days=30)
     new_resources = CodeBook.objects \
           .filter(document_version__date__gte=new_since.isoformat()) \
           .only('id', 'title', 'document_version') \
