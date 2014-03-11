@@ -313,8 +313,11 @@ class CodeBook(XmlModel):
 
     # technically probably a datefield; could be 4 digit year, or YYYY-MM
     # full xpath is stdyDscr/stdyInfo/sumDscr
-    # XPath for sorting by date; sort on the earliest date available (single or date range)
-    sort_date_xpath = 'min(%(xq_var)s//timePrd/string(@date))'
+    # XPaths for sorting by date  (could be single or date range, doesn't matter)
+    # sort on the earliest date available for oldest content
+    first_date_xpath = 'min(%(xq_var)s//timePrd/string(@date))'
+    # sort on the most recent date for newest content
+    last_date_xpath = 'max(%(xq_var)s//timePrd/string(@date))'
 
     #: document version, as an instance of :class:`Version`
     #: intended for use in identifying new additions

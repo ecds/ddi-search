@@ -35,13 +35,17 @@ def _sort_results(results, sort):
     if sort in sort_map:
         results = results.order_by(sort_map[sort])
     elif sort.startswith('date'):
-        # either date sorting requires a raw xpath to sort on earlist date
-        # check which type to determine if results should be ascending or note
+        # either date sorting requires a raw xpath
+        # check which type to determine if results should be ascending or not
         if sort == 'date (recent)':
+            # when sorting most recent, use latest date in the record
             asc = False
+            xpath = CodeBook.last_date_xpath
         elif sort == 'date (oldest)':
+            # when sorting oldest, use earliest date in the record
             asc = True
-        results = results.order_by_raw(CodeBook.sort_date_xpath, ascending=asc)
+            xpath = CodeBook.first_date_xpath
+        results = results.order_by_raw(xpath, ascending=asc)
 
     # return the sorted queryset
     return results
