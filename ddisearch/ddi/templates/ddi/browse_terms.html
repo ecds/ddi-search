@@ -10,8 +10,11 @@
 <div class="container">
     <h1>{{ label }}{% if term %} : {{ term }}{% endif %}</h1>
 
-    {% if term %} {# display resources matching requested term #}
+    {# display resources matching a single term #}
+    {% if term %}
+        {% include 'ddi/snippets/search_options.html' %}  {# per page & sort #}
         {% include 'ddi/snippets/search_results.html' %}
+
     {% else %} {# display list of keywords or topics #}
     <ul>
         {% for t in results.object_list %}
