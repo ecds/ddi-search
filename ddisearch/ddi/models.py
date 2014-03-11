@@ -273,6 +273,10 @@ class CodeBook(XmlModel):
     # NOTE: full path is needed to allow adding local topics when loading to eXist
     # xpath .//topcClas might be more efficient for searching
 
+    #: list of local topics (generalized local set derived from ICPSR terms)
+    #: NOTE: terminology/variable name could change
+    local_topics = xmlmap.NodeListField('.//topcClas[@vocab="local"]', Topic)
+
     #: time periods covered by the data, as a list of :class:`Date`.
     #:
     #: **Recommended:** use the :attr:`dates` property for display, which collects
