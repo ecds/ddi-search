@@ -79,10 +79,12 @@ def search(request):
 
         # To make relevance scores more meaningful, run *all* search terms
         # from any field against the full text and boost fields
-        results = results.or_filter(fulltext_terms=form.all_search_terms,
-                                    boostfields__fulltext_terms=form.all_search_terms,
-                                    highlight=False    # disable highlighting in search results list
-                                    )
+        # *IF* we are doing a fultext search (i.e., not a date-only query)
+        if form.all_search_terms:
+            results = results.or_filter(fulltext_terms=form.all_search_terms,
+                                        boostfields__fulltext_terms=form.all_search_terms,
+                                        highlight=False    # disable highlighting in search results list
+                                        )
         # FIXME: redundancy in boost fields seems to generate very high relevance scores
         # see if we can avoid repeating filters (e.g. search by title then search again in boost fields)
 

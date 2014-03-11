@@ -43,7 +43,7 @@ class KeywordSearch(forms.Form):
 
     _adv_fields = ['title', 'summary', 'source', 'location']
 
-    search_fields = ['keyword'] + _adv_fields #, 'title', 'summary', 'source', 'location']
+    search_fields = ['keyword', 'start_date', 'end_date'] + _adv_fields
     # fields that can contain search term; at least one of these is required
     # for validation; all combined generate a list of all search terms
 
