@@ -31,11 +31,24 @@
             <text qname="nation"/>
             <text qname="universe"/>
             <text qname="AuthEnty"/>
+            <text qname="topcClas"/>
+            <text qname="keyword"/>
 
             <!-- xpath for advanced search fields (currently using full paths) -->
             <text xpath="stdyDscr/citation/titlStmt/titl"/>
             <text xpath="stdyDscr/stdyInfo/abstract"/>
             <text xpath="stdyDscr/citation/rspStmt/AuthEnty"/>
+
         </lucene>
+
+        <!-- Range indexes -->
+        <range>
+            <!-- needed for browse by topic -->
+            <create qname="topcClass" type="xs:string"/>
+            <create qname="keyword" type="xs:string"/>
+            <!-- might improve date range searching ? -->
+            <!-- <create qname="@date" type="xs:string"/> -->
+        </range>
+
     </index>
 </collection>

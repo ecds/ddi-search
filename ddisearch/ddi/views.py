@@ -1,4 +1,5 @@
 import datetime
+import logging
 from django.shortcuts import render
 from django.http import Http404, HttpResponse
 from django.core.paginator import Paginator, EmptyPage, InvalidPage
@@ -6,7 +7,9 @@ from urllib import urlencode
 from eulexistdb.exceptions import DoesNotExist
 
 from ddisearch.ddi import forms
-from ddisearch.ddi.models import CodeBook, Keyword, Topic
+from ddisearch.ddi.models import CodeBook, DistinctKeywords, DistinctTopics
+
+logger = logging.getLogger(__name__)
 
 def site_index(request):
     'Site index page; currently just displays the search form.'
@@ -191,6 +194,11 @@ def browse_terms(request, mode):
     specified mode), or browse documents by keyword or topic if a term
     is specified as a request parameter.
 
+    .. Note::
+
+      Browse by keyword is **deprecated** because there are so many
+      keywords that
+
     :param mode: keywords or topics
     '''
 
@@ -206,14 +214,17 @@ def browse_terms(request, mode):
         per_page = 10
 
     else:
-        # FIXME: how to sort *after* the distinct?
+        per_page = 50
+
         if mode == 'keywords':
-            results = Keyword.objects.all().distinct().order_by_raw('%(xq_var)s')
+            results = DistinctKeywords.objects.all().distinct() \
+                                      .order_by_raw(DistinctKeywords.text_xpath)
 
         elif mode == 'topics':
-            results = Topic.objects.all().distinct().order_by_raw('%(xq_var)s')
-
-        per_page = 50
+            results = DistinctTopics.objects.all() \
+                                    .also_raw(count=DistinctTopics.count_xpath,
+                                              text=DistinctTopics.text_xpath) \
+                                    .order_by_raw(DistinctTopics.text_xpath)
 
     # returns a list of string, not xml objects
 
@@ -230,10 +241,6 @@ def browse_terms(request, mode):
         page = paginator.num_pages
         results = paginator.page(paginator.num_pages)
 
-    # counting per item is TOO slow; how to correlate with the terms?
-    # counts = []
-    # for t in terms.object_list:
-    #     counts.append(CodeBook.objects.filter(topics=t).count())
     label = mode.title()
     url_args = {}
     if term:
@@ -243,4 +250,5 @@ def browse_terms(request, mode):
 
     return render(request, 'ddi/browse_terms.html',
         {'mode': mode, 'label': label, 'term': term, 'results': results,
-        'fltr': fltr, 'url_params': urlencode(url_args)})
+        'fltr': fltr, 'url_params': urlencode(url_args),
+        'querytime': [results.object_list.queryTime(),]})

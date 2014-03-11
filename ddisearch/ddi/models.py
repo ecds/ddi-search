@@ -1,3 +1,4 @@
+from django.conf import settings
 from eulxml import xmlmap
 
 from eulexistdb.models import XmlModel
@@ -355,14 +356,31 @@ class CodeBook(XmlModel):
         return dates
 
 
-class Keyword(XmlModel):
+# collection prefix normally added by queryset; has to be added explicitly
+# here becuase we are including distinct in the primary xpath
+_collection = 'collection("/db/%s")' % settings.EXISTDB_ROOT_COLLECTION.lstrip('/')
+
+# template for count xpath: takes collection and xpath (topic or keyword)
+# xpath to get the total number of documents with this topic or keyword
+# - has to use ft:query or else it is much too slow
+_count_xpath_template = '''count(%s/codeBook[ft:query(%s,
+        <query><phrase>{%%(xq_var)s}</phrase></query>)])'''
+# NOTE: this is not exact... will probably match partials (not great for keywords)
+# <regex>^{$n}$</regex> should be possible, but returns count of 0
+
+class DistinctKeywords(XmlModel):
     'xml model to allow searching for distinct keywords'
+    objects = Manager('distinct-values(%s//keyword)' % _collection)
+    count_xpath = _count_xpath_template % (_collection, './/keyword')
     text = xmlmap.StringField('text()')
+    text_xpath = '%(xq_var)s'
 
-    objects = Manager('distinct-values(//keyword)')
+class DistinctTopics(XmlModel):
+    'xml model to allow searching for distinct local topics'
+    objects = Manager('distinct-values(%s//topcClas[@vocab="local"])' % _collection)
+    count_xpath = _count_xpath_template % (_collection, './/topcClas')
+    text = xmlmap.StringField('text()')
+    text_xpath = '%(xq_var)s'
 
 
-class Topic(XmlModel):
-    'xml model to allow searching for distinct codebooks'
-    objects = Manager('distinct-values(//topcClas)')
 
