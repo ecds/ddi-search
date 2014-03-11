@@ -11,7 +11,7 @@
     <header>
         <div class="container">
             <h1>
-            <small>ICPSR {{resource.id}}</small class="muted-text"><br/>
+            <small class="muted-text">ICPSR {{resource.id}}</small><br/>
             <span class="resource-title">{{ resource.title }}</span>
             </h1>
 
@@ -20,7 +20,7 @@
 
             <p class="lead">{{ resource.authors|join:'; ' }}</p>
             {% endif %}
-           
+
             <h2 class="h3">Date{{ resource.dates|pluralize }}</h2>
             <p class="lead">
                 {% if resource.dates %}
@@ -56,7 +56,7 @@
 
                 <div class="col-sm-6">
                     <h2>Geographic Coverage</h2>
-                    
+
                     <div class="map">
                         <img src="{% static 'img/Flat-World-Map.gif' %}"/>
 
