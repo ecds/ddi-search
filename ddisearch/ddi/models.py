@@ -268,7 +268,9 @@ class CodeBook(XmlModel):
     # keywords = xmlmap.StringListField('stdyDscr/stdyInfo/subject/keyword')
 
     #: list of topics
-    topics = xmlmap.NodeListField('.//topcClas', Topic)
+    topics = xmlmap.NodeListField('stdyDscr/stdyInfo/subject/topcClas', Topic)
+    # NOTE: full path is needed to allow adding local topics when loading to eXist
+    # xpath .//topcClas might be more efficient for searching
 
     #: time periods covered by the data, as a list of :class:`Date`.
     #:
