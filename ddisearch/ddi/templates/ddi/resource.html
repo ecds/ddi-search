@@ -139,6 +139,8 @@
                         {% if tp %}
                         <p>{{tp}}</p>
                         {% endif %}
+                        {% empty %}
+                        <p class="text-center">---</p>
                         {% endfor %}
                     </td>
                     <td>
@@ -146,16 +148,22 @@
                         {% if d %}
                         <p>{{d}}</p>
                         {% endif %}
+                        {% empty %}
+                        <p class="text-center">---</p>
                         {% endfor %}
                     </td>
                     <td>
                         {% for au in resource.analysis_unit %}
                         <p>{{au}}</p>
+                        {% empty %}
+                        <p class="text-center">---</p>
                         {% endfor %}
                     </td>
                     <td>
                         {% for kd in resource.kind_of_data %}
                         <p>{{kd}}</p>
+                        {% empty %}
+                        <p class="text-center">---</p>
                         {% endfor %}
                     </td>
                 </tr>

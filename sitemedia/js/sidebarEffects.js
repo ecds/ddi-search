@@ -54,7 +54,6 @@
 					$(container).addClass('st-menu-open' );
 				}, 25 );
 			}
-
 			$(document).on('click', '.st-pusher', function(ev){
 				var target = ev.target,
 				menuIsClosed = !$('body').hasClass('st-menu-open');
@@ -67,14 +66,15 @@
 					}
 				}
 				else{
-					if(!hasParent(target,'#menu-7')){
+					if(hasParent(target,'.close') || $(target).hasClass('close')){
 						ev.preventDefault();
 						closeMenu();
 					}
-					else if(hasParent(target,'.close')){
+					else if(!hasParent(target,'#menu-7')){
 						ev.preventDefault();
 						closeMenu();
 					}
+					
 				}
 			});
 

@@ -6,26 +6,52 @@
 {% block page-subtitle %}| {{ label }}{% if term %} | {{ term }}{% endif %}{% endblock %}
 
 {% block content %}
+<div id="st-container">
+    <div class="st-pusher">
+        <aside class="st-menu st-effect-7" id="menu-7">
+            <button class="btn btn-clear close">
+                <span class="glyphicon glyphicon-remove-circle"></span>
+            </button>
+            <h2 class="icon icon-lab">Preview</h2>
+            <section class="content"></section>
+        </aside>
+        <div class="st-content"><!-- this is the wrapper for the content -->
+            <div class="main clearfix">
+                <header>
+                <div class="container">
+                    <h1>{{ label }}{% if term %} : {{ term }}{% endif %}</h1>
+                </div>
+                </header>
+                {# display resources matching a single term #}
+                {% if term %}
+                <div class="filter browse">
+                    <div class="page-options">
+                        <div class="container">
+                            {% include 'ddi/snippets/search_options.html' %}  {# per page & sort #}
 
-<div class="container">
-    <h1>{{ label }}{% if term %} : {{ term }}{% endif %}</h1>
-
-    {# display resources matching a single term #}
-    {% if term %}
-        {% include 'ddi/snippets/search_options.html' %}  {# per page & sort #}
-        {% include 'ddi/snippets/search_results.html' %}
-
-    {% else %} {# display list of keywords or topics #}
-    <ul>
-        {% for t in results.object_list %}
-        {# t.text / t.count for topics #}
-        {% if t.text and t.count %}
-        <li><a href="?{{ fltr }}={{ t.text|urlencode }}">{{ t.text }}</a> ({{ t.count|intcomma }})</li>
-        {% else %} {# value only for keywords #}
-        <li><a href="?{{ fltr }}={{ t }}">{{ t }}</a></li>
-        {% endif %}
-        {% endfor %}
-    </ul>
-    {% endif %}
+                        </div>
+                    </div>
+                </div>
+                <div class="container">
+                    {% include 'ddi/snippets/search_results.html' %}
+                </div>
+                {% else %} {# display list of keywords or topics #}
+                <div class="container">
+                    <ul>
+                        {% for t in results.object_list %}
+                        {# t.text / t.count for topics #}
+                        {% if t.text and t.count %}
+                        <li><a href="?{{ fltr }}={{ t.text|urlencode }}">{{ t.text }}</a> ({{ t.count|intcomma }})</li>
+                        {% else %} {# value only for keywords #}
+                        <li><a href="?{{ fltr }}={{ t }}">{{ t }}</a></li>
+                        {% endif %}
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                </div>
+            </div><!-- /main -->
+        </div><!-- /st-content-inner -->
+    </div><!-- /st-content -->
+</div><!-- /st-pusher -->
 </div>
 {% endblock %}

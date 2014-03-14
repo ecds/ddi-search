@@ -12,7 +12,8 @@ $(document).ready(function(){
 		search_term: 'term=',
 		per_page: 'per_page=',
 		sort: 'sort=',
-		adv:  'adv='
+		adv:  'adv=',
+		topic: 'topic='
 	};
 
 	q = q.substring(1,q.length);
@@ -80,9 +81,17 @@ $(document).ready(function(){
 		$(this).attr('value',value);
 	});
 
-	$('.option select').bind('change',function(){
+	$('#search .option select').bind('change',function(){
 		search.get();
-	})
+	});
+
+	$('.browse .option select').bind('change',function(){
+		var topic = getParam(q,params.topic),
+			search = '?topic='+topic+'&amp;'+ getQueryStringFromForm('.browse'),
+			url = window.location.origin + window.location.pathname + search;
+		
+			window.location = url;
+	});
 
 	$form.on('keyup',function(e){
 		e.preventDefault();
