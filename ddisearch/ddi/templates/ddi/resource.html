@@ -11,8 +11,8 @@
     <header>
         <div class="container">
             <h1>
-            <small class="muted-text">ICPSR {{resource.id}}</small><br/>
-            <span class="resource-title">{{ resource.title }}</span>
+                <small class="muted-text">ICPSR {{resource.id}}</small><br/>
+                <span class="resource-title">{{ resource.title }}</span>
             </h1>
 
             {% if resource.authors %}
@@ -31,11 +31,24 @@
             </p>
         </div>
     </header>
+
     <section>
         <div class="container">
             <h2>Abstract</h2>
             <p>{{ resource.abstract }}</p>
         </div>
+        <section>
+            <div class="container">
+                <h3>Document Version</h3>
+                <p>{{ resource.document_version }}</p>
+                <h3>Study Notes</h3>
+                {% for sn in resource.study_notes %}
+                <p>{{sn}}</p>
+                {% empty %}
+                <p>---</p>
+                {% endfor %}
+            </div>
+        </section>
     </section>
     <section>
         <div class="container">
@@ -49,32 +62,32 @@
                         <li class="tag">
                             <a href="{% url 'ddi:browse-terms' mode='topics' %}?topic={{ t|urlencode }}">{{ t }}{# </a> #}
                             {# <a class="tagsinput-link"> #}
-                                <span class="glyphicon glyphicon-chevron-right"></span>
-                            </a>
-                        </li>
-                        {% endfor %}
-                    </ul>
-                    {% endif %}
-                    <div class="clearfix"> </div>
+                            <span class="glyphicon glyphicon-chevron-right"></span>
+                        </a>
+                    </li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+                <div class="clearfix"> </div>
 
-                    <h2>Keywords</h2>
-                    <ul class="tagsinput">
-                        {% for kw in resource.keywords %}
-                        <li class="tag">
-                            <a href="{% url 'ddi:browse-terms' mode='keywords' %}?keyword={{ kw|urlencode }}">{{ kw }}{# </a> #}
-                            {# <a class="tagsinput-link"> #}
-                                <span class="glyphicon glyphicon-chevron-right"></span>
-                            </a>
-                        </li>
-                        {% endfor %}
-                    </ul>
-                </div>
+                <h2>Keywords</h2>
+                <ul class="tagsinput">
+                    {% for kw in resource.keywords %}
+                    <li class="tag">
+                        {{ kw }}
+                        <a class="tagsinput-link" href="{% url 'ddi:browse-terms' mode='keywords' %}?keyword={{ kw|urlencode }}"> 
+                            <span class="glyphicon glyphicon-chevron-right"></span>
+                        </a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
 
-                <div class="col-sm-6">
-                    <h2>Geographic Coverage</h2>
+            <div class="col-sm-6">
+                <h2>Geographic Coverage</h2>
 
-                    <div class="map">
-                        <img src="{% static 'img/Flat-World-Map.gif' %}"/>
+                <div class="map">
+                    <img src="{% static 'img/Flat-World-Map.gif' %}"/>
 
                         <!--
                         <div class="location-marker north-america">
@@ -95,92 +108,150 @@
                         <div class="location-marker australia">
                             <span class="glyphicon glyphicon-map-marker" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Australia"></span>
                         </div>
-                        -->
-                        {% for gl in resource.geo_coverage %}
-                        <div class="location-marker {{ gl|lower }}">
-                            <span class="glyphicon glyphicon-map-marker" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="{{ gl }}"></span>
-                        </div>
-                        {% endfor %}
+                    -->
+                    {% for gl in resource.geo_coverage %}
+                    <div class="location-marker {{ gl|lower }}">
+                        <span class="glyphicon glyphicon-map-marker" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="{{ gl }}"></span>
                     </div>
-
-                    <ul class="tagsinput">
-                        {% for gl in resource.geo_coverage %}
-                        <li class="tag">
-                            <a href="#">{{ gl }}</a>
-                            <a class="tagsinput-link">
-                                <span class="glyphicon glyphicon-chevron-right"></span>
-                            </a>
-                        </li>
-                        {% endfor %}
-                    </ul>
-
+                    {% endfor %}
                 </div>
-            </div><!-- /row -->
-        </div>
-    </section>
 
-    <section id="collection-meta">
-        <header>
-            <div class="container">
-                <h2>About the Data</h2>
+                <ul class="tagsinput">
+                    {% for gl in resource.geo_coverage %}
+                    <li class="tag">
+                        {{ gl }}
+                        <a class="tagsinput-link" href="#">
+                            <span class="glyphicon glyphicon-chevron-right"></span>
+                        </a>
+                    </li>
+                    {% empty %}
+                    <li class="tag">
+                        Not Designated
+                    </li>
+                    {% endfor %}
+                </ul>
+
             </div>
-        </header>
-        <div class="container">
-            <table class="table table-bordered info-card">
-                <tr>
-                    <th>Time Periods</th>
-                    <th>Collection Dates</th>
-                    <th>Unit of Analysis</th>
-                    <th>Kind of Data</th>
-                </tr>
-                <tr>
-                    <td>
-                        {% for tp in resource.time_periods %}
-                        {% if tp %}
-                        <p>{{tp}}</p>
-                        {% endif %}
-                        {% empty %}
-                        <p class="text-center">---</p>
-                        {% endfor %}
-                    </td>
-                    <td>
-                        {% for d in resource.dates %}
-                        {% if d %}
-                        <p>{{d}}</p>
-                        {% endif %}
-                        {% empty %}
-                        <p class="text-center">---</p>
-                        {% endfor %}
-                    </td>
-                    <td>
-                        {% for au in resource.analysis_unit %}
-                        <p>{{au}}</p>
-                        {% empty %}
-                        <p class="text-center">---</p>
-                        {% endfor %}
-                    </td>
-                    <td>
-                        {% for kd in resource.kind_of_data %}
-                        <p>{{kd}}</p>
-                        {% empty %}
-                        <p class="text-center">---</p>
-                        {% endfor %}
-                    </td>
-                </tr>
-            </table>
-        </div>
-    </section>
+        </div><!-- /row -->
+    </div>
+</section>
 
-    <section id="study-notes">
+<section id="collection-meta">
+    <header>
         <div class="container">
-            {% if resource.study_notes %}
-            <h2>Field Notes</h2>
-            {% for sn in resource.study_notes %}
-            {{sn}}
-            {% endfor %}
-            {% endif %}
+            <h2>About the Data</h2>
         </div>
-    </section>
+    </header>
+    <div class="container">
+        <table class="table table-bordered info-card">
+            <tr>
+                <th>Time Periods</th>
+                <th>Nation</th>
+                <th>Unit of Analysis</th>
+                <th>Kind of Data</th>
+            </tr>
+            <tr>
+                <td>
+                    {% for tp in resource.time_periods %}
+                    {% if tp %}
+                    <p>{{tp}}</p>
+                    {% endif %}
+                    {% empty %}
+                    <p class="text-center">---</p>
+                    {% endfor %}
+                </td>
+                <td>
+                    {% for n in resource.nations %}
+                    {% if n %}
+                    <p>{{n}}</p>
+                    {% endif %}
+                    {% empty %}
+                    <p class="text-center">---</p>
+                    {% endfor %}
+                </td>
+                <td>
+                    {% for au in resource.analysis_unit %}
+                    <p>{{au}}</p>
+                    {% empty %}
+                    <p class="text-center">---</p>
+                    {% endfor %}
+                </td>
+                <td>
+                    {% for kd in resource.kind_of_data %}
+                    <p>{{kd}}</p>
+                    {% empty %}
+                    <p class="text-center">---</p>
+                    {% endfor %}
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="container">
+        <table class="table table-bordered info-card">
+            <tr>
+                <th>Frequency</th>
+                <th>Time Methods</th>
+                <th>Collection Dates</th>
+            </tr>
+            <tr>
+                <td>
+                    {% for f in resource.frequency %}
+                    <p>{{f}}</p>
+                    {% empty %}
+                    <p class="text-center">---</p>
+                    {% endfor %}
+                </td>
+                <td>
+                    {% for tm in resource.time_methods %}
+                    <p>{{tm}}</p>
+                    {% empty %}
+                    <p class="text-center">---</p>
+                    {% endfor %}
+                </td>
+                <td>
+                    {% for cd in resource.collection_dates %}
+                    <p>{{cd}}</p>
+                    {% empty %}
+                    <p class="text-center">---</p>
+                    {% endfor %}
+                </td>
+            </tr>
+        </table>
+        <section>
+            <div>
+                <h3>Methods</h3>
+                {% for md in resource.methods %}
+                <p>{{md}}</p>
+                {% empty %}
+                <p>---</p>
+                {% endfor %}
+            </div>
+            <div class="callout callout-warning">
+                <h3>Data Access</h3>
+                <p>The following information is important when using the information from ICPSR.</p>
+            
+            <div id="data-access">
+                {% for da in resource.data_access %}
+                {{da|safe}}
+                {% empty %}
+                <p>---</p>
+                {% endfor %}
+            </div>
+            </div>
+        </section>
+    </div>
+</section>
+
+<section id="study-notes">
+    <div class="container">
+        {% if resource.study_notes %}
+        <h2>Field Notes</h2>
+        {% for sn in resource.study_notes %}
+        {{sn}}
+        {% endfor %}
+        {% endif %}
+    </div>
+</section>
 
 
 </article>

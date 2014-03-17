@@ -17,6 +17,15 @@ h1 small, h2 small, h3 small, h4 small, h5 small, h6 small, .h1 small, .h2 small
 	color: #B1B4B9;
 }
 
+
+h2, .h2 {
+    font-size: 1.65em;
+}
+
+h3, .h3 {
+    font-size: 1.25em;
+}
+
 .centered{
 	text-align: center;
 }
@@ -72,7 +81,8 @@ h1 small, h2 small, h3 small, h4 small, h5 small, h6 small, .h1 small, .h2 small
 	padding-bottom: 15px;
 }
 
-.filter .page-options{
+.filter .page-options,
+header.grey{
 	background-color: #BDC3C7;
 }
 
@@ -581,4 +591,55 @@ header .lead{
 }
 .info-card li:first-child{
     border: none;
+}
+
+
+.callout {
+	margin: 20px 0;
+	padding: 20px;
+	border-left: 3px solid #EEE;
+}
+
+.callout-danger {
+	background-color: #FDF7F7;
+	border-color: #D9534F;
+}
+
+.callout-warning {
+	background-color: #FCF8F2;
+	border-color: #F0AD4E;
+}
+
+#data-access {
+    font-size: 12px;
+}
+
+#data-access p {
+    font-size: 1.1em;
+}
+
+.topic-list{
+	margin-top: 2em;
+}
+
+td p{
+   margin:0;
+}
+
+@media (max-width:767px){
+    .container{
+        position:relative;
+    }
+    .table {
+        max-width: 100%;
+        overflow: scroll;
+        float: left;
+        position: relative;
+        display: block;
+        border:none;
+        background-color:transparent;
+    }
+    .table tr{
+        background-color:#FFF;
+    }
 }

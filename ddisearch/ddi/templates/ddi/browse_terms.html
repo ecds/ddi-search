@@ -17,10 +17,10 @@
         </aside>
         <div class="st-content"><!-- this is the wrapper for the content -->
             <div class="main clearfix">
-                <header>
-                <div class="container">
-                    <h1>{{ label }}{% if term %} : {{ term }}{% endif %}</h1>
-                </div>
+                <header class="grey">
+                    <div class="container">
+                        <h1>{{ label }}{% if term %} : {{ term }}{% endif %}</h1>
+                    </div>
                 </header>
                 {# display resources matching a single term #}
                 {% if term %}
@@ -37,17 +37,24 @@
                 </div>
                 {% else %} {# display list of keywords or topics #}
                 <div class="container">
-                    <ul>
-                        {% for t in results.object_list %}
-                        {# t.text / t.count for topics #}
-                        {% if t.text and t.count %}
-                        <li><a href="?{{ fltr }}={{ t.text|urlencode }}">{{ t.text }}</a> ({{ t.count|intcomma }})</li>
-                        {% else %} {# value only for keywords #}
-                        <li><a href="?{{ fltr }}={{ t }}">{{ t }}</a></li>
+                    <div class="col-sm-8 col-md-6 col-lg-5 topic-list">
+                        <div class="list-group">
+                            {% for t in results.object_list %}
+                            {# t.text / t.count for topics #}
+                            {% if t.text and t.count %}
+                            <a class="list-group-item" href="?{{ fltr }}={{ t.text|urlencode }}">
+                                <span class='list-group-content'>{{ t.text }} </span>
+                                <span class="badge">{{ t.count|intcomma }}</span>
+                            </a>
+                            {% else %} {# value only for keywords #}
+                            <a class="list-group-item" href="?{{ fltr }}={{ t }}">
+                                <span class='list-group-content'>{{ t }}</span>
+                            </a>
+                            {% endif %}
+                            {% endfor %}
+                        </div>
                         {% endif %}
-                        {% endfor %}
-                    </ul>
-                    {% endif %}
+                    </div>
                 </div>
             </div><!-- /main -->
         </div><!-- /st-content-inner -->
