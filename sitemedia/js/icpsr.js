@@ -4,6 +4,54 @@ $(function(){
 
 $(document).ready(function(){
 
+	var $navbarAffix = $('.navbar-affix');
+
+	if($navbarAffix.length>0){
+
+		anchorTags();
+		$(window).resize(function(){
+			anchorTags();
+		})
+
+		function anchorTags(){
+
+			var $navbarAffix = $('.navbar-affix'),
+			$navbarFixedTop = $('.navbar-fixed-top')
+			$adjSection = $('.navbar-affix+section'),
+			offsetTop = $navbarAffix.offset().top-$navbarAffix.height();
+			$navbarAffix.affix({
+				offset: {
+					top: offsetTop
+				}
+			});
+			$adjSection.on('affixed.bs.affix',function(){
+				$(this).css({'padding-top':$navbarAffix.height()});
+			});
+			$('body').scrollspy({ target: '.navbar-affix', offset: 2*$navbarAffix.height()+$navbarFixedTop.height()})
+		}
+	}
+
+	var $animateScrollLinks = $(".nav.animate li a");
+
+	if($animateScrollLinks.length>0){
+		$animateScrollLinks.on('click',function(evt){
+			evt.preventDefault();
+
+			var spacerH = parseInt($(".navbar-fixed-top").height()+ $('.navbar-affix').height()),
+			full_url = $(this).attr('href'),
+			parts = full_url.split("#"),
+			trgt = parts[1],
+			target_offset = $("#"+trgt).offset(),
+			target_top = target_offset.top-spacerH;
+			
+			$(window).resize(function(){
+				spacerH = parseInt($(".navbar-fixed-top").height()+ $('.navbar-affix').height());
+			})
+
+			$('html, body').animate({scrollTop:target_top+"px"}, 500);
+		})
+	}
+
 	$('.location-marker .glyphicon').tooltip();
 	
 	var q = window.location.search,
@@ -87,10 +135,10 @@ $(document).ready(function(){
 
 	$('.browse .option select').bind('change',function(){
 		var topic = getParam(q,params.topic),
-			search = '?topic='+topic+'&amp;'+ getQueryStringFromForm('.browse'),
-			url = window.location.origin + window.location.pathname + search;
+		search = '?topic='+topic+'&amp;'+ getQueryStringFromForm('.browse'),
+		url = window.location.origin + window.location.pathname + search;
 		
-			window.location = url;
+		window.location = url;
 	});
 
 	$form.on('keyup',function(e){
@@ -155,9 +203,9 @@ $(document).ready(function(){
 
 	}
 	$("#date-range input").datepicker( {
-	    format: "yyyy",
-	    viewMode: "years", 
-	    minViewMode: "years"
+		format: "yyyy",
+		viewMode: "years", 
+		minViewMode: "years"
 	});
 
 });//end doc.ready
