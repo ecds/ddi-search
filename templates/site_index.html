@@ -11,10 +11,10 @@
 {% include 'ddi/snippets/loading.html' %}
 <div class="wrapper recent">
 	<div class="container">
-		<div class="col-sm-offset-2 col-sm-8 col-md-offset-3 col-md-6">
+		<div class="col-sm-offset-2 col-sm-8">
 			<div class="tile">
 				<h3>New Additions</h3>
-				<div class="list-group">
+				<div class="list-group"> 
 					{% for res in new_resources %}
 					<a class="list-group-item" href="{% url 'ddi:resource' id=res.id agency=res.id.agency %}">
 
