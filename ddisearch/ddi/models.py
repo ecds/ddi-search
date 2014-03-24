@@ -149,14 +149,18 @@ class DataCollection(xmlmap.XmlObject):
 
 class Method(xmlmap.XmlObject):
     'Methodology and processing'
+    #: list of data collection sections (`dataColl`), as instance of
+    #: :class:`DataCollection`
     data_collection = xmlmap.NodeListField('dataColl', DataCollection)
-    #: notes
+    #: list of notes (`notes`)
     notes = xmlmap.StringListField('notes')
     #: response rates; could be broader description or related info
+    #: (`anlyInfo/respRate`)
     response_rates = xmlmap.StringListField('anlyInfo/respRate')
     #: information on sample estimates and precision
+    #: ('anlyInfo/EstSmpErr')
     sample_error_estimates = xmlmap.StringListField('anlyInfo/EstSmpErr')
-    #: other issues pertaining to data appraisal
+    #: other issues pertaining to data appraisal (`anlyInfo/dataAppr`)
     data_appraisail = xmlmap.StringListField('anlyInfo/dataAppr')
 
 ### data access and availability section
