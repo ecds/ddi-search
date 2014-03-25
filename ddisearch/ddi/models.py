@@ -123,27 +123,28 @@ class DataCollection(xmlmap.XmlObject):
 
     Not mapped: actMin, ConOps
     '''
-    #: time method or dimension of data collection
+    #: time method or dimension of data collection (`timeMeth`)
     time_methods = xmlmap.StringListField('timeMeth')
-    #: entities responsible for collecting the data
+    #: entities responsible for collecting the data (`dataCollector`)
     collectors = xmlmap.StringListField('dataCollector')
-    #: frequency of collection
+    #: frequency of collection (`frequenc`)
     frequency = xmlmap.StringListField('frequenc')
-    #: sampling procedure for selecting participants
+    #: sampling procedure for selecting participants (`sampProc`)
     sample_proc = xmlmap.StringListField('sampProc')
-    #: deviations from sample design
+    #: deviations from sample design (`deviat`)
     deviations = xmlmap.StringListField('deviat')
-    #: methods used to collect the data
+    #: methods used to collect the data (`collMode`)
     methods = xmlmap.StringListField('collMode')
-    #: type of data collection instruments used
+    #: type of data collection instruments usede (`resInstru`)
     research_instruments = xmlmap.StringListField('resInstru')
-    #: description of sources used for data collection, list of :class:`SourceStatement`
+    #: description of sources used for data collection (`sources`),
+    #: list of :class:`SourceStatement`
     sources = xmlmap.NodeListField('sources', SourceStatement)
-    #: noteworthy aspects of data collection situation
+    #: noteworthy aspects of data collection situation (`collSitu`)
     situation = xmlmap.StringListField('collSitu')
-    #: criteria for using weights in analysis of a collection
+    #: criteria for using weights in analysis of a collection (`weight`)
     weights = xmlmap.StringListField('weight')
-    #: methods used to clean the data for consistency, etc.
+    #: methods used to clean the data for consistency, etc. (`cleanOps`)
     cleaning = xmlmap.StringListField('cleanOps')
 
 
@@ -262,8 +263,16 @@ class CodeBook(XmlModel):
 
     #: title for the study
     title = xmlmap.StringField('stdyDscr/citation/titlStmt/titl')
+    #: study subtitle
+    subtitle = xmlmap.StringField('stdyDscr/citation/titlStmt/subTitl')
+    #: alternate title
+    alt_title = xmlmap.StringField('stdyDscr/citation/titlStmt/altTitl')
     #: id information, via :class:`IDNumber`
     id = xmlmap.NodeField('stdyDscr/citation/titlStmt/IDNo', IDNumber)
+    #: version information for the study, as :class:`Version`
+    version = xmlmap.NodeField('stdyDscr/citation/verStmt/version', Version)
+    #: any notes associated with the version statement
+    version_notes = xmlmap.StringListField('stdyDscr/citation/verStmt/notes', Version)
     #: study abstract
     abstract = xmlmap.StringField('.//abstract')
     #: list of authors, as :class:`Author`
@@ -292,6 +301,8 @@ class CodeBook(XmlModel):
     nations = xmlmap.NodeListField('stdyDscr/stdyInfo/sumDscr/nation', Nation)
     #: list of terms indicating the geographical coverage or scope of the data
     geo_coverage = xmlmap.StringListField('stdyDscr/stdyInfo/sumDscr/geogCover')
+    #: description of the lowest level of geographical unit in :attr:`geo_coverage`
+    geo_unit = xmlmap.StringListField('stdyDscr/stdyInfo/sumDscr/geogUnit')
     #: list of terms indicating the unit of analysis
     analysis_unit = xmlmap.StringListField('stdyDscr/stdyInfo/sumDscr/anlyUnit')
     #: list of terms describing the person or elements that are the object of research
