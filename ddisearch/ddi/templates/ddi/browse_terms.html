@@ -27,6 +27,8 @@
                 <div class="filter browse">
                     <div class="page-options">
                         <div class="container">
+                            {# include any hidden fields on the form (i.e. pass keyword/topic) #}
+                            {% for f in form.hidden_fields %} {{ f }} {% endfor %}
                             {% include 'ddi/snippets/search_options.html' %}  {# per page & sort #}
 
                         </div>

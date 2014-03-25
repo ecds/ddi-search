@@ -228,7 +228,7 @@ def browse_terms(request, mode):
         url_args[fltr] = term
 
     if term is not None:
-        form = forms.SearchOptions(request.GET)
+        form = forms.BrowseTerms(request.GET)
         context['form'] = form
 
         # validation required before accessing cleaned data
@@ -244,7 +244,15 @@ def browse_terms(request, mode):
         # add sort & per page to url args for use with pagination
         url_args.update({'per_page': per_page, 'sort': sort})
 
-        results = CodeBook.objects.filter(**{mode:term}) \
+        if mode == 'keywords':
+            search_field = 'keywords__fulltext_terms'
+            # force search term to lower case to help with case-insensitivity
+            term = term.lower()
+        elif mode == 'topics':
+            # make sure to only browse against *local* topics
+            search_field = 'local_topics__fulltext_terms'
+
+        results = CodeBook.objects.filter(**{search_field: '"%s"' % term}) \
                     .only('title', 'abstract', 'keywords', 'topics',
                           'authors', 'time_periods', 'id')
 

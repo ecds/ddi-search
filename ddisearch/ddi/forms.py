@@ -84,3 +84,10 @@ class KeywordSearch(SearchOptions):
             # if form is not valid, then there are no search terms
             return ''
 
+
+class BrowseTerms(SearchOptions):
+    '''Form for browse by topic or keyword; uses base search options to
+    include per_page and sort options, and has optional, hidden fields
+    to pass browse value for current topic or keyword.'''
+    topic = forms.CharField(required=False, widget=forms.HiddenInput)
+    keyword = forms.CharField(required=False, widget=forms.HiddenInput)

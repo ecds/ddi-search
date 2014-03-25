@@ -389,7 +389,7 @@ class DistinctKeywords(XmlModel):
 class DistinctTopics(XmlModel):
     'xml model to allow searching for distinct local topics'
     objects = Manager('distinct-values(%s//topcClas[@vocab="local"])' % _collection)
-    count_xpath = _count_xpath_template % (_collection, './/topcClas')
+    count_xpath = _count_xpath_template % (_collection, './/topcClas[@vocab="local"]')
     text = xmlmap.StringField('text()')
     text_xpath = '%(xq_var)s'
 
