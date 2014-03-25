@@ -97,12 +97,12 @@ def search(request):
             if sdate is not None:
                 # restrict by start date
                 # YYYY will be before any date in that year, e.g. "2001" >= "2001-11"
-                results = results.filter(time_periods__date__gte=str(sdate))
+                results = results.filter(time_periods__date__gte='%04d' % sdate)
             if edate is not None:
                 # restrict by end date
                 # convert to end of year to catch any date variants within that year
                 # e.g. 2001-12-31 will always come after 2001-04, etc
-                edate = "%s-12-31" % edate
+                edate = "%04d-12-31" % edate
                 results = results.filter(time_periods__date__lte=str(edate))
 
         # To make relevance scores more meaningful, run *all* search terms
