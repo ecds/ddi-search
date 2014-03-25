@@ -109,6 +109,7 @@ class Command(BaseCommand):
         # do any prep work or cleanup that needs to be done
         # before loading to exist
         self.local_topics(cb)
+        self.clean_dates(cb)
 
     def icpsr_topic_id(self, topic):
         # generate icpsr topic id in the format needed for lookup in our
@@ -135,5 +136,20 @@ class Command(BaseCommand):
                     cb.topics.append(Topic(val=conditional_topics['global'][topic_id],
                                            vocab='local'))
 
+    def clean_dates(self, cb):
+        # clean up dates so we can search consistently on 4-digit years
+        # or more; dates should be YYYY, YYYY-MM, or YYYY-MM-DD
+        prev_date = None
+        for d in cb.time_periods:
+            # special case: two-digit date as second date in a cycle
+            # interpret as month on the year that starts the cycle
+            if d.event == 'end' and d.cycle == prev_date.cycle and \
+                    len(d.date) == 2:
+               d.date = '%04d-%02d' % (int(prev_date.date), int(d.date))
 
+            elif len(d.date) < 4:
+                d.date = '%04d' % int(d.date)
 
+            # store current date as previous date for next loop, in case
+            # we need to clean up an end date in a cycle
+            prev_date = d

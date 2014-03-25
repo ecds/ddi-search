@@ -1,3 +1,4 @@
+
 import os
 from copy import copy
 import datetime
@@ -470,4 +471,21 @@ class LoadCommandTest(TestCase):
         self.assertEqual(topic_count + 1, len(self.cb.topics),
             'only one new local topic should be added to test record without  global coverage')
         self.assertEqual('Economic and Financial', self.cb.topics[-1].val)
+
+    def test_clean_dates(self):
+        # fixture has no dates that need cleaning, so modify them
+
+        # set first date as a year < 1000; should be converted to 4 digits
+        self.cb.time_periods[0].date = '1'
+        # second and third dates in the record form are start/end for one cycle;
+        # simulate case where end date is month only
+        self.cb.time_periods[1].date = '1974'
+        self.cb.time_periods[2].date = '02'
+
+        self.cmd.clean_dates(self.cb)
+        self.assertEqual('0001', self.cb.time_periods[0].date,
+            'dates before 1000 should be converted to 4 digits')
+        self.assertEqual('1974-02', self.cb.time_periods[2].date,
+            'two-digit dates ending a cycle should be converted to month-year')
+
 
