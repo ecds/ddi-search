@@ -105,6 +105,21 @@ def search(request):
                 edate = "%04d-12-31" % edate
                 results = results.filter(time_periods__date__lte=str(edate))
 
+            # if no keyword search terms are present, default sort by relevance
+            # is nonsensical; sort by most recent date first instead
+            if form.all_search_terms == '' and sort == form.fields['sort'].initial:
+                # since we're doing a date search, sort by most recent date first
+                sort = 'date (recent)'
+                # simplest way to update form data/display is to re-init
+                # and override the defualt sort option specified in the GET params
+                GET_data = request.GET.copy()
+                GET_data['sort'] = sort
+                form = forms.KeywordSearch(GET_data)
+                # validate to make cleaned data available for generating pagination args
+                form.is_valid()
+                # update version of the form that will be passed to the template
+                context['form'] = form
+
         # To make relevance scores more meaningful, run *all* search terms
         # from any field against the full text and boost fields
         # *IF* we are doing a fultext search (i.e., not a date-only query)

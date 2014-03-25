@@ -79,8 +79,11 @@ class KeywordSearch(SearchOptions):
         try:
             cleaned_data = self.clean()
             return ' '.join([cleaned_data.get(f) for f in self.search_fields
-                             if f in cleaned_data and cleaned_data[f]])
-        except:
+                             if f in cleaned_data and cleaned_data[f]
+                                                  and not '_date' in f])
+            # skip date fields when generating search terms
+        except Exception as e:
+            print 'exception: %s' % e
             # if form is not valid, then there are no search terms
             return ''
 
