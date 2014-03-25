@@ -7,8 +7,8 @@ urlpatterns = patterns('',
     # Examples:
     # url(r'^$', 'ddisearch.views.home', name='home'),
     url(r'^$', 'ddisearch.ddi.views.site_index', name='site-index'),
-   # url(r'^blog/', include('blog.urls')),
     url(r'^', include('ddisearch.ddi.urls', namespace='ddi')),
+    url(r'^places/', include('ddisearch.geo.urls', namespace='geo')),
 
     url(r'^admin/', include(admin.site.urls)),
 )

@@ -25,6 +25,7 @@ INSTALLED_APPS = [
     'eulcommon.searchutil',
     'eultheme',
     'ddisearch.ddi',
+    'ddisearch.geo',
 ]
 
 MIDDLEWARE_CLASSES = (

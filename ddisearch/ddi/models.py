@@ -87,6 +87,20 @@ class Nation(xmlmap.XmlObject):
     def __unicode__(self):
         return self.val
 
+class GeographicCoverage(xmlmap.XmlObject):
+    'XML model for geographical coverae (DDI geogCover)'
+    #: full name of the place
+    val = xmlmap.StringField('text()')
+    #: xml id
+    id = xmlmap.StringField('@id')
+
+    def __unicode__(self):
+        return self.val
+
+
+    #: list of terms indicating the geographical coverage or scope of the data
+    geo_coverage = xmlmap.StringListField('stdyDscr/stdyInfo/sumDscr/geogCover')
+
 class Topic(xmlmap.XmlObject):
     'XML model for topcClas'
     ROOT_NAME = 'topcClas'
@@ -300,7 +314,7 @@ class CodeBook(XmlModel):
     #: list of nations as :class:`Nation`
     nations = xmlmap.NodeListField('stdyDscr/stdyInfo/sumDscr/nation', Nation)
     #: list of terms indicating the geographical coverage or scope of the data
-    geo_coverage = xmlmap.StringListField('stdyDscr/stdyInfo/sumDscr/geogCover')
+    geo_coverage = xmlmap.NodeListField('stdyDscr/stdyInfo/sumDscr/geogCover', GeographicCoverage)
     #: description of the lowest level of geographical unit in :attr:`geo_coverage`
     geo_unit = xmlmap.StringListField('stdyDscr/stdyInfo/sumDscr/geogUnit')
     #: list of terms indicating the unit of analysis

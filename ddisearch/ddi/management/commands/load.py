@@ -1,8 +1,10 @@
 import logging
 import os
+from optparse import make_option
 import re
 import sys
 import time
+from geopy.geocoders import GeoNames
 
 from django.conf import settings
 from django.core.management.base import BaseCommand, CommandError
@@ -14,7 +16,7 @@ from eulxml.xmlmap import load_xmlobject_from_file
 
 from ddisearch.ddi.models import CodeBook, Topic
 from ddisearch.ddi.topics import topic_mappings, conditional_topics
-
+from ddisearch.geo.models import Location
 
 logger = logging.getLogger(__name__)
 
@@ -23,6 +25,14 @@ class Command(BaseCommand):
     args = '<filename filename filename ...>'
     help = '''Loads XML files into the configured eXist collection.
     The local copy will be *removed* after it is successfully loaded.'''
+
+    option_list = BaseCommand.option_list + (
+        make_option('--dry-run', '-n',
+            dest='dryrun',
+            action='store_true',
+            help='''Report on what would be done, but don't delete any files'''
+        ),
+    )
 
     v_normal = 1
     def handle(self, *files, **options):
@@ -35,6 +45,7 @@ class Command(BaseCommand):
             return
 
         self.db = ExistDB()
+        self.geonames = GeoNames(username=settings.GEONAMES_USERNAME)
 
         # initalize progress bar
         pbar = None
@@ -67,9 +78,10 @@ class Command(BaseCommand):
                 logger.debug('%s prepped in %f sec' % (f, time.time() - start))
                 # load to eXist from string since DDI documents aren't that large,
                 # rather than reloading the file
-                start = time.time()
-                success = self.db.load(cb.serialize(pretty=True), dbpath, overwrite=True)
-                logger.debug('%s loaded to eXist in %f sec' % (f, time.time() - start))
+                if not options['dryrun']:
+                    start = time.time()
+                    success = self.db.load(cb.serialize(pretty=True), dbpath, overwrite=True)
+                    logger.debug('%s loaded to eXist in %f sec' % (f, time.time() - start))
 
             except IOError as e:
                 self.stdout.write("Error opening %s: %s" % (f, e))
@@ -80,7 +92,7 @@ class Command(BaseCommand):
                 self.stdout.write(e.message())
                 errored += 1
 
-            if success:
+            if not options['dryrun'] and success:
                 loaded += 1
                 if verbosity > self.v_normal:
                     self.stdout.write("Loaded %s as %s" % (f, dbpath))
@@ -110,6 +122,7 @@ class Command(BaseCommand):
         # before loading to exist
         self.local_topics(cb)
         self.clean_dates(cb)
+        self.geography(cb)
 
     def icpsr_topic_id(self, topic):
         # generate icpsr topic id in the format needed for lookup in our
@@ -153,3 +166,49 @@ class Command(BaseCommand):
             # store current date as previous date for next loop, in case
             # we need to clean up an end date in a cycle
             prev_date = d
+
+    def geography(self, cb):
+        print 'geog unit = %s' % '; '.join(cb.geo_unit)
+        for geog in cb.geo_coverage:
+            print geog.val
+            if geog.val == 'Global':
+                # do we anything here?
+                continue
+
+            # first check in the db, in case we've looked up before
+            db_locations = Location.objects.filter(name=geog.val)
+            if db_locations.count():
+                # store db location so we can put geonames id into the xml
+                dbloc = db_locations[0]
+
+            else:
+                loc = self.geonames.geocode(geog.val)
+                print unicode(loc)
+                print loc.raw
+
+                # check if geonames id is already in the db
+                db_locations = Location.objects.filter(geonames_id=loc.raw['geonameId'])
+                if db_locations.count():
+                    dbloc = db_locations[0]
+                else:
+                    # if not, create new db location from geonames lookup
+                    dbloc = Location(name=loc.raw['name'],
+                        geonames_id=loc.raw['geonameId'],
+                        latitude=loc.latitude,
+                        longitude=loc.longitude,
+                        country_code=loc.raw.get('countryCode', None),
+                        feature_code=loc.raw['fcode'])
+                    # possibly fcode is useful here - "feature code",
+                    # see http://www.geonames.org/export/codes.html
+                    # CONT = continent
+                    dbloc.save()
+                    # continent relation todo, for aggregation
+
+            # set geonames id in the xml
+            geog.id = 'geonames:%d' % dbloc.geonames_id
+            print 'setting geonames id to %s' % geog.id
+
+
+
+
+

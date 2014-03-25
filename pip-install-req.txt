@@ -7,3 +7,4 @@ eulcommon
 # development version of eultheme
 -e git://github.com/emory-libraries/django-eultheme@develop#egg=django_eultheme
 progressbar
+geopy
