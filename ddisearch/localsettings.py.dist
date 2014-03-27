@@ -37,6 +37,9 @@ DATABASES = {
 EXISTDB_SERVER_URL = "http://localhost:8080/exist"
 EXISTDB_ROOT_COLLECTION = "/ddi_data"
 
+# geonames username to use when geocoding locations at data-load time
+GEONAMES_USERNAME = ''
+
 # Logging
 # https://docs.djangoproject.com/en/1.6/topics/logging/
 LOGGING = {

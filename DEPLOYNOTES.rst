@@ -25,7 +25,7 @@ Bootstrapping a development environment
 
 * Copy ``ddisearch/localsettings.py.dist`` to ``ddisearch/localsettings.py``
   and configure any local settings: **DATABASES**, **EXIST_**, **SECRET_KEY**,
-  customize **LOGGING**, etc.
+  customize **LOGGING**, **GEONAMES_USERNAME**, etc.
 * Create a new virtualenv and activate it.
 * Install fabric: ``pip install fabric``
 * Use fabric to run a local build, which will install python dependencies in
