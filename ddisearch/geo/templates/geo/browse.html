@@ -1,0 +1,43 @@
+{% extends "site_base.html" %}
+{% load humanize %}
+
+{% block page-subtitle %}| Browse by Geography{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1>Browse by {{ hierarchy.last.name|default:'Geography' }}</h1>
+
+{% if hierarchy %}
+<ol class="breadcrumb">
+    <li><a href="{% url 'geo:browse' %}">Global</a></li>
+    {% for place in hierarchy %}
+        {% if p.feature_code == 'CONT' %}
+          {% url 'geo:continent' p.continent_code as place_url %}
+        {% endif %}
+        {% if place_url %}
+        <li><a href="{{ place_url }}}">{{ place.name }}</a></li>
+        {% else %}<li class="active">{{ place.name }}</li>
+        {% endif %}
+    {% endfor %}
+  {# <li><a href="{% url 'geo:continent' continent.code %}">{{ continent.name }}</a></li> #}
+  {# <li><a href="{% url 'geo:country' continent.code country.code %}">{{ country.name }}</a></li> #}
+  {# <li class="active">{{ state.name }}</li> #}
+{# </ol> #}
+{% endif %}
+
+<ul>
+    {% for p in places %}
+    <li><a href="{% url 'geo:continent' p.code %}">{{ p.name }}</a></li>
+    {% endfor %}
+</ul>
+
+{% if results %}
+<h3>Resources with Global coverage</h3>
+<div class="container">
+    {% include 'ddi/snippets/search_results.html' %}
+</div>
+{% endif %}
+
+</div>
+{% endblock %}
+

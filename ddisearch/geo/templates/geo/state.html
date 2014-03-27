@@ -1,0 +1,37 @@
+{% extends "site_base.html" %}
+{% load humanize %}
+
+{% block page-subtitle %}| Browse by Geography | {{ continent.name }} |
+ {{ country.name }} | {{ state.name }}{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1>{{ state.name }}</h1>
+
+{# todo: snippet #}
+<ol class="breadcrumb">
+  <li><a href="{% url 'geo:browse' %}">Global</a></li>
+  <li><a href="{% url 'geo:continent' continent.code %}">{{ continent.name }}</a></li>
+  <li><a href="{% url 'geo:country' continent.code country.code %}">{{ country.name }}</a></li>
+  <li class="active">{{ state.name }}</li>
+</ol>
+
+{# TODO: snippet ? #}
+{% if places %}
+<ul>
+    {% for pl in places %}
+    <li><a href="{% url 'geo:substate' continent.code country.code pl.state_code pl.geonames_id %}">{{ pl.name }}</a> {{ pl.feature_code }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+
+{% if results %}
+<h2>Resources with {{ state.name }} coverage</h2>
+<div class="container">
+    {% include 'ddi/snippets/search_results.html' %}
+</div>
+{% endif %}
+
+</div>
+{% endblock %}
+
