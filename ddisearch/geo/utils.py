@@ -17,6 +17,9 @@ class CodebookGeocoder(object):
     def __init__(self):
         # initialize the geocoder for reuse
         self.geonames = GeoNames(username=settings.GEONAMES_USERNAME)
+        # TODO: maybe also add a us-geonames initialized with a US-country
+        # bias, for use when we determine we are looking at US states?
+
         # save the continents for easy lookup
         continents = GeonamesContinent.objects.all()
         self.continents = dict([(c.name, c.geonames_id) for c in continents])
@@ -66,7 +69,7 @@ class CodebookGeocoder(object):
                 # if locations include US and other countries, should be country
 
                 # similar case for Montana (BG?) and Florida (UY?)
-
+                # possibly affecting other states as well
 
                 # check if geonames id is already in the db
                 db_locations = Location.objects.filter(geonames_id=loc.raw['geonameId'])
