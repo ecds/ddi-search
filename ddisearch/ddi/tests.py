@@ -72,8 +72,8 @@ class CodeBookTest(TestCase):
         self.assertEqual('Please see geographic coverage.', self.cb.nations[0].val)
         # geo coverage
         self.assertEqual(2, len(self.cb.geo_coverage))
-        self.assertEqual('Israel', self.cb.geo_coverage[0])
-        self.assertEqual('Global', self.cb.geo_coverage[1])
+        self.assertEqual('Israel', unicode(self.cb.geo_coverage[0]))
+        self.assertEqual('Global', unicode(self.cb.geo_coverage[1]))
 
         self.assertEqual('individual', self.cb.analysis_unit[0])
         self.assert_(self.cb.universe[0].startswith('Urban adult Jewish population'))
@@ -458,7 +458,7 @@ class LoadCommandTest(TestCase):
         self.cb.topics[0].val = 'ICPSR IV.a'
         self.cmd.local_topics(self.cb)
         self.assertEqual(topic_count + 2, len(self.cb.topics),
-            'two new local topic should be added to test record with global coverage')
+            'two new local topics should be added to test record with global coverage')
         self.assertEqual('Economic and Financial', self.cb.topics[-2].val)
         self.assertEqual('International Political Economy', self.cb.topics[-1].val)
         self.assertEqual('local', self.cb.topics[-1].vocab)
@@ -466,7 +466,7 @@ class LoadCommandTest(TestCase):
         # simulate topic with conditional global topic *without* global geog coverage
         topic_count = len(self.cb.topics)
         self.cb.topics[0].val = 'ICPSR IV.a'
-        self.cb.geo_coverage[-1] = 'not global'
+        self.cb.geo_coverage[-1].val = 'not global'
         self.cmd.local_topics(self.cb)
         self.assertEqual(topic_count + 1, len(self.cb.topics),
             'only one new local topic should be added to test record without  global coverage')

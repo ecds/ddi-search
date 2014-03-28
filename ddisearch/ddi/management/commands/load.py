@@ -92,7 +92,7 @@ class Command(BaseCommand):
                 self.stdout.write(e.message())
                 errored += 1
 
-            if not options['dryrun'] and success:
+            if not options.get('dryrun', False) and success:
                 loaded += 1
                 if verbosity > self.v_normal:
                     self.stdout.write("Loaded %s as %s" % (f, dbpath))
@@ -145,7 +145,7 @@ class Command(BaseCommand):
 
                 # conditional topics if the geographic coverage is global
                 if topic_id in conditional_topics['global'] and \
-                  'Global' in cb.geo_coverage:
+                  'Global' in [unicode(gc) for gc in cb.geo_coverage]:
                     cb.topics.append(Topic(val=conditional_topics['global'][topic_id],
                                            vocab='local'))
 
