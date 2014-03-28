@@ -1,7 +1,5 @@
 from django.db import models
 
-# Create your models here.
-
 
 class GeonamesCountry(models.Model):
     '''Minimal country information, based on geonames country info download
@@ -54,7 +52,7 @@ class Location(models.Model):
     state_code = models.CharField(max_length=3, null=True, blank=True)
 
     def __unicode__(self):
-        return '%s (%s, %s)' % (self.name, self.country_code, self.continent_code )
+        return '%s (%s, %s)' % (self.name, self.country_code, self.continent_code)
 
 
 

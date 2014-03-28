@@ -4,7 +4,6 @@ from optparse import make_option
 import re
 import sys
 import time
-from geopy.geocoders import GeoNames
 
 from django.conf import settings
 from django.core.management.base import BaseCommand, CommandError
@@ -17,6 +16,7 @@ from eulxml.xmlmap import load_xmlobject_from_file
 from ddisearch.ddi.models import CodeBook, Topic
 from ddisearch.ddi.topics import topic_mappings, conditional_topics
 from ddisearch.geo.models import Location, GeonamesCountry, GeonamesContinent
+from ddisearch.geo.utils import CodebookGeocoder
 
 logger = logging.getLogger(__name__)
 
@@ -45,7 +45,7 @@ class Command(BaseCommand):
             return
 
         self.db = ExistDB()
-        self.geonames = GeoNames(username=settings.GEONAMES_USERNAME)
+        self.cbgeocoder = CodebookGeocoder()
 
         # initalize progress bar
         pbar = None
@@ -122,7 +122,7 @@ class Command(BaseCommand):
         # before loading to exist
         self.local_topics(cb)
         self.clean_dates(cb)
-        self.geography(cb)
+        self.cbgeocoder.code_locations(cb)
 
     def icpsr_topic_id(self, topic):
         # generate icpsr topic id in the format needed for lookup in our
@@ -166,88 +166,5 @@ class Command(BaseCommand):
             # store current date as previous date for next loop, in case
             # we need to clean up an end date in a cycle
             prev_date = d
-
-    def geography(self, cb):
-        if cb.geo_unit:
-            logger.debug('geog unit = %s' % '; '.join(cb.geo_unit))
-        for geog in cb.geo_coverage:
-            logger.info(geog.val)
-            if geog.val == 'Global':
-                # do we anything here?
-                continue
-
-            # first check in the db, in case we've looked up before
-            db_locations = Location.objects.filter(name=geog.val)
-            # FIXME: logic to handle Georgia here
-            if db_locations.count():
-                # store db location so we can put geonames id into the xml
-                dbloc = db_locations[0]
-
-            else:
-                loc = self.geonames.geocode(geog.val)
-                if not loc:
-                    print 'no match found for %s' % geog.val
-                    continue
-                logger.debug(unicode(loc))
-                logger.debug(loc.raw)
-
-                # TODO: extra logic for interpreting Georgia as state/country?
-                # if locations include US and any US states, should be state
-                # if locations include US and other countries, should be country
-                # FIXME: for some reason 'Europe' is geocoded as 'Minsk' and
-                # 'Africa' is geocoded as 'Camayenne'
-
-                # check if geonames id is already in the db
-                db_locations = Location.objects.filter(geonames_id=loc.raw['geonameId'])
-                if db_locations.count():
-                    dbloc = db_locations[0]
-                else:
-                    # if not, create new db location from geonames lookup
-
-                    # determine continent code based on country
-                    country_code = loc.raw.get('countryCode', None)
-                    continent_code = None
-                    if country_code is not None:
-                        try:
-                            c = GeonamesCountry.objects.get(code=country_code)
-                            continent_code = c.continent
-                        except:
-                            pass
-
-                    # special case for continents
-                    elif loc.raw['fcode'] == 'CONT':
-                        try:
-                            c = GeonamesContinent.objects.get(geonames_id=loc.raw['geonameId'])
-                            continent_code = c.code
-                        except:
-                            pass
-
-                    state_code = None
-                    admin_code = loc.raw.get('adminCode1', None)
-                    if admin_code and admin_code != '00':
-                        state_code = admin_code
-
-                    dbloc = Location(name=loc.raw['name'],
-                        geonames_id=loc.raw['geonameId'],
-                        latitude=loc.latitude,
-                        longitude=loc.longitude,
-                        country_code=country_code,
-                        feature_code=loc.raw['fcode'],
-                        continent_code=continent_code,
-                        state_code=state_code)
-                    # possibly fcode is useful here - "feature code",
-                    # see http://www.geonames.org/export/codes.html
-                    # CONT = continent
-                    dbloc.save()
-
-                    # TODO: make sure hierarchy is present?
-                    # - continent, country, state (?)
-
-            # set geonames id in the xml
-            geog.id = 'geonames:%d' % dbloc.geonames_id
-            logger.info('setting geonames id to %s' % geog.id)
-
-
-
 
 
