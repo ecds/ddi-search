@@ -1,3060 +1,3310 @@
 [
 {
-  "pk": 1,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "AD",
-    "geonames_id": 3041565,
-    "name": "Andorra",
-    "continent": "EU"
-  }
-},
-{
-  "pk": 2,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "AE",
-    "geonames_id": 290557,
-    "name": "United Arab Emirates",
-    "continent": "AS"
-  }
-},
-{
-  "pk": 3,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "AF",
-    "geonames_id": 1149361,
-    "name": "Afghanistan",
-    "continent": "AS"
-  }
-},
-{
-  "pk": 4,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "AG",
-    "geonames_id": 3576396,
-    "name": "Antigua and Barbuda",
-    "continent": "NA"
-  }
-},
-{
-  "pk": 5,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "AI",
-    "geonames_id": 3573511,
-    "name": "Anguilla",
-    "continent": "NA"
-  }
-},
-{
-  "pk": 6,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "AL",
-    "geonames_id": 783754,
-    "name": "Albania",
-    "continent": "EU"
-  }
-},
-{
-  "pk": 7,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "AM",
-    "geonames_id": 174982,
-    "name": "Armenia",
-    "continent": "AS"
-  }
-},
-{
-  "pk": 8,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "AO",
-    "geonames_id": 3351879,
-    "name": "Angola",
-    "continent": "AF"
-  }
-},
-{
-  "pk": 9,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "AQ",
-    "geonames_id": 6697173,
-    "name": "Antarctica",
-    "continent": "AN"
-  }
-},
-{
-  "pk": 10,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "AR",
-    "geonames_id": 3865483,
-    "name": "Argentina",
-    "continent": "SA"
-  }
-},
-{
-  "pk": 11,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "AS",
-    "geonames_id": 5880801,
-    "name": "American Samoa",
-    "continent": "OC"
-  }
-},
-{
-  "pk": 12,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "AT",
-    "geonames_id": 2782113,
-    "name": "Austria",
-    "continent": "EU"
-  }
-},
-{
-  "pk": 13,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "AU",
-    "geonames_id": 2077456,
-    "name": "Australia",
-    "continent": "OC"
-  }
-},
-{
-  "pk": 14,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "AW",
-    "geonames_id": 3577279,
-    "name": "Aruba",
-    "continent": "NA"
-  }
-},
-{
-  "pk": 15,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "AX",
-    "geonames_id": 661882,
-    "name": "Aland Islands",
-    "continent": "EU"
-  }
-},
-{
-  "pk": 16,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "AZ",
-    "geonames_id": 587116,
-    "name": "Azerbaijan",
-    "continent": "AS"
-  }
-},
-{
-  "pk": 17,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "BA",
-    "geonames_id": 3277605,
-    "name": "Bosnia and Herzegovina",
-    "continent": "EU"
-  }
-},
-{
-  "pk": 18,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "BB",
-    "geonames_id": 3374084,
-    "name": "Barbados",
-    "continent": "NA"
-  }
-},
-{
-  "pk": 19,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "BD",
-    "geonames_id": 1210997,
-    "name": "Bangladesh",
-    "continent": "AS"
-  }
-},
-{
-  "pk": 20,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "BE",
-    "geonames_id": 2802361,
-    "name": "Belgium",
-    "continent": "EU"
-  }
-},
-{
-  "pk": 21,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "BF",
-    "geonames_id": 2361809,
-    "name": "Burkina Faso",
-    "continent": "AF"
-  }
-},
-{
-  "pk": 22,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "BG",
-    "geonames_id": 732800,
-    "name": "Bulgaria",
-    "continent": "EU"
-  }
-},
-{
-  "pk": 23,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "BH",
-    "geonames_id": 290291,
-    "name": "Bahrain",
-    "continent": "AS"
-  }
-},
-{
-  "pk": 24,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "BI",
-    "geonames_id": 433561,
-    "name": "Burundi",
-    "continent": "AF"
-  }
-},
-{
-  "pk": 25,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "BJ",
-    "geonames_id": 2395170,
-    "name": "Benin",
-    "continent": "AF"
-  }
-},
-{
-  "pk": 26,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "BL",
-    "geonames_id": 3578476,
-    "name": "Saint Barthelemy",
-    "continent": "NA"
-  }
-},
-{
-  "pk": 27,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "BM",
-    "geonames_id": 3573345,
-    "name": "Bermuda",
-    "continent": "NA"
-  }
-},
-{
-  "pk": 28,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "BN",
-    "geonames_id": 1820814,
-    "name": "Brunei",
-    "continent": "AS"
-  }
-},
-{
-  "pk": 29,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "BO",
-    "geonames_id": 3923057,
-    "name": "Bolivia",
-    "continent": "SA"
-  }
-},
-{
-  "pk": 30,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "BQ",
-    "geonames_id": 7626844,
-    "name": "Bonaire, Saint Eustatius and Saba ",
-    "continent": "NA"
-  }
-},
-{
-  "pk": 31,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "BR",
-    "geonames_id": 3469034,
-    "name": "Brazil",
-    "continent": "SA"
-  }
-},
-{
-  "pk": 32,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "BS",
-    "geonames_id": 3572887,
-    "name": "Bahamas",
-    "continent": "NA"
-  }
-},
-{
-  "pk": 33,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "BT",
-    "geonames_id": 1252634,
-    "name": "Bhutan",
-    "continent": "AS"
-  }
-},
-{
-  "pk": 34,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "BV",
-    "geonames_id": 3371123,
-    "name": "Bouvet Island",
-    "continent": "AN"
-  }
-},
-{
-  "pk": 35,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "BW",
-    "geonames_id": 933860,
-    "name": "Botswana",
-    "continent": "AF"
-  }
-},
-{
-  "pk": 36,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "BY",
-    "geonames_id": 630336,
-    "name": "Belarus",
-    "continent": "EU"
-  }
-},
-{
-  "pk": 37,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "BZ",
-    "geonames_id": 3582678,
-    "name": "Belize",
-    "continent": "NA"
-  }
-},
-{
-  "pk": 38,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "CA",
-    "geonames_id": 6251999,
-    "name": "Canada",
-    "continent": "NA"
-  }
-},
-{
-  "pk": 39,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "CC",
-    "geonames_id": 1547376,
-    "name": "Cocos Islands",
-    "continent": "AS"
-  }
-},
-{
-  "pk": 40,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "CD",
-    "geonames_id": 203312,
-    "name": "Democratic Republic of the Congo",
-    "continent": "AF"
-  }
-},
-{
-  "pk": 41,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "CF",
-    "geonames_id": 239880,
-    "name": "Central African Republic",
-    "continent": "AF"
-  }
-},
-{
-  "pk": 42,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "CG",
-    "geonames_id": 2260494,
-    "name": "Republic of the Congo",
-    "continent": "AF"
-  }
-},
-{
-  "pk": 43,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "CH",
-    "geonames_id": 2658434,
-    "name": "Switzerland",
-    "continent": "EU"
-  }
-},
-{
-  "pk": 44,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "CI",
-    "geonames_id": 2287781,
-    "name": "Ivory Coast",
-    "continent": "AF"
-  }
-},
-{
-  "pk": 45,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "CK",
-    "geonames_id": 1899402,
-    "name": "Cook Islands",
-    "continent": "OC"
-  }
-},
-{
-  "pk": 46,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "CL",
-    "geonames_id": 3895114,
-    "name": "Chile",
-    "continent": "SA"
-  }
-},
-{
-  "pk": 47,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "CM",
-    "geonames_id": 2233387,
-    "name": "Cameroon",
-    "continent": "AF"
-  }
-},
-{
-  "pk": 48,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "CN",
-    "geonames_id": 1814991,
-    "name": "China",
-    "continent": "AS"
-  }
-},
-{
-  "pk": 49,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "CO",
-    "geonames_id": 3686110,
-    "name": "Colombia",
-    "continent": "SA"
-  }
-},
-{
-  "pk": 50,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "CR",
-    "geonames_id": 3624060,
-    "name": "Costa Rica",
-    "continent": "NA"
-  }
-},
-{
-  "pk": 51,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "CU",
-    "geonames_id": 3562981,
-    "name": "Cuba",
-    "continent": "NA"
-  }
-},
-{
-  "pk": 52,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "CV",
-    "geonames_id": 3374766,
-    "name": "Cape Verde",
-    "continent": "AF"
-  }
-},
-{
-  "pk": 53,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "CW",
-    "geonames_id": 7626836,
-    "name": "Curacao",
-    "continent": "NA"
-  }
-},
-{
-  "pk": 54,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "CX",
-    "geonames_id": 2078138,
-    "name": "Christmas Island",
-    "continent": "AS"
-  }
-},
-{
-  "pk": 55,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "CY",
-    "geonames_id": 146669,
-    "name": "Cyprus",
-    "continent": "EU"
-  }
-},
-{
-  "pk": 56,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "CZ",
-    "geonames_id": 3077311,
-    "name": "Czech Republic",
-    "continent": "EU"
-  }
-},
-{
-  "pk": 57,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "DE",
-    "geonames_id": 2921044,
-    "name": "Germany",
-    "continent": "EU"
-  }
-},
-{
-  "pk": 58,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "DJ",
-    "geonames_id": 223816,
-    "name": "Djibouti",
-    "continent": "AF"
-  }
-},
-{
-  "pk": 59,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "DK",
-    "geonames_id": 2623032,
-    "name": "Denmark",
-    "continent": "EU"
-  }
-},
-{
-  "pk": 60,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "DM",
-    "geonames_id": 3575830,
-    "name": "Dominica",
-    "continent": "NA"
-  }
-},
-{
-  "pk": 61,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "DO",
-    "geonames_id": 3508796,
-    "name": "Dominican Republic",
-    "continent": "NA"
-  }
-},
-{
-  "pk": 62,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "DZ",
-    "geonames_id": 2589581,
-    "name": "Algeria",
-    "continent": "AF"
-  }
-},
-{
-  "pk": 63,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "EC",
-    "geonames_id": 3658394,
-    "name": "Ecuador",
-    "continent": "SA"
-  }
-},
-{
-  "pk": 64,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "EE",
-    "geonames_id": 453733,
-    "name": "Estonia",
-    "continent": "EU"
-  }
-},
-{
-  "pk": 65,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "EG",
-    "geonames_id": 357994,
-    "name": "Egypt",
-    "continent": "AF"
-  }
-},
-{
-  "pk": 66,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "EH",
-    "geonames_id": 2461445,
-    "name": "Western Sahara",
-    "continent": "AF"
-  }
-},
-{
-  "pk": 67,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "ER",
-    "geonames_id": 338010,
-    "name": "Eritrea",
-    "continent": "AF"
-  }
-},
-{
-  "pk": 68,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "ES",
-    "geonames_id": 2510769,
-    "name": "Spain",
-    "continent": "EU"
-  }
-},
-{
-  "pk": 69,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "ET",
-    "geonames_id": 337996,
-    "name": "Ethiopia",
-    "continent": "AF"
-  }
-},
-{
-  "pk": 70,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "FI",
-    "geonames_id": 660013,
-    "name": "Finland",
-    "continent": "EU"
-  }
-},
-{
-  "pk": 71,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "FJ",
-    "geonames_id": 2205218,
-    "name": "Fiji",
-    "continent": "OC"
-  }
-},
-{
-  "pk": 72,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "FK",
-    "geonames_id": 3474414,
-    "name": "Falkland Islands",
-    "continent": "SA"
-  }
-},
-{
-  "pk": 73,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "FM",
-    "geonames_id": 2081918,
-    "name": "Micronesia",
-    "continent": "OC"
-  }
-},
-{
-  "pk": 74,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "FO",
-    "geonames_id": 2622320,
-    "name": "Faroe Islands",
-    "continent": "EU"
-  }
-},
-{
-  "pk": 75,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "FR",
-    "geonames_id": 3017382,
-    "name": "France",
-    "continent": "EU"
-  }
-},
-{
-  "pk": 76,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "GA",
-    "geonames_id": 2400553,
-    "name": "Gabon",
-    "continent": "AF"
-  }
-},
-{
-  "pk": 77,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "GB",
-    "geonames_id": 2635167,
-    "name": "United Kingdom",
-    "continent": "EU"
-  }
-},
-{
-  "pk": 78,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "GD",
-    "geonames_id": 3580239,
-    "name": "Grenada",
-    "continent": "NA"
-  }
-},
-{
-  "pk": 79,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "GE",
-    "geonames_id": 614540,
-    "name": "Georgia",
-    "continent": "AS"
-  }
-},
-{
-  "pk": 80,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "GF",
-    "geonames_id": 3381670,
-    "name": "French Guiana",
-    "continent": "SA"
-  }
-},
-{
-  "pk": 81,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "GG",
-    "geonames_id": 3042362,
-    "name": "Guernsey",
-    "continent": "EU"
-  }
-},
-{
-  "pk": 82,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "GH",
-    "geonames_id": 2300660,
-    "name": "Ghana",
-    "continent": "AF"
-  }
-},
-{
-  "pk": 83,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "GI",
-    "geonames_id": 2411586,
-    "name": "Gibraltar",
-    "continent": "EU"
-  }
-},
-{
-  "pk": 84,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "GL",
-    "geonames_id": 3425505,
-    "name": "Greenland",
-    "continent": "NA"
-  }
-},
-{
-  "pk": 85,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "GM",
-    "geonames_id": 2413451,
-    "name": "Gambia",
-    "continent": "AF"
-  }
-},
-{
-  "pk": 86,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "GN",
-    "geonames_id": 2420477,
-    "name": "Guinea",
-    "continent": "AF"
-  }
-},
-{
-  "pk": 87,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "GP",
-    "geonames_id": 3579143,
-    "name": "Guadeloupe",
-    "continent": "NA"
-  }
-},
-{
-  "pk": 88,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "GQ",
-    "geonames_id": 2309096,
-    "name": "Equatorial Guinea",
-    "continent": "AF"
-  }
-},
-{
-  "pk": 89,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "GR",
-    "geonames_id": 390903,
-    "name": "Greece",
-    "continent": "EU"
-  }
-},
-{
-  "pk": 90,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "GS",
-    "geonames_id": 3474415,
-    "name": "South Georgia and the South Sandwich Islands",
-    "continent": "AN"
-  }
-},
-{
-  "pk": 91,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "GT",
-    "geonames_id": 3595528,
-    "name": "Guatemala",
-    "continent": "NA"
-  }
-},
-{
-  "pk": 92,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "GU",
-    "geonames_id": 4043988,
-    "name": "Guam",
-    "continent": "OC"
-  }
-},
-{
-  "pk": 93,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "GW",
-    "geonames_id": 2372248,
-    "name": "Guinea-Bissau",
-    "continent": "AF"
-  }
-},
-{
-  "pk": 94,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "GY",
-    "geonames_id": 3378535,
-    "name": "Guyana",
-    "continent": "SA"
-  }
-},
-{
-  "pk": 95,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "HK",
-    "geonames_id": 1819730,
-    "name": "Hong Kong",
-    "continent": "AS"
-  }
-},
-{
-  "pk": 96,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "HM",
-    "geonames_id": 1547314,
-    "name": "Heard Island and McDonald Islands",
-    "continent": "AN"
-  }
-},
-{
-  "pk": 97,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "HN",
-    "geonames_id": 3608932,
-    "name": "Honduras",
-    "continent": "NA"
-  }
-},
-{
-  "pk": 98,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "HR",
-    "geonames_id": 3202326,
-    "name": "Croatia",
-    "continent": "EU"
-  }
-},
-{
-  "pk": 99,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "HT",
-    "geonames_id": 3723988,
-    "name": "Haiti",
-    "continent": "NA"
-  }
-},
-{
-  "pk": 100,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "HU",
-    "geonames_id": 719819,
-    "name": "Hungary",
-    "continent": "EU"
-  }
-},
-{
-  "pk": 101,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "ID",
-    "geonames_id": 1643084,
-    "name": "Indonesia",
-    "continent": "AS"
-  }
-},
-{
-  "pk": 102,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "IE",
-    "geonames_id": 2963597,
-    "name": "Ireland",
-    "continent": "EU"
-  }
-},
-{
-  "pk": 103,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "IL",
-    "geonames_id": 294640,
-    "name": "Israel",
-    "continent": "AS"
-  }
-},
-{
-  "pk": 104,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "IM",
-    "geonames_id": 3042225,
-    "name": "Isle of Man",
-    "continent": "EU"
-  }
-},
-{
-  "pk": 105,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "IN",
-    "geonames_id": 1269750,
-    "name": "India",
-    "continent": "AS"
-  }
-},
-{
-  "pk": 106,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "IO",
-    "geonames_id": 1282588,
-    "name": "British Indian Ocean Territory",
-    "continent": "AS"
-  }
-},
-{
-  "pk": 107,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "IQ",
-    "geonames_id": 99237,
-    "name": "Iraq",
-    "continent": "AS"
-  }
-},
-{
-  "pk": 108,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "IR",
-    "geonames_id": 130758,
-    "name": "Iran",
-    "continent": "AS"
-  }
-},
-{
-  "pk": 109,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "IS",
-    "geonames_id": 2629691,
-    "name": "Iceland",
-    "continent": "EU"
-  }
-},
-{
-  "pk": 110,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "IT",
-    "geonames_id": 3175395,
-    "name": "Italy",
-    "continent": "EU"
-  }
-},
-{
-  "pk": 111,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "JE",
-    "geonames_id": 3042142,
-    "name": "Jersey",
-    "continent": "EU"
-  }
-},
-{
-  "pk": 112,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "JM",
-    "geonames_id": 3489940,
-    "name": "Jamaica",
-    "continent": "NA"
-  }
-},
-{
-  "pk": 113,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "JO",
-    "geonames_id": 248816,
-    "name": "Jordan",
-    "continent": "AS"
-  }
-},
-{
-  "pk": 114,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "JP",
-    "geonames_id": 1861060,
-    "name": "Japan",
-    "continent": "AS"
-  }
-},
-{
-  "pk": 115,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "KE",
-    "geonames_id": 192950,
-    "name": "Kenya",
-    "continent": "AF"
-  }
-},
-{
-  "pk": 116,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "KG",
-    "geonames_id": 1527747,
-    "name": "Kyrgyzstan",
-    "continent": "AS"
-  }
-},
-{
-  "pk": 117,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "KH",
-    "geonames_id": 1831722,
-    "name": "Cambodia",
-    "continent": "AS"
-  }
-},
-{
-  "pk": 118,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "KI",
-    "geonames_id": 4030945,
-    "name": "Kiribati",
-    "continent": "OC"
-  }
-},
-{
-  "pk": 119,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "KM",
-    "geonames_id": 921929,
-    "name": "Comoros",
-    "continent": "AF"
-  }
-},
-{
-  "pk": 120,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "KN",
-    "geonames_id": 3575174,
-    "name": "Saint Kitts and Nevis",
-    "continent": "NA"
-  }
-},
-{
-  "pk": 121,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "KP",
-    "geonames_id": 1873107,
-    "name": "North Korea",
-    "continent": "AS"
-  }
-},
-{
-  "pk": 122,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "KR",
-    "geonames_id": 1835841,
-    "name": "South Korea",
-    "continent": "AS"
-  }
-},
-{
-  "pk": 123,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "XK",
-    "geonames_id": 831053,
-    "name": "Kosovo",
-    "continent": "EU"
-  }
-},
-{
-  "pk": 124,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "KW",
-    "geonames_id": 285570,
-    "name": "Kuwait",
-    "continent": "AS"
-  }
-},
-{
-  "pk": 125,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "KY",
-    "geonames_id": 3580718,
-    "name": "Cayman Islands",
-    "continent": "NA"
-  }
-},
-{
-  "pk": 126,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "KZ",
-    "geonames_id": 1522867,
-    "name": "Kazakhstan",
-    "continent": "AS"
-  }
-},
-{
-  "pk": 127,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "LA",
-    "geonames_id": 1655842,
-    "name": "Laos",
-    "continent": "AS"
-  }
-},
-{
-  "pk": 128,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "LB",
-    "geonames_id": 272103,
-    "name": "Lebanon",
-    "continent": "AS"
-  }
-},
-{
-  "pk": 129,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "LC",
-    "geonames_id": 3576468,
-    "name": "Saint Lucia",
-    "continent": "NA"
-  }
-},
-{
-  "pk": 130,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "LI",
-    "geonames_id": 3042058,
-    "name": "Liechtenstein",
-    "continent": "EU"
-  }
-},
-{
-  "pk": 131,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "LK",
-    "geonames_id": 1227603,
-    "name": "Sri Lanka",
-    "continent": "AS"
-  }
-},
-{
-  "pk": 132,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "LR",
-    "geonames_id": 2275384,
-    "name": "Liberia",
-    "continent": "AF"
-  }
-},
-{
-  "pk": 133,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "LS",
-    "geonames_id": 932692,
-    "name": "Lesotho",
-    "continent": "AF"
-  }
-},
-{
-  "pk": 134,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "LT",
-    "geonames_id": 597427,
-    "name": "Lithuania",
-    "continent": "EU"
-  }
-},
-{
-  "pk": 135,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "LU",
-    "geonames_id": 2960313,
-    "name": "Luxembourg",
-    "continent": "EU"
-  }
-},
-{
-  "pk": 136,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "LV",
-    "geonames_id": 458258,
-    "name": "Latvia",
-    "continent": "EU"
-  }
-},
-{
-  "pk": 137,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "LY",
-    "geonames_id": 2215636,
-    "name": "Libya",
-    "continent": "AF"
-  }
-},
-{
-  "pk": 138,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "MA",
-    "geonames_id": 2542007,
-    "name": "Morocco",
-    "continent": "AF"
-  }
-},
-{
-  "pk": 139,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "MC",
-    "geonames_id": 2993457,
-    "name": "Monaco",
-    "continent": "EU"
-  }
-},
-{
-  "pk": 140,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "MD",
-    "geonames_id": 617790,
-    "name": "Moldova",
-    "continent": "EU"
-  }
-},
-{
-  "pk": 141,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "ME",
-    "geonames_id": 3194884,
-    "name": "Montenegro",
-    "continent": "EU"
-  }
-},
-{
-  "pk": 142,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "MF",
-    "geonames_id": 3578421,
-    "name": "Saint Martin",
-    "continent": "NA"
-  }
-},
-{
-  "pk": 143,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "MG",
-    "geonames_id": 1062947,
-    "name": "Madagascar",
-    "continent": "AF"
-  }
-},
-{
-  "pk": 144,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "MH",
-    "geonames_id": 2080185,
-    "name": "Marshall Islands",
-    "continent": "OC"
-  }
-},
-{
-  "pk": 145,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "MK",
-    "geonames_id": 718075,
-    "name": "Macedonia",
-    "continent": "EU"
-  }
-},
-{
-  "pk": 146,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "ML",
-    "geonames_id": 2453866,
-    "name": "Mali",
-    "continent": "AF"
-  }
-},
-{
-  "pk": 147,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "MM",
-    "geonames_id": 1327865,
-    "name": "Myanmar",
-    "continent": "AS"
-  }
-},
-{
-  "pk": 148,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "MN",
-    "geonames_id": 2029969,
-    "name": "Mongolia",
-    "continent": "AS"
-  }
-},
-{
-  "pk": 149,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "MO",
-    "geonames_id": 1821275,
-    "name": "Macao",
-    "continent": "AS"
-  }
-},
-{
-  "pk": 150,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "MP",
-    "geonames_id": 4041468,
-    "name": "Northern Mariana Islands",
-    "continent": "OC"
-  }
-},
-{
-  "pk": 151,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "MQ",
-    "geonames_id": 3570311,
-    "name": "Martinique",
-    "continent": "NA"
-  }
-},
-{
-  "pk": 152,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "MR",
-    "geonames_id": 2378080,
-    "name": "Mauritania",
-    "continent": "AF"
-  }
-},
-{
-  "pk": 153,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "MS",
-    "geonames_id": 3578097,
-    "name": "Montserrat",
-    "continent": "NA"
-  }
-},
-{
-  "pk": 154,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "MT",
-    "geonames_id": 2562770,
-    "name": "Malta",
-    "continent": "EU"
-  }
-},
-{
-  "pk": 155,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "MU",
-    "geonames_id": 934292,
-    "name": "Mauritius",
-    "continent": "AF"
-  }
-},
-{
-  "pk": 156,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "MV",
-    "geonames_id": 1282028,
-    "name": "Maldives",
-    "continent": "AS"
-  }
-},
-{
-  "pk": 157,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "MW",
-    "geonames_id": 927384,
-    "name": "Malawi",
-    "continent": "AF"
-  }
-},
-{
-  "pk": 158,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "MX",
-    "geonames_id": 3996063,
-    "name": "Mexico",
-    "continent": "NA"
-  }
-},
-{
-  "pk": 159,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "MY",
-    "geonames_id": 1733045,
-    "name": "Malaysia",
-    "continent": "AS"
-  }
-},
-{
-  "pk": 160,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "MZ",
-    "geonames_id": 1036973,
-    "name": "Mozambique",
-    "continent": "AF"
-  }
-},
-{
-  "pk": 161,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "NA",
-    "geonames_id": 3355338,
-    "name": "Namibia",
-    "continent": "AF"
-  }
-},
-{
-  "pk": 162,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "NC",
-    "geonames_id": 2139685,
-    "name": "New Caledonia",
-    "continent": "OC"
-  }
-},
-{
-  "pk": 163,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "NE",
-    "geonames_id": 2440476,
-    "name": "Niger",
-    "continent": "AF"
-  }
-},
-{
-  "pk": 164,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "NF",
-    "geonames_id": 2155115,
-    "name": "Norfolk Island",
-    "continent": "OC"
-  }
-},
-{
-  "pk": 165,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "NG",
-    "geonames_id": 2328926,
-    "name": "Nigeria",
-    "continent": "AF"
-  }
-},
-{
-  "pk": 166,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "NI",
-    "geonames_id": 3617476,
-    "name": "Nicaragua",
-    "continent": "NA"
-  }
-},
-{
-  "pk": 167,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "NL",
-    "geonames_id": 2750405,
-    "name": "Netherlands",
-    "continent": "EU"
-  }
-},
-{
-  "pk": 168,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "NO",
-    "geonames_id": 3144096,
-    "name": "Norway",
-    "continent": "EU"
-  }
-},
-{
-  "pk": 169,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "NP",
-    "geonames_id": 1282988,
-    "name": "Nepal",
-    "continent": "AS"
-  }
-},
-{
-  "pk": 170,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "NR",
-    "geonames_id": 2110425,
-    "name": "Nauru",
-    "continent": "OC"
-  }
-},
-{
-  "pk": 171,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "NU",
-    "geonames_id": 4036232,
-    "name": "Niue",
-    "continent": "OC"
-  }
-},
-{
-  "pk": 172,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "NZ",
-    "geonames_id": 2186224,
-    "name": "New Zealand",
-    "continent": "OC"
-  }
-},
-{
-  "pk": 173,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "OM",
-    "geonames_id": 286963,
-    "name": "Oman",
-    "continent": "AS"
-  }
-},
-{
-  "pk": 174,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "PA",
-    "geonames_id": 3703430,
-    "name": "Panama",
-    "continent": "NA"
-  }
-},
-{
-  "pk": 175,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "PE",
-    "geonames_id": 3932488,
-    "name": "Peru",
-    "continent": "SA"
-  }
-},
-{
-  "pk": 176,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "PF",
-    "geonames_id": 4030656,
-    "name": "French Polynesia",
-    "continent": "OC"
-  }
-},
-{
-  "pk": 177,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "PG",
-    "geonames_id": 2088628,
-    "name": "Papua New Guinea",
-    "continent": "OC"
-  }
-},
-{
-  "pk": 178,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "PH",
-    "geonames_id": 1694008,
-    "name": "Philippines",
-    "continent": "AS"
-  }
-},
-{
-  "pk": 179,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "PK",
-    "geonames_id": 1168579,
-    "name": "Pakistan",
-    "continent": "AS"
-  }
-},
-{
-  "pk": 180,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "PL",
-    "geonames_id": 798544,
-    "name": "Poland",
-    "continent": "EU"
-  }
-},
-{
-  "pk": 181,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "PM",
-    "geonames_id": 3424932,
-    "name": "Saint Pierre and Miquelon",
-    "continent": "NA"
-  }
-},
-{
-  "pk": 182,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "PN",
-    "geonames_id": 4030699,
-    "name": "Pitcairn",
-    "continent": "OC"
-  }
-},
-{
-  "pk": 183,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "PR",
-    "geonames_id": 4566966,
-    "name": "Puerto Rico",
-    "continent": "NA"
-  }
-},
-{
-  "pk": 184,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "PS",
-    "geonames_id": 6254930,
-    "name": "Palestinian Territory",
-    "continent": "AS"
-  }
-},
-{
-  "pk": 185,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "PT",
-    "geonames_id": 2264397,
-    "name": "Portugal",
-    "continent": "EU"
-  }
-},
-{
-  "pk": 186,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "PW",
-    "geonames_id": 1559582,
-    "name": "Palau",
-    "continent": "OC"
-  }
-},
-{
-  "pk": 187,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "PY",
-    "geonames_id": 3437598,
-    "name": "Paraguay",
-    "continent": "SA"
-  }
-},
-{
-  "pk": 188,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "QA",
-    "geonames_id": 289688,
-    "name": "Qatar",
-    "continent": "AS"
-  }
-},
-{
-  "pk": 189,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "RE",
-    "geonames_id": 935317,
-    "name": "Reunion",
-    "continent": "AF"
-  }
-},
-{
-  "pk": 190,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "RO",
-    "geonames_id": 798549,
-    "name": "Romania",
-    "continent": "EU"
-  }
-},
-{
-  "pk": 191,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "RS",
-    "geonames_id": 6290252,
-    "name": "Serbia",
-    "continent": "EU"
-  }
-},
-{
-  "pk": 192,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "RU",
-    "geonames_id": 2017370,
-    "name": "Russia",
-    "continent": "EU"
-  }
-},
-{
-  "pk": 193,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "RW",
-    "geonames_id": 49518,
-    "name": "Rwanda",
-    "continent": "AF"
-  }
-},
-{
-  "pk": 194,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "SA",
-    "geonames_id": 102358,
-    "name": "Saudi Arabia",
-    "continent": "AS"
-  }
-},
-{
-  "pk": 195,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "SB",
-    "geonames_id": 2103350,
-    "name": "Solomon Islands",
-    "continent": "OC"
-  }
-},
-{
-  "pk": 196,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "SC",
-    "geonames_id": 241170,
-    "name": "Seychelles",
-    "continent": "AF"
-  }
-},
-{
-  "pk": 197,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "SD",
-    "geonames_id": 366755,
-    "name": "Sudan",
-    "continent": "AF"
-  }
-},
-{
-  "pk": 198,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "SS",
-    "geonames_id": 7909807,
-    "name": "South Sudan",
-    "continent": "AF"
-  }
-},
-{
-  "pk": 199,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "SE",
-    "geonames_id": 2661886,
-    "name": "Sweden",
-    "continent": "EU"
-  }
-},
-{
-  "pk": 200,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "SG",
-    "geonames_id": 1880251,
-    "name": "Singapore",
-    "continent": "AS"
-  }
-},
-{
-  "pk": 201,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "SH",
-    "geonames_id": 3370751,
-    "name": "Saint Helena",
-    "continent": "AF"
-  }
-},
-{
-  "pk": 202,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "SI",
-    "geonames_id": 3190538,
-    "name": "Slovenia",
-    "continent": "EU"
-  }
-},
-{
-  "pk": 203,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "SJ",
-    "geonames_id": 607072,
-    "name": "Svalbard and Jan Mayen",
-    "continent": "EU"
-  }
-},
-{
-  "pk": 204,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "SK",
-    "geonames_id": 3057568,
-    "name": "Slovakia",
-    "continent": "EU"
-  }
-},
-{
-  "pk": 205,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "SL",
-    "geonames_id": 2403846,
-    "name": "Sierra Leone",
-    "continent": "AF"
-  }
-},
-{
-  "pk": 206,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "SM",
-    "geonames_id": 3168068,
-    "name": "San Marino",
-    "continent": "EU"
-  }
-},
-{
-  "pk": 207,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "SN",
-    "geonames_id": 2245662,
-    "name": "Senegal",
-    "continent": "AF"
-  }
-},
-{
-  "pk": 208,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "SO",
-    "geonames_id": 51537,
-    "name": "Somalia",
-    "continent": "AF"
-  }
-},
-{
-  "pk": 209,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "SR",
-    "geonames_id": 3382998,
-    "name": "Suriname",
-    "continent": "SA"
-  }
-},
-{
-  "pk": 210,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "ST",
-    "geonames_id": 2410758,
-    "name": "Sao Tome and Principe",
-    "continent": "AF"
-  }
-},
-{
-  "pk": 211,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "SV",
-    "geonames_id": 3585968,
-    "name": "El Salvador",
-    "continent": "NA"
-  }
-},
-{
-  "pk": 212,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "SX",
-    "geonames_id": 7609695,
-    "name": "Sint Maarten",
-    "continent": "NA"
-  }
-},
-{
-  "pk": 213,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "SY",
-    "geonames_id": 163843,
-    "name": "Syria",
-    "continent": "AS"
-  }
-},
-{
-  "pk": 214,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "SZ",
-    "geonames_id": 934841,
-    "name": "Swaziland",
-    "continent": "AF"
-  }
-},
-{
-  "pk": 215,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "TC",
-    "geonames_id": 3576916,
-    "name": "Turks and Caicos Islands",
-    "continent": "NA"
-  }
-},
-{
-  "pk": 216,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "TD",
-    "geonames_id": 2434508,
-    "name": "Chad",
-    "continent": "AF"
-  }
-},
-{
-  "pk": 217,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "TF",
-    "geonames_id": 1546748,
-    "name": "French Southern Territories",
-    "continent": "AN"
-  }
-},
-{
-  "pk": 218,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "TG",
-    "geonames_id": 2363686,
-    "name": "Togo",
-    "continent": "AF"
-  }
-},
-{
-  "pk": 219,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "TH",
-    "geonames_id": 1605651,
-    "name": "Thailand",
-    "continent": "AS"
-  }
-},
-{
-  "pk": 220,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "TJ",
-    "geonames_id": 1220409,
-    "name": "Tajikistan",
-    "continent": "AS"
-  }
-},
-{
-  "pk": 221,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "TK",
-    "geonames_id": 4031074,
-    "name": "Tokelau",
-    "continent": "OC"
-  }
-},
-{
-  "pk": 222,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "TL",
-    "geonames_id": 1966436,
-    "name": "East Timor",
-    "continent": "OC"
-  }
-},
-{
-  "pk": 223,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "TM",
-    "geonames_id": 1218197,
-    "name": "Turkmenistan",
-    "continent": "AS"
-  }
-},
-{
-  "pk": 224,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "TN",
-    "geonames_id": 2464461,
-    "name": "Tunisia",
-    "continent": "AF"
-  }
-},
-{
-  "pk": 225,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "TO",
-    "geonames_id": 4032283,
-    "name": "Tonga",
-    "continent": "OC"
-  }
-},
-{
-  "pk": 226,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "TR",
-    "geonames_id": 298795,
-    "name": "Turkey",
-    "continent": "AS"
-  }
-},
-{
-  "pk": 227,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "TT",
-    "geonames_id": 3573591,
-    "name": "Trinidad and Tobago",
-    "continent": "NA"
-  }
-},
-{
-  "pk": 228,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "TV",
-    "geonames_id": 2110297,
-    "name": "Tuvalu",
-    "continent": "OC"
-  }
-},
-{
-  "pk": 229,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "TW",
-    "geonames_id": 1668284,
-    "name": "Taiwan",
-    "continent": "AS"
-  }
-},
-{
-  "pk": 230,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "TZ",
-    "geonames_id": 149590,
-    "name": "Tanzania",
-    "continent": "AF"
-  }
-},
-{
-  "pk": 231,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "UA",
-    "geonames_id": 690791,
-    "name": "Ukraine",
-    "continent": "EU"
-  }
-},
-{
-  "pk": 232,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "UG",
-    "geonames_id": 226074,
-    "name": "Uganda",
-    "continent": "AF"
-  }
-},
-{
-  "pk": 233,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "UM",
-    "geonames_id": 5854968,
-    "name": "United States Minor Outlying Islands",
-    "continent": "OC"
-  }
-},
-{
-  "pk": 234,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "US",
-    "geonames_id": 6252001,
-    "name": "United States",
-    "continent": "NA"
-  }
-},
-{
-  "pk": 235,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "UY",
-    "geonames_id": 3439705,
-    "name": "Uruguay",
-    "continent": "SA"
-  }
-},
-{
-  "pk": 236,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "UZ",
-    "geonames_id": 1512440,
-    "name": "Uzbekistan",
-    "continent": "AS"
-  }
-},
-{
-  "pk": 237,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "VA",
-    "geonames_id": 3164670,
-    "name": "Vatican",
-    "continent": "EU"
-  }
-},
-{
-  "pk": 238,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "VC",
-    "geonames_id": 3577815,
-    "name": "Saint Vincent and the Grenadines",
-    "continent": "NA"
-  }
-},
-{
-  "pk": 239,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "VE",
-    "geonames_id": 3625428,
-    "name": "Venezuela",
-    "continent": "SA"
-  }
-},
-{
-  "pk": 240,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "VG",
-    "geonames_id": 3577718,
-    "name": "British Virgin Islands",
-    "continent": "NA"
-  }
-},
-{
-  "pk": 241,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "VI",
-    "geonames_id": 4796775,
-    "name": "U.S. Virgin Islands",
-    "continent": "NA"
-  }
-},
-{
-  "pk": 242,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "VN",
-    "geonames_id": 1562822,
-    "name": "Vietnam",
-    "continent": "AS"
-  }
-},
-{
-  "pk": 243,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "VU",
-    "geonames_id": 2134431,
-    "name": "Vanuatu",
-    "continent": "OC"
-  }
-},
-{
-  "pk": 244,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "WF",
-    "geonames_id": 4034749,
-    "name": "Wallis and Futuna",
-    "continent": "OC"
-  }
-},
-{
-  "pk": 245,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "WS",
-    "geonames_id": 4034894,
-    "name": "Samoa",
-    "continent": "OC"
-  }
-},
-{
-  "pk": 246,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "YE",
-    "geonames_id": 69543,
-    "name": "Yemen",
-    "continent": "AS"
-  }
-},
-{
-  "pk": 247,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "YT",
-    "geonames_id": 1024031,
-    "name": "Mayotte",
-    "continent": "AF"
-  }
-},
-{
-  "pk": 248,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "ZA",
-    "geonames_id": 953987,
-    "name": "South Africa",
-    "continent": "AF"
-  }
-},
-{
-  "pk": 249,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "ZM",
-    "geonames_id": 895949,
-    "name": "Zambia",
-    "continent": "AF"
-  }
-},
-{
-  "pk": 250,
-  "model": "geo.geonamescountry",
-  "fields": {
-    "code": "ZW",
-    "geonames_id": 878675,
-    "name": "Zimbabwe",
-    "continent": "AF"
-  }
-},
-{
-  "pk": 1,
-  "model": "geo.geonamescontinent",
-  "fields": {
-    "code": "AF",
-    "geonames_id": 6255146,
-    "name": "Africa"
-  }
-},
-{
-  "pk": 2,
-  "model": "geo.geonamescontinent",
-  "fields": {
-    "code": "AS",
-    "geonames_id": 6255147,
-    "name": "Asia"
-  }
-},
-{
-  "pk": 3,
-  "model": "geo.geonamescontinent",
-  "fields": {
-    "code": "EU",
-    "geonames_id": 6255148,
-    "name": "Europe"
-  }
-},
-{
-  "pk": 4,
-  "model": "geo.geonamescontinent",
-  "fields": {
-    "code": "NA",
-    "geonames_id": 6255149,
-    "name": "North America"
-  }
-},
-{
-  "pk": 5,
-  "model": "geo.geonamescontinent",
-  "fields": {
-    "code": "OC",
-    "geonames_id": 6255151,
-    "name": "Oceania"
-  }
-},
-{
-  "pk": 6,
-  "model": "geo.geonamescontinent",
-  "fields": {
-    "code": "SA",
-    "geonames_id": 6255150,
-    "name": "South America"
-  }
-},
-{
-  "pk": 7,
-  "model": "geo.geonamescontinent",
-  "fields": {
-    "code": "AN",
-    "geonames_id": 6255152,
-    "name": "Antarctica"
-  }
-},
-{
-  "pk": 1,
-  "model": "geo.statecode",
-  "fields": {
-    "code": "AK",
-    "fips": 2,
+  "pk": 1, 
+  "model": "geo.statecode", 
+  "fields": {
+    "code": "AK", 
+    "fips": 2, 
     "name": "ALASKA"
   }
 },
 {
-  "pk": 2,
-  "model": "geo.statecode",
+  "pk": 2, 
+  "model": "geo.statecode", 
   "fields": {
-    "code": "AL",
-    "fips": 1,
+    "code": "AL", 
+    "fips": 1, 
     "name": "ALABAMA"
   }
 },
 {
-  "pk": 3,
-  "model": "geo.statecode",
+  "pk": 3, 
+  "model": "geo.statecode", 
   "fields": {
-    "code": "AR",
-    "fips": 5,
+    "code": "AR", 
+    "fips": 5, 
     "name": "ARKANSAS"
   }
 },
 {
-  "pk": 4,
-  "model": "geo.statecode",
+  "pk": 4, 
+  "model": "geo.statecode", 
   "fields": {
-    "code": "AS",
-    "fips": 60,
+    "code": "AS", 
+    "fips": 60, 
     "name": "AMERICAN SAMOA"
   }
 },
 {
-  "pk": 5,
-  "model": "geo.statecode",
+  "pk": 5, 
+  "model": "geo.statecode", 
   "fields": {
-    "code": "AZ",
-    "fips": 4,
+    "code": "AZ", 
+    "fips": 4, 
     "name": "ARIZONA"
   }
 },
 {
-  "pk": 6,
-  "model": "geo.statecode",
+  "pk": 6, 
+  "model": "geo.statecode", 
   "fields": {
-    "code": "CA",
-    "fips": 6,
+    "code": "CA", 
+    "fips": 6, 
     "name": "CALIFORNIA"
   }
 },
 {
-  "pk": 7,
-  "model": "geo.statecode",
+  "pk": 7, 
+  "model": "geo.statecode", 
   "fields": {
-    "code": "CO",
-    "fips": 8,
+    "code": "CO", 
+    "fips": 8, 
     "name": "COLORADO"
   }
 },
 {
-  "pk": 8,
-  "model": "geo.statecode",
+  "pk": 8, 
+  "model": "geo.statecode", 
   "fields": {
-    "code": "CT",
-    "fips": 9,
+    "code": "CT", 
+    "fips": 9, 
     "name": "CONNECTICUT"
   }
 },
 {
-  "pk": 9,
-  "model": "geo.statecode",
+  "pk": 9, 
+  "model": "geo.statecode", 
   "fields": {
-    "code": "DC",
-    "fips": 11,
+    "code": "DC", 
+    "fips": 11, 
     "name": "DISTRICT OF COLUMBIA"
   }
 },
 {
-  "pk": 10,
-  "model": "geo.statecode",
+  "pk": 10, 
+  "model": "geo.statecode", 
   "fields": {
-    "code": "DE",
-    "fips": 10,
+    "code": "DE", 
+    "fips": 10, 
     "name": "DELAWARE"
   }
 },
 {
-  "pk": 11,
-  "model": "geo.statecode",
+  "pk": 11, 
+  "model": "geo.statecode", 
   "fields": {
-    "code": "FL",
-    "fips": 12,
+    "code": "FL", 
+    "fips": 12, 
     "name": "FLORIDA"
   }
 },
 {
-  "pk": 12,
-  "model": "geo.statecode",
+  "pk": 12, 
+  "model": "geo.statecode", 
   "fields": {
-    "code": "GA",
-    "fips": 13,
+    "code": "GA", 
+    "fips": 13, 
     "name": "GEORGIA"
   }
 },
 {
-  "pk": 13,
-  "model": "geo.statecode",
+  "pk": 13, 
+  "model": "geo.statecode", 
   "fields": {
-    "code": "GU",
-    "fips": 66,
+    "code": "GU", 
+    "fips": 66, 
     "name": "GUAM"
   }
 },
 {
-  "pk": 14,
-  "model": "geo.statecode",
+  "pk": 14, 
+  "model": "geo.statecode", 
   "fields": {
-    "code": "HI",
-    "fips": 15,
+    "code": "HI", 
+    "fips": 15, 
     "name": "HAWAII"
   }
 },
 {
-  "pk": 15,
-  "model": "geo.statecode",
+  "pk": 15, 
+  "model": "geo.statecode", 
   "fields": {
-    "code": "IA",
-    "fips": 19,
+    "code": "IA", 
+    "fips": 19, 
     "name": "IOWA"
   }
 },
 {
-  "pk": 16,
-  "model": "geo.statecode",
+  "pk": 16, 
+  "model": "geo.statecode", 
   "fields": {
-    "code": "ID",
-    "fips": 16,
+    "code": "ID", 
+    "fips": 16, 
     "name": "IDAHO"
   }
 },
 {
-  "pk": 17,
-  "model": "geo.statecode",
+  "pk": 17, 
+  "model": "geo.statecode", 
   "fields": {
-    "code": "IL",
-    "fips": 17,
+    "code": "IL", 
+    "fips": 17, 
     "name": "ILLINOIS"
   }
 },
 {
-  "pk": 18,
-  "model": "geo.statecode",
+  "pk": 18, 
+  "model": "geo.statecode", 
   "fields": {
-    "code": "IN",
-    "fips": 18,
+    "code": "IN", 
+    "fips": 18, 
     "name": "INDIANA"
   }
 },
 {
-  "pk": 19,
-  "model": "geo.statecode",
+  "pk": 19, 
+  "model": "geo.statecode", 
   "fields": {
-    "code": "KS",
-    "fips": 20,
+    "code": "KS", 
+    "fips": 20, 
     "name": "KANSAS"
   }
 },
 {
-  "pk": 20,
-  "model": "geo.statecode",
+  "pk": 20, 
+  "model": "geo.statecode", 
   "fields": {
-    "code": "KY",
-    "fips": 21,
+    "code": "KY", 
+    "fips": 21, 
     "name": "KENTUCKY"
   }
 },
 {
-  "pk": 21,
-  "model": "geo.statecode",
+  "pk": 21, 
+  "model": "geo.statecode", 
   "fields": {
-    "code": "LA",
-    "fips": 22,
+    "code": "LA", 
+    "fips": 22, 
     "name": "LOUISIANA"
   }
 },
 {
-  "pk": 22,
-  "model": "geo.statecode",
+  "pk": 22, 
+  "model": "geo.statecode", 
   "fields": {
-    "code": "MA",
-    "fips": 25,
+    "code": "MA", 
+    "fips": 25, 
     "name": "MASSACHUSETTS"
   }
 },
 {
-  "pk": 23,
-  "model": "geo.statecode",
+  "pk": 23, 
+  "model": "geo.statecode", 
   "fields": {
-    "code": "MD",
-    "fips": 24,
+    "code": "MD", 
+    "fips": 24, 
     "name": "MARYLAND"
   }
 },
 {
-  "pk": 24,
-  "model": "geo.statecode",
+  "pk": 24, 
+  "model": "geo.statecode", 
   "fields": {
-    "code": "ME",
-    "fips": 23,
+    "code": "ME", 
+    "fips": 23, 
     "name": "MAINE"
   }
 },
 {
-  "pk": 25,
-  "model": "geo.statecode",
+  "pk": 25, 
+  "model": "geo.statecode", 
   "fields": {
-    "code": "MI",
-    "fips": 26,
+    "code": "MI", 
+    "fips": 26, 
     "name": "MICHIGAN"
   }
 },
 {
-  "pk": 26,
-  "model": "geo.statecode",
+  "pk": 26, 
+  "model": "geo.statecode", 
   "fields": {
-    "code": "MN",
-    "fips": 27,
+    "code": "MN", 
+    "fips": 27, 
     "name": "MINNESOTA"
   }
 },
 {
-  "pk": 27,
-  "model": "geo.statecode",
+  "pk": 27, 
+  "model": "geo.statecode", 
   "fields": {
-    "code": "MO",
-    "fips": 29,
+    "code": "MO", 
+    "fips": 29, 
     "name": "MISSOURI"
   }
 },
 {
-  "pk": 28,
-  "model": "geo.statecode",
+  "pk": 28, 
+  "model": "geo.statecode", 
   "fields": {
-    "code": "MS",
-    "fips": 28,
+    "code": "MS", 
+    "fips": 28, 
     "name": "MISSISSIPPI"
   }
 },
 {
-  "pk": 29,
-  "model": "geo.statecode",
+  "pk": 29, 
+  "model": "geo.statecode", 
   "fields": {
-    "code": "MT",
-    "fips": 30,
+    "code": "MT", 
+    "fips": 30, 
     "name": "MONTANA"
   }
 },
 {
-  "pk": 30,
-  "model": "geo.statecode",
+  "pk": 30, 
+  "model": "geo.statecode", 
   "fields": {
-    "code": "NC",
-    "fips": 37,
+    "code": "NC", 
+    "fips": 37, 
     "name": "NORTH CAROLINA"
   }
 },
 {
-  "pk": 31,
-  "model": "geo.statecode",
+  "pk": 31, 
+  "model": "geo.statecode", 
   "fields": {
-    "code": "ND",
-    "fips": 38,
+    "code": "ND", 
+    "fips": 38, 
     "name": "NORTH DAKOTA"
   }
 },
 {
-  "pk": 32,
-  "model": "geo.statecode",
+  "pk": 32, 
+  "model": "geo.statecode", 
   "fields": {
-    "code": "NE",
-    "fips": 31,
+    "code": "NE", 
+    "fips": 31, 
     "name": "NEBRASKA"
   }
 },
 {
-  "pk": 33,
-  "model": "geo.statecode",
+  "pk": 33, 
+  "model": "geo.statecode", 
   "fields": {
-    "code": "NH",
-    "fips": 33,
+    "code": "NH", 
+    "fips": 33, 
     "name": "NEW HAMPSHIRE"
   }
 },
 {
-  "pk": 34,
-  "model": "geo.statecode",
+  "pk": 34, 
+  "model": "geo.statecode", 
   "fields": {
-    "code": "NJ",
-    "fips": 34,
+    "code": "NJ", 
+    "fips": 34, 
     "name": "NEW JERSEY"
   }
 },
 {
-  "pk": 35,
-  "model": "geo.statecode",
+  "pk": 35, 
+  "model": "geo.statecode", 
   "fields": {
-    "code": "NM",
-    "fips": 35,
+    "code": "NM", 
+    "fips": 35, 
     "name": "NEW MEXICO"
   }
 },
 {
-  "pk": 36,
-  "model": "geo.statecode",
+  "pk": 36, 
+  "model": "geo.statecode", 
   "fields": {
-    "code": "NV",
-    "fips": 32,
+    "code": "NV", 
+    "fips": 32, 
     "name": "NEVADA"
   }
 },
 {
-  "pk": 37,
-  "model": "geo.statecode",
+  "pk": 37, 
+  "model": "geo.statecode", 
   "fields": {
-    "code": "NY",
-    "fips": 36,
+    "code": "NY", 
+    "fips": 36, 
     "name": "NEW YORK"
   }
 },
 {
-  "pk": 38,
-  "model": "geo.statecode",
+  "pk": 38, 
+  "model": "geo.statecode", 
   "fields": {
-    "code": "OH",
-    "fips": 39,
+    "code": "OH", 
+    "fips": 39, 
     "name": "OHIO"
   }
 },
 {
-  "pk": 39,
-  "model": "geo.statecode",
+  "pk": 39, 
+  "model": "geo.statecode", 
   "fields": {
-    "code": "OK",
-    "fips": 40,
+    "code": "OK", 
+    "fips": 40, 
     "name": "OKLAHOMA"
   }
 },
 {
-  "pk": 40,
-  "model": "geo.statecode",
+  "pk": 40, 
+  "model": "geo.statecode", 
   "fields": {
-    "code": "OR",
-    "fips": 41,
+    "code": "OR", 
+    "fips": 41, 
     "name": "OREGON"
   }
 },
 {
-  "pk": 41,
-  "model": "geo.statecode",
+  "pk": 41, 
+  "model": "geo.statecode", 
   "fields": {
-    "code": "PA",
-    "fips": 42,
+    "code": "PA", 
+    "fips": 42, 
     "name": "PENNSYLVANIA"
   }
 },
 {
-  "pk": 42,
-  "model": "geo.statecode",
+  "pk": 42, 
+  "model": "geo.statecode", 
   "fields": {
-    "code": "PR",
-    "fips": 72,
+    "code": "PR", 
+    "fips": 72, 
     "name": "PUERTO RICO"
   }
 },
 {
-  "pk": 43,
-  "model": "geo.statecode",
+  "pk": 43, 
+  "model": "geo.statecode", 
   "fields": {
-    "code": "RI",
-    "fips": 44,
+    "code": "RI", 
+    "fips": 44, 
     "name": "RHODE ISLAND"
   }
 },
 {
-  "pk": 44,
-  "model": "geo.statecode",
+  "pk": 44, 
+  "model": "geo.statecode", 
   "fields": {
-    "code": "SC",
-    "fips": 45,
+    "code": "SC", 
+    "fips": 45, 
     "name": "SOUTH CAROLINA"
   }
 },
 {
-  "pk": 45,
-  "model": "geo.statecode",
+  "pk": 45, 
+  "model": "geo.statecode", 
   "fields": {
-    "code": "SD",
-    "fips": 46,
+    "code": "SD", 
+    "fips": 46, 
     "name": "SOUTH DAKOTA"
   }
 },
 {
-  "pk": 46,
-  "model": "geo.statecode",
+  "pk": 46, 
+  "model": "geo.statecode", 
   "fields": {
-    "code": "TN",
-    "fips": 47,
+    "code": "TN", 
+    "fips": 47, 
     "name": "TENNESSEE"
   }
 },
 {
-  "pk": 47,
-  "model": "geo.statecode",
+  "pk": 47, 
+  "model": "geo.statecode", 
   "fields": {
-    "code": "TX",
-    "fips": 48,
+    "code": "TX", 
+    "fips": 48, 
     "name": "TEXAS"
   }
 },
 {
-  "pk": 48,
-  "model": "geo.statecode",
+  "pk": 48, 
+  "model": "geo.statecode", 
   "fields": {
-    "code": "UT",
-    "fips": 49,
+    "code": "UT", 
+    "fips": 49, 
     "name": "UTAH"
   }
 },
 {
-  "pk": 49,
-  "model": "geo.statecode",
+  "pk": 49, 
+  "model": "geo.statecode", 
   "fields": {
-    "code": "VA",
-    "fips": 51,
+    "code": "VA", 
+    "fips": 51, 
     "name": "VIRGINIA"
   }
 },
 {
-  "pk": 50,
-  "model": "geo.statecode",
+  "pk": 50, 
+  "model": "geo.statecode", 
   "fields": {
-    "code": "VI",
-    "fips": 78,
+    "code": "VI", 
+    "fips": 78, 
     "name": "VIRGIN ISLANDS"
   }
 },
 {
-  "pk": 51,
-  "model": "geo.statecode",
+  "pk": 51, 
+  "model": "geo.statecode", 
   "fields": {
-    "code": "VT",
-    "fips": 50,
+    "code": "VT", 
+    "fips": 50, 
     "name": "VERMONT"
   }
 },
 {
-  "pk": 52,
-  "model": "geo.statecode",
+  "pk": 52, 
+  "model": "geo.statecode", 
   "fields": {
-    "code": "WA",
-    "fips": 53,
+    "code": "WA", 
+    "fips": 53, 
     "name": "WASHINGTON"
   }
 },
 {
-  "pk": 53,
-  "model": "geo.statecode",
+  "pk": 53, 
+  "model": "geo.statecode", 
   "fields": {
-    "code": "WI",
-    "fips": 55,
+    "code": "WI", 
+    "fips": 55, 
     "name": "WISCONSIN"
   }
 },
 {
-  "pk": 54,
-  "model": "geo.statecode",
+  "pk": 54, 
+  "model": "geo.statecode", 
   "fields": {
-    "code": "WV",
-    "fips": 54,
+    "code": "WV", 
+    "fips": 54, 
     "name": "WEST VIRGINIA"
   }
 },
 {
-  "pk": 55,
-  "model": "geo.statecode",
+  "pk": 55, 
+  "model": "geo.statecode", 
   "fields": {
-    "code": "WY",
-    "fips": 56,
+    "code": "WY", 
+    "fips": 56, 
     "name": "WYOMING"
+  }
+},
+{
+  "pk": 1, 
+  "model": "geo.geonamescontinent", 
+  "fields": {
+    "code": "AF", 
+    "geonames_id": 6255146, 
+    "name": "Africa"
+  }
+},
+{
+  "pk": 2, 
+  "model": "geo.geonamescontinent", 
+  "fields": {
+    "code": "AS", 
+    "geonames_id": 6255147, 
+    "name": "Asia"
+  }
+},
+{
+  "pk": 3, 
+  "model": "geo.geonamescontinent", 
+  "fields": {
+    "code": "EU", 
+    "geonames_id": 6255148, 
+    "name": "Europe"
+  }
+},
+{
+  "pk": 4, 
+  "model": "geo.geonamescontinent", 
+  "fields": {
+    "code": "NA", 
+    "geonames_id": 6255149, 
+    "name": "North America"
+  }
+},
+{
+  "pk": 5, 
+  "model": "geo.geonamescontinent", 
+  "fields": {
+    "code": "OC", 
+    "geonames_id": 6255151, 
+    "name": "Oceania"
+  }
+},
+{
+  "pk": 6, 
+  "model": "geo.geonamescontinent", 
+  "fields": {
+    "code": "SA", 
+    "geonames_id": 6255150, 
+    "name": "South America"
+  }
+},
+{
+  "pk": 7, 
+  "model": "geo.geonamescontinent", 
+  "fields": {
+    "code": "AN", 
+    "geonames_id": 6255152, 
+    "name": "Antarctica"
+  }
+},
+{
+  "pk": 1, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 3041565, 
+    "code": "AD", 
+    "continent": "EU", 
+    "name": "Andorra", 
+    "numeric_code": 20
+  }
+},
+{
+  "pk": 2, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 290557, 
+    "code": "AE", 
+    "continent": "AS", 
+    "name": "United Arab Emirates", 
+    "numeric_code": 784
+  }
+},
+{
+  "pk": 3, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 1149361, 
+    "code": "AF", 
+    "continent": "AS", 
+    "name": "Afghanistan", 
+    "numeric_code": 4
+  }
+},
+{
+  "pk": 4, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 3576396, 
+    "code": "AG", 
+    "continent": "NA", 
+    "name": "Antigua and Barbuda", 
+    "numeric_code": 28
+  }
+},
+{
+  "pk": 5, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 3573511, 
+    "code": "AI", 
+    "continent": "NA", 
+    "name": "Anguilla", 
+    "numeric_code": 660
+  }
+},
+{
+  "pk": 6, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 783754, 
+    "code": "AL", 
+    "continent": "EU", 
+    "name": "Albania", 
+    "numeric_code": 8
+  }
+},
+{
+  "pk": 7, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 174982, 
+    "code": "AM", 
+    "continent": "AS", 
+    "name": "Armenia", 
+    "numeric_code": 51
+  }
+},
+{
+  "pk": 8, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 3351879, 
+    "code": "AO", 
+    "continent": "AF", 
+    "name": "Angola", 
+    "numeric_code": 24
+  }
+},
+{
+  "pk": 9, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 6697173, 
+    "code": "AQ", 
+    "continent": "AN", 
+    "name": "Antarctica", 
+    "numeric_code": 10
+  }
+},
+{
+  "pk": 10, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 3865483, 
+    "code": "AR", 
+    "continent": "SA", 
+    "name": "Argentina", 
+    "numeric_code": 32
+  }
+},
+{
+  "pk": 11, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 5880801, 
+    "code": "AS", 
+    "continent": "OC", 
+    "name": "American Samoa", 
+    "numeric_code": 16
+  }
+},
+{
+  "pk": 12, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 2782113, 
+    "code": "AT", 
+    "continent": "EU", 
+    "name": "Austria", 
+    "numeric_code": 40
+  }
+},
+{
+  "pk": 13, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 2077456, 
+    "code": "AU", 
+    "continent": "OC", 
+    "name": "Australia", 
+    "numeric_code": 36
+  }
+},
+{
+  "pk": 14, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 3577279, 
+    "code": "AW", 
+    "continent": "NA", 
+    "name": "Aruba", 
+    "numeric_code": 533
+  }
+},
+{
+  "pk": 15, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 661882, 
+    "code": "AX", 
+    "continent": "EU", 
+    "name": "Aland Islands", 
+    "numeric_code": 248
+  }
+},
+{
+  "pk": 16, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 587116, 
+    "code": "AZ", 
+    "continent": "AS", 
+    "name": "Azerbaijan", 
+    "numeric_code": 31
+  }
+},
+{
+  "pk": 17, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 3277605, 
+    "code": "BA", 
+    "continent": "EU", 
+    "name": "Bosnia and Herzegovina", 
+    "numeric_code": 70
+  }
+},
+{
+  "pk": 18, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 3374084, 
+    "code": "BB", 
+    "continent": "NA", 
+    "name": "Barbados", 
+    "numeric_code": 52
+  }
+},
+{
+  "pk": 19, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 1210997, 
+    "code": "BD", 
+    "continent": "AS", 
+    "name": "Bangladesh", 
+    "numeric_code": 50
+  }
+},
+{
+  "pk": 20, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 2802361, 
+    "code": "BE", 
+    "continent": "EU", 
+    "name": "Belgium", 
+    "numeric_code": 56
+  }
+},
+{
+  "pk": 21, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 2361809, 
+    "code": "BF", 
+    "continent": "AF", 
+    "name": "Burkina Faso", 
+    "numeric_code": 854
+  }
+},
+{
+  "pk": 22, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 732800, 
+    "code": "BG", 
+    "continent": "EU", 
+    "name": "Bulgaria", 
+    "numeric_code": 100
+  }
+},
+{
+  "pk": 23, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 290291, 
+    "code": "BH", 
+    "continent": "AS", 
+    "name": "Bahrain", 
+    "numeric_code": 48
+  }
+},
+{
+  "pk": 24, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 433561, 
+    "code": "BI", 
+    "continent": "AF", 
+    "name": "Burundi", 
+    "numeric_code": 108
+  }
+},
+{
+  "pk": 25, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 2395170, 
+    "code": "BJ", 
+    "continent": "AF", 
+    "name": "Benin", 
+    "numeric_code": 204
+  }
+},
+{
+  "pk": 26, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 3578476, 
+    "code": "BL", 
+    "continent": "NA", 
+    "name": "Saint Barthelemy", 
+    "numeric_code": 652
+  }
+},
+{
+  "pk": 27, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 3573345, 
+    "code": "BM", 
+    "continent": "NA", 
+    "name": "Bermuda", 
+    "numeric_code": 60
+  }
+},
+{
+  "pk": 28, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 1820814, 
+    "code": "BN", 
+    "continent": "AS", 
+    "name": "Brunei", 
+    "numeric_code": 96
+  }
+},
+{
+  "pk": 29, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 3923057, 
+    "code": "BO", 
+    "continent": "SA", 
+    "name": "Bolivia", 
+    "numeric_code": 68
+  }
+},
+{
+  "pk": 30, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 7626844, 
+    "code": "BQ", 
+    "continent": "NA", 
+    "name": "Bonaire, Saint Eustatius and Saba ", 
+    "numeric_code": 535
+  }
+},
+{
+  "pk": 31, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 3469034, 
+    "code": "BR", 
+    "continent": "SA", 
+    "name": "Brazil", 
+    "numeric_code": 76
+  }
+},
+{
+  "pk": 32, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 3572887, 
+    "code": "BS", 
+    "continent": "NA", 
+    "name": "Bahamas", 
+    "numeric_code": 44
+  }
+},
+{
+  "pk": 33, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 1252634, 
+    "code": "BT", 
+    "continent": "AS", 
+    "name": "Bhutan", 
+    "numeric_code": 64
+  }
+},
+{
+  "pk": 34, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 3371123, 
+    "code": "BV", 
+    "continent": "AN", 
+    "name": "Bouvet Island", 
+    "numeric_code": 74
+  }
+},
+{
+  "pk": 35, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 933860, 
+    "code": "BW", 
+    "continent": "AF", 
+    "name": "Botswana", 
+    "numeric_code": 72
+  }
+},
+{
+  "pk": 36, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 630336, 
+    "code": "BY", 
+    "continent": "EU", 
+    "name": "Belarus", 
+    "numeric_code": 112
+  }
+},
+{
+  "pk": 37, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 3582678, 
+    "code": "BZ", 
+    "continent": "NA", 
+    "name": "Belize", 
+    "numeric_code": 84
+  }
+},
+{
+  "pk": 38, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 6251999, 
+    "code": "CA", 
+    "continent": "NA", 
+    "name": "Canada", 
+    "numeric_code": 124
+  }
+},
+{
+  "pk": 39, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 1547376, 
+    "code": "CC", 
+    "continent": "AS", 
+    "name": "Cocos Islands", 
+    "numeric_code": 166
+  }
+},
+{
+  "pk": 40, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 203312, 
+    "code": "CD", 
+    "continent": "AF", 
+    "name": "Democratic Republic of the Congo", 
+    "numeric_code": 180
+  }
+},
+{
+  "pk": 41, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 239880, 
+    "code": "CF", 
+    "continent": "AF", 
+    "name": "Central African Republic", 
+    "numeric_code": 140
+  }
+},
+{
+  "pk": 42, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 2260494, 
+    "code": "CG", 
+    "continent": "AF", 
+    "name": "Republic of the Congo", 
+    "numeric_code": 178
+  }
+},
+{
+  "pk": 43, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 2658434, 
+    "code": "CH", 
+    "continent": "EU", 
+    "name": "Switzerland", 
+    "numeric_code": 756
+  }
+},
+{
+  "pk": 44, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 2287781, 
+    "code": "CI", 
+    "continent": "AF", 
+    "name": "Ivory Coast", 
+    "numeric_code": 384
+  }
+},
+{
+  "pk": 45, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 1899402, 
+    "code": "CK", 
+    "continent": "OC", 
+    "name": "Cook Islands", 
+    "numeric_code": 184
+  }
+},
+{
+  "pk": 46, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 3895114, 
+    "code": "CL", 
+    "continent": "SA", 
+    "name": "Chile", 
+    "numeric_code": 152
+  }
+},
+{
+  "pk": 47, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 2233387, 
+    "code": "CM", 
+    "continent": "AF", 
+    "name": "Cameroon", 
+    "numeric_code": 120
+  }
+},
+{
+  "pk": 48, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 1814991, 
+    "code": "CN", 
+    "continent": "AS", 
+    "name": "China", 
+    "numeric_code": 156
+  }
+},
+{
+  "pk": 49, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 3686110, 
+    "code": "CO", 
+    "continent": "SA", 
+    "name": "Colombia", 
+    "numeric_code": 170
+  }
+},
+{
+  "pk": 50, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 3624060, 
+    "code": "CR", 
+    "continent": "NA", 
+    "name": "Costa Rica", 
+    "numeric_code": 188
+  }
+},
+{
+  "pk": 51, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 3562981, 
+    "code": "CU", 
+    "continent": "NA", 
+    "name": "Cuba", 
+    "numeric_code": 192
+  }
+},
+{
+  "pk": 52, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 3374766, 
+    "code": "CV", 
+    "continent": "AF", 
+    "name": "Cape Verde", 
+    "numeric_code": 132
+  }
+},
+{
+  "pk": 53, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 7626836, 
+    "code": "CW", 
+    "continent": "NA", 
+    "name": "Curacao", 
+    "numeric_code": 531
+  }
+},
+{
+  "pk": 54, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 2078138, 
+    "code": "CX", 
+    "continent": "AS", 
+    "name": "Christmas Island", 
+    "numeric_code": 162
+  }
+},
+{
+  "pk": 55, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 146669, 
+    "code": "CY", 
+    "continent": "EU", 
+    "name": "Cyprus", 
+    "numeric_code": 196
+  }
+},
+{
+  "pk": 56, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 3077311, 
+    "code": "CZ", 
+    "continent": "EU", 
+    "name": "Czech Republic", 
+    "numeric_code": 203
+  }
+},
+{
+  "pk": 57, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 2921044, 
+    "code": "DE", 
+    "continent": "EU", 
+    "name": "Germany", 
+    "numeric_code": 276
+  }
+},
+{
+  "pk": 58, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 223816, 
+    "code": "DJ", 
+    "continent": "AF", 
+    "name": "Djibouti", 
+    "numeric_code": 262
+  }
+},
+{
+  "pk": 59, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 2623032, 
+    "code": "DK", 
+    "continent": "EU", 
+    "name": "Denmark", 
+    "numeric_code": 208
+  }
+},
+{
+  "pk": 60, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 3575830, 
+    "code": "DM", 
+    "continent": "NA", 
+    "name": "Dominica", 
+    "numeric_code": 212
+  }
+},
+{
+  "pk": 61, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 3508796, 
+    "code": "DO", 
+    "continent": "NA", 
+    "name": "Dominican Republic", 
+    "numeric_code": 214
+  }
+},
+{
+  "pk": 62, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 2589581, 
+    "code": "DZ", 
+    "continent": "AF", 
+    "name": "Algeria", 
+    "numeric_code": 12
+  }
+},
+{
+  "pk": 63, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 3658394, 
+    "code": "EC", 
+    "continent": "SA", 
+    "name": "Ecuador", 
+    "numeric_code": 218
+  }
+},
+{
+  "pk": 64, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 453733, 
+    "code": "EE", 
+    "continent": "EU", 
+    "name": "Estonia", 
+    "numeric_code": 233
+  }
+},
+{
+  "pk": 65, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 357994, 
+    "code": "EG", 
+    "continent": "AF", 
+    "name": "Egypt", 
+    "numeric_code": 818
+  }
+},
+{
+  "pk": 66, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 2461445, 
+    "code": "EH", 
+    "continent": "AF", 
+    "name": "Western Sahara", 
+    "numeric_code": 732
+  }
+},
+{
+  "pk": 67, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 338010, 
+    "code": "ER", 
+    "continent": "AF", 
+    "name": "Eritrea", 
+    "numeric_code": 232
+  }
+},
+{
+  "pk": 68, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 2510769, 
+    "code": "ES", 
+    "continent": "EU", 
+    "name": "Spain", 
+    "numeric_code": 724
+  }
+},
+{
+  "pk": 69, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 337996, 
+    "code": "ET", 
+    "continent": "AF", 
+    "name": "Ethiopia", 
+    "numeric_code": 231
+  }
+},
+{
+  "pk": 70, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 660013, 
+    "code": "FI", 
+    "continent": "EU", 
+    "name": "Finland", 
+    "numeric_code": 246
+  }
+},
+{
+  "pk": 71, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 2205218, 
+    "code": "FJ", 
+    "continent": "OC", 
+    "name": "Fiji", 
+    "numeric_code": 242
+  }
+},
+{
+  "pk": 72, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 3474414, 
+    "code": "FK", 
+    "continent": "SA", 
+    "name": "Falkland Islands", 
+    "numeric_code": 238
+  }
+},
+{
+  "pk": 73, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 2081918, 
+    "code": "FM", 
+    "continent": "OC", 
+    "name": "Micronesia", 
+    "numeric_code": 583
+  }
+},
+{
+  "pk": 74, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 2622320, 
+    "code": "FO", 
+    "continent": "EU", 
+    "name": "Faroe Islands", 
+    "numeric_code": 234
+  }
+},
+{
+  "pk": 75, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 3017382, 
+    "code": "FR", 
+    "continent": "EU", 
+    "name": "France", 
+    "numeric_code": 250
+  }
+},
+{
+  "pk": 76, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 2400553, 
+    "code": "GA", 
+    "continent": "AF", 
+    "name": "Gabon", 
+    "numeric_code": 266
+  }
+},
+{
+  "pk": 77, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 2635167, 
+    "code": "GB", 
+    "continent": "EU", 
+    "name": "United Kingdom", 
+    "numeric_code": 826
+  }
+},
+{
+  "pk": 78, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 3580239, 
+    "code": "GD", 
+    "continent": "NA", 
+    "name": "Grenada", 
+    "numeric_code": 308
+  }
+},
+{
+  "pk": 79, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 614540, 
+    "code": "GE", 
+    "continent": "AS", 
+    "name": "Georgia", 
+    "numeric_code": 268
+  }
+},
+{
+  "pk": 80, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 3381670, 
+    "code": "GF", 
+    "continent": "SA", 
+    "name": "French Guiana", 
+    "numeric_code": 254
+  }
+},
+{
+  "pk": 81, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 3042362, 
+    "code": "GG", 
+    "continent": "EU", 
+    "name": "Guernsey", 
+    "numeric_code": 831
+  }
+},
+{
+  "pk": 82, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 2300660, 
+    "code": "GH", 
+    "continent": "AF", 
+    "name": "Ghana", 
+    "numeric_code": 288
+  }
+},
+{
+  "pk": 83, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 2411586, 
+    "code": "GI", 
+    "continent": "EU", 
+    "name": "Gibraltar", 
+    "numeric_code": 292
+  }
+},
+{
+  "pk": 84, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 3425505, 
+    "code": "GL", 
+    "continent": "NA", 
+    "name": "Greenland", 
+    "numeric_code": 304
+  }
+},
+{
+  "pk": 85, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 2413451, 
+    "code": "GM", 
+    "continent": "AF", 
+    "name": "Gambia", 
+    "numeric_code": 270
+  }
+},
+{
+  "pk": 86, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 2420477, 
+    "code": "GN", 
+    "continent": "AF", 
+    "name": "Guinea", 
+    "numeric_code": 324
+  }
+},
+{
+  "pk": 87, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 3579143, 
+    "code": "GP", 
+    "continent": "NA", 
+    "name": "Guadeloupe", 
+    "numeric_code": 312
+  }
+},
+{
+  "pk": 88, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 2309096, 
+    "code": "GQ", 
+    "continent": "AF", 
+    "name": "Equatorial Guinea", 
+    "numeric_code": 226
+  }
+},
+{
+  "pk": 89, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 390903, 
+    "code": "GR", 
+    "continent": "EU", 
+    "name": "Greece", 
+    "numeric_code": 300
+  }
+},
+{
+  "pk": 90, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 3474415, 
+    "code": "GS", 
+    "continent": "AN", 
+    "name": "South Georgia and the South Sandwich Islands", 
+    "numeric_code": 239
+  }
+},
+{
+  "pk": 91, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 3595528, 
+    "code": "GT", 
+    "continent": "NA", 
+    "name": "Guatemala", 
+    "numeric_code": 320
+  }
+},
+{
+  "pk": 92, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 4043988, 
+    "code": "GU", 
+    "continent": "OC", 
+    "name": "Guam", 
+    "numeric_code": 316
+  }
+},
+{
+  "pk": 93, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 2372248, 
+    "code": "GW", 
+    "continent": "AF", 
+    "name": "Guinea-Bissau", 
+    "numeric_code": 624
+  }
+},
+{
+  "pk": 94, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 3378535, 
+    "code": "GY", 
+    "continent": "SA", 
+    "name": "Guyana", 
+    "numeric_code": 328
+  }
+},
+{
+  "pk": 95, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 1819730, 
+    "code": "HK", 
+    "continent": "AS", 
+    "name": "Hong Kong", 
+    "numeric_code": 344
+  }
+},
+{
+  "pk": 96, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 1547314, 
+    "code": "HM", 
+    "continent": "AN", 
+    "name": "Heard Island and McDonald Islands", 
+    "numeric_code": 334
+  }
+},
+{
+  "pk": 97, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 3608932, 
+    "code": "HN", 
+    "continent": "NA", 
+    "name": "Honduras", 
+    "numeric_code": 340
+  }
+},
+{
+  "pk": 98, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 3202326, 
+    "code": "HR", 
+    "continent": "EU", 
+    "name": "Croatia", 
+    "numeric_code": 191
+  }
+},
+{
+  "pk": 99, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 3723988, 
+    "code": "HT", 
+    "continent": "NA", 
+    "name": "Haiti", 
+    "numeric_code": 332
+  }
+},
+{
+  "pk": 100, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 719819, 
+    "code": "HU", 
+    "continent": "EU", 
+    "name": "Hungary", 
+    "numeric_code": 348
+  }
+},
+{
+  "pk": 101, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 1643084, 
+    "code": "ID", 
+    "continent": "AS", 
+    "name": "Indonesia", 
+    "numeric_code": 360
+  }
+},
+{
+  "pk": 102, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 2963597, 
+    "code": "IE", 
+    "continent": "EU", 
+    "name": "Ireland", 
+    "numeric_code": 372
+  }
+},
+{
+  "pk": 103, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 294640, 
+    "code": "IL", 
+    "continent": "AS", 
+    "name": "Israel", 
+    "numeric_code": 376
+  }
+},
+{
+  "pk": 104, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 3042225, 
+    "code": "IM", 
+    "continent": "EU", 
+    "name": "Isle of Man", 
+    "numeric_code": 833
+  }
+},
+{
+  "pk": 105, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 1269750, 
+    "code": "IN", 
+    "continent": "AS", 
+    "name": "India", 
+    "numeric_code": 356
+  }
+},
+{
+  "pk": 106, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 1282588, 
+    "code": "IO", 
+    "continent": "AS", 
+    "name": "British Indian Ocean Territory", 
+    "numeric_code": 86
+  }
+},
+{
+  "pk": 107, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 99237, 
+    "code": "IQ", 
+    "continent": "AS", 
+    "name": "Iraq", 
+    "numeric_code": 368
+  }
+},
+{
+  "pk": 108, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 130758, 
+    "code": "IR", 
+    "continent": "AS", 
+    "name": "Iran", 
+    "numeric_code": 364
+  }
+},
+{
+  "pk": 109, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 2629691, 
+    "code": "IS", 
+    "continent": "EU", 
+    "name": "Iceland", 
+    "numeric_code": 352
+  }
+},
+{
+  "pk": 110, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 3175395, 
+    "code": "IT", 
+    "continent": "EU", 
+    "name": "Italy", 
+    "numeric_code": 380
+  }
+},
+{
+  "pk": 111, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 3042142, 
+    "code": "JE", 
+    "continent": "EU", 
+    "name": "Jersey", 
+    "numeric_code": 832
+  }
+},
+{
+  "pk": 112, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 3489940, 
+    "code": "JM", 
+    "continent": "NA", 
+    "name": "Jamaica", 
+    "numeric_code": 388
+  }
+},
+{
+  "pk": 113, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 248816, 
+    "code": "JO", 
+    "continent": "AS", 
+    "name": "Jordan", 
+    "numeric_code": 400
+  }
+},
+{
+  "pk": 114, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 1861060, 
+    "code": "JP", 
+    "continent": "AS", 
+    "name": "Japan", 
+    "numeric_code": 392
+  }
+},
+{
+  "pk": 115, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 192950, 
+    "code": "KE", 
+    "continent": "AF", 
+    "name": "Kenya", 
+    "numeric_code": 404
+  }
+},
+{
+  "pk": 116, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 1527747, 
+    "code": "KG", 
+    "continent": "AS", 
+    "name": "Kyrgyzstan", 
+    "numeric_code": 417
+  }
+},
+{
+  "pk": 117, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 1831722, 
+    "code": "KH", 
+    "continent": "AS", 
+    "name": "Cambodia", 
+    "numeric_code": 116
+  }
+},
+{
+  "pk": 118, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 4030945, 
+    "code": "KI", 
+    "continent": "OC", 
+    "name": "Kiribati", 
+    "numeric_code": 296
+  }
+},
+{
+  "pk": 119, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 921929, 
+    "code": "KM", 
+    "continent": "AF", 
+    "name": "Comoros", 
+    "numeric_code": 174
+  }
+},
+{
+  "pk": 120, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 3575174, 
+    "code": "KN", 
+    "continent": "NA", 
+    "name": "Saint Kitts and Nevis", 
+    "numeric_code": 659
+  }
+},
+{
+  "pk": 121, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 1873107, 
+    "code": "KP", 
+    "continent": "AS", 
+    "name": "North Korea", 
+    "numeric_code": 408
+  }
+},
+{
+  "pk": 122, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 1835841, 
+    "code": "KR", 
+    "continent": "AS", 
+    "name": "South Korea", 
+    "numeric_code": 410
+  }
+},
+{
+  "pk": 123, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 831053, 
+    "code": "XK", 
+    "continent": "EU", 
+    "name": "Kosovo", 
+    "numeric_code": 0
+  }
+},
+{
+  "pk": 124, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 285570, 
+    "code": "KW", 
+    "continent": "AS", 
+    "name": "Kuwait", 
+    "numeric_code": 414
+  }
+},
+{
+  "pk": 125, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 3580718, 
+    "code": "KY", 
+    "continent": "NA", 
+    "name": "Cayman Islands", 
+    "numeric_code": 136
+  }
+},
+{
+  "pk": 126, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 1522867, 
+    "code": "KZ", 
+    "continent": "AS", 
+    "name": "Kazakhstan", 
+    "numeric_code": 398
+  }
+},
+{
+  "pk": 127, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 1655842, 
+    "code": "LA", 
+    "continent": "AS", 
+    "name": "Laos", 
+    "numeric_code": 418
+  }
+},
+{
+  "pk": 128, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 272103, 
+    "code": "LB", 
+    "continent": "AS", 
+    "name": "Lebanon", 
+    "numeric_code": 422
+  }
+},
+{
+  "pk": 129, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 3576468, 
+    "code": "LC", 
+    "continent": "NA", 
+    "name": "Saint Lucia", 
+    "numeric_code": 662
+  }
+},
+{
+  "pk": 130, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 3042058, 
+    "code": "LI", 
+    "continent": "EU", 
+    "name": "Liechtenstein", 
+    "numeric_code": 438
+  }
+},
+{
+  "pk": 131, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 1227603, 
+    "code": "LK", 
+    "continent": "AS", 
+    "name": "Sri Lanka", 
+    "numeric_code": 144
+  }
+},
+{
+  "pk": 132, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 2275384, 
+    "code": "LR", 
+    "continent": "AF", 
+    "name": "Liberia", 
+    "numeric_code": 430
+  }
+},
+{
+  "pk": 133, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 932692, 
+    "code": "LS", 
+    "continent": "AF", 
+    "name": "Lesotho", 
+    "numeric_code": 426
+  }
+},
+{
+  "pk": 134, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 597427, 
+    "code": "LT", 
+    "continent": "EU", 
+    "name": "Lithuania", 
+    "numeric_code": 440
+  }
+},
+{
+  "pk": 135, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 2960313, 
+    "code": "LU", 
+    "continent": "EU", 
+    "name": "Luxembourg", 
+    "numeric_code": 442
+  }
+},
+{
+  "pk": 136, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 458258, 
+    "code": "LV", 
+    "continent": "EU", 
+    "name": "Latvia", 
+    "numeric_code": 428
+  }
+},
+{
+  "pk": 137, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 2215636, 
+    "code": "LY", 
+    "continent": "AF", 
+    "name": "Libya", 
+    "numeric_code": 434
+  }
+},
+{
+  "pk": 138, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 2542007, 
+    "code": "MA", 
+    "continent": "AF", 
+    "name": "Morocco", 
+    "numeric_code": 504
+  }
+},
+{
+  "pk": 139, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 2993457, 
+    "code": "MC", 
+    "continent": "EU", 
+    "name": "Monaco", 
+    "numeric_code": 492
+  }
+},
+{
+  "pk": 140, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 617790, 
+    "code": "MD", 
+    "continent": "EU", 
+    "name": "Moldova", 
+    "numeric_code": 498
+  }
+},
+{
+  "pk": 141, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 3194884, 
+    "code": "ME", 
+    "continent": "EU", 
+    "name": "Montenegro", 
+    "numeric_code": 499
+  }
+},
+{
+  "pk": 142, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 3578421, 
+    "code": "MF", 
+    "continent": "NA", 
+    "name": "Saint Martin", 
+    "numeric_code": 663
+  }
+},
+{
+  "pk": 143, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 1062947, 
+    "code": "MG", 
+    "continent": "AF", 
+    "name": "Madagascar", 
+    "numeric_code": 450
+  }
+},
+{
+  "pk": 144, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 2080185, 
+    "code": "MH", 
+    "continent": "OC", 
+    "name": "Marshall Islands", 
+    "numeric_code": 584
+  }
+},
+{
+  "pk": 145, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 718075, 
+    "code": "MK", 
+    "continent": "EU", 
+    "name": "Macedonia", 
+    "numeric_code": 807
+  }
+},
+{
+  "pk": 146, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 2453866, 
+    "code": "ML", 
+    "continent": "AF", 
+    "name": "Mali", 
+    "numeric_code": 466
+  }
+},
+{
+  "pk": 147, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 1327865, 
+    "code": "MM", 
+    "continent": "AS", 
+    "name": "Myanmar", 
+    "numeric_code": 104
+  }
+},
+{
+  "pk": 148, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 2029969, 
+    "code": "MN", 
+    "continent": "AS", 
+    "name": "Mongolia", 
+    "numeric_code": 496
+  }
+},
+{
+  "pk": 149, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 1821275, 
+    "code": "MO", 
+    "continent": "AS", 
+    "name": "Macao", 
+    "numeric_code": 446
+  }
+},
+{
+  "pk": 150, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 4041468, 
+    "code": "MP", 
+    "continent": "OC", 
+    "name": "Northern Mariana Islands", 
+    "numeric_code": 580
+  }
+},
+{
+  "pk": 151, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 3570311, 
+    "code": "MQ", 
+    "continent": "NA", 
+    "name": "Martinique", 
+    "numeric_code": 474
+  }
+},
+{
+  "pk": 152, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 2378080, 
+    "code": "MR", 
+    "continent": "AF", 
+    "name": "Mauritania", 
+    "numeric_code": 478
+  }
+},
+{
+  "pk": 153, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 3578097, 
+    "code": "MS", 
+    "continent": "NA", 
+    "name": "Montserrat", 
+    "numeric_code": 500
+  }
+},
+{
+  "pk": 154, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 2562770, 
+    "code": "MT", 
+    "continent": "EU", 
+    "name": "Malta", 
+    "numeric_code": 470
+  }
+},
+{
+  "pk": 155, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 934292, 
+    "code": "MU", 
+    "continent": "AF", 
+    "name": "Mauritius", 
+    "numeric_code": 480
+  }
+},
+{
+  "pk": 156, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 1282028, 
+    "code": "MV", 
+    "continent": "AS", 
+    "name": "Maldives", 
+    "numeric_code": 462
+  }
+},
+{
+  "pk": 157, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 927384, 
+    "code": "MW", 
+    "continent": "AF", 
+    "name": "Malawi", 
+    "numeric_code": 454
+  }
+},
+{
+  "pk": 158, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 3996063, 
+    "code": "MX", 
+    "continent": "NA", 
+    "name": "Mexico", 
+    "numeric_code": 484
+  }
+},
+{
+  "pk": 159, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 1733045, 
+    "code": "MY", 
+    "continent": "AS", 
+    "name": "Malaysia", 
+    "numeric_code": 458
+  }
+},
+{
+  "pk": 160, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 1036973, 
+    "code": "MZ", 
+    "continent": "AF", 
+    "name": "Mozambique", 
+    "numeric_code": 508
+  }
+},
+{
+  "pk": 161, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 3355338, 
+    "code": "NA", 
+    "continent": "AF", 
+    "name": "Namibia", 
+    "numeric_code": 516
+  }
+},
+{
+  "pk": 162, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 2139685, 
+    "code": "NC", 
+    "continent": "OC", 
+    "name": "New Caledonia", 
+    "numeric_code": 540
+  }
+},
+{
+  "pk": 163, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 2440476, 
+    "code": "NE", 
+    "continent": "AF", 
+    "name": "Niger", 
+    "numeric_code": 562
+  }
+},
+{
+  "pk": 164, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 2155115, 
+    "code": "NF", 
+    "continent": "OC", 
+    "name": "Norfolk Island", 
+    "numeric_code": 574
+  }
+},
+{
+  "pk": 165, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 2328926, 
+    "code": "NG", 
+    "continent": "AF", 
+    "name": "Nigeria", 
+    "numeric_code": 566
+  }
+},
+{
+  "pk": 166, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 3617476, 
+    "code": "NI", 
+    "continent": "NA", 
+    "name": "Nicaragua", 
+    "numeric_code": 558
+  }
+},
+{
+  "pk": 167, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 2750405, 
+    "code": "NL", 
+    "continent": "EU", 
+    "name": "Netherlands", 
+    "numeric_code": 528
+  }
+},
+{
+  "pk": 168, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 3144096, 
+    "code": "NO", 
+    "continent": "EU", 
+    "name": "Norway", 
+    "numeric_code": 578
+  }
+},
+{
+  "pk": 169, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 1282988, 
+    "code": "NP", 
+    "continent": "AS", 
+    "name": "Nepal", 
+    "numeric_code": 524
+  }
+},
+{
+  "pk": 170, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 2110425, 
+    "code": "NR", 
+    "continent": "OC", 
+    "name": "Nauru", 
+    "numeric_code": 520
+  }
+},
+{
+  "pk": 171, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 4036232, 
+    "code": "NU", 
+    "continent": "OC", 
+    "name": "Niue", 
+    "numeric_code": 570
+  }
+},
+{
+  "pk": 172, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 2186224, 
+    "code": "NZ", 
+    "continent": "OC", 
+    "name": "New Zealand", 
+    "numeric_code": 554
+  }
+},
+{
+  "pk": 173, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 286963, 
+    "code": "OM", 
+    "continent": "AS", 
+    "name": "Oman", 
+    "numeric_code": 512
+  }
+},
+{
+  "pk": 174, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 3703430, 
+    "code": "PA", 
+    "continent": "NA", 
+    "name": "Panama", 
+    "numeric_code": 591
+  }
+},
+{
+  "pk": 175, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 3932488, 
+    "code": "PE", 
+    "continent": "SA", 
+    "name": "Peru", 
+    "numeric_code": 604
+  }
+},
+{
+  "pk": 176, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 4030656, 
+    "code": "PF", 
+    "continent": "OC", 
+    "name": "French Polynesia", 
+    "numeric_code": 258
+  }
+},
+{
+  "pk": 177, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 2088628, 
+    "code": "PG", 
+    "continent": "OC", 
+    "name": "Papua New Guinea", 
+    "numeric_code": 598
+  }
+},
+{
+  "pk": 178, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 1694008, 
+    "code": "PH", 
+    "continent": "AS", 
+    "name": "Philippines", 
+    "numeric_code": 608
+  }
+},
+{
+  "pk": 179, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 1168579, 
+    "code": "PK", 
+    "continent": "AS", 
+    "name": "Pakistan", 
+    "numeric_code": 586
+  }
+},
+{
+  "pk": 180, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 798544, 
+    "code": "PL", 
+    "continent": "EU", 
+    "name": "Poland", 
+    "numeric_code": 616
+  }
+},
+{
+  "pk": 181, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 3424932, 
+    "code": "PM", 
+    "continent": "NA", 
+    "name": "Saint Pierre and Miquelon", 
+    "numeric_code": 666
+  }
+},
+{
+  "pk": 182, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 4030699, 
+    "code": "PN", 
+    "continent": "OC", 
+    "name": "Pitcairn", 
+    "numeric_code": 612
+  }
+},
+{
+  "pk": 183, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 4566966, 
+    "code": "PR", 
+    "continent": "NA", 
+    "name": "Puerto Rico", 
+    "numeric_code": 630
+  }
+},
+{
+  "pk": 184, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 6254930, 
+    "code": "PS", 
+    "continent": "AS", 
+    "name": "Palestinian Territory", 
+    "numeric_code": 275
+  }
+},
+{
+  "pk": 185, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 2264397, 
+    "code": "PT", 
+    "continent": "EU", 
+    "name": "Portugal", 
+    "numeric_code": 620
+  }
+},
+{
+  "pk": 186, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 1559582, 
+    "code": "PW", 
+    "continent": "OC", 
+    "name": "Palau", 
+    "numeric_code": 585
+  }
+},
+{
+  "pk": 187, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 3437598, 
+    "code": "PY", 
+    "continent": "SA", 
+    "name": "Paraguay", 
+    "numeric_code": 600
+  }
+},
+{
+  "pk": 188, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 289688, 
+    "code": "QA", 
+    "continent": "AS", 
+    "name": "Qatar", 
+    "numeric_code": 634
+  }
+},
+{
+  "pk": 189, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 935317, 
+    "code": "RE", 
+    "continent": "AF", 
+    "name": "Reunion", 
+    "numeric_code": 638
+  }
+},
+{
+  "pk": 190, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 798549, 
+    "code": "RO", 
+    "continent": "EU", 
+    "name": "Romania", 
+    "numeric_code": 642
+  }
+},
+{
+  "pk": 191, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 6290252, 
+    "code": "RS", 
+    "continent": "EU", 
+    "name": "Serbia", 
+    "numeric_code": 688
+  }
+},
+{
+  "pk": 192, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 2017370, 
+    "code": "RU", 
+    "continent": "EU", 
+    "name": "Russia", 
+    "numeric_code": 643
+  }
+},
+{
+  "pk": 193, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 49518, 
+    "code": "RW", 
+    "continent": "AF", 
+    "name": "Rwanda", 
+    "numeric_code": 646
+  }
+},
+{
+  "pk": 194, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 102358, 
+    "code": "SA", 
+    "continent": "AS", 
+    "name": "Saudi Arabia", 
+    "numeric_code": 682
+  }
+},
+{
+  "pk": 195, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 2103350, 
+    "code": "SB", 
+    "continent": "OC", 
+    "name": "Solomon Islands", 
+    "numeric_code": 90
+  }
+},
+{
+  "pk": 196, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 241170, 
+    "code": "SC", 
+    "continent": "AF", 
+    "name": "Seychelles", 
+    "numeric_code": 690
+  }
+},
+{
+  "pk": 197, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 366755, 
+    "code": "SD", 
+    "continent": "AF", 
+    "name": "Sudan", 
+    "numeric_code": 729
+  }
+},
+{
+  "pk": 198, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 7909807, 
+    "code": "SS", 
+    "continent": "AF", 
+    "name": "South Sudan", 
+    "numeric_code": 728
+  }
+},
+{
+  "pk": 199, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 2661886, 
+    "code": "SE", 
+    "continent": "EU", 
+    "name": "Sweden", 
+    "numeric_code": 752
+  }
+},
+{
+  "pk": 200, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 1880251, 
+    "code": "SG", 
+    "continent": "AS", 
+    "name": "Singapore", 
+    "numeric_code": 702
+  }
+},
+{
+  "pk": 201, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 3370751, 
+    "code": "SH", 
+    "continent": "AF", 
+    "name": "Saint Helena", 
+    "numeric_code": 654
+  }
+},
+{
+  "pk": 202, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 3190538, 
+    "code": "SI", 
+    "continent": "EU", 
+    "name": "Slovenia", 
+    "numeric_code": 705
+  }
+},
+{
+  "pk": 203, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 607072, 
+    "code": "SJ", 
+    "continent": "EU", 
+    "name": "Svalbard and Jan Mayen", 
+    "numeric_code": 744
+  }
+},
+{
+  "pk": 204, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 3057568, 
+    "code": "SK", 
+    "continent": "EU", 
+    "name": "Slovakia", 
+    "numeric_code": 703
+  }
+},
+{
+  "pk": 205, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 2403846, 
+    "code": "SL", 
+    "continent": "AF", 
+    "name": "Sierra Leone", 
+    "numeric_code": 694
+  }
+},
+{
+  "pk": 206, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 3168068, 
+    "code": "SM", 
+    "continent": "EU", 
+    "name": "San Marino", 
+    "numeric_code": 674
+  }
+},
+{
+  "pk": 207, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 2245662, 
+    "code": "SN", 
+    "continent": "AF", 
+    "name": "Senegal", 
+    "numeric_code": 686
+  }
+},
+{
+  "pk": 208, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 51537, 
+    "code": "SO", 
+    "continent": "AF", 
+    "name": "Somalia", 
+    "numeric_code": 706
+  }
+},
+{
+  "pk": 209, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 3382998, 
+    "code": "SR", 
+    "continent": "SA", 
+    "name": "Suriname", 
+    "numeric_code": 740
+  }
+},
+{
+  "pk": 210, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 2410758, 
+    "code": "ST", 
+    "continent": "AF", 
+    "name": "Sao Tome and Principe", 
+    "numeric_code": 678
+  }
+},
+{
+  "pk": 211, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 3585968, 
+    "code": "SV", 
+    "continent": "NA", 
+    "name": "El Salvador", 
+    "numeric_code": 222
+  }
+},
+{
+  "pk": 212, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 7609695, 
+    "code": "SX", 
+    "continent": "NA", 
+    "name": "Sint Maarten", 
+    "numeric_code": 534
+  }
+},
+{
+  "pk": 213, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 163843, 
+    "code": "SY", 
+    "continent": "AS", 
+    "name": "Syria", 
+    "numeric_code": 760
+  }
+},
+{
+  "pk": 214, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 934841, 
+    "code": "SZ", 
+    "continent": "AF", 
+    "name": "Swaziland", 
+    "numeric_code": 748
+  }
+},
+{
+  "pk": 215, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 3576916, 
+    "code": "TC", 
+    "continent": "NA", 
+    "name": "Turks and Caicos Islands", 
+    "numeric_code": 796
+  }
+},
+{
+  "pk": 216, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 2434508, 
+    "code": "TD", 
+    "continent": "AF", 
+    "name": "Chad", 
+    "numeric_code": 148
+  }
+},
+{
+  "pk": 217, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 1546748, 
+    "code": "TF", 
+    "continent": "AN", 
+    "name": "French Southern Territories", 
+    "numeric_code": 260
+  }
+},
+{
+  "pk": 218, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 2363686, 
+    "code": "TG", 
+    "continent": "AF", 
+    "name": "Togo", 
+    "numeric_code": 768
+  }
+},
+{
+  "pk": 219, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 1605651, 
+    "code": "TH", 
+    "continent": "AS", 
+    "name": "Thailand", 
+    "numeric_code": 764
+  }
+},
+{
+  "pk": 220, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 1220409, 
+    "code": "TJ", 
+    "continent": "AS", 
+    "name": "Tajikistan", 
+    "numeric_code": 762
+  }
+},
+{
+  "pk": 221, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 4031074, 
+    "code": "TK", 
+    "continent": "OC", 
+    "name": "Tokelau", 
+    "numeric_code": 772
+  }
+},
+{
+  "pk": 222, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 1966436, 
+    "code": "TL", 
+    "continent": "OC", 
+    "name": "East Timor", 
+    "numeric_code": 626
+  }
+},
+{
+  "pk": 223, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 1218197, 
+    "code": "TM", 
+    "continent": "AS", 
+    "name": "Turkmenistan", 
+    "numeric_code": 795
+  }
+},
+{
+  "pk": 224, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 2464461, 
+    "code": "TN", 
+    "continent": "AF", 
+    "name": "Tunisia", 
+    "numeric_code": 788
+  }
+},
+{
+  "pk": 225, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 4032283, 
+    "code": "TO", 
+    "continent": "OC", 
+    "name": "Tonga", 
+    "numeric_code": 776
+  }
+},
+{
+  "pk": 226, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 298795, 
+    "code": "TR", 
+    "continent": "AS", 
+    "name": "Turkey", 
+    "numeric_code": 792
+  }
+},
+{
+  "pk": 227, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 3573591, 
+    "code": "TT", 
+    "continent": "NA", 
+    "name": "Trinidad and Tobago", 
+    "numeric_code": 780
+  }
+},
+{
+  "pk": 228, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 2110297, 
+    "code": "TV", 
+    "continent": "OC", 
+    "name": "Tuvalu", 
+    "numeric_code": 798
+  }
+},
+{
+  "pk": 229, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 1668284, 
+    "code": "TW", 
+    "continent": "AS", 
+    "name": "Taiwan", 
+    "numeric_code": 158
+  }
+},
+{
+  "pk": 230, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 149590, 
+    "code": "TZ", 
+    "continent": "AF", 
+    "name": "Tanzania", 
+    "numeric_code": 834
+  }
+},
+{
+  "pk": 231, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 690791, 
+    "code": "UA", 
+    "continent": "EU", 
+    "name": "Ukraine", 
+    "numeric_code": 804
+  }
+},
+{
+  "pk": 232, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 226074, 
+    "code": "UG", 
+    "continent": "AF", 
+    "name": "Uganda", 
+    "numeric_code": 800
+  }
+},
+{
+  "pk": 233, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 5854968, 
+    "code": "UM", 
+    "continent": "OC", 
+    "name": "United States Minor Outlying Islands", 
+    "numeric_code": 581
+  }
+},
+{
+  "pk": 234, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 6252001, 
+    "code": "US", 
+    "continent": "NA", 
+    "name": "United States", 
+    "numeric_code": 840
+  }
+},
+{
+  "pk": 235, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 3439705, 
+    "code": "UY", 
+    "continent": "SA", 
+    "name": "Uruguay", 
+    "numeric_code": 858
+  }
+},
+{
+  "pk": 236, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 1512440, 
+    "code": "UZ", 
+    "continent": "AS", 
+    "name": "Uzbekistan", 
+    "numeric_code": 860
+  }
+},
+{
+  "pk": 237, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 3164670, 
+    "code": "VA", 
+    "continent": "EU", 
+    "name": "Vatican", 
+    "numeric_code": 336
+  }
+},
+{
+  "pk": 238, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 3577815, 
+    "code": "VC", 
+    "continent": "NA", 
+    "name": "Saint Vincent and the Grenadines", 
+    "numeric_code": 670
+  }
+},
+{
+  "pk": 239, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 3625428, 
+    "code": "VE", 
+    "continent": "SA", 
+    "name": "Venezuela", 
+    "numeric_code": 862
+  }
+},
+{
+  "pk": 240, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 3577718, 
+    "code": "VG", 
+    "continent": "NA", 
+    "name": "British Virgin Islands", 
+    "numeric_code": 92
+  }
+},
+{
+  "pk": 241, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 4796775, 
+    "code": "VI", 
+    "continent": "NA", 
+    "name": "U.S. Virgin Islands", 
+    "numeric_code": 850
+  }
+},
+{
+  "pk": 242, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 1562822, 
+    "code": "VN", 
+    "continent": "AS", 
+    "name": "Vietnam", 
+    "numeric_code": 704
+  }
+},
+{
+  "pk": 243, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 2134431, 
+    "code": "VU", 
+    "continent": "OC", 
+    "name": "Vanuatu", 
+    "numeric_code": 548
+  }
+},
+{
+  "pk": 244, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 4034749, 
+    "code": "WF", 
+    "continent": "OC", 
+    "name": "Wallis and Futuna", 
+    "numeric_code": 876
+  }
+},
+{
+  "pk": 245, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 4034894, 
+    "code": "WS", 
+    "continent": "OC", 
+    "name": "Samoa", 
+    "numeric_code": 882
+  }
+},
+{
+  "pk": 246, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 69543, 
+    "code": "YE", 
+    "continent": "AS", 
+    "name": "Yemen", 
+    "numeric_code": 887
+  }
+},
+{
+  "pk": 247, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 1024031, 
+    "code": "YT", 
+    "continent": "AF", 
+    "name": "Mayotte", 
+    "numeric_code": 175
+  }
+},
+{
+  "pk": 248, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 953987, 
+    "code": "ZA", 
+    "continent": "AF", 
+    "name": "South Africa", 
+    "numeric_code": 710
+  }
+},
+{
+  "pk": 249, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 895949, 
+    "code": "ZM", 
+    "continent": "AF", 
+    "name": "Zambia", 
+    "numeric_code": 894
+  }
+},
+{
+  "pk": 250, 
+  "model": "geo.geonamescountry", 
+  "fields": {
+    "geonames_id": 878675, 
+    "code": "ZW", 
+    "continent": "AF", 
+    "name": "Zimbabwe", 
+    "numeric_code": 716
   }
 }
 ]

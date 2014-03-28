@@ -5,7 +5,7 @@ from eulxml import xmlmap
 from eulexistdb.models import XmlModel
 from eulexistdb.manager import Manager
 
-from ddisearch.geo.models import Location, StateCode
+from ddisearch.geo.models import Location, StateCode, GeonamesCountry
 
 ### top-level info and descriptive information about the study
 
@@ -417,15 +417,27 @@ class CodeBook(XmlModel):
     def us_state_ids(self):
         states = self.locations.order_by('state_code') \
                                .values_list('state_code', flat=True).distinct()
-        print states
         return list(StateCode.objects.filter(code__in=states).order_by('fips') \
                                 .values_list('fips', flat=True).distinct())
 
     @property
     def us_state_ids_json(self):
-        ''' list of FIPS state ids in json format, for use with javascript'''
+        '''list of FIPS state ids in json format, for use with d3 maps'''
         return simplejson.dumps(self.us_state_ids)
 
+    @property
+    def country_ids(self):
+        countries = self.locations.order_by('country_code') \
+                               .values_list('country_code', flat=True).distinct()
+        print countries
+        return list(GeonamesCountry.objects.filter(code__in=countries) \
+                                   .order_by('numeric_code') \
+                                   .values_list('numeric_code', flat=True).distinct())
+
+    @property
+    def country_ids_json(self):
+        ''' list of ISO numeric country codes in json format, for use with d3 maps'''
+        return simplejson.dumps(self.country_ids)
 
 # collection prefix normally added by queryset; has to be added explicitly
 # here becuase we are including distinct in the primary xpath

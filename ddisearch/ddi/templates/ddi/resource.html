@@ -115,6 +115,9 @@
                     {% if resource.us_only %}
                        {% include 'ddi/snippets/us_map.html' %}
                     {% else %}
+                      {% include 'ddi/snippets/world_map.html' %}
+                    {% endif %}
+                    {% comment %}
                     <div class="map">
                         <img src="{% static 'img/Flat-World-Map.gif' %}"/>
                         {% for gl in resource.geo_coverage %}
@@ -123,7 +126,7 @@
                         </div>
                         {% endfor %}
                     </div>
-                    {% endif %}
+                    {% endcomment %}
                 </div>
 
                 <div class="col-sm-6 col-md-7 col-lg-8">

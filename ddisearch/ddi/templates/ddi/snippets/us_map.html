@@ -43,6 +43,19 @@ d3.json("{% static 'js/us.json' %}", function(error, us) {
 
 });
 
+d3.json("/mbostock/raw/4090846/world-50m.json", function(error, world) {
+  svg.insert("path", ".graticule")
+      .datum(topojson.feature(world, world.objects.land))
+      .attr("class", "land")
+      .attr("d", path);
+
+  svg.insert("path", ".graticule")
+      .datum(topojson.mesh(world, world.objects.countries, function(a, b) { return a !== b; }))
+      .attr("class", "boundary")
+      .attr("d", path);
+});
+
+
 d3.select(self.frameElement).style("height", height + "px");
 
 </script>

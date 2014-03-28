@@ -10,9 +10,9 @@ class LocationAdmin(admin.ModelAdmin):
 
 
 class GeonamesCountryAdmin(admin.ModelAdmin):
-    list_display = ('name', 'code', 'continent', 'geonames_id')
+    list_display = ('name', 'code', 'continent', 'geonames_id', 'numeric_code')
     list_filter = ('continent',)
-    search_fields = ('name', 'code', 'continent', 'geonames_id')
+    search_fields = ('name', 'code', 'continent', 'geonames_id', 'numeric_code')
 
 
 class GeonamesContinentAdmin(admin.ModelAdmin):

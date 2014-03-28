@@ -6,8 +6,10 @@ class GeonamesCountry(models.Model):
     http://download.geonames.org/export/dump/countryInfo.txt'''
     #: country name
     name = models.CharField(max_length=255)
-    #: two-letter country code
+    #: two-letter ISO country code
     code = models.CharField(max_length=2, unique=True)
+    #: ISO-numeric code
+    numeric_code = models.IntegerField()
     #: two-letter continent code
     continent = models.CharField(max_length=2)
     #: numeric geonames id

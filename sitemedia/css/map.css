@@ -2,7 +2,7 @@
   fill: #222;
 }
 
-.state-boundary {
+.state-boundary, .country-boundary {
   fill: none;
   stroke: #fff;
   stroke-linejoin: round;
