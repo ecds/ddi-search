@@ -79,6 +79,8 @@ body > div.container.footer {
 	font-size: 0.8em;
 }
 
+
+
 .filter {
 	background-color: #63696D;
 	float: left;
@@ -256,6 +258,10 @@ header.grey{
 }
 .open > .dropdown-menu{
 	visibility: visible;
+}
+
+.no-js .adv.group{
+	display:block!important;
 }
 
 .adv.group {
@@ -588,6 +594,15 @@ header .lead{
     float: left;
     background-color: #FFF;
 }
+
+.info-card #nations-list {
+    max-height: 200px;
+    overflow-y: scroll;
+    width:100%;
+    display:inline-block;
+    border:none;
+}
+
 
 .info-card li {
 	border-top:1px solid #C9C7C7;

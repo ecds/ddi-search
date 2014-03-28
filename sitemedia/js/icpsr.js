@@ -1,5 +1,6 @@
 $(function(){
 	$("select[name='per_page'], select[name='sort']").selectpicker({style: 'btn-default', menuStyle: 'dropdown-inverse'});
+	$('.no-js').removeClass('no-js');
 });	
 
 $(document).ready(function(){
