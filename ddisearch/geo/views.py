@@ -92,7 +92,8 @@ def browse_country(request, continent, country):
     # get continent object so we can display name, etc
     cont = get_object_or_404(GeonamesContinent, code=continent)
     # same for country
-    country = get_object_or_404(GeonamesCountry, code=country)
+    country = get_object_or_404(GeonamesCountry, code=country,
+        continent=continent)
     # find places in this continent
 
     places = Location.objects.filter(country_code=country.code, feature_code='ADM1') \
@@ -115,9 +116,11 @@ def browse_state(request, continent, country, state):
     # get continent object so we can display name, etc
     cont = get_object_or_404(GeonamesContinent, code=continent)
     # same for country
-    country = get_object_or_404(GeonamesCountry, code=country)
+    country = get_object_or_404(GeonamesCountry, code=country,
+        continent=continent)
 
-    state = get_object_or_404(Location, state_code=state, feature_code='ADM1')
+    state = get_object_or_404(Location, state_code=state, feature_code='ADM1',
+        continent_code=continent, country_code=country.code)
     # find places in this state
     places = Location.objects.filter(state_code=state.state_code).exclude(feature_code='ADM1')
     # TODO: feature code ?  maybe just group by at this point?
@@ -138,11 +141,13 @@ def browse_substate(request, continent, country, state, geonames_id):
     # get continent object so we can display name, etc
     cont = get_object_or_404(GeonamesContinent, code=continent)
     # same for country
-    country = get_object_or_404(GeonamesCountry, code=country)
+    country = get_object_or_404(GeonamesCountry, code=country, continent=continent)
 
-    state = get_object_or_404(Location, state_code=state, feature_code='ADM1')
+    state = get_object_or_404(Location, state_code=state, feature_code='ADM1',
+        continent_code=continent, country_code=country.code)
 
-    location = get_object_or_404(Location, geonames_id=geonames_id)
+    location = get_object_or_404(Location, geonames_id=geonames_id,
+        continent_code=continent, country_code=country.code)
 
     # find resources that explicitly reference this place
     results = resources_by_location(request, geonames_id=int(geonames_id))
