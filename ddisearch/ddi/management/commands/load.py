@@ -78,7 +78,7 @@ class Command(BaseCommand):
                 logger.debug('%s prepped in %f sec' % (f, time.time() - start))
                 # load to eXist from string since DDI documents aren't that large,
                 # rather than reloading the file
-                if not options['dryrun']:
+                if not options.get('dryrun', False):
                     start = time.time()
                     success = self.db.load(cb.serialize(pretty=True), dbpath, overwrite=True)
                     logger.debug('%s loaded to eXist in %f sec' % (f, time.time() - start))

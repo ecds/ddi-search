@@ -369,7 +369,12 @@ class ViewsTest(eulexistdb_testutil.TestCase):
             (expected, resource_url, got))
 
 
+@patch('ddisearch.ddi.management.commands.load.CodebookGeocoder')
 class LoadCommandTest(TestCase):
+    # NOTE: patching CodebookGeocoder to avoid calling GeoNames geocode
+    # service, and ignoring geocode functionality here because that logic
+    # is tested in ddisearch.geo.tests
+
     testfile = os.path.join(FIXTURE_DIR, '02988.xml')
 
     def setUp(self):
@@ -386,8 +391,7 @@ class LoadCommandTest(TestCase):
         for f in self._exist_content:
             self.db.removeDocument(f)
 
-    def test_errors(self):
-
+    def test_errors(self, mockcbgeocode):
         # config error
         with override_settings(EXISTDB_ROOT_COLLECTION=''):
             self.assertRaises(CommandError, self.cmd.handle)
@@ -396,7 +400,7 @@ class LoadCommandTest(TestCase):
         self.cmd.handle('/tmp/notarealfile.xml')
         self.assert_('Error opening' in self.cmd.stdout.getvalue())
 
-    def test_load(self):
+    def test_load(self, mockcbgeocode):
         tmp = tempfile.NamedTemporaryFile(suffix='.xml', delete=False)
         # delete false to avoid error, since the script will remove
         shutil.copyfile(self.testfile, tmp.name)
@@ -418,7 +422,7 @@ class LoadCommandTest(TestCase):
         self.assertFalse(os.path.exists(tmp.name),
             'local copy of file should be deleted after loaded to eXist')
 
-    def test_load_remove_error(self):
+    def test_load_remove_error(self, mockcbgeocode):
         # simulate error removing local copy of file
         tmp = tempfile.NamedTemporaryFile(suffix='.xml')
         shutil.copyfile(self.testfile, tmp.name)
@@ -438,13 +442,13 @@ class LoadCommandTest(TestCase):
                                 os.path.basename(tmp.name))
         self._exist_content.append(exist_path)
 
-    def test_icpsr_topic_id(self):
+    def test_icpsr_topic_id(self, mockcbgeocode):
         # icpsr topic picked up correctly
         self.assertEqual('ICPSR.XIV.A.2.b', self.cmd.icpsr_topic_id(self.cb.topics[0].val))
         # non-icpsr topic
         self.assertEqual(None, self.cmd.icpsr_topic_id(self.cb.topics[1].val))
 
-    def test_local_topics(self):
+    def test_local_topics(self, mockcbgeocode):
         topic_count = len(self.cb.topics)
         self.cmd.local_topics(self.cb)
         self.assertEqual(topic_count + 1, len(self.cb.topics),
@@ -472,7 +476,7 @@ class LoadCommandTest(TestCase):
             'only one new local topic should be added to test record without  global coverage')
         self.assertEqual('Economic and Financial', self.cb.topics[-1].val)
 
-    def test_clean_dates(self):
+    def test_clean_dates(self, mockcbgeocode):
         # fixture has no dates that need cleaning, so modify them
 
         # set first date as a year < 1000; should be converted to 4 digits
