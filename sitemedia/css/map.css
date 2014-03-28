@@ -1,0 +1,13 @@
+.land {
+  fill: #222;
+}
+
+.state-boundary {
+  fill: none;
+  stroke: #fff;
+  stroke-linejoin: round;
+}
+
+.selected {
+    fill: #1abc9c;
+}

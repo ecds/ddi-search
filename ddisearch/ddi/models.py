@@ -1,8 +1,11 @@
 from django.conf import settings
+from django.utils import simplejson
 from eulxml import xmlmap
 
 from eulexistdb.models import XmlModel
 from eulexistdb.manager import Manager
+
+from ddisearch.geo.models import Location, StateCode
 
 ### top-level info and descriptive information about the study
 
@@ -390,6 +393,38 @@ class CodeBook(XmlModel):
                     dates.append('%s%s%s' % (start[t.cycle], sep, t.date))
 
         return dates
+
+    @property
+    def geonames_ids(self):
+        ''''List of numeric geonames ids from geoCover elements, for
+        looking up in the database'''
+        return [geo.id[len('geonames:'):] for geo in self.geo_coverage
+                        if geo.id is not None]
+
+    @property
+    def locations(self):
+        ''':class:`~ddisearch.geo.model.Location` objects corresponding
+        to the geonames identifiers in the record'''
+        return Location.objects.filter(geonames_id__in=self.geonames_ids)
+
+    @property
+    def us_only(self):
+        '''boolean indicating if this dataset only includes regions inside
+        the U.S.'''
+        return self.locations.exclude(country_code='US').count() == 0
+
+    @property
+    def us_state_ids(self):
+        states = self.locations.order_by('state_code') \
+                               .values_list('state_code', flat=True).distinct()
+        print states
+        return list(StateCode.objects.filter(code__in=states).order_by('fips') \
+                                .values_list('fips', flat=True).distinct())
+
+    @property
+    def us_state_ids_json(self):
+        ''' list of FIPS state ids in json format, for use with javascript'''
+        return simplejson.dumps(self.us_state_ids)
 
 
 # collection prefix normally added by queryset; has to be added explicitly

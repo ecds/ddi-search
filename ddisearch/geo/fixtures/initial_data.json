@@ -2561,5 +2561,500 @@
     "geonames_id": 6255152,
     "name": "Antarctica"
   }
+},
+{
+  "pk": 1,
+  "model": "geo.statecode",
+  "fields": {
+    "code": "AK",
+    "fips": 2,
+    "name": "ALASKA"
+  }
+},
+{
+  "pk": 2,
+  "model": "geo.statecode",
+  "fields": {
+    "code": "AL",
+    "fips": 1,
+    "name": "ALABAMA"
+  }
+},
+{
+  "pk": 3,
+  "model": "geo.statecode",
+  "fields": {
+    "code": "AR",
+    "fips": 5,
+    "name": "ARKANSAS"
+  }
+},
+{
+  "pk": 4,
+  "model": "geo.statecode",
+  "fields": {
+    "code": "AS",
+    "fips": 60,
+    "name": "AMERICAN SAMOA"
+  }
+},
+{
+  "pk": 5,
+  "model": "geo.statecode",
+  "fields": {
+    "code": "AZ",
+    "fips": 4,
+    "name": "ARIZONA"
+  }
+},
+{
+  "pk": 6,
+  "model": "geo.statecode",
+  "fields": {
+    "code": "CA",
+    "fips": 6,
+    "name": "CALIFORNIA"
+  }
+},
+{
+  "pk": 7,
+  "model": "geo.statecode",
+  "fields": {
+    "code": "CO",
+    "fips": 8,
+    "name": "COLORADO"
+  }
+},
+{
+  "pk": 8,
+  "model": "geo.statecode",
+  "fields": {
+    "code": "CT",
+    "fips": 9,
+    "name": "CONNECTICUT"
+  }
+},
+{
+  "pk": 9,
+  "model": "geo.statecode",
+  "fields": {
+    "code": "DC",
+    "fips": 11,
+    "name": "DISTRICT OF COLUMBIA"
+  }
+},
+{
+  "pk": 10,
+  "model": "geo.statecode",
+  "fields": {
+    "code": "DE",
+    "fips": 10,
+    "name": "DELAWARE"
+  }
+},
+{
+  "pk": 11,
+  "model": "geo.statecode",
+  "fields": {
+    "code": "FL",
+    "fips": 12,
+    "name": "FLORIDA"
+  }
+},
+{
+  "pk": 12,
+  "model": "geo.statecode",
+  "fields": {
+    "code": "GA",
+    "fips": 13,
+    "name": "GEORGIA"
+  }
+},
+{
+  "pk": 13,
+  "model": "geo.statecode",
+  "fields": {
+    "code": "GU",
+    "fips": 66,
+    "name": "GUAM"
+  }
+},
+{
+  "pk": 14,
+  "model": "geo.statecode",
+  "fields": {
+    "code": "HI",
+    "fips": 15,
+    "name": "HAWAII"
+  }
+},
+{
+  "pk": 15,
+  "model": "geo.statecode",
+  "fields": {
+    "code": "IA",
+    "fips": 19,
+    "name": "IOWA"
+  }
+},
+{
+  "pk": 16,
+  "model": "geo.statecode",
+  "fields": {
+    "code": "ID",
+    "fips": 16,
+    "name": "IDAHO"
+  }
+},
+{
+  "pk": 17,
+  "model": "geo.statecode",
+  "fields": {
+    "code": "IL",
+    "fips": 17,
+    "name": "ILLINOIS"
+  }
+},
+{
+  "pk": 18,
+  "model": "geo.statecode",
+  "fields": {
+    "code": "IN",
+    "fips": 18,
+    "name": "INDIANA"
+  }
+},
+{
+  "pk": 19,
+  "model": "geo.statecode",
+  "fields": {
+    "code": "KS",
+    "fips": 20,
+    "name": "KANSAS"
+  }
+},
+{
+  "pk": 20,
+  "model": "geo.statecode",
+  "fields": {
+    "code": "KY",
+    "fips": 21,
+    "name": "KENTUCKY"
+  }
+},
+{
+  "pk": 21,
+  "model": "geo.statecode",
+  "fields": {
+    "code": "LA",
+    "fips": 22,
+    "name": "LOUISIANA"
+  }
+},
+{
+  "pk": 22,
+  "model": "geo.statecode",
+  "fields": {
+    "code": "MA",
+    "fips": 25,
+    "name": "MASSACHUSETTS"
+  }
+},
+{
+  "pk": 23,
+  "model": "geo.statecode",
+  "fields": {
+    "code": "MD",
+    "fips": 24,
+    "name": "MARYLAND"
+  }
+},
+{
+  "pk": 24,
+  "model": "geo.statecode",
+  "fields": {
+    "code": "ME",
+    "fips": 23,
+    "name": "MAINE"
+  }
+},
+{
+  "pk": 25,
+  "model": "geo.statecode",
+  "fields": {
+    "code": "MI",
+    "fips": 26,
+    "name": "MICHIGAN"
+  }
+},
+{
+  "pk": 26,
+  "model": "geo.statecode",
+  "fields": {
+    "code": "MN",
+    "fips": 27,
+    "name": "MINNESOTA"
+  }
+},
+{
+  "pk": 27,
+  "model": "geo.statecode",
+  "fields": {
+    "code": "MO",
+    "fips": 29,
+    "name": "MISSOURI"
+  }
+},
+{
+  "pk": 28,
+  "model": "geo.statecode",
+  "fields": {
+    "code": "MS",
+    "fips": 28,
+    "name": "MISSISSIPPI"
+  }
+},
+{
+  "pk": 29,
+  "model": "geo.statecode",
+  "fields": {
+    "code": "MT",
+    "fips": 30,
+    "name": "MONTANA"
+  }
+},
+{
+  "pk": 30,
+  "model": "geo.statecode",
+  "fields": {
+    "code": "NC",
+    "fips": 37,
+    "name": "NORTH CAROLINA"
+  }
+},
+{
+  "pk": 31,
+  "model": "geo.statecode",
+  "fields": {
+    "code": "ND",
+    "fips": 38,
+    "name": "NORTH DAKOTA"
+  }
+},
+{
+  "pk": 32,
+  "model": "geo.statecode",
+  "fields": {
+    "code": "NE",
+    "fips": 31,
+    "name": "NEBRASKA"
+  }
+},
+{
+  "pk": 33,
+  "model": "geo.statecode",
+  "fields": {
+    "code": "NH",
+    "fips": 33,
+    "name": "NEW HAMPSHIRE"
+  }
+},
+{
+  "pk": 34,
+  "model": "geo.statecode",
+  "fields": {
+    "code": "NJ",
+    "fips": 34,
+    "name": "NEW JERSEY"
+  }
+},
+{
+  "pk": 35,
+  "model": "geo.statecode",
+  "fields": {
+    "code": "NM",
+    "fips": 35,
+    "name": "NEW MEXICO"
+  }
+},
+{
+  "pk": 36,
+  "model": "geo.statecode",
+  "fields": {
+    "code": "NV",
+    "fips": 32,
+    "name": "NEVADA"
+  }
+},
+{
+  "pk": 37,
+  "model": "geo.statecode",
+  "fields": {
+    "code": "NY",
+    "fips": 36,
+    "name": "NEW YORK"
+  }
+},
+{
+  "pk": 38,
+  "model": "geo.statecode",
+  "fields": {
+    "code": "OH",
+    "fips": 39,
+    "name": "OHIO"
+  }
+},
+{
+  "pk": 39,
+  "model": "geo.statecode",
+  "fields": {
+    "code": "OK",
+    "fips": 40,
+    "name": "OKLAHOMA"
+  }
+},
+{
+  "pk": 40,
+  "model": "geo.statecode",
+  "fields": {
+    "code": "OR",
+    "fips": 41,
+    "name": "OREGON"
+  }
+},
+{
+  "pk": 41,
+  "model": "geo.statecode",
+  "fields": {
+    "code": "PA",
+    "fips": 42,
+    "name": "PENNSYLVANIA"
+  }
+},
+{
+  "pk": 42,
+  "model": "geo.statecode",
+  "fields": {
+    "code": "PR",
+    "fips": 72,
+    "name": "PUERTO RICO"
+  }
+},
+{
+  "pk": 43,
+  "model": "geo.statecode",
+  "fields": {
+    "code": "RI",
+    "fips": 44,
+    "name": "RHODE ISLAND"
+  }
+},
+{
+  "pk": 44,
+  "model": "geo.statecode",
+  "fields": {
+    "code": "SC",
+    "fips": 45,
+    "name": "SOUTH CAROLINA"
+  }
+},
+{
+  "pk": 45,
+  "model": "geo.statecode",
+  "fields": {
+    "code": "SD",
+    "fips": 46,
+    "name": "SOUTH DAKOTA"
+  }
+},
+{
+  "pk": 46,
+  "model": "geo.statecode",
+  "fields": {
+    "code": "TN",
+    "fips": 47,
+    "name": "TENNESSEE"
+  }
+},
+{
+  "pk": 47,
+  "model": "geo.statecode",
+  "fields": {
+    "code": "TX",
+    "fips": 48,
+    "name": "TEXAS"
+  }
+},
+{
+  "pk": 48,
+  "model": "geo.statecode",
+  "fields": {
+    "code": "UT",
+    "fips": 49,
+    "name": "UTAH"
+  }
+},
+{
+  "pk": 49,
+  "model": "geo.statecode",
+  "fields": {
+    "code": "VA",
+    "fips": 51,
+    "name": "VIRGINIA"
+  }
+},
+{
+  "pk": 50,
+  "model": "geo.statecode",
+  "fields": {
+    "code": "VI",
+    "fips": 78,
+    "name": "VIRGIN ISLANDS"
+  }
+},
+{
+  "pk": 51,
+  "model": "geo.statecode",
+  "fields": {
+    "code": "VT",
+    "fips": 50,
+    "name": "VERMONT"
+  }
+},
+{
+  "pk": 52,
+  "model": "geo.statecode",
+  "fields": {
+    "code": "WA",
+    "fips": 53,
+    "name": "WASHINGTON"
+  }
+},
+{
+  "pk": 53,
+  "model": "geo.statecode",
+  "fields": {
+    "code": "WI",
+    "fips": 55,
+    "name": "WISCONSIN"
+  }
+},
+{
+  "pk": 54,
+  "model": "geo.statecode",
+  "fields": {
+    "code": "WV",
+    "fips": 54,
+    "name": "WEST VIRGINIA"
+  }
+},
+{
+  "pk": 55,
+  "model": "geo.statecode",
+  "fields": {
+    "code": "WY",
+    "fips": 56,
+    "name": "WYOMING"
+  }
 }
 ]

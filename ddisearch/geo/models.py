@@ -55,4 +55,12 @@ class Location(models.Model):
         return '%s (%s, %s)' % (self.name, self.country_code, self.continent_code)
 
 
+class StateCode(models.Model):
+    'U.S. State abbreviation and FIPS codes, for generating maps'
+    #: state name
+    name = models.CharField(max_length=255)
+    #: two-letter state abbrevation
+    code = models.CharField(max_length=2)
+    #: numeric FIPS code
+    fips = models.IntegerField()
 

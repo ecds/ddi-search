@@ -1,5 +1,6 @@
 from django.contrib import admin
-from ddisearch.geo.models import Location, GeonamesCountry,  GeonamesContinent
+from ddisearch.geo.models import Location, GeonamesCountry,  \
+    GeonamesContinent, StateCode
 
 class LocationAdmin(admin.ModelAdmin):
     list_display = ('name', 'geonames_id', 'country_code', 'continent_code',
@@ -18,7 +19,12 @@ class GeonamesContinentAdmin(admin.ModelAdmin):
     list_display = ('name', 'code', 'geonames_id')
     search_fields = ('name', 'code', 'geonames_id')
 
+class StateCodeAdmin(admin.ModelAdmin):
+    list_display = ('name', 'code', 'fips')
+    search_fields = ('name', 'code', 'fips')
+
 
 admin.site.register(Location, LocationAdmin)
 admin.site.register(GeonamesCountry, GeonamesCountryAdmin)
 admin.site.register(GeonamesContinent, GeonamesContinentAdmin)
+admin.site.register(StateCode, StateCodeAdmin)

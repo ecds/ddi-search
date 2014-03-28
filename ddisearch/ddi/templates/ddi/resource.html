@@ -5,6 +5,17 @@
 
 {% block page-subtitle %}| {{ resource.title }}{% endblock %}
 
+{% block css %}
+   {{ block.super }}
+   <link href="{% static 'css/map.css' %}" rel="stylesheet"/>
+{% endblock %}
+
+{% block javascript %}
+  {{ block.super}} {# additional javascript for d3/topojson maps #}
+  <script src="{% static 'js/d3.v3.min.js' %}"></script>
+  <script src="{% static 'js/topojson.v1.min.js' %}"></script>
+{% endblock %}
+
 {% block content %}
 
 <article>
@@ -86,7 +97,7 @@
                         {% for kw in resource.keywords %}
                         <li class="tag">
                             {{ kw }}
-                            <a class="tagsinput-link" href="{% url 'ddi:browse-terms' mode='keywords' %}?keyword={{ kw|urlencode }}"> 
+                            <a class="tagsinput-link" href="{% url 'ddi:browse-terms' mode='keywords' %}?keyword={{ kw|urlencode }}">
                                 <span class="glyphicon glyphicon-chevron-right"></span>
                             </a>
                         </li>
@@ -101,6 +112,9 @@
             <div class="row">
                 <h2>Geographic Coverage</h2>
                 <div class="col-sm-6 col-md-5 col-lg-4">
+                    {% if resource.us_only %}
+                       {% include 'ddi/snippets/us_map.html' %}
+                    {% else %}
                     <div class="map">
                         <img src="{% static 'img/Flat-World-Map.gif' %}"/>
                         {% for gl in resource.geo_coverage %}
@@ -109,6 +123,7 @@
                         </div>
                         {% endfor %}
                     </div>
+                    {% endif %}
                 </div>
 
                 <div class="col-sm-6 col-md-7 col-lg-8">

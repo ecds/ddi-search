@@ -65,6 +65,9 @@ class CodebookGeocoder(object):
                 # if locations include US and any US states, should be state
                 # if locations include US and other countries, should be country
 
+                # similar case for Montana (BG?) and Florida (UY?)
+
+
                 # check if geonames id is already in the db
                 db_locations = Location.objects.filter(geonames_id=loc.raw['geonameId'])
                 if db_locations.count():
