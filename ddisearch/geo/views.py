@@ -40,10 +40,9 @@ def browse(request):
     represented in the data, and a paginated set of resources
     with global coverage.'''
     # get a list of all continents represented by the data
-    continent_codes = Location.objects.order_by('continent_code') \
-                              .values('continent_code').distinct()
-    codes = [loc['continent_code'] for loc in continent_codes
-             if loc['continent_code'] is not None]
+    codes = Location.objects.order_by('continent_code') \
+                            .values_list('continent_code', flat=True) \
+                            .distinct()
     places = GeonamesContinent.objects.filter(code__in=codes).order_by('name')
 
     # NOTE: could work, but may not always be represented directly
