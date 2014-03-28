@@ -20,6 +20,7 @@
         {% if results %}
         <div class="row result-listing cards">
             {% for r in results.object_list %}
+
             <div class="col-sm-6 col-lg-4">
                 <article class="result">
                     <header class="row title">
@@ -32,7 +33,7 @@
                             <h4>Date{{ r.dates|pluralize }}:<span> {{ r.dates|join:'; '|default:'(not specified)' }}</span></h4>
                         </div>
                         <div class="col-xs-2 no-padding-right">
-                            {% if r.fulltext_score %} {# TODO: style this #}
+                            {% if r.fulltext_score != '0' %}  {# 0 indicates no relevance score (no fulltext query) #}
                             {# display numerical score in debug mode #}
                             {% if debug %}<p>{{ r.fulltext_score }}</p>{% endif %}
                             <div class="progress">
@@ -64,7 +65,7 @@
                         <p><strong>Keywords:</strong> {{ r.keywords|join:'; ' }}</p>
                         {% endif %}
                         {{ r.geo_coverage|join:'; ' }}
-                        
+
                         {% if r.geo_coverage %}
                         <p><strong>Geographical coverage or scope of the data</strong> {{ r.geo_coverage|join:'; ' }}</p>
                         {% endif %}
