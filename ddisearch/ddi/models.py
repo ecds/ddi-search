@@ -429,7 +429,6 @@ class CodeBook(XmlModel):
     def country_ids(self):
         countries = self.locations.order_by('country_code') \
                                .values_list('country_code', flat=True).distinct()
-        print countries
         return list(GeonamesCountry.objects.filter(code__in=countries) \
                                    .order_by('numeric_code') \
                                    .values_list('numeric_code', flat=True).distinct())
