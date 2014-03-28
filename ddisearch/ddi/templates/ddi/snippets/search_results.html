@@ -32,7 +32,7 @@
                             <h4>Date{{ r.dates|pluralize }}:<span> {{ r.dates|join:'; '|default:'(not specified)' }}</span></h4>
                         </div>
                         <div class="col-xs-2 no-padding-right">
-                            {% if r.fulltext_score != '0' %}  {# 0 indicates no relevance score (no fulltext query) #}
+                            {% if r.fulltext_score and r.fulltext_score != '0' %}  {# 0 indicates no relevance score (no fulltext query) #}
                             {# display numerical score in debug mode #}
                             {% if debug %}<p>{{ r.fulltext_score }}</p>{% endif %}
                             <div class="progress">
