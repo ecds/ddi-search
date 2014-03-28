@@ -104,7 +104,7 @@
                 <collDate event="start" date="1974-01-13" cycle="P5">Third post-war</collDate>
                 <collDate event="end" date="1974-01-15" cycle="P5">Third post-war</collDate>
                 <nation>Please see geographic coverage.</nation>
-                <geogCover>Israel</geogCover>
+                <geogCover id="geonames:294640">Israel</geogCover>
                 <geogCover>Global</geogCover>
                 <geogUnit>state</geogUnit>
                 <anlyUnit>individual</anlyUnit>
@@ -130,7 +130,7 @@
             <useStmt>
                 <specPerm>Additional special permissions, where applicable, are described in the restrictions field.</specPerm>
                 <conditions>
-		    
+
 		    &lt;p&gt;Please read the terms of use below. If you agree to them, click on the "I
 Agree" button to proceed. If you do not agree, you can click on the "I Do
 Not Agree" button to return to the home page.&lt;/p&gt;
@@ -203,7 +203,7 @@ href="mailto:bibliography@icpsr.umich.edu"&gt;bibliography@icpsr.umich.edu&lt;/a
 
 &lt;p&gt;You acknowledge that the original collector of the data, ICPSR, and the
 relevant funding agency bear no responsibility for use of the data or for
-interpretations or inferences based upon such uses.&lt;/p&gt; 
+interpretations or inferences based upon such uses.&lt;/p&gt;
 &lt;h2&gt;Violations&lt;/h2&gt;
 
 &lt;p&gt;If ICPSR determines that the terms of this use agreement has been
@@ -256,7 +256,7 @@ member institution.&lt;/dd&gt;
 
 
 
-		    
+
 		    <p>AVAILABLE.  This study is freely available to ICPSR member institutions.</p>
                 </conditions>
                 <disclaimer>The original collector of the data, ICPSR,

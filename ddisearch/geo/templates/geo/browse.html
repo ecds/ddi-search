@@ -31,12 +31,9 @@
     {% endfor %}
 </ul>
 
-{% if results %}
-<h3>Resources with Global coverage</h3>
 <div class="container">
-    {% include 'ddi/snippets/search_results.html' %}
+    {% include 'ddi/snippets/search_results.html' with resource_label="with Global coverage" %}
 </div>
-{% endif %}
 
 </div>
 {% endblock %}

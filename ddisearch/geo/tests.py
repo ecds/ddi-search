@@ -1,8 +1,14 @@
 import os
 from mock import patch, Mock
-from django.test import TestCase
-from eulxml.xmlmap import load_xmlobject_from_file
 from geopy.geocoders import GeoNames
+
+from django.conf import settings
+from django.core.urlresolvers import reverse
+from django.test import TestCase
+
+from eulxml.xmlmap import load_xmlobject_from_file
+from eulexistdb import testutil as eulexistdb_testutil
+
 
 from ddisearch.ddi.models import CodeBook
 from ddisearch.ddi.tests import FIXTURE_DIR
@@ -41,7 +47,8 @@ class CodebookGeocoderTest(TestCase):
     def test_code_locations(self):
         mocklocation = self._mocklocation()
         self.mockgeonames.return_value.geocode.return_value = mocklocation
-
+        # make sure id is not set
+        del self.cb.geo_coverage[0].id
         self.cbgeocoder.code_locations(self.cb)
 
         self.mockgeonames.return_value.geocode.assert_called_with(self.cb.geo_coverage[0].val)
@@ -78,7 +85,6 @@ class CodebookGeocoderTest(TestCase):
 
         # TODO: special case test for Georgia (US state vs. country)
 
-
     def test_location_from_geoname(self):
         loc = self._mocklocation()
         self.cbgeocoder.location_from_geoname(loc)
@@ -100,3 +106,58 @@ class CodebookGeocoderTest(TestCase):
             'continent code should be set from db lookup on country code')
         self.assertEqual(dbloc.state_code, None,
             'state code should not be set when adminCode1 is 00')
+
+
+class ViewsTest(eulexistdb_testutil.TestCase):
+    fixtures = ['test_locations.json']
+    exist_fixtures = {
+        'directory': FIXTURE_DIR,
+        'index': settings.EXISTDB_INDEX_CONFIGFILE  # required for fulltext search
+    }
+    fixture_filename = '02988.xml'
+
+    def setUp(self):
+        # load fixture xml for access to content
+        self.cb = load_xmlobject_from_file(os.path.join(FIXTURE_DIR,
+                                                        self.fixture_filename),
+                                           CodeBook)
+
+    def test_browse(self):
+        url = reverse('geo:browse')
+        response = self.client.get(url)
+        self.assertContains(response, 'Asia',
+            msg_prefix='browse page should list continents for which there is data')
+        self.assertNotContains(response, 'Antarctica',
+            msg_prefix='browse page should not list continents for which there is no data')
+        self.assertContains(response, reverse('geo:continent', kwargs={'continent': 'AS'}),
+            msg_prefix='browse page should link to continent page')
+        self.assertContains(response, '<h2>Found <strong>1</strong> resource with Global coverage</h2>',
+            html=True, msg_prefix='should display 1 resource with global coverage')
+        self.assertContains(response, self.cb.title,
+            msg_prefix='should display matching resource title')
+
+    def test_browse_continent(self):
+        url = reverse('geo:continent', kwargs={'continent': 'AS'})
+        response = self.client.get(url)
+        self.assertContains(response, 'Israel',
+            msg_prefix='browse page should list countries for which there is data')
+        self.assertContains(response,
+            reverse('geo:country', kwargs={'continent': 'AS', 'country': 'IL'}),
+            msg_prefix='browse page should link to country page')
+        self.assertContains(response, 'No results found with Asia coverage',
+            msg_prefix='should display no resources for with Asia coverage')
+        self.assertContains(response, reverse('geo:browse'),
+            msg_prefix='continent page should link up to global geography browse page')
+
+    def test_browse_country(self):
+        url = reverse('geo:country', kwargs={'continent': 'AS', 'country': 'IL'})
+        response = self.client.get(url)
+        # breadcrumbs
+        self.assertContains(response, reverse('geo:browse'),
+            msg_prefix='country page should link up to global geography browse page')
+        self.assertContains(response, reverse('geo:continent', kwargs={'continent': 'AS'}),
+            msg_prefix='country page should link up to parent continent page')
+        self.assertContains(response, '<h2>Found <strong>1</strong> resource with Israel coverage</h2>',
+            html=True, msg_prefix='should display 1 resource with global coverage')
+        self.assertContains(response, self.cb.title,
+            msg_prefix='should display matching resource title')

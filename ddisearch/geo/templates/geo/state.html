@@ -25,12 +25,11 @@
 </ul>
 {% endif %}
 
-{% if results %}
-<h2>Resources with {{ state.name }} coverage</h2>
 <div class="container">
+  {% with resource_label="with "|add:state.name|add:" coverage" %}
     {% include 'ddi/snippets/search_results.html' %}
+  {% endwith %}
 </div>
-{% endif %}
 
 </div>
 {% endblock %}

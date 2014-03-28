@@ -4,8 +4,7 @@
     <article class="results">
         <header>
             {% if results %}
-            <h2>Found <strong>{{ results.paginator.count|intcomma }}</strong> resource{{ results.paginator.count|pluralize }}
-
+            <h2>Found <strong>{{ results.paginator.count|intcomma }}</strong> resource{{ results.paginator.count|pluralize }} {{ resource_label }}
             </h2>
             <p class="lead">
                 {% if results.has_other_pages and results.object_list|length > 1 %}
@@ -13,7 +12,7 @@
              {# if more than one item on this page, display range of results #}
          </p>
          {% else %}
-          <h2 id="no-results-found">No results found for your criteria.</h2>
+          <h2 id="no-results-found">No results found {{ resource_label|default:"for your criteria" }}.</h2>
          {% endif %}
         </header>
 

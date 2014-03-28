@@ -17,12 +17,11 @@
   <li class="active">{{ location.name }}</li>
 </ol>
 
-{% if results %}
-<h2>Resources with {{ location.name }} coverage</h2>
 <div class="container">
+  {% with resource_label="with "|add:location.name|add:" coverage" %}
     {% include 'ddi/snippets/search_results.html' %}
+  {% endwith %}
 </div>
-{% endif %}
 
 </div>
 {% endblock %}

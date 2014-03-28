@@ -22,12 +22,11 @@
 </ul>
 {% endif %}
 
-{% if results %}
-<h2>Resources with {{ continent.name }} coverage</h2>
-    <div class="container">
+<div class="container">
+    {% with resource_label="with "|add:continent.name|add:" coverage" %}
         {% include 'ddi/snippets/search_results.html' %}
-    </div>
-{% endif %}
+    {% endwith %}
+</div>
 
 </div>
 {% endblock %}
