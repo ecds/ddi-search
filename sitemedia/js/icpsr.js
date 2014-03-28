@@ -103,8 +103,8 @@ $(document).ready(function(){
 	if(currentVisiblePageNumber !==per_page){
 		getCurrentDropdownSetting('per_page', per_page);
 	}
-
-	if(currentVisibleSort !==sort){
+	var firstSortOption = $("#id_sort+div .dropdown-menu li[rel='0']").text();
+	if(currentVisibleSort !==sort && sort!=firstSortOption){
 		getCurrentDropdownSetting('sort', sort);
 	}
 
