@@ -6,8 +6,13 @@ from ddisearch.geo.models import Location, GeonamesContinent, GeonamesCountry
 
 
 def resources_by_location(request, geonames_id=None, geo_coverage=None):
-    # helper method to find DDI resources that explicitly reference
-    # the specified place
+    '''Helper method to find DDI resources that explicitly reference
+    the specified place. Expects one and only one of geonames_id or
+    geo_coverage to be specified.
+
+    :param geonames_id: numeric geonames identifier
+    :param geo_coverage: geographic name
+    '''
     resources = CodeBook.objects.all()
     if geonames_id is not None:
         resources = resources.filter(geo_coverage__id='geonames:%d' % geonames_id)
@@ -31,6 +36,9 @@ def resources_by_location(request, geonames_id=None, geo_coverage=None):
 
 
 def browse(request):
+    '''Top-level geographical browse.  Displays a list of continents
+    represented in the data, and a paginated set of resources
+    with global coverage.'''
     # get a list of all continents represented by the data
     continent_codes = Location.objects.order_by('continent_code') \
                               .values('continent_code').distinct()
@@ -48,6 +56,9 @@ def browse(request):
                   {'places': places, 'results': results})
 
 def browse_continent(request, continent):
+    '''Browse by single continent.  Displays a list of countries in that
+    continent that are represented in the data, and a list of resources
+    that specifically represent the current continent.'''
     # get continent object so we can display name, etc
     cont = get_object_or_404(GeonamesContinent, code=continent)
 
@@ -58,18 +69,14 @@ def browse_continent(request, continent):
                             .values('country_code') \
                             .distinct()
 
-    print country_codes.count()
     # find places in this continent
     codes = [loc['country_code'] for loc in country_codes
              if loc['country_code'] is not None]
-    print codes
     places = GeonamesCountry.objects.filter(code__in=codes).order_by('name')
 
     # places = Location.objects.filter(continent_code=cont.code,
     #                                  feature_code__startswith='PCL') \
     #                          .order_by('name')
-
-    print places.count()
     # TODO: probably need to filter by feature code to top-level items (countries?)
 
     # find resources that explicitly reference this place
@@ -79,6 +86,9 @@ def browse_continent(request, continent):
         {'continent': cont, 'places': places, 'results': results})
 
 def browse_country(request, continent, country):
+    '''Browse by single country. Displays a list of first-level administrative
+    divisions (e.g., states for the U.S.), and a paginated list of resources
+    with coverage for the current country.'''
     # get continent object so we can display name, etc
     cont = get_object_or_404(GeonamesContinent, code=continent)
     # same for country
@@ -99,6 +109,9 @@ def browse_country(request, continent, country):
          'results': results})
 
 def browse_state(request, continent, country, state):
+    '''Browse by single state or other first-level administrative
+    divisions.  Displays any known sub-state regions, and a paginated list
+    of resources with coverage for the current state.'''
     # get continent object so we can display name, etc
     cont = get_object_or_404(GeonamesContinent, code=continent)
     # same for country
@@ -117,6 +130,10 @@ def browse_state(request, continent, country, state):
         'places': places, 'results': results})
 
 def browse_substate(request, continent, country, state, geonames_id):
+    '''Browse by a geographical region or location below the state (or
+    other first-level administrative divisions) level, such as a county
+    or an individual city.  Displays a paginated list of resources with
+    coverage for the current location.'''
     # geographic location below state level
     # get continent object so we can display name, etc
     cont = get_object_or_404(GeonamesContinent, code=continent)
