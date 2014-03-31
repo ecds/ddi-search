@@ -210,12 +210,19 @@ def resource_xml(request, agency, id):
     :param id: id number (from title statement)
     '''
     try:
-        res = CodeBook.objects.get(id__val=id, id__agency=agency)
+        # include document name so we can preset for download,
+        # to preserve filename if reloaded
+        res = CodeBook.objects.all() \
+                      .also('document_name') \
+                      .get(id__val=id, id__agency=agency)
     except DoesNotExist:
         raise Http404
 
     xml = res.serialize(pretty=True)
-    return HttpResponse(xml, mimetype='application/xml')
+    response = HttpResponse(xml, mimetype='application/xml')
+    response['Content-Disposition'] = 'filename="%s"' % res.document_name
+    return response
+
 
 
 def browse_terms(request, mode):
