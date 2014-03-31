@@ -2,27 +2,35 @@
 {% load humanize %}
 
 {% block page-subtitle %}| Browse by Geography | {{ continent.name }} |
- {{ country.name }} | {{ state.name }} | {{ location.name }}{% endblock %}
+{{ country.name }} | {{ state.name }} | {{ location.name }}{% endblock %}
 
 {% block content %}
-<div class="container">
-    <h1>{{ state.name }}</h1>
+<div id="st-container">
+	<div class="st-pusher">
+		{% include 'ddi/snippets/preview_aside.html' %}
+		<div class="st-content"><!-- this is the wrapper for the content -->
 
-{# todo: snippet #}
-<ol class="breadcrumb">
-  <li><a href="{% url 'geo:browse' %}">Global</a></li>
-  <li><a href="{% url 'geo:continent' continent.code %}">{{ continent.name }}</a></li>
-  <li><a href="{% url 'geo:country' continent.code country.code %}">{{ country.name }}</a></li>
-  <li><a href="{% url 'geo:state' continent.code country.code state.state_code %}">{{ state.name }}</a></li>
-  <li class="active">{{ location.name }}</li>
-</ol>
+			<div class="container">
+				<h1>{{ state.name }}</h1>
 
-<div class="container">
-  {% with resource_label="with "|add:location.name|add:" coverage" %}
-    {% include 'ddi/snippets/search_results.html' %}
-  {% endwith %}
-</div>
+				{# todo: snippet #}
+				<ol class="breadcrumb">
+					<li><a href="{% url 'geo:browse' %}">Global</a></li>
+					<li><a href="{% url 'geo:continent' continent.code %}">{{ continent.name }}</a></li>
+					<li><a href="{% url 'geo:country' continent.code country.code %}">{{ country.name }}</a></li>
+					<li><a href="{% url 'geo:state' continent.code country.code state.state_code %}">{{ state.name }}</a></li>
+					<li class="active">{{ location.name }}</li>
+				</ol>
+			</div>
 
+			<div class="container">
+				{% with resource_label="with "|add:location.name|add:" coverage" %}
+				{% include 'ddi/snippets/search_results.html' %}
+				{% endwith %}
+			</div>
+
+		</div>
+	</div>
 </div>
 {% endblock %}
 

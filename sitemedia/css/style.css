@@ -9,7 +9,7 @@ body {
 	color:#525C66;
 }
 
-.main{
+.main, #st-container{
 	background-color: #F7F7F7;
 }
 
@@ -35,6 +35,8 @@ section,
 body > div.container.footer {
 	float: left;
 	width: 100%;
+	min-height: 250px;
+	padding-top: 50px;
 }
 
 .centered{
@@ -80,6 +82,26 @@ body > div.container.footer {
 }
 
 
+.breadcrumb {
+    background-color: #BDC3C7;
+}
+
+.breadcrumb a{
+    color:#4372A2;
+}
+
+.breadcrumb a:focus,
+.breadcrumb a:hover{
+    color:#34495E;
+}
+
+.breadcrumb>.active{
+    color:#ECF0F1;
+}
+
+.breadcrumb>li+li:before{
+    color: #8C969C;
+}
 
 .filter {
 	background-color: #63696D;
@@ -507,6 +529,7 @@ article.result p {
 
 .resource article > header{
 	background-color: #EDEEF1;
+	padding-bottom: 30px;
 }
 
 header .h3 {
@@ -515,6 +538,7 @@ header .h3 {
 
 header .lead{
 	font-size: 24px;
+	margin-bottom:0;
 }
 
 .tagsinput {
@@ -622,8 +646,10 @@ header .lead{
 
 .callout {
 	margin: 20px 0;
-	padding: 20px;
-	border-left: 3px solid #EEE;
+	padding: 5px 20px 20px;
+	border: 1px solid #E8E9F5;
+	border-top-width: 3px;
+	border-top-left-radius: 10px;
 }
 
 .callout-danger {
@@ -633,7 +659,12 @@ header .lead{
 
 .callout-warning {
 	background-color: #FCF8F2;
-	border-color: #F0AD4E;
+	border-top-color: #F0AD4E;
+}
+
+.callout-info {
+	background-color: #EDF3F7;
+	border-top-color: #91C8EC;
 }
 
 #data-access {

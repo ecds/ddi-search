@@ -1,13 +1,17 @@
-.land {
-  fill: #222;
+.land{
+	fill:#ECF0F1;
+}
+
+.country, .state {
+  fill: #D8D3AC;
 }
 
 .state-boundary, .country-boundary {
   fill: none;
-  stroke: #fff;
+  stroke: #FCF8DF;
   stroke-linejoin: round;
 }
 
 .selected {
-    fill: #1abc9c;
+    fill: #1ABC9C;
 }

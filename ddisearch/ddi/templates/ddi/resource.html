@@ -22,7 +22,9 @@
     <header>
         <div class="container">
             <h1>
+                {% ifequal resource.id.agency "ICPSR" %}
                 <small class="muted-text">ICPSR {{resource.id}}</small><br/>
+                {% endifequal %}
                 <span class="resource-title">{{ resource.title }}</span>
             </h1>
 
@@ -32,14 +34,17 @@
             <p class="lead">{{ resource.authors|join:'; ' }}</p>
             {% endif %}
 
-            <h2 class="h3">Date{{ resource.dates|pluralize }}</h2>
+            <h2 class="h3">Version</h2>
             <p class="lead">
-                {% if resource.dates %}
-                {{ resource.dates|join:'; ' }}
+                {% if resource.version %}
+                {{ resource.version}}
                 {% else %}
                 N/A
                 {% endif %}
             </p>
+            {% if resource.version_notes %}
+                <p class="small">{{ resource.version_notes | first }}</p>
+            {% endif %}
         </div>
     </header>
     <nav class="navbar navbar-default navbar-static-top navbar-affix" role="navigation">
@@ -48,9 +53,9 @@
             <li><a href="#abstract">Abstract</a></li>
             <li><a href="#topics">Topics/Keywords</a></li>
             <li><a href="#geo">Coverage</a></li>
-            <li><a href="#collection-meta">Data Specifics</a></li>
-            <li><a href="#methods">Methods</a></li>
-            <li><a href="#data-access">Data Access</a></li>
+            <li><a href="#collection-meta">Study Info</a></li>
+            <li><a href="#method-section">Methods</a></li>
+            <li><a href="#data-files">Data</a></li>
           </ul>
       </div>
     </nav>
@@ -59,22 +64,24 @@
             <h2>Abstract</h2>
             <p>{{ resource.abstract }}</p>
         </div>
-        <section>
-            <div class="container">
-                <h3>Document Version</h3>
-                <p>{{ resource.document_version }}</p>
-                <h3>Study Notes</h3>
-                {% for sn in resource.study_notes %}
-                <p>{{sn}}</p>
-                {% empty %}
-                <p>---</p>
-                {% endfor %}
-            </div>
-        </section>
     </section>
     <section id="topics">
         <div class="container">
             <div class="row">
+                <div class="col-sm-6">
+                    <h2>Keywords</h2>
+                    <ul class="tagsinput">
+                        {% for kw in resource.keywords %}
+                        <li class="tag">
+                            {{ kw }}
+                            <a class="tagsinput-link" href="{% url 'ddi:browse-terms' mode='keywords' %}?keyword={{ kw|urlencode }}">
+                                <span class="glyphicon glyphicon-chevron-right"></span>
+                            </a>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div class="clearfix visible-xs"></div>
                 <div class="col-sm-6">
                     {# display topics if any - borrowed formatting from keywords #}
                     {% if resource.local_topics %}
@@ -89,20 +96,6 @@
                         {% endfor %}
                     </ul>
                     {% endif %}
-                </div>
-                <div class="clearfix visible-xs"></div>
-                <div class="col-sm-6">
-                    <h2>Keywords</h2>
-                    <ul class="tagsinput">
-                        {% for kw in resource.keywords %}
-                        <li class="tag">
-                            {{ kw }}
-                            <a class="tagsinput-link" href="{% url 'ddi:browse-terms' mode='keywords' %}?keyword={{ kw|urlencode }}">
-                                <span class="glyphicon glyphicon-chevron-right"></span>
-                            </a>
-                        </li>
-                        {% endfor %}
-                    </ul>
                 </div>
             </div>
         </div>
@@ -163,7 +156,7 @@
     <section id="collection-meta">
         <header>
             <div class="container">
-                <h2>About the Data</h2>
+                <h2>Study Info</h2>
             </div>
         </header>
         <div class="container">
@@ -175,11 +168,12 @@
                     <th>Kind of Data</th>
                 </tr>
                 <tr>
-                    <td>
-                        {% for tp in resource.time_periods %}
-                        {% if tp %}
-                        <p>{{tp}}</p>
+                    <td>   
+                        {% for rd in resource.dates %}
+                        {% if rd %}
+                        <p>{{rd}}</p>
                         {% endif %}
+
                         {% empty %}
                         <p class="text-center">---</p>
                         {% endfor %}
@@ -209,52 +203,89 @@
                     </td>
                 </tr>
             </table>
+
+            {% if resource.study_notes.0 %}
+            <h3>Study Notes</h3>
+            {{resource.study_notes.0}}
+            {% endif %}
+        </div>
+
+    </section>
+    <section id="method-section">
+        <header>
+            <div class="container">
+                <h2>Methods</h2>
+            </div>
+        </header>
+        <div class="container">
+            <table class="table table-bordered info-card">
+                <tr>
+                    <th>Data Collections</th>
+                    <th>Time Methods</th>
+                    <th>Frequency</th>
+                    <th>Collection Modes</th>
+                </tr>
+                <tr>
+                    <td>
+                        {{resource.methods.0.data_collection| default:'---'}}
+                    </td>
+                    <td>
+                        {{resource.methods.0.data_collection.0.time_methods.0| default:'---'}}
+                    </td>
+                    <td>
+                        {{resource.methods.0.data_collection.0.frequency.0| default:'---'}}
+                    </td>
+                    <td>
+                        {{resource.methods.0.data_collection.0.methods.0| default:'---'}}
+                    </td>
+                    
+                </tr>
+            </table>
         </div>
         <div class="container">
             <table class="table table-bordered info-card">
                 <tr>
-                    <th>Frequency</th>
-                    <th>Time Methods</th>
-                    <th>Collection Dates</th>
+                    <th>Data Sources</th>
+                    <th>Method Notes</th>
                 </tr>
                 <tr>
                     <td>
-                        {% for f in resource.frequency %}
-                        <p>{{f}}</p>
-                        {% empty %}
-                        <p class="text-center">---</p>
-                        {% endfor %}
+                        {{resource.methods.0.data_collection.0.sources| default:'---'}}
                     </td>
                     <td>
-                        {% for tm in resource.time_methods %}
-                        <p>{{tm}}</p>
-                        {% empty %}
-                        <p class="text-center">---</p>
-                        {% endfor %}
-                    </td>
-                    <td>
-                        {% for cd in resource.collection_dates %}
-                        <p>{{cd}}</p>
-                        {% empty %}
-                        <p class="text-center">---</p>
-                        {% endfor %}
+                        {{resource.methods.0.data_collection.0.sources.0.data_sources.0 | default:'---'}}
                     </td>
                 </tr>
             </table>
+            {% if resource.methods.0.notes.0 %}
+            <h3>Method Notes</h3>
+            <p>{{resource.methods.0.notes.0}}</p>
+            {% endif %}
         </div>
     </section>
-    <section id="methods">
+
+    <section id="data-files">
+        <header>
+            <div class="container">
+                <h2>Data Files Description</h2>
+            </div>
+        </header>
         <div class="container">
-            <h3>Methods</h3>
-            {% for md in resource.methods %}
-            <p>{{md}}</p>
-            {% empty %}
-            <p>---</p>
-            {% endfor %}
+            {% if resource.file_descriptions.0.files.0 %}
+            <p>{{resource.file_descriptions.0.files.0}}</p>
+            {% endif %}
+
+            {% if resource.file_descriptions.0.type %}
+            <p>{{resource.file_descriptions.0.type}}</p>
+            {% endif %}
+
+            {% if resource.file_descriptions.0.notes.0 %}
+            <p class="small">{{resource.file_descriptions.0.notes.0}}</p>
+
+            {% endif %}
         </div>
-    </section>
-    <section id="data-access">
-        <div class="container">
+
+        <div class="container" id="data-access">
             <div class="callout callout-warning">
                 <h3>Data Access</h3>
                 <p>The following information is important when using the information from ICPSR.</p>
@@ -269,19 +300,7 @@
             </div>
         </div>
     </section>
-
-    <section id="study-notes">
-        <div class="container">
-            {% if resource.study_notes %}
-            <h2>Field Notes</h2>
-            {% for sn in resource.study_notes %}
-            {{sn}}
-            {% endfor %}
-            {% endif %}
-        </div>
-    </section>
-
-
+    
 </article>
 
 

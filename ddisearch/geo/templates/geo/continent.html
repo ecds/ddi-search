@@ -4,30 +4,36 @@
 {% block page-subtitle %}| Browse by Geography | {{ continent.name }}{% endblock %}
 
 {% block content %}
-<div class="container">
-    <h1>{{ continent.name }}</h1>
+<div id="st-container">
+	<div class="st-pusher">
+		{% include 'ddi/snippets/preview_aside.html' %}
+		<div class="st-content"><!-- this is the wrapper for the content -->
+			<div class="container">
+				<h1>{{ continent.name }}</h1>
 
-{# todo: snippet ? #}
-<ol class="breadcrumb">
-  <li><a href="{% url 'geo:browse' %}">Global</a></li>
-  <li class="active">{{ continent.name }}</li>
-</ol>
+				{# todo: snippet ? #}
+				<ol class="breadcrumb">
+					<li><a href="{% url 'geo:browse' %}">Global</a></li>
+					<li class="active">{{ continent.name }}</li>
+				</ol>
 
-{# TODO: snippet? #}
-{% if places %}
-<ul>
-    {% for pl in places %}
-    <li><a href="{% url 'geo:country' continent.code pl.code %}">{{ pl.name }}</a></li>
-    {% endfor %}
-</ul>
-{% endif %}
+				{# TODO: snippet? #}
+				{% if places %}
+				<ul>
+					{% for pl in places %}
+					<li><a href="{% url 'geo:country' continent.code pl.code %}">{{ pl.name }}</a></li>
+					{% endfor %}
+				</ul>
+				{% endif %}
+			</div>
+			<div class="container">
+				{% with resource_label="with "|add:continent.name|add:" coverage" %}
+				{% include 'ddi/snippets/search_results.html' %}
+				{% endwith %}
+			</div>
 
-<div class="container">
-    {% with resource_label="with "|add:continent.name|add:" coverage" %}
-        {% include 'ddi/snippets/search_results.html' %}
-    {% endwith %}
-</div>
-
+		</div>
+	</div>
 </div>
 {% endblock %}
 
