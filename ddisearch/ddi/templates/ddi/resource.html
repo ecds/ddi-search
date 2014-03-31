@@ -1,5 +1,5 @@
 {% extends "site_base.html" %}
-{% load humanize %} {% load static %}
+{% load humanize %} {% load static %} {% load geo_tags %}
 
 {% block body_class %}resource{% endblock %}
 
@@ -131,17 +131,27 @@
 
                 <div class="col-sm-6 col-md-7 col-lg-8">
                     <ul class="tagsinput">
-                        {% for gl in resource.geo_coverage %}
+                        {% if resource.global_coverage %} {# special case for non-db location #}
                         <li class="tag">
-                            {{ gl }}
-                            <a class="tagsinput-link" href="#">
+                            Global
+                            <a class="tagsinput-link" href="{% url 'geo:browse' %}">
+                                <span class="glyphicon glyphicon-chevron-right"></span>
+                            </a>
+                        </li>
+                        {% endif %}
+                        {% for loc in resource.locations %}
+                        <li class="tag">
+                            {{ loc.name }}
+                            <a class="tagsinput-link" href="{{ loc|location_url }}">
                                 <span class="glyphicon glyphicon-chevron-right"></span>
                             </a>
                         </li>
                         {% empty %}
-                        <li class="tag">
+                          {% if not resource.global_coverage %}
+                          <li class="tag">
                             Not Designated
-                        </li>
+                          </li>
+                          {% endif %}
                         {% endfor %}
                     </ul>
 

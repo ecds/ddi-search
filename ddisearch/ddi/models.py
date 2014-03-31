@@ -408,10 +408,15 @@ class CodeBook(XmlModel):
         return Location.objects.filter(geonames_id__in=self.geonames_ids)
 
     @property
+    def global_coverage(self):
+        return 'Global' in [geo.val for geo in self.geo_coverage]
+
+    @property
     def us_only(self):
         '''boolean indicating if this dataset only includes regions inside
         the U.S.'''
-        return self.locations.exclude(country_code='US').count() == 0
+        return self.geonames_ids and \
+           self.locations.exclude(country_code='US').count() == 0
 
     @property
     def us_state_ids(self):
