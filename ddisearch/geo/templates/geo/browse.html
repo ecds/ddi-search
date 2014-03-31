@@ -1,5 +1,5 @@
 {% extends "site_base.html" %}
-{% load humanize %}
+{% load humanize %} {% load geo_tags %}
 
 {% block page-subtitle %}| Browse by Geography{% endblock %}
 
@@ -9,36 +9,38 @@
   {% include 'ddi/snippets/preview_aside.html' %}
   <div class="st-content"><!-- this is the wrapper for the content -->
     <div class="container">
-      <h1>Browse by {{ hierarchy.last.name|default:'Geography' }}</h1>
+      <h1>Browse by {{ current_place.name|default:'Geography' }}</h1>
 
       {% if hierarchy %}
       <ol class="breadcrumb">
         <li><a href="{% url 'geo:browse' %}">Global</a></li>
         {% for place in hierarchy %}
-        {% if p.feature_code == 'CONT' %}
-        {% url 'geo:continent' p.continent_code as place_url %}
-        {% endif %}
-        {% if place_url %}
-        <li><a href="{{ place_url }}}">{{ place.name }}</a></li>
-        {% else %}<li class="active">{{ place.name }}</li>
-        {% endif %}
+          {% if place == current_place %}
+          <li class="active">{{ place.name }}</li>
+          {% else %}
+          <li><a href="{{ place|location_url }}">{{ place.name }}</a></li>
+          {% endif %}
         {% endfor %}
-        {# <li><a href="{% url 'geo:continent' continent.code %}">{{ continent.name }}</a></li> #}
-        {# <li><a href="{% url 'geo:country' continent.code country.code %}">{{ country.name }}</a></li> #}
-        {# <li class="active">{{ state.name }}</li> #}
       </ol>
       {% endif %}
 
       <ul>
         {% for p in places %}
-        <li><a href="{% url 'geo:continent' p.code %}">{{ p.name }}</a></li>
+          <li><a href="{{ p|location_url }}">{{ p.name }}</a></li>
         {% endfor %}
       </ul>
     </div>
     <div class="container">
-      {% include 'ddi/snippets/search_results.html' with resource_label="with Global coverage" %}
+        {% if current_place %}
+          {% with resource_label="with "|add:current_place.name|default:'Global'|add:" coverage" %}
+            {% include 'ddi/snippets/search_results.html' %}
+          {% endwith %}
+        {% else %}
+          {% include 'ddi/snippets/search_results.html' with resource_label="with Global coverage" %}
+        {% endif %}
     </div>
   </div>
+
 </div>
 </div>
 {% endblock %}

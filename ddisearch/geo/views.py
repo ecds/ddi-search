@@ -35,122 +35,98 @@ def resources_by_location(request, geonames_id=None, geo_coverage=None):
     return results
 
 
-def browse(request):
-    '''Top-level geographical browse.  Displays a list of continents
-    represented in the data, and a paginated set of resources
-    with global coverage.'''
-    # get a list of all continents represented by the data
-    codes = Location.objects.order_by('continent_code') \
-                            .values_list('continent_code', flat=True) \
-                            .distinct()
-    places = GeonamesContinent.objects.filter(code__in=codes).order_by('name')
+def browse(request, continent=None, country=None, state=None,
+    geonames_id=None):
+    '''Browse records and available locations by geography.  Displays
+    content for the lowest level specified, any sub locations, and
+    a list of resources for the current location.  If no locations are
+    specified, displays a list of continents and resources with global
+    coverage.
 
-    # NOTE: could work, but may not always be represented directly
-    # unless we force continents in during the load process
-    # places = Location.objects.filter(feature_code='CONT').order_by('name')
-    # find global resouces
-    results = resources_by_location(request, geo_coverage='Global')
+    :param continent: 2-letter continent code
+    :param country: 2-letter country code
+    :param state: 2-3 letter or number state code
+    :param geonames_id: geonames identifier for a location smaller than
+        a state (e.g., a city or county)
+    '''
+    # if no continent specified, get a list of all continents
+    # that are represented by the data
+    current_place = None
+    places = None
+    hierarchy = []
+    resource_filter = {}
+
+    # if continent is not set, display top-level geography browse page;
+    # list of continents, global resources
+    if continent is None:
+        codes = Location.objects.order_by('continent_code') \
+                                .values_list('continent_code', flat=True) \
+                                .distinct()
+        places = GeonamesContinent.objects.filter(code__in=codes).order_by('name')
+
+    # find continent if set
+    if continent is not None:
+        # get continent object so we can display name, etc
+        cont = get_object_or_404(GeonamesContinent, code=continent)
+        # TODO: possibly find list of country codes in the data and then
+        # get country list from GeonamesCountry to ensure we don't miss things?
+        # set as current place
+        current_place = cont
+        # add to breadcrumb hirearchy
+        hierarchy.append(cont)
+
+        # if country is not set, browse the continent
+        if country is None:
+            country_codes = Location.objects.filter(continent_code=cont.code) \
+                                    .order_by('country_code') \
+                                    .values('country_code') \
+                                    .distinct()
+
+            # find places in this continent
+            codes = [loc['country_code'] for loc in country_codes
+                     if loc['country_code'] is not None]
+            places = GeonamesCountry.objects.filter(code__in=codes).order_by('name')
+
+    # find country if set
+    if country is not None:
+        country = get_object_or_404(GeonamesCountry, code=country,
+            continent=continent)
+        hierarchy.append(country)
+        current_place = country
+
+        # if state is not set, browse the country
+        if state is None:
+            places = Location.objects.filter(country_code=country.code, feature_code='ADM1') \
+                                     .order_by('name')
+
+    # find state if set
+    if state is not None:
+        state = get_object_or_404(Location, state_code=state, feature_code='ADM1',
+            continent_code=continent, country_code=country.code)
+
+        hierarchy.append(state)
+        current_place = state
+
+        # if no sub-state location is specified, browse the state
+        if geonames_id is None:
+            places = Location.objects.filter(state_code=state.state_code) \
+                                     .exclude(feature_code='ADM1')
+
+    # if geonames id is specified, browse by sub-state city or region
+    if geonames_id is not None:
+        location = get_object_or_404(Location, geonames_id=geonames_id,
+            continent_code=continent, country_code=country.code)
+        hierarchy.append(location)
+        current_place = location
+
+    # find resources that explicitly reference the current place
+    if current_place is None:
+        results = resources_by_location(request, geo_coverage='Global')
+    else:
+        results = resources_by_location(request,
+                                        geonames_id=current_place.geonames_id)
 
     return render(request, 'geo/browse.html',
-                  {'places': places, 'results': results})
+                  {'places': places, 'results': results,
+                  'current_place': current_place, 'hierarchy': hierarchy})
 
-def browse_continent(request, continent):
-    '''Browse by single continent.  Displays a list of countries in that
-    continent that are represented in the data, and a list of resources
-    that specifically represent the current continent.'''
-    # get continent object so we can display name, etc
-    cont = get_object_or_404(GeonamesContinent, code=continent)
-
-    # TODO: possibly find list of country codes in the data and then
-    # get country list from GeonamesCountry to ensure we don't miss things?
-    country_codes = Location.objects.filter(continent_code=cont.code) \
-                            .order_by('country_code') \
-                            .values('country_code') \
-                            .distinct()
-
-    # find places in this continent
-    codes = [loc['country_code'] for loc in country_codes
-             if loc['country_code'] is not None]
-    places = GeonamesCountry.objects.filter(code__in=codes).order_by('name')
-
-    # places = Location.objects.filter(continent_code=cont.code,
-    #                                  feature_code__startswith='PCL') \
-    #                          .order_by('name')
-    # TODO: probably need to filter by feature code to top-level items (countries?)
-
-    # find resources that explicitly reference this place
-    results = resources_by_location(request, geonames_id=cont.geonames_id)
-
-    return render(request, 'geo/continent.html',
-        {'continent': cont, 'places': places, 'results': results})
-
-def browse_country(request, continent, country):
-    '''Browse by single country. Displays a list of first-level administrative
-    divisions (e.g., states for the U.S.), and a paginated list of resources
-    with coverage for the current country.'''
-    # get continent object so we can display name, etc
-    cont = get_object_or_404(GeonamesContinent, code=continent)
-    # same for country
-    country = get_object_or_404(GeonamesCountry, code=country,
-        continent=continent)
-    # find places in this continent
-
-    places = Location.objects.filter(country_code=country.code, feature_code='ADM1') \
-                             .order_by('name')
-
-    # TODO: probably need to filter by feature code to appropriate country sublevel
-    # TODO: check what ADM1 leaves out
-
-    # find resources that explicitly reference this place
-    results = resources_by_location(request, geonames_id=country.geonames_id)
-
-    return render(request, 'geo/country.html',
-        {'continent': cont, 'country': country, 'places': places,
-         'results': results})
-
-def browse_state(request, continent, country, state):
-    '''Browse by single state or other first-level administrative
-    divisions.  Displays any known sub-state regions, and a paginated list
-    of resources with coverage for the current state.'''
-    # get continent object so we can display name, etc
-    cont = get_object_or_404(GeonamesContinent, code=continent)
-    # same for country
-    country = get_object_or_404(GeonamesCountry, code=country,
-        continent=continent)
-
-    state = get_object_or_404(Location, state_code=state, feature_code='ADM1',
-        continent_code=continent, country_code=country.code)
-    # find places in this state
-    places = Location.objects.filter(state_code=state.state_code).exclude(feature_code='ADM1')
-    # TODO: feature code ?  maybe just group by at this point?
-
-    # find resources that explicitly reference this place
-    results = resources_by_location(request, geonames_id=state.geonames_id)
-
-    return render(request, 'geo/state.html',
-        {'continent': cont, 'country': country, 'state': state,
-        'places': places, 'results': results})
-
-def browse_substate(request, continent, country, state, geonames_id):
-    '''Browse by a geographical region or location below the state (or
-    other first-level administrative divisions) level, such as a county
-    or an individual city.  Displays a paginated list of resources with
-    coverage for the current location.'''
-    # geographic location below state level
-    # get continent object so we can display name, etc
-    cont = get_object_or_404(GeonamesContinent, code=continent)
-    # same for country
-    country = get_object_or_404(GeonamesCountry, code=country, continent=continent)
-
-    state = get_object_or_404(Location, state_code=state, feature_code='ADM1',
-        continent_code=continent, country_code=country.code)
-
-    location = get_object_or_404(Location, geonames_id=geonames_id,
-        continent_code=continent, country_code=country.code)
-
-    # find resources that explicitly reference this place
-    results = resources_by_location(request, geonames_id=int(geonames_id))
-
-    return render(request, 'geo/substate.html',
-        {'continent': cont, 'country': country, 'state': state,
-         'location': location, 'results': results})
