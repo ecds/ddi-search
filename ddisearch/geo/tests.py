@@ -12,8 +12,10 @@ from eulexistdb import testutil as eulexistdb_testutil
 
 from ddisearch.ddi.models import CodeBook
 from ddisearch.ddi.tests import FIXTURE_DIR
-from ddisearch.geo.models import Location, GeonamesContinent
+from ddisearch.geo.models import Location, GeonamesContinent, GeonamesCountry
 from ddisearch.geo.utils import CodebookGeocoder
+from ddisearch.geo.templatetags import geo_tags
+
 
 class CodebookGeocoderTest(TestCase):
 
@@ -161,3 +163,42 @@ class ViewsTest(eulexistdb_testutil.TestCase):
             html=True, msg_prefix='should display 1 resource with global coverage')
         self.assertContains(response, self.cb.title,
             msg_prefix='should display matching resource title')
+
+
+class LocationUrlTagTest(TestCase):
+    fixtures = ['test_locations.json']
+
+    def test_continent(self):
+        cont = GeonamesContinent.objects.all()[0]
+        self.assertEqual(reverse('geo:continent', kwargs={'continent': cont.code}),
+           geo_tags.location_url(cont))
+
+        cont = Location.objects.filter(feature_code='CONT')[0]
+        self.assertEqual(reverse('geo:continent', kwargs={'continent': cont.continent_code}),
+           geo_tags.location_url(cont))
+
+    def test_country(self):
+        country = GeonamesCountry.objects.all()[0]
+        self.assertEqual(reverse('geo:country',
+            kwargs={'continent': country.continent, 'country': country.code}),
+            geo_tags.location_url(country))
+
+        country = Location.objects.filter(feature_code='PCLI')[0]
+        self.assertEqual(reverse('geo:country',
+            kwargs={'continent': country.continent_code, 'country': country.country_code}),
+            geo_tags.location_url(country))
+
+    def test_state(self):
+        state = Location.objects.filter(feature_code='ADM1')[0]
+        self.assertEqual(reverse('geo:state',
+            kwargs={'continent': state.continent_code, 'country': state.country_code,
+                    'state': state.state_code}),
+            geo_tags.location_url(state))
+
+    def test_substate(self):
+        substate = Location.objects.filter(feature_code='PPLA2')[0]
+        self.assertEqual(reverse('geo:substate',
+            kwargs={'continent': substate.continent_code, 'country': substate.country_code,
+                    'state': substate.state_code, 'geonames_id': substate.geonames_id}),
+            geo_tags.location_url(substate))
+
