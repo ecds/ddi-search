@@ -1,4 +1,4 @@
-{% load static %}
+{% load static %} {% load geo_tags %}
 <div class="map"></div>
 
 <script>
@@ -6,7 +6,7 @@
 var width = 360,
     height = 200;
 
-var fips_ids = {{ resource.us_state_ids_json|safe }};
+var fips_ids = {{ resource.us_state_ids|as_json }};
 
 var projection = d3.geo.albersUsa()
     .scale(400)

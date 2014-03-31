@@ -1,5 +1,4 @@
 from django.conf import settings
-from django.utils import simplejson
 from eulxml import xmlmap
 
 from eulexistdb.models import XmlModel
@@ -426,11 +425,6 @@ class CodeBook(XmlModel):
                                 .values_list('fips', flat=True).distinct())
 
     @property
-    def us_state_ids_json(self):
-        '''list of FIPS state ids in json format, for use with d3 maps'''
-        return simplejson.dumps(self.us_state_ids)
-
-    @property
     def country_ids(self):
         countries = self.locations.order_by('country_code') \
                                .values_list('country_code', flat=True).distinct()
@@ -438,10 +432,6 @@ class CodeBook(XmlModel):
                                    .order_by('numeric_code') \
                                    .values_list('numeric_code', flat=True).distinct())
 
-    @property
-    def country_ids_json(self):
-        ''' list of ISO numeric country codes in json format, for use with d3 maps'''
-        return simplejson.dumps(self.country_ids)
 
 # collection prefix normally added by queryset; has to be added explicitly
 # here becuase we are including distinct in the primary xpath

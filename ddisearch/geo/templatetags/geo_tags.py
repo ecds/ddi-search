@@ -1,5 +1,8 @@
 from django import template
 from django.core.urlresolvers import reverse
+from django.utils import simplejson
+from django.utils.safestring import mark_safe
+
 from ddisearch.geo.models import Location, GeonamesContinent, \
     GeonamesCountry
 
@@ -34,3 +37,7 @@ def location_url(dbloc):
     if isinstance(dbloc, GeonamesCountry):
             return reverse('geo:country',
                 kwargs={'continent': dbloc.continent, 'country': dbloc.code})
+
+@register.filter
+def as_json(val):
+    return mark_safe(simplejson.dumps(val))
