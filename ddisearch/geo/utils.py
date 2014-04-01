@@ -1,6 +1,5 @@
 import logging
 from django.conf import settings
-from geopy.geocoders import GeoNames
 from ddisearch.geo.models import Location, GeonamesCountry, GeonamesContinent
 from ddisearch.geo.geonames import GeonamesClient
 
@@ -34,8 +33,9 @@ class CodebookGeocoder(object):
         if cb.geo_unit:
             logger.debug('geogUnit = %s' % '; '.join(cb.geo_unit))
 
-        # boolean flag indicating if the US is listed
-        includes_US = 'United States' in [geo.val for geo in cb.geo_coverage]
+        # FIXME: this isn't working well enough; preload state names
+        # and check that some number (three?) match, then assume US?
+
         # keep track of the number of US states we've encountered
         US_states = 0
         # flag for some threshold after which we assume US
@@ -47,7 +47,7 @@ class CodebookGeocoder(object):
         # setting geonames id on the geogCover element
         for geog in cb.geo_coverage:
             logger.info('geogCover %s' % geog.val)
-            if includes_US and US_states > 2:
+            if US_states > 2:
                 assume_US = True
 
             # skip coverage of global - nothing to code
