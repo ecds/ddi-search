@@ -79,6 +79,16 @@ class ProductionStatement(xmlmap.XmlObject):
     #: (mapping as string, but could have role or abbreviation attributes)
     funding_agencies = xmlmap.StringListField('fundAg')
 
+class Abstract(xmlmap.XmlObject):
+    #: direct text of the abstract (no subtags)
+    txt = xmlmap.StringField('text()')
+    #: list of paragraphs for abstracts that contain nested tags
+    p = xmlmap.StringListField('p')
+
+    def __unicode__(self):
+        return self.txt
+
+
 class Nation(xmlmap.XmlObject):
     'XML model for a DDI nation'
     #: full name of the nation
@@ -291,6 +301,9 @@ class CodeBook(XmlModel):
     version_notes = xmlmap.StringListField('stdyDscr/citation/verStmt/notes', Version)
     #: study abstract
     abstract = xmlmap.StringField('.//abstract')
+    #: list of all abstract fields
+    abstract_list = xmlmap.NodeListField('.//abstract', Abstract)
+
     #: list of authors, as :class:`Author`
     authors = xmlmap.NodeListField('.//AuthEnty', Author)
     #: list of keywords

@@ -62,7 +62,15 @@
     <section id="abstract">
         <div class="container">
             <h2>Abstract</h2>
-            <p>{{ resource.abstract }}</p>
+            {% for abs in resource.abstract_list %}
+                {% if abs.p %}
+                    {% for p in abs.p %}
+                        <p>{{ p }}</p>
+                    {% endfor %}
+                {% else %}
+                    <p>{{ abs }}</p>
+                {% endif %}
+            {% endfor %}
         </div>
     </section>
     <section id="topics">
@@ -168,7 +176,7 @@
                     <th>Kind of Data</th>
                 </tr>
                 <tr>
-                    <td>   
+                    <td>
                         {% for rd in resource.dates %}
                         {% if rd %}
                         <p>{{rd}}</p>
@@ -238,7 +246,7 @@
                     <td>
                         {{resource.methods.0.data_collection.0.methods.0| default:'---'}}
                     </td>
-                    
+
                 </tr>
             </table>
         </div>
@@ -300,7 +308,7 @@
             </div>
         </div>
     </section>
-    
+
 </article>
 
 
