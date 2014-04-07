@@ -228,43 +228,38 @@
         <div class="container">
             <table class="table table-bordered info-card">
                 <tr>
-                    <th>Data Collections</th>
                     <th>Time Methods</th>
                     <th>Frequency</th>
                     <th>Collection Modes</th>
+                    <th>Sources</th>
                 </tr>
+                {% for method in resource.methods %}
+                   {% for data_coll in method.data_collection %}
                 <tr>
                     <td>
-                        {{resource.methods.0.data_collection| default:'---'}}
+                        {{ data_coll.time_methods|join:', '|default:'---' }}
                     </td>
                     <td>
-                        {{resource.methods.0.data_collection.0.time_methods.0| default:'---'}}
+                        {{ data_coll.frequency|join:', '|default:'---' }}
                     </td>
                     <td>
-                        {{resource.methods.0.data_collection.0.frequency.0| default:'---'}}
+                        {{ data_coll.methods|join:', '|default:'---' }}
                     </td>
                     <td>
-                        {{resource.methods.0.data_collection.0.methods.0| default:'---'}}
+                        {% for src in data_coll.sources %}
+                           {% for data_src in src.data_sources %}
+                              <p>{{ data_src }}</p>
+                           {% endfor %}
+                        {% endfor %}
                     </td>
 
                 </tr>
+
+                   {% endfor %}
+                {% endfor %}
+
             </table>
         </div>
-        <div class="container">
-            <table class="table table-bordered info-card">
-                <tr>
-                    <th>Data Sources</th>
-                    <th>Method Notes</th>
-                </tr>
-                <tr>
-                    <td>
-                        {{resource.methods.0.data_collection.0.sources| default:'---'}}
-                    </td>
-                    <td>
-                        {{resource.methods.0.data_collection.0.sources.0.data_sources.0 | default:'---'}}
-                    </td>
-                </tr>
-            </table>
             {% if resource.methods.0.notes.0 %}
             <h3>Method Notes</h3>
             <p>{{resource.methods.0.notes.0}}</p>
@@ -279,18 +274,14 @@
             </div>
         </header>
         <div class="container">
-            {% if resource.file_descriptions.0.files.0 %}
-            <p>{{resource.file_descriptions.0.files.0}}</p>
-            {% endif %}
-
-            {% if resource.file_descriptions.0.type %}
-            <p>{{resource.file_descriptions.0.type}}</p>
-            {% endif %}
-
-            {% if resource.file_descriptions.0.notes.0 %}
-            <p class="small">{{resource.file_descriptions.0.notes.0}}</p>
-
-            {% endif %}
+            {% for fdesc in resource.file_descriptions %}
+               {% for file in fdesc.files %}
+                 <p>{{ file.name }} ({{ file.type }})</p>
+               {% endfor %}
+               {% for note in fdesc.notes %}
+                 <p class="small">{{ note }}</p>
+               {% endfor %}
+            {% endfor %}
         </div>
 
         <div class="container" id="data-access">
