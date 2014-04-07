@@ -8,7 +8,7 @@
 
 .state-boundary, .country-boundary {
   fill: none;
-  stroke: #FCF8DF;
+  stroke: #F7F7F7;
   stroke-linejoin: round;
 }
 
