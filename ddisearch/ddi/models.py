@@ -101,6 +101,7 @@ class Nation(xmlmap.XmlObject):
 
 class GeographicCoverage(xmlmap.XmlObject):
     'XML model for geographical coverae (DDI geogCover)'
+    ROOT_NAME = 'geogCover'
     #: full name of the place
     val = xmlmap.StringField('text()')
     #: xml id
