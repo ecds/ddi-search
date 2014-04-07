@@ -2,10 +2,13 @@ from django.shortcuts import render, get_object_or_404
 from django.core.paginator import Paginator, EmptyPage, InvalidPage
 
 from ddisearch.ddi.models import CodeBook
+from ddisearch.ddi.forms import SearchOptions
+from ddisearch.ddi.views import _sort_results
 from ddisearch.geo.models import Location, GeonamesContinent, GeonamesCountry
 
 
-def resources_by_location(request, geonames_id=None, geo_coverage=None):
+def resources_by_location(request, geonames_id=None, geo_coverage=None,
+                          per_page=10, sort='title'):
     '''Helper method to find DDI resources that explicitly reference
     the specified place. Expects one and only one of geonames_id or
     geo_coverage to be specified.
@@ -19,7 +22,8 @@ def resources_by_location(request, geonames_id=None, geo_coverage=None):
     if geo_coverage is not None:
         resources = resources.filter(geo_coverage=geo_coverage)
 
-    per_page = 10  # for now
+    resources = _sort_results(resources, sort)
+
     paginator = Paginator(resources, per_page, orphans=5)
     try:
         page = int(request.GET.get('page', '1'))
@@ -119,14 +123,30 @@ def browse(request, continent=None, country=None, state=None,
         hierarchy.append(location)
         current_place = location
 
+    form = SearchOptions(request.GET)
+
+    # validation required before accessing cleaned data
+    if form.is_valid():
+        per_page = form.cleaned_data['per_page']
+        sort = form.cleaned_data['sort']
+    else:
+        # if not valid, init as new and use defaults
+        form = SearchOptions()
+        per_page = form.fields['per_page'].initial
+        sort = form.fields['sort'].initial
+
+
     # find resources that explicitly reference the current place
     if current_place is None:
-        results = resources_by_location(request, geo_coverage='Global')
+        results = resources_by_location(request, geo_coverage='Global',
+            per_page=per_page, sort=sort)
     else:
         results = resources_by_location(request,
-                                        geonames_id=current_place.geonames_id)
+                                        geonames_id=current_place.geonames_id,
+                                        per_page=per_page, sort=sort)
 
     return render(request, 'geo/browse.html',
                   {'places': places, 'results': results,
-                  'current_place': current_place, 'hierarchy': hierarchy})
+                   'current_place': current_place, 'hierarchy': hierarchy,
+                   'form': form})
 
