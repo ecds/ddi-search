@@ -54,7 +54,20 @@ def _sort_results(results, sort):
 def search(request):
     '''Search all available DDI content by keyword, title, summary, or source
     with sorting by relevance (default), title, or date.'''
+
     form = forms.KeywordSearch(request.GET)
+
+    # if form is not valid but we have request data, supply default
+    # per-page and sort options in case that makes the request valid
+    # (e.g., support simple location search from resource page)
+    if not form.is_valid() and request.GET and \
+      not all(f in request.GET for f in ['per_page', 'sort']):
+        form_data = request.GET.copy()
+        form_data.update({'per_page': form.fields['per_page'].initial,
+            'sort': form.fields['sort'].initial})
+
+        form = forms.KeywordSearch(form_data)
+
     context = {'form': form}
 
     # if the form is valid, process and generate search results;

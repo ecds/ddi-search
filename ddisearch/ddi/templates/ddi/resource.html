@@ -132,20 +132,18 @@
 
                 <div class="col-sm-6 col-md-7 col-lg-8">
                     <ul class="tagsinput">
-                        {% if resource.global_coverage %} {# special case for non-db location #}
+                        {% for geog, loc in resource.geocoverage_locations.iteritems %}
                         <li class="tag">
-                            Global
-                            <a class="tagsinput-link" href="{% url 'geo:browse' %}">
-                                <span class="glyphicon glyphicon-chevron-right"></span>
-                            </a>
-                        </li>
-                        {% endif %}
-                        {% for loc in resource.locations %}
-                        <li class="tag">
-                            {{ loc.name }}
+                            {{ geog }} {# display label from xml #}
+                            {% if loc %} {# if dblocation is available, link into geo browse #}
                             <a class="tagsinput-link" href="{{ loc|location_url }}">
                                 <span class="glyphicon glyphicon-chevron-right"></span>
                             </a>
+                            {% else %} {# otherwise, link to search by geography #}
+                            <a class="tagsinput-link" href="{% url 'ddi:search' %}?location={{ geog|urlencode }}">
+                                <span class="glyphicon glyphicon-chevron-right"></span>
+                            </a>
+                            {% endif %}
                         </li>
                         {% empty %}
                           {% if not resource.global_coverage %}

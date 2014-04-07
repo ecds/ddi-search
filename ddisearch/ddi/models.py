@@ -1,4 +1,6 @@
 from django.conf import settings
+# NOTE: using django SortedDict instaed of collections.OrderedDict to support py2.7
+from django.utils.datastructures import SortedDict
 from eulxml import xmlmap
 
 from eulexistdb.models import XmlModel
@@ -419,6 +421,25 @@ class CodeBook(XmlModel):
         ''':class:`~ddisearch.geo.model.Location` objects corresponding
         to the geonames identifiers in the record'''
         return Location.objects.filter(geonames_id__in=self.geonames_ids)
+
+    @property
+    def geocoverage_locations(self):
+        '''Dictionary of :class:`GeographicCoverage` and matching
+        :class:`~ddisearch.geo.models.Location` if available (or None,
+        if geogCover element has not been geocoded, or matching db record
+        could not be found.'''
+        dbloc = self.locations
+        # generate a dictionary keyed on geonames id to allow matching up with xml
+        dbloc_dict = dict([(l.geonames_id, l) for l in dbloc])
+        geog_loc = SortedDict()  # preserve order in the xml
+        for geo in self.geo_coverage:
+            val = None
+            if geo.id is not None:
+                print geo.id[len('geonames:'):]
+                val = dbloc_dict.get(int(geo.id[len('geonames:'):]), None)
+            geog_loc[geo] = val
+        return geog_loc
+
 
     @property
     def global_coverage(self):
