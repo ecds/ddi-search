@@ -3,14 +3,18 @@ import logging
 from django.shortcuts import render
 from django.http import Http404, HttpResponse
 from django.core.paginator import Paginator, EmptyPage, InvalidPage
+from django.views.decorators.http import condition
 from urllib import urlencode
 from eulexistdb.exceptions import DoesNotExist
 
 from ddisearch.ddi import forms
 from ddisearch.ddi.models import CodeBook, DistinctKeywords, DistinctTopics
+from ddisearch.ddi.utils import ddi_lastmodified, ddi_etag, collection_lastmodified
+
 
 logger = logging.getLogger(__name__)
 
+@condition(last_modified_func=collection_lastmodified)
 def site_index(request):
     'Site index page; currently just displays the search form.'
     # find all documents that are new within some arbitrary window
@@ -199,6 +203,8 @@ def search(request):
 
     return render(request, 'ddi/search.html', context)
 
+
+@condition(etag_func=ddi_etag, last_modified_func=ddi_lastmodified)
 def resource(request, agency, id):
     '''Display a single DDI document with all relevant details.  Uses
     id number and agency to identify a single document; returns a 404
@@ -215,6 +221,7 @@ def resource(request, agency, id):
     return render(request, 'ddi/resource.html', {'resource': res})
 
 
+@condition(etag_func=ddi_etag, last_modified_func=ddi_lastmodified)
 def resource_xml(request, agency, id):
     '''Display the raw DDI XML for a single document; returns a 404
     if no record matching the specified agency and id is found.
@@ -237,7 +244,7 @@ def resource_xml(request, agency, id):
     return response
 
 
-
+@condition(last_modified_func=collection_lastmodified)
 def browse_terms(request, mode):
     '''Browse list of distinct keywords or topics (depending on the
     specified mode), or browse documents by keyword or topic if a term
