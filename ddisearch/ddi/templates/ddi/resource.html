@@ -14,6 +14,7 @@
   {{ block.super}} {# additional javascript for d3/topojson maps #}
   <script src="{% static 'js/d3.v3.min.js' %}"></script>
   <script src="{% static 'js/topojson.v1.min.js' %}"></script>
+  <script src="{% static 'js/map.js' %}"></script>
 {% endblock %}
 
 {% block content %}
@@ -112,25 +113,11 @@
         <div class="container">
             <div class="row">
                 <h2>Geographic Coverage</h2>
-                <div class="col-sm-6 col-md-5 col-lg-4">
-                    {% if resource.us_only %}
-                       {% include 'ddi/snippets/us_map.html' %}
-                    {% else %}
-                      {% include 'ddi/snippets/world_map.html' %}
-                    {% endif %}
-                    {% comment %}
-                    <div class="map">
-                        <img src="{% static 'img/Flat-World-Map.gif' %}"/>
-                        {% for gl in resource.geo_coverage %}
-                        <div class="location-marker {{ gl|lower }}">
-                            <span class="glyphicon glyphicon-map-marker" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="{{ gl }}"></span>
-                        </div>
-                        {% endfor %}
-                    </div>
-                    {% endcomment %}
+                <div class="col-sm-8 col-md-6 col-lg-5">
+                   {% include 'ddi/snippets/resource_map.html' %}
                 </div>
 
-                <div class="col-sm-6 col-md-7 col-lg-8">
+                <div class="col-sm-4 col-md-6 col-lg-7">
                     <ul class="tagsinput">
                         {% for geog, loc in resource.geocoverage_locations.iteritems %}
                         <li class="tag">

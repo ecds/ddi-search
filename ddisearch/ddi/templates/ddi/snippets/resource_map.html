@@ -1,0 +1,11 @@
+{# display a world or US map with regions highlighted based on data coverage #}
+{% load static %} {% load geo_tags %}
+<div class="map"></div>
+
+<script>
+{% if resource.us_only %}
+  us_map({{ resource.us_state_ids|as_json }}, "{% static 'js/' %}");
+{% else %}
+  world_map({{ resource.country_ids|as_json }}, "{% static 'js/' %}");
+{% endif %}
+</script>
