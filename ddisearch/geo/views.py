@@ -1,3 +1,5 @@
+from urllib import urlencode
+
 from django.shortcuts import render, get_object_or_404
 from django.core.paginator import Paginator, EmptyPage, InvalidPage
 
@@ -129,11 +131,13 @@ def browse(request, continent=None, country=None, state=None,
     if form.is_valid():
         per_page = form.cleaned_data['per_page']
         sort = form.cleaned_data['sort']
+        url_args = form.cleaned_data
     else:
         # if not valid, init as new and use defaults
         form = SearchOptions()
         per_page = form.fields['per_page'].initial
         sort = form.fields['sort'].initial
+        url_args = {'sort': sort, 'per_page': per_page}
 
 
     # find resources that explicitly reference the current place
@@ -148,5 +152,5 @@ def browse(request, continent=None, country=None, state=None,
     return render(request, 'geo/browse.html',
                   {'places': places, 'results': results,
                    'current_place': current_place, 'hierarchy': hierarchy,
-                   'form': form})
+                   'form': form, 'url_params': urlencode(url_args)})
 
