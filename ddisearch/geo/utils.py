@@ -62,8 +62,12 @@ class CodebookGeocoder(object):
             # 'Europe' is geocoded as 'Minsk' and 'Africa' as 'Camayenne')
             if geog.val in self.continents:
                 geog.id = 'geonames:%d' % self.continents[geog.val]
-                # NOTE: this *doesn't* put a record in the Locations db;
-                # should be ok because other records will account for that (?)
+
+                # make sure continent is present in Locations db table
+                if Location.objects.filter(name=geog.val, feature_code='CONT').count() == 0:
+                    loc = self.geonames.geocode(name_equals=geog.val, feature_code='CONT')
+                    dbloc = self.location_from_geoname(loc)
+
                 continue
 
             # clean names that are formatted this way:
