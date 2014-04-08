@@ -24,9 +24,10 @@ class IDNumber(xmlmap.XmlObject):
 
 class Version(xmlmap.XmlObject):
     'XML model for a DDI version in the document version statement'
-    #: actual date value
-    date = xmlmap.DateField('@date')
-    # could also have source and type attirbutes...
+    #: actual date value; mapping as string instead of date field because
+    #: of variable date formatting (YYYY-MM-DD vs. just YYYY-MM)
+    date = xmlmap.StringField('@date')
+    # could also have source and type attributes...
 
     def __unicode__(self):
         return self.date
