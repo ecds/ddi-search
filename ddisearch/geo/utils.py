@@ -95,7 +95,9 @@ class CodebookGeocoder(object):
                 # NOTE: we could use similar logic to give a country bias to geocoder
                 db_locations = db_locations.exclude(country_code='US')
 
-            if db_locations.count():
+            # If there is one and only one match, use it; otherwise defer to geocoder
+            # to determine which place to use
+            if db_locations.count() == 1:
                 # store db location so we can put geonames id into the xml
                 dbloc = db_locations[0]
 
@@ -108,7 +110,7 @@ class CodebookGeocoder(object):
                     geo_options['country_bias'] = 'US'
 
                 if assume_US and geogname in us_states:
-                    geo_options['admin_code1'] = us_states[geog.val]
+                    geo_options['admin_code1'] = us_states[geogname]
                 elif restriction is not None and restriction in us_states:
                     # if we have a restriction that matches a U.S. state
                     # (e.g. "Portland (Maine"), pass that along to the geocoder
