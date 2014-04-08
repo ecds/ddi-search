@@ -435,7 +435,6 @@ class CodeBook(XmlModel):
         for geo in self.geo_coverage:
             val = None
             if geo.id is not None:
-                print geo.id[len('geonames:'):]
                 val = dbloc_dict.get(int(geo.id[len('geonames:'):]), None)
             geog_loc[geo] = val
         return geog_loc
