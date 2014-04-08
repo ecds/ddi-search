@@ -1,4 +1,5 @@
 from django.conf import settings
+from django.db.models import Q
 # NOTE: using django SortedDict instaed of collections.OrderedDict to support py2.7
 from django.utils.datastructures import SortedDict
 from eulxml import xmlmap
@@ -460,9 +461,18 @@ class CodeBook(XmlModel):
 
     @property
     def country_ids(self):
+        '''List of numeric country ids, for highlighting regions covered by the data
+        on a topojson map.  If the record explicitly references continents, list of
+        ids will include all countries in those continents.'''
         countries = self.locations.order_by('country_code') \
-                               .values_list('country_code', flat=True).distinct()
-        return list(GeonamesCountry.objects.filter(code__in=countries) \
+                                  .values_list('country_code', flat=True).distinct()
+        # if the record explicitly refers to continents, use that to get all
+        # country ids for that continent
+        continents = self.locations.filter(feature_code='CONT') \
+                                   .order_by('continent_code') \
+                                   .values_list('continent_code', flat=True).distinct()
+        # find explicitly referenced countries OR countries by continent
+        return list(GeonamesCountry.objects.filter(Q(code__in=countries) | Q(continent__in=continents)) \
                                    .order_by('numeric_code') \
                                    .values_list('numeric_code', flat=True).distinct())
 
