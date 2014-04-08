@@ -240,11 +240,16 @@
                 {% endfor %}
 
             </table>
-        </div>
-            {% if resource.methods.0.notes.0 %}
-            <h3>Method Notes</h3>
-            <p>{{resource.methods.0.notes.0}}</p>
-            {% endif %}
+
+            {% for method in resource.methods %}
+                {% if method.notes %}
+                {% ifchanged %}<h3>Method Notes</h3>{% endifchanged %}
+                {# only display heading once even if multiple method sections #}
+                    {% for n in method.notes %}
+                        <p>{{ n }}</p>
+                    {% endfor %}
+                {% endif %}
+            {% endfor %}
         </div>
     </section>
 
@@ -257,7 +262,7 @@
         <div class="container">
             {% for fdesc in resource.file_descriptions %}
                {% for file in fdesc.files %}
-                 <p>{{ file.name }} ({{ file.type }})</p>
+                 <p>{{ file.name|default:'' }} {{ file.type }}</p>
                {% endfor %}
                {% for note in fdesc.notes %}
                  <p class="small">{{ note }}</p>
@@ -266,17 +271,50 @@
         </div>
 
         <div class="container" id="data-access">
-            <div class="callout callout-warning">
+
                 <h3>Data Access</h3>
-                <p>The following information is important when using the information from ICPSR.</p>
 
                 <div>
                     {% for da in resource.data_access %}
-                    {{da|safe}}
-                    {% empty %}
-                    <p>---</p>
+                        {% for avail in da.availability %}
+                             {% if avail.media|lower == "online" or avail.media|lower == "on-line" %}
+                               <p><a href="{{ avail.access_uri }}">{{ avail.access_place }}</a></p>
+
+                               {% ifequal resource.id.agency "ICPSR" %}
+                               <p>For off-campus access, go to <a href="http://web.library.emory.edu/library-materials/databases-ebooks-ejournals/databases/index.php">Databases@Emory</a></p>
+                               {% endifequal %}
+                            {% else %}
+                               <p>{{ avail.access_place }}</p>
+                           {% endif %}
+                         {% endfor %}
+
+                        {% if da.use %} {# use statement #}
+                        <div>
+                            {% if da.use.special_perms %}
+                                <h4>Special Permissions</h4>
+                                <p>{{ da.use.special_perms }}</p>
+                            {% endif %}
+                            {% if da.use.restriction %}
+                                <h4>Restriction</h4>
+                                <p>{{ da.use.restriction }}</p>
+                            {% endif %}
+                            {% if da.use.conditions %}
+                                <h4>Conditions</h4>
+                                <div class="callout callout-warning">
+                                    <p>{{ da.use.conditions|safe }}</p>
+                                </div>
+                            {% endif %}
+                            {% if da.use.disclaimer %}
+                               <h4>Disclaimer</h4>
+                               <p>{{ da.use.disclaimer }}</p>
+                           {% endif %}
+                       </div>
+                       {% endif %}
+                       {% for n in da.notes %}
+                         <p class="small">{{ n }}</p>
+                       {% endfor %}
+
                     {% endfor %}
-                </div>
             </div>
         </div>
     </section>
