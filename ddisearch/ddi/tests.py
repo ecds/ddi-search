@@ -36,7 +36,7 @@ class CodeBookTest(TestCase):
         self.assert_(isinstance(self.cb.id, ddixml.IDNumber))
         self.assertEqual("2988", self.cb.id.val)
         self.assertEqual("ICPSR", self.cb.id.agency)
-        self.assertEqual("2009-03-02", self.cb.document_version.date.isoformat())
+        self.assertEqual("2009-03-02", self.cb.document_version.date)
         self.assertEqual(2, len(self.cb.authors))
         self.assert_(isinstance(self.cb.authors[0], ddixml.Author))
         author_list = [unicode(a) for a in self.cb.authors]
