@@ -122,15 +122,11 @@
                         {% for geog, loc in resource.geocoverage_locations.iteritems %}
                         <li class="tag">
                             {{ geog }} {# display label from xml #}
-                            {% if loc %} {# if dblocation is available, link into geo browse #}
-                            <a class="tagsinput-link" href="{{ loc|location_url }}">
+                            {% with  loc|location_url as loc_url %}
+                              <a class="tagsinput-link" href="{% if loc_url %}{{ loc_url }}{% else %}{% url 'ddi:search' %}?location={{ geog|urlencode }}{% endif %}">
                                 <span class="glyphicon glyphicon-chevron-right"></span>
-                            </a>
-                            {% else %} {# otherwise, link to search by geography #}
-                            <a class="tagsinput-link" href="{% url 'ddi:search' %}?location={{ geog|urlencode }}">
-                                <span class="glyphicon glyphicon-chevron-right"></span>
-                            </a>
-                            {% endif %}
+                             </a>
+                            {% endwith %}
                         </li>
                         {% empty %}
                           {% if not resource.global_coverage %}

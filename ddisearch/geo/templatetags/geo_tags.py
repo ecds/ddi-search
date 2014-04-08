@@ -16,10 +16,21 @@ def location_url(dbloc):
         if dbloc.feature_code == 'CONT':
             return reverse('geo:continent',
              kwargs={'continent': dbloc.continent_code})
+
+        # for anything lower than a cntinent, we can't generate geo browse URL
+        # without both country and continent codes
+        if not dbloc.country_code or not dbloc.continent_code:
+                return ''
+
         # country-level
         if dbloc.feature_code.startswith('PCL') or dbloc.feature_code == 'TERR':
             return reverse('geo:country',
                 kwargs={'continent': dbloc.continent_code, 'country': dbloc.country_code})
+
+        # for state or substate, can't generate url without state code
+        if not dbloc.state_code:
+            return ''
+
         # state
         if dbloc.feature_code == 'ADM1':
             return reverse('geo:state',
@@ -37,6 +48,9 @@ def location_url(dbloc):
     if isinstance(dbloc, GeonamesCountry):
             return reverse('geo:country',
                 kwargs={'continent': dbloc.continent, 'country': dbloc.code})
+
+    # don't return 'None' for a url in the record
+    return ''
 
 @register.filter
 def as_json(val):
