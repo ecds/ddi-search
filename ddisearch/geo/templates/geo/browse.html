@@ -9,7 +9,7 @@
   {% include 'ddi/snippets/preview_aside.html' %}
   <div class="st-content"><!-- this is the wrapper for the content -->
     <div class="container">
-      <h1>Browse by {{ current_place.name|default:'Geography' }}</h1>
+      <h1>Browse {{ current_place.name|default:'by Geography' }}</h1>
 
       {% if hierarchy %}
       <ol class="breadcrumb">
