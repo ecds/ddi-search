@@ -170,6 +170,13 @@ ul.regions li a span+span {
 	width:100%;
 }
 
+.filter.browse,
+.filter.browse .page-options,
+header.grey{
+	background-color:transparent;
+	padding-bottom:10px;
+}
+
 .filter fieldset{
 	margin: auto;
 	width: 100%;
