@@ -328,6 +328,7 @@ header.grey{
 }
 
 
+
 .filter .option {
 	float: left;
 	padding: 1em 2em 0em 0em;
@@ -439,6 +440,9 @@ header.grey{
 
 
 /*Results*/
+.result-listing {
+	padding-top: 10px;
+}
 
 .resource-title {
 	padding-top: 5px;
