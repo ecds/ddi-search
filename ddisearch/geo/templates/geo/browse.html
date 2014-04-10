@@ -36,6 +36,16 @@
       </ul>
     </div>
     <div class="container">
+      <div class="filter browse">
+        <div class="page-options">
+          <div class="container">
+            {# include any hidden fields on the form (i.e. pass keyword/topic) #}
+            {% for f in form.hidden_fields %} {{ f }} {% endfor %}
+            {% include 'ddi/snippets/search_options.html' %}  {# per page & sort #}
+          </div>
+        </div>
+      </div>
+
         {% if current_place %}
           {% with resource_label="with "|add:current_place.name|default:'Global'|add:" coverage" %}
             {% include 'ddi/snippets/search_results.html' %}

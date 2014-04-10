@@ -2,11 +2,11 @@
 	fill:#ECF0F1;
 }
 
-.country, .state {
+.region {
   fill: #D1D1D8;
 }
 
-.state-boundary, .country-boundary {
+.region-boundary {
   fill: none;
   stroke: #F7F7F7;
   stroke-linejoin: round;

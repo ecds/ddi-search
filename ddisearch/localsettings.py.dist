@@ -36,6 +36,10 @@ DATABASES = {
 #EXISTDB_SERVER_PASSWORD = 'pass'
 EXISTDB_SERVER_URL = "http://localhost:8080/exist"
 EXISTDB_ROOT_COLLECTION = "/ddi_data"
+# a bug in python xmlrpclib loses the timezone; override it here
+# most likely, you want either tz.tzlocal() or tz.tzutc()
+from dateutil import tz
+EXISTDB_SERVER_TIMEZONE = tz.tzlocal()
 
 # geonames username to use when geocoding locations at data-load time
 GEONAMES_USERNAME = ''

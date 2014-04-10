@@ -1,4 +1,7 @@
 from django.conf import settings
+from django.db.models import Q
+# NOTE: using django SortedDict instaed of collections.OrderedDict to support py2.7
+from django.utils.datastructures import SortedDict
 from eulxml import xmlmap
 
 from eulexistdb.models import XmlModel
@@ -21,9 +24,10 @@ class IDNumber(xmlmap.XmlObject):
 
 class Version(xmlmap.XmlObject):
     'XML model for a DDI version in the document version statement'
-    #: actual date value
-    date = xmlmap.DateField('@date')
-    # could also have source and type attirbutes...
+    #: actual date value; mapping as string instead of date field because
+    #: of variable date formatting (YYYY-MM-DD vs. just YYYY-MM)
+    date = xmlmap.StringField('@date')
+    # could also have source and type attributes...
 
     def __unicode__(self):
         return self.date
@@ -101,6 +105,7 @@ class Nation(xmlmap.XmlObject):
 
 class GeographicCoverage(xmlmap.XmlObject):
     'XML model for geographical coverae (DDI geogCover)'
+    ROOT_NAME = 'geogCover'
     #: full name of the place
     val = xmlmap.StringField('text()')
     #: xml id
@@ -420,6 +425,24 @@ class CodeBook(XmlModel):
         return Location.objects.filter(geonames_id__in=self.geonames_ids)
 
     @property
+    def geocoverage_locations(self):
+        '''Dictionary of :class:`GeographicCoverage` and matching
+        :class:`~ddisearch.geo.models.Location` if available (or None,
+        if geogCover element has not been geocoded, or matching db record
+        could not be found.'''
+        dbloc = self.locations
+        # generate a dictionary keyed on geonames id to allow matching up with xml
+        dbloc_dict = dict([(l.geonames_id, l) for l in dbloc])
+        geog_loc = SortedDict()  # preserve order in the xml
+        for geo in self.geo_coverage:
+            val = None
+            if geo.id is not None:
+                val = dbloc_dict.get(int(geo.id[len('geonames:'):]), None)
+            geog_loc[geo] = val
+        return geog_loc
+
+
+    @property
     def global_coverage(self):
         return 'Global' in [geo.val for geo in self.geo_coverage]
 
@@ -439,9 +462,18 @@ class CodeBook(XmlModel):
 
     @property
     def country_ids(self):
+        '''List of numeric country ids, for highlighting regions covered by the data
+        on a topojson map.  If the record explicitly references continents, list of
+        ids will include all countries in those continents.'''
         countries = self.locations.order_by('country_code') \
-                               .values_list('country_code', flat=True).distinct()
-        return list(GeonamesCountry.objects.filter(code__in=countries) \
+                                  .values_list('country_code', flat=True).distinct()
+        # if the record explicitly refers to continents, use that to get all
+        # country ids for that continent
+        continents = self.locations.filter(feature_code='CONT') \
+                                   .order_by('continent_code') \
+                                   .values_list('continent_code', flat=True).distinct()
+        # find explicitly referenced countries OR countries by continent
+        return list(GeonamesCountry.objects.filter(Q(code__in=countries) | Q(continent__in=continents)) \
                                    .order_by('numeric_code') \
                                    .values_list('numeric_code', flat=True).distinct())
 

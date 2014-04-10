@@ -1,4 +1,5 @@
 import logging
+import re
 from django.conf import settings
 from ddisearch.geo.models import Location, GeonamesCountry, GeonamesContinent
 from ddisearch.geo.geonames import GeonamesClient
@@ -13,6 +14,8 @@ class CodebookGeocoder(object):
     :class:`~ddisearch.geo.models.Location`, and the corresponding geonames
     id is added to the xml.
     '''
+
+    name_paren_re = re.compile('^(?P<name>[A-Z][a-zA-Z ]+) \((?P<restriction>[A-Za-z]+)\)$')
 
     def __init__(self):
         # initialize the geocoder for reuse
@@ -36,18 +39,18 @@ class CodebookGeocoder(object):
         # FIXME: this isn't working well enough; preload state names
         # and check that some number (three?) match, then assume US?
 
-        # keep track of the number of US states we've encountered
-        US_states = 0
-        # flag for some threshold after which we assume US
-        assume_US = False
-        # OR: could preload US states from db and just check if we have a match...
-        # (but what about Georgia?)
+        # check if there are at least three US states in this record,
+        # to help determine if we should assume US
+        us_state_count = sum([1 for geog in cb.geo_coverage if geog.val in us_states])
 
         # loop through geographical coverage terms and look them up,
         # setting geonames id on the geogCover element
         for geog in cb.geo_coverage:
+            # for each location, don't assume US unless we have reason
+            assume_US = False
+
             logger.info('geogCover %s' % geog.val)
-            if US_states > 2:
+            if us_state_count >= 3:
                 assume_US = True
 
             # skip coverage of global - nothing to code
@@ -59,19 +62,46 @@ class CodebookGeocoder(object):
             # 'Europe' is geocoded as 'Minsk' and 'Africa' as 'Camayenne')
             if geog.val in self.continents:
                 geog.id = 'geonames:%d' % self.continents[geog.val]
-                # NOTE: this *doesn't* put a record in the Locations db;
-                # should be ok because other records will account for that (?)
+
+                # make sure continent is present in Locations db table
+                if Location.objects.filter(name=geog.val, feature_code='CONT').count() == 0:
+                    loc = self.geonames.geocode(name_equals=geog.val, feature_code='CONT')
+                    dbloc = self.location_from_geoname(loc)
+
                 continue
+
+            # clean names that are formatted this way:
+            #   Portland (Maine)
+            #   Hiroshima (prefecture)
+            # if (###) is a state, use it to filter; otherwise ignore
+            match = self.name_paren_re.match(geog.val)
+            if match:
+                matchinfo = match.groupdict()
+                geogname = matchinfo['name']
+                restriction = matchinfo['restriction']
+                # if the parenthetical text matches a U.S. state, use that in the lookup
+                if restriction in us_states:
+                    assume_US = True
+            else:
+                geogname = geog.val
+                restriction = None
 
             # next check in the db, in case we've looked up before
             country_filter = {}
-            # if we've hit a threshold where we want to assume US, restrict to
-            # country code US
-            if assume_US:
+            # if conditions are met where we want to assume US, restrict to
+            # country code US except for Puerto Rico
+            if assume_US and geogname != 'Puerto Rico':
                 country_filter['country_code'] = 'US'
-            db_locations = Location.objects.filter(name=geog.val, **country_filter)
-            # FIXME: logic to handle Georgia here
-            if db_locations.count():
+            db_locations = Location.objects.filter(name=geogname, **country_filter)
+            # if we *don't* have reason to assume US and we get Georgia,
+            # look for non-US match
+            if not assume_US and geogname == 'Georgia':
+                # NOTE: we could use similar logic to give a country bias to geocoder
+                db_locations = db_locations.exclude(country_code='US')
+
+            # If there is one and only one match, use it; otherwise defer to geocoder
+            # to determine which place to use
+            if db_locations.count() == 1:
                 # store db location so we can put geonames id into the xml
                 dbloc = db_locations[0]
 
@@ -80,20 +110,27 @@ class CodebookGeocoder(object):
                 # we want to assume US (with certain exceptions)
                 # FIXME: may well be others like Puerto Rico!
                 geo_options = {}
-                if assume_US and geog.val != 'Puerto Rico':
+                if assume_US and geogname != 'Puerto Rico':
                     geo_options['country_bias'] = 'US'
+
+                if assume_US and geogname in us_states:
+                    geo_options['admin_code1'] = us_states[geogname]
+                elif restriction is not None and restriction in us_states:
+                    # if we have a restriction that matches a U.S. state
+                    # (e.g. "Portland (Maine"), pass that along to the geocoder
+                    geo_options['admin_code1'] = us_states[restriction]
 
                 # TODO: could be helpful to restrict by feature codes
                 # to the types of entities we expect to get
                 # - continents, countries, states, counties, cities
                 # first try for exact match
-                loc = self.geonames.geocode(name_equals=geog.val, **geo_options)
+                loc = self.geonames.geocode(name_equals=geogname, **geo_options)
                 if not loc:
                     # if that doesn't work, try a looser name match
-                    loc = self.geonames.geocode(name=geog.val, **geo_options)
+                    loc = self.geonames.geocode(name=geogname, **geo_options)
                     # if that still fails, error
                     if not loc:
-                        logger.warn('No geonames result found for %s' % geog.val)
+                        logger.warn('No geonames result found for %s' % geogname)
                         continue
                 logger.debug('geonames result: %s' % unicode(loc))
                 logger.debug(loc.raw)
@@ -105,10 +142,6 @@ class CodebookGeocoder(object):
                 else:
                     # if not, create new db location from geonames lookup
                     dbloc = self.location_from_geoname(loc)
-
-
-            if dbloc.country_code == 'US' and dbloc.feature_code == 'ADM1':
-                US_states += 1
 
             # set geonames id in the xml
             geog.id = 'geonames:%d' % dbloc.geonames_id
@@ -160,3 +193,57 @@ class CodebookGeocoder(object):
 
         return dbloc
 
+
+us_states = {
+   'Alabama': 'AL',
+   'Alaska': 'AK',
+   'Arizona': 'AZ',
+   'Arkansas': 'AR',
+   'California': 'CA',
+   'Colorado': 'CO',
+   'Connecticut': 'CT',
+   'Delaware': 'DE',
+   'District of Columbia': 'DC',
+   'Florida': 'FL',
+   'Georgia': 'GA',
+   'Hawaii': 'HI',
+   'Idaho': 'ID',
+   'Illinois': 'IL',
+   'Indiana': 'IN',
+   'Iowa': 'IA',
+   'Kansas': 'KS',
+   'Kentucky': 'KY',
+   'Louisiana': 'LA',
+   'Maine': 'ME',
+   'Maryland': 'MD',
+   'Massachusetts': 'MA',
+   'Michigan': 'MI',
+   'Minnesota': 'MN',
+   'Mississippi': 'MS',
+   'Missouri': 'MO',
+   'Montana': 'MT',
+   'Nebraska': 'NE',
+   'Nevada': 'NV',
+   'New Hampshire': 'NH',
+   'New Jersey': 'NJ',
+   'New Mexico': 'NM',
+   'New York': 'NY',
+   'North Carolina': 'NC',
+   'North Dakota': 'ND',
+   'Ohio': 'OH',
+   'Oklahoma': 'OK',
+   'Oregon': 'OR',
+   'Pennsylvania': 'PA',
+   'Rhode Island': 'RI',
+   'South Carolina': 'SC',
+   'South Dakota': 'SD',
+   'Tennessee': 'TN',
+   'Texas': 'TX',
+   'Utah': 'UT',
+   'Vermont': 'VT',
+   'Virginia': 'VA',
+   'Washington': 'WA',
+   'West Virginia': 'WV',
+   'Wisconsin': 'WI',
+   'Wyoming': 'WY'
+}

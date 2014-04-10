@@ -1,6 +1,5 @@
 import os
 from mock import patch, Mock
-from geopy.geocoders import GeoNames
 
 from django.conf import settings
 from django.core.urlresolvers import reverse
@@ -10,9 +9,10 @@ from eulxml.xmlmap import load_xmlobject_from_file
 from eulexistdb import testutil as eulexistdb_testutil
 
 
-from ddisearch.ddi.models import CodeBook
+from ddisearch.ddi.models import CodeBook, GeographicCoverage
 from ddisearch.ddi.tests import FIXTURE_DIR
 from ddisearch.geo.models import Location, GeonamesContinent, GeonamesCountry
+from ddisearch.geo.geonames import GeonamesClient
 from ddisearch.geo.utils import CodebookGeocoder
 from ddisearch.geo.templatetags import geo_tags
 
@@ -21,10 +21,10 @@ class CodebookGeocoderTest(TestCase):
 
     fixture_filename = '02988.xml'
 
-    mockgeonames = Mock(GeoNames)
+    mockgeonames = Mock(GeonamesClient)
 
     def setUp(self):
-        with patch('ddisearch.geo.utils.GeoNames', new=self.mockgeonames):
+        with patch('ddisearch.geo.utils.GeonamesClient', new=self.mockgeonames):
             self.cbgeocoder = CodebookGeocoder()
 
         self.cb = load_xmlobject_from_file(os.path.join(FIXTURE_DIR,
@@ -53,7 +53,7 @@ class CodebookGeocoderTest(TestCase):
         del self.cb.geo_coverage[0].id
         self.cbgeocoder.code_locations(self.cb)
 
-        self.mockgeonames.return_value.geocode.assert_called_with(self.cb.geo_coverage[0].val)
+        self.mockgeonames.return_value.geocode.assert_called_with(name_equals=self.cb.geo_coverage[0].val)
         self.assertEqual(1, self.mockgeonames.return_value.geocode.call_count,
             'geocode should only be called once (one geogCover term and one global)')
 
@@ -85,120 +85,55 @@ class CodebookGeocoderTest(TestCase):
             self.cb.geo_coverage[0].id,
             'continent should have geonames id set from continent db lookup')
 
-        # TODO: special case test for Georgia (US state vs. country)
+        # test US state logic (assume US if 3 or more states)
+        del self.cb.geo_coverage[0].id
+        self.cb.geo_coverage[0].val = 'California'
+        self.cb.geo_coverage[1].val = 'Alaska'
+        self.cb.geo_coverage.append(GeographicCoverage(val='Georgia'))
+        self.cb.geo_coverage.append(GeographicCoverage(val='Puerto Rico'))
+        self.mockgeonames.return_value.geocode.reset_mock()
 
-    def test_location_from_geoname(self):
-        loc = self._mocklocation()
-        self.cbgeocoder.location_from_geoname(loc)
+        with patch('ddisearch.geo.utils.Location') as mockdbloc:
+            mockdbloc.objects.filter.return_value.count.return_value = 0
+            self.cbgeocoder.code_locations(self.cb)
+            mockdbloc.objects.filter.assert_any_call(name=self.cb.geo_coverage[0].val,
+                country_code='US')
+            mockdbloc.objects.filter.assert_any_call(name=self.cb.geo_coverage[1].val,
+                country_code='US')
+            mockdbloc.objects.filter.assert_any_call(name=self.cb.geo_coverage[2].val,
+                country_code='US')
+            # no US for Puerto Rico
+            mockdbloc.objects.filter.assert_any_call(name=self.cb.geo_coverage[3].val)
+            self.mockgeonames.return_value.geocode.assert_any_call(name_equals=self.cb.geo_coverage[0].val,
+                country_bias='US', admin_code1='CA')
+            self.mockgeonames.return_value.geocode.assert_any_call(name_equals=self.cb.geo_coverage[1].val,
+                country_bias='US', admin_code1='AK')
+            self.mockgeonames.return_value.geocode.assert_any_call(name_equals=self.cb.geo_coverage[2].val,
+                country_bias='US', admin_code1='GA')
+            self.mockgeonames.return_value.geocode.assert_any_call(name_equals=self.cb.geo_coverage[3].val)
 
-        dbloc = Location.objects.get(geonames_id=loc.raw['geonameId'])
-        self.assertEqual(dbloc.name, loc.raw['name'],
-            'location name should be set from geonames raw name return')
-        self.assertEqual(dbloc.geonames_id, loc.raw['geonameId'],
-            'location geonames_id should be set from geonames raw return')
-        self.assertEqual(dbloc.latitude, loc.latitude,
-            'location latitude should be set from geonames lat return')
-        self.assertEqual(dbloc.longitude, loc.longitude,
-            'location longitude should be set from geonames long return')
-        self.assertEqual(dbloc.feature_code, loc.raw['fcode'],
-            'feature code should be set from geonames raw fcode')
-        self.assertEqual(dbloc.country_code, loc.raw['countryCode'],
-            'country code should be set from geonames raw return')
-        self.assertEqual(dbloc.continent_code, 'AS',
-            'continent code should be set from db lookup on country code')
-        self.assertEqual(dbloc.state_code, None,
-            'state code should not be set when adminCode1 is 00')
+            # Georgia when context doesn't suggest US
+            self.cb.geo_coverage[0].val = 'Romania'
+            self.cb.geo_coverage[1].val = 'Ukraine'
+            # 2 = Georgia, 4 = Puerto Rico
+            self.mockgeonames.return_value.geocode.reset_mock()
+            mockdbloc.objects.filter.return_value.count.return_value = 0
+            mockdbloc.objects.filter.return_value.exclude.return_value.count.return_value = 0
+            self.cbgeocoder.code_locations(self.cb)
+            mockdbloc.objects.filter.assert_any_call(name='Georgia')
+            # db lookup should explicitly exclude US if context doesn't suggest Georgia is a state
+            mockdbloc.objects.filter.return_value.exclude.assert_any_call(country_code='US')
 
-
-class ViewsTest(eulexistdb_testutil.TestCase):
-    fixtures = ['test_locations.json']
-    exist_fixtures = {
-        'directory': FIXTURE_DIR,
-        'index': settings.EXISTDB_INDEX_CONFIGFILE  # required for fulltext search
-    }
-    fixture_filename = '02988.xml'
-
-    def setUp(self):
-        # load fixture xml for access to content
-        self.cb = load_xmlobject_from_file(os.path.join(FIXTURE_DIR,
-                                                        self.fixture_filename),
-                                           CodeBook)
-
-    def test_browse(self):
-        url = reverse('geo:browse')
-        response = self.client.get(url)
-        self.assertContains(response, 'Asia',
-            msg_prefix='browse page should list continents for which there is data')
-        self.assertNotContains(response, 'Antarctica',
-            msg_prefix='browse page should not list continents for which there is no data')
-        self.assertContains(response, reverse('geo:continent', kwargs={'continent': 'AS'}),
-            msg_prefix='browse page should link to continent page')
-        self.assertContains(response, '<h2>Found <strong>1</strong> resource with Global coverage</h2>',
-            html=True, msg_prefix='should display 1 resource with global coverage')
-        self.assertContains(response, self.cb.title,
-            msg_prefix='should display matching resource title')
-
-    def test_browse_continent(self):
-        url = reverse('geo:continent', kwargs={'continent': 'AS'})
-        response = self.client.get(url)
-        self.assertContains(response, 'Israel',
-            msg_prefix='browse page should list countries for which there is data')
-        self.assertContains(response,
-            reverse('geo:country', kwargs={'continent': 'AS', 'country': 'IL'}),
-            msg_prefix='browse page should link to country page')
-        self.assertContains(response, 'No results found with Asia coverage',
-            msg_prefix='should display no resources for with Asia coverage')
-        self.assertContains(response, reverse('geo:browse'),
-            msg_prefix='continent page should link up to global geography browse page')
-
-    def test_browse_country(self):
-        url = reverse('geo:country', kwargs={'continent': 'AS', 'country': 'IL'})
-        response = self.client.get(url)
-        # breadcrumbs
-        self.assertContains(response, reverse('geo:browse'),
-            msg_prefix='country page should link up to global geography browse page')
-        self.assertContains(response, reverse('geo:continent', kwargs={'continent': 'AS'}),
-            msg_prefix='country page should link up to parent continent page')
-        self.assertContains(response, '<h2>Found <strong>1</strong> resource with Israel coverage</h2>',
-            html=True, msg_prefix='should display 1 resource with global coverage')
-        self.assertContains(response, self.cb.title,
-            msg_prefix='should display matching resource title')
+        # formatted names
+        self.mockgeonames.return_value.geocode.reset_mock()
+        self.cb.geo_coverage[0].val = 'Portland (Maine)'
+        self.cb.geo_coverage[1].val = 'Hiroshima (prefecture)'
+        del self.cb.geo_coverage[-1]
+        del self.cb.geo_coverage[-1]
+        self.cbgeocoder.code_locations(self.cb)
+        self.mockgeonames.return_value.geocode.assert_any_call(name_equals='Portland',
+                country_bias='US', admin_code1='ME')
+        self.mockgeonames.return_value.geocode.assert_any_call(name_equals='Hiroshima')
 
 
-class LocationUrlTagTest(TestCase):
-    fixtures = ['test_locations.json']
-
-    def test_continent(self):
-        cont = GeonamesContinent.objects.all()[0]
-        self.assertEqual(reverse('geo:continent', kwargs={'continent': cont.code}),
-           geo_tags.location_url(cont))
-
-        cont = Location.objects.filter(feature_code='CONT')[0]
-        self.assertEqual(reverse('geo:continent', kwargs={'continent': cont.continent_code}),
-           geo_tags.location_url(cont))
-
-    def test_country(self):
-        country = GeonamesCountry.objects.all()[0]
-        self.assertEqual(reverse('geo:country',
-            kwargs={'continent': country.continent, 'country': country.code}),
-            geo_tags.location_url(country))
-
-        country = Location.objects.filter(feature_code='PCLI')[0]
-        self.assertEqual(reverse('geo:country',
-            kwargs={'continent': country.continent_code, 'country': country.country_code}),
-            geo_tags.location_url(country))
-
-    def test_state(self):
-        state = Location.objects.filter(feature_code='ADM1')[0]
-        self.assertEqual(reverse('geo:state',
-            kwargs={'continent': state.continent_code, 'country': state.country_code,
-                    'state': state.state_code}),
-            geo_tags.location_url(state))
-
-    def test_substate(self):
-        substate = Location.objects.filter(feature_code='PPLA2')[0]
-        self.assertEqual(reverse('geo:substate',
-            kwargs={'continent': substate.continent_code, 'country': substate.country_code,
-                    'state': substate.state_code, 'geonames_id': substate.geonames_id}),
-            geo_tags.location_url(substate))
 

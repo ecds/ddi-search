@@ -3,14 +3,18 @@ import logging
 from django.shortcuts import render
 from django.http import Http404, HttpResponse
 from django.core.paginator import Paginator, EmptyPage, InvalidPage
+from django.views.decorators.http import condition
 from urllib import urlencode
 from eulexistdb.exceptions import DoesNotExist
 
 from ddisearch.ddi import forms
 from ddisearch.ddi.models import CodeBook, DistinctKeywords, DistinctTopics
+from ddisearch.ddi.utils import ddi_lastmodified, ddi_etag, collection_lastmodified
+
 
 logger = logging.getLogger(__name__)
 
+@condition(last_modified_func=collection_lastmodified)
 def site_index(request):
     'Site index page; currently just displays the search form.'
     # find all documents that are new within some arbitrary window
@@ -54,7 +58,20 @@ def _sort_results(results, sort):
 def search(request):
     '''Search all available DDI content by keyword, title, summary, or source
     with sorting by relevance (default), title, or date.'''
+
     form = forms.KeywordSearch(request.GET)
+
+    # if form is not valid but we have request data, supply default
+    # per-page and sort options in case that makes the request valid
+    # (e.g., support simple location search from resource page)
+    if not form.is_valid() and request.GET and \
+      not all(f in request.GET for f in ['per_page', 'sort']):
+        form_data = request.GET.copy()
+        form_data.update({'per_page': form.fields['per_page'].initial,
+            'sort': form.fields['sort'].initial})
+
+        form = forms.KeywordSearch(form_data)
+
     context = {'form': form}
 
     # if the form is valid, process and generate search results;
@@ -186,6 +203,8 @@ def search(request):
 
     return render(request, 'ddi/search.html', context)
 
+
+@condition(etag_func=ddi_etag, last_modified_func=ddi_lastmodified)
 def resource(request, agency, id):
     '''Display a single DDI document with all relevant details.  Uses
     id number and agency to identify a single document; returns a 404
@@ -202,6 +221,7 @@ def resource(request, agency, id):
     return render(request, 'ddi/resource.html', {'resource': res})
 
 
+@condition(etag_func=ddi_etag, last_modified_func=ddi_lastmodified)
 def resource_xml(request, agency, id):
     '''Display the raw DDI XML for a single document; returns a 404
     if no record matching the specified agency and id is found.
@@ -224,7 +244,7 @@ def resource_xml(request, agency, id):
     return response
 
 
-
+@condition(last_modified_func=collection_lastmodified)
 def browse_terms(request, mode):
     '''Browse list of distinct keywords or topics (depending on the
     specified mode), or browse documents by keyword or topic if a term

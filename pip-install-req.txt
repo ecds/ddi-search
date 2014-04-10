@@ -8,3 +8,4 @@ eulcommon
 -e git://github.com/emory-libraries/django-eultheme@develop#egg=django_eultheme
 progressbar
 requests
+python-dateutil

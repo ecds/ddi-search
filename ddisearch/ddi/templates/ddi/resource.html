@@ -14,6 +14,7 @@
   {{ block.super}} {# additional javascript for d3/topojson maps #}
   <script src="{% static 'js/d3.v3.min.js' %}"></script>
   <script src="{% static 'js/topojson.v1.min.js' %}"></script>
+  <script src="{% static 'js/map.js' %}"></script>
 {% endblock %}
 
 {% block content %}
@@ -115,28 +116,18 @@
                     <h2>Geographic Coverage</h2>
                 </div>
                 <div class="col-xs-8 col-sm-8 col-md-7 col-lg-6">
-                    {% if resource.us_only %}
-                       {% include 'ddi/snippets/us_map.html' %}
-                    {% else %}
-                      {% include 'ddi/snippets/world_map.html' %}
-                    {% endif %}
+                    {% include 'ddi/snippets/resource_map.html' %}
                 </div>
                 <div class="col-xs-12 col-md-5 col-lg-6">
                     <ul class="tagsinput">
-                        {% if resource.global_coverage %} {# special case for non-db location #}
+                        {% for geog, loc in resource.geocoverage_locations.iteritems %}
                         <li class="tag">
-                            Global
-                            <a class="tagsinput-link" href="{% url 'geo:browse' %}">
+                            {{ geog }} {# display label from xml #}
+                            {% with  loc|location_url as loc_url %}
+                              <a class="tagsinput-link" href="{% if loc_url %}{{ loc_url }}{% else %}{% url 'ddi:search' %}?location={{ geog|urlencode }}{% endif %}">
                                 <span class="glyphicon glyphicon-chevron-right"></span>
-                            </a>
-                        </li>
-                        {% endif %}
-                        {% for loc in resource.locations %}
-                        <li class="tag">
-                            {{ loc.name }}
-                            <a class="tagsinput-link" href="{{ loc|location_url }}">
-                                <span class="glyphicon glyphicon-chevron-right"></span>
-                            </a>
+                             </a>
+                            {% endwith %}
                         </li>
                         {% empty %}
                           {% if not resource.global_coverage %}
@@ -256,13 +247,15 @@
             </table>
         </div>
         <div class="container">
-            <h3>Method Notes</h3>
-           {% for notes in resource.methods %}
-
-                <p>{{notes}}</p>
-
-           {% endfor %}
-            
+            {% for method in resource.methods %}
+                {% if method.notes %}
+                {% ifchanged %}<h3>Method Notes</h3>{% endifchanged %}
+                {# only display heading once even if multiple method sections #}
+                    {% for n in method.notes %}
+                        <p>{{ n }}</p>
+                    {% endfor %}
+                {% endif %}
+            {% endfor %}
         </div>
     </section>
 
@@ -287,17 +280,50 @@
         </div>
 
         <div class="container" id="data-access">
-            <div class="callout callout-warning">
+
                 <h3>Data Access</h3>
-                <p>The following information is important when using the information from ICPSR.</p>
 
                 <div>
                     {% for da in resource.data_access %}
-                    {{da|safe}}
-                    {% empty %}
-                    <p>---</p>
+                        {% for avail in da.availability %}
+                             {% if avail.media|lower == "online" or avail.media|lower == "on-line" %}
+                               <p><a href="{{ avail.access_uri }}">{{ avail.access_place }}</a></p>
+
+                               {% ifequal resource.id.agency "ICPSR" %}
+                               <p>For off-campus access, go to <a href="http://web.library.emory.edu/library-materials/databases-ebooks-ejournals/databases/index.php">Databases@Emory</a></p>
+                               {% endifequal %}
+                            {% else %}
+                               <p>{{ avail.access_place }}</p>
+                           {% endif %}
+                         {% endfor %}
+
+                        {% if da.use %} {# use statement #}
+                        <div>
+                            {% if da.use.special_perms %}
+                                <h4>Special Permissions</h4>
+                                <p>{{ da.use.special_perms }}</p>
+                            {% endif %}
+                            {% if da.use.restriction %}
+                                <h4>Restriction</h4>
+                                <p>{{ da.use.restriction }}</p>
+                            {% endif %}
+                            {% if da.use.conditions %}
+                                <h4>Conditions</h4>
+                                <div class="callout callout-warning">
+                                    <p>{{ da.use.conditions|safe }}</p>
+                                </div>
+                            {% endif %}
+                            {% if da.use.disclaimer %}
+                               <h4>Disclaimer</h4>
+                               <p>{{ da.use.disclaimer }}</p>
+                           {% endif %}
+                       </div>
+                       {% endif %}
+                       {% for n in da.notes %}
+                         <p class="small">{{ n }}</p>
+                       {% endfor %}
+
                     {% endfor %}
-                </div>
             </div>
         </div>
     </section>

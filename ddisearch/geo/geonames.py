@@ -12,7 +12,8 @@ class GeonamesClient(object):
 
     def geocode(self, query=None, name=None, name_equals=None,
                 exactly_one=True, timeout=None,
-                country_bias=None, feature_code=None, feature_class=None):
+                country_bias=None, feature_code=None, feature_class=None,
+                admin_code1=None):
 
         if not any([query, name, name_equals]):
             raise Exception('One of query, name or name_equals is required')
@@ -31,6 +32,8 @@ class GeonamesClient(object):
             params['maxRows'] = 1
         if country_bias:
             params['countryBias'] = country_bias
+        if admin_code1:
+            params['adminCode1'] = admin_code1
         if feature_code:
             # TODO: check that this works correctly for list of params
             params['featureCode'] = feature_code
@@ -57,6 +60,9 @@ class GeonamesResult(object):
 
     def __unicode__(self):
         return self.raw['name']
+
+    def __repr__(self):
+        return u'<GeonamesResult %s>' % unicode(self)
 
 
 # sample result to use for tests
