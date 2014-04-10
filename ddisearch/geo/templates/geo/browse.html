@@ -24,9 +24,14 @@
       </ol>
       {% endif %}
 
-      <ul>
+      <ul class="regions">
         {% for p in places %}
-          <li><a href="{{ p|location_url }}">{{ p.name }}</a></li>
+          <li>
+            <a href="{{ p|location_url }}">
+              <span class="glyphicon glyphicon-folder-close"></span>
+              <span>{{ p.name }}</span>
+            </a>
+          </li>
         {% endfor %}
       </ul>
     </div>

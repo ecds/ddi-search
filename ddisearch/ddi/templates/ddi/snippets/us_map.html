@@ -3,13 +3,13 @@
 
 <script>
 
-var width = 360,
-    height = 200;
+var width = 500,
+    height = 300;
 
 var fips_ids = {{ resource.us_state_ids|as_json }};
 
 var projection = d3.geo.albersUsa()
-    .scale(400)
+    .scale(600)
     .translate([width / 2, height / 2]);
 
 var path = d3.geo.path()

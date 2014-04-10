@@ -3,13 +3,13 @@
 
 <script>
 
-var width = 360,
-    height = 200;
+var width = 480,
+    height = 250;
 
 var fips_ids = {{ resource.country_ids|as_json }};
 
 var projection = d3.geo.equirectangular()
-    .scale(60)
+    .scale(80)
     .translate([width / 2, height / 2]);
 
 var path = d3.geo.path()
