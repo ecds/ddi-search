@@ -413,17 +413,18 @@ body.st-menu-open .st-pusher{
 	.scroller-bar { display: none; height: 100%; position: absolute; right: 0; top: 0; width: 20px; z-index: 2; }
 	.scroller-track { height: 100%; overflow: hidden; position: relative; width: 100%; border-top: 1px solid rgb(224, 224, 224); cursor: pointer;}
 	.scroller-handle { 
-		border-top: 5px solid #888;
+		background: #888;
+		border-radius: 3px;
 		height: 20px; overflow: hidden; position: absolute; right: 5px; top: 0; width: 10px; z-index: 2; 
-		-webkit-transition: right 0.1s linear, width 0.1s linear, border-top 0.5s linear;
-		   -moz-transition: right 0.1s linear, width 0.1s linear, border-top 0.5s linear;
-		   	-ms-transition: right 0.1s linear, width 0.1s linear, border-top 0.5s linear;
-		   	 -o-transition: right 0.1s linear, width 0.1s linear, border-top 0.5s linear;
-		   	 	transition: right 0.1s linear, width 0.1s linear, border-top 0.5s linear;
+		-webkit-transition: right 0.1s linear, width 0.1s linear, height 0.5s linear;
+		   -moz-transition: right 0.1s linear, width 0.1s linear, height 0.5s linear;
+		   	-ms-transition: right 0.1s linear, width 0.1s linear, height 0.5s linear;
+		   	 -o-transition: right 0.1s linear, width 0.1s linear, height 0.5s linear;
+		   	 	transition: right 0.1s linear, width 0.1s linear, height 0.5s linear;
 	}
 	.scroller-bar:hover .scroller-handle,
 	.scroller-bar:active .scroller-handle {
-		border-top: 20px solid #888;;
+		height: 80%;
 	}
 	
 	/* Webkit Fix */
@@ -446,7 +447,7 @@ body.st-menu-open .st-pusher{
 	/* Horizontal */
 	.scroller-horizontal .scroller-content { overflow: auto; overflow-x: auto; overflow-y: hidden; padding-bottom: 0px !important; }
 	.scroller-horizontal .scroller-bar { border-left: none; border-top: 1px solid rgba(238, 238, 238, 0); bottom: 0; height: 15px; top: auto; width: 100%; left: 50px;}
-	.scroller-horizontal .scroller-handle { height: 100%; right: auto; top: auto; width: 20px; left:0; }
+	.scroller-horizontal .scroller-handle { height: 50%; right: auto; top: auto; width: 20px; left:0; }
 
 
 	/*!
