@@ -2,7 +2,7 @@
 
 function world_or_us_map(selected_ids, json_urlbase, us_only) {
   var width = 480,
-     height = 250;
+     height = 240;
   var projection, data_url;
 
   if (us_only) {
