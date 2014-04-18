@@ -310,7 +310,7 @@ class CodeBook(XmlModel):
     abstract_list = xmlmap.NodeListField('.//abstract', Abstract)
 
     #: list of authors, as :class:`Author`
-    authors = xmlmap.NodeListField('.//AuthEnty', Author)
+    authors = xmlmap.NodeListField('stdyDscr//AuthEnty', Author)
     #: list of keywords
     keywords = xmlmap.StringListField('.//keyword')
     # keywords = xmlmap.StringListField('stdyDscr/stdyInfo/subject/keyword')

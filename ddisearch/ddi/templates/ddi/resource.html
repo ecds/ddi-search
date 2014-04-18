@@ -312,8 +312,10 @@
             <dl>
                 {% for fdesc in resource.file_descriptions %}
                    {% for file in fdesc.files %}
-                     <dt>{{ file.name }}</dt>
-                     <dd class="small">{{ file.type }}</dd>
+                      {% if file.name %}
+                         <dt>{{ file.name }}</dt>
+                      {% endif %}
+                      <dd class="small">{{ file.type }}</dd>
                    {% endfor %}
                    {% for note in fdesc.notes %}
                      <dd class="small">{{ note }}</dd>
