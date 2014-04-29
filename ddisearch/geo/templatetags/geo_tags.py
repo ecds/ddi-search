@@ -23,7 +23,8 @@ def location_url(dbloc):
                 return ''
 
         # country-level
-        if dbloc.feature_code.startswith('PCL') or dbloc.feature_code == 'TERR':
+        country_codes = ['TERR', 'PPLC']
+        if dbloc.feature_code.startswith('PCL') or dbloc.feature_code in country_codes:
             return reverse('geo:country',
                 kwargs={'continent': dbloc.continent_code, 'country': dbloc.country_code})
 
