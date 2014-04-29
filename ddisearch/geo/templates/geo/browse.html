@@ -11,6 +11,12 @@
     <div class="container">
       <h1>Browse {{ current_place.name|default:'by Geography' }}</h1>
 
+      {% if alternate_names %}
+      <p>(Alternate names:
+        {% for a in alternate_names %}
+        {{ a.name }}{% if not forloop.last %}; {% endif %}{% endfor %})</p>
+      {% endif %}
+
       {% if hierarchy %}
       <ol class="breadcrumb">
         <li><a href="{% url 'geo:browse' %}">Global</a></li>
