@@ -260,6 +260,8 @@ class DataFile(xmlmap.XmlObject):
     contents = xmlmap.StringField('fileCont')
     #: type of file
     type = xmlmap.StringField('fileType')
+    #: external link (could be same as URI at file description level)
+    external_link = xmlmap.StringField('ExtLink/@URI')
 
 
 class FileDescription(xmlmap.XmlObject):
@@ -269,6 +271,8 @@ class FileDescription(xmlmap.XmlObject):
     '''
     #: id
     id = xmlmap.StringField('@ID')
+    #: uri for this file, if web-accessible
+    uri = xmlmap.StringField('@URI')
     #: list of individual files, as :class:`DataFile`
     files = xmlmap.NodeListField('fileTxt', DataFile)
     #: notes
