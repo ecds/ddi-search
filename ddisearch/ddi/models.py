@@ -1,3 +1,4 @@
+import re
 from django.conf import settings
 from django.db.models import Q
 # NOTE: using django SortedDict instaed of collections.OrderedDict to support py2.7
@@ -308,6 +309,8 @@ class CodeBook(XmlModel):
     abstract = xmlmap.StringField('.//abstract')
     #: list of all abstract fields
     abstract_list = xmlmap.NodeListField('.//abstract', Abstract)
+    #: bibligraphic citation
+    bibligraphic_citation = xmlmap.StringField('stdyDscr/citation/biblCit')
 
     #: list of authors, as :class:`Author`
     authors = xmlmap.NodeListField('stdyDscr//AuthEnty', Author)
@@ -410,6 +413,29 @@ class CodeBook(XmlModel):
                     dates.append('%s%s%s' % (start[t.cycle], sep, t.date))
 
         return dates
+
+    # simple DOI regex (does not handle full complexity of DOI spec, but hopefully
+    # should work for ICPSR dois )
+    doi_re = re.compile('^.*\s(?P<DOI>doi:10\.[0-9]{4,}/\S+)$', flags=re.MULTILINE)
+
+    _doi = None
+
+    @property
+    def doi(self):
+        if self._doi is None:
+            # ICPSR records contain a doi within the citation; if present, extract
+            if self.bibligraphic_citation and 'doi:' in self.bibligraphic_citation:
+                match = self.doi_re.match(self.bibligraphic_citation)
+                if match:
+                    self._doi = match.groupdict()['DOI']
+        return self._doi
+
+    @property
+    def doi_url(self):
+        if self.doi:
+            return self.doi.replace('doi:', 'http://dx.doi.org/')
+
+
 
     @property
     def geonames_ids(self):

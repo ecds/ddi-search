@@ -28,6 +28,9 @@
                 {% endifequal %}
                 <span class="resource-title">{{ resource.title }}</span>
             </h1>
+            {% if resource.doi %}
+            <p><a href="{{ resource.doi_url }}">{{ resource.doi }}</a></p>
+            {% endif %}
 
             {% if resource.authors %}
             <h2 class="h3">Principal Investigator{{ resource.authors|pluralize }}</h2>

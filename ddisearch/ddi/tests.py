@@ -122,6 +122,10 @@ class CodeBookTest(TestCase):
         self.assertEqual('1974-01-13 - 1974-01-15', dates[1])
         self.assertEqual('1973-12-19 - 1973-12-20', dates[2])
 
+    def test_doi(self):
+        self.assertEqual('doi:10.3886/ICPSR02988', self.cb.doi)
+        self.assertEqual('http://dx.doi.org/10.3886/ICPSR02988', self.cb.doi_url)
+
 
 class KeywordSearchTest(TestCase):
     # test keyword search form class
