@@ -439,14 +439,16 @@ class CodeBook(XmlModel):
         if self.doi:
             return self.doi.replace('doi:', 'http://dx.doi.org/')
 
-
+    _geonames_ids = None
 
     @property
     def geonames_ids(self):
         ''''List of numeric geonames ids from geoCover elements, for
         looking up in the database'''
-        return [geo.id[len('geonames:'):] for geo in self.geo_coverage
-                        if geo.id is not None]
+        if self._geonames_ids is None:
+            self._geonames_ids = [geo.id[len('geonames:'):] for geo in self.geo_coverage
+                                  if geo.id is not None]
+        return self._geonames_ids
 
     @property
     def locations(self):
@@ -470,7 +472,6 @@ class CodeBook(XmlModel):
                 val = dbloc_dict.get(int(geo.id[len('geonames:'):]), None)
             geog_loc[geo] = val
         return geog_loc
-
 
     @property
     def global_coverage(self):
