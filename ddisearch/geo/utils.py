@@ -3,6 +3,7 @@ import re
 from django.conf import settings
 from ddisearch.geo.models import Location, GeonamesCountry, GeonamesContinent
 from ddisearch.geo.geonames import GeonamesClient
+from ddisearch.geo.altnames import alternate_names
 
 logger = logging.getLogger(__name__)
 
@@ -94,6 +95,11 @@ class CodebookGeocoder(object):
             else:
                 geogname = geog.val
                 restriction = None
+
+            # if this place name is in our list of items with known alternate names,
+            # lookup as if it were the other name
+            if geogname in alternate_names:
+              geogname = alternate_names[geogname]
 
             # next check in the db, in case we've looked up before
             country_filter = {}
