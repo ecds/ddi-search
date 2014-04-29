@@ -15,7 +15,6 @@ from eulxml.xmlmap import load_xmlobject_from_file
 
 from ddisearch.ddi.models import CodeBook, Topic
 from ddisearch.ddi.topics import topic_mappings, conditional_topics
-from ddisearch.geo.models import Location, GeonamesCountry, GeonamesContinent
 from ddisearch.geo.utils import CodebookGeocoder
 
 logger = logging.getLogger(__name__)
