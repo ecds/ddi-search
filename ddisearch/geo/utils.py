@@ -70,6 +70,8 @@ class CodebookGeocoder(object):
 
                 continue
 
+            geo_options = {}
+
             # clean names that are formatted this way:
             #   Portland (Maine)
             #   Hiroshima (prefecture)
@@ -82,6 +84,13 @@ class CodebookGeocoder(object):
                 # if the parenthetical text matches a U.S. state, use that in the lookup
                 if restriction in us_states:
                     assume_US = True
+
+                # sometimes used to clarify ambiguous names, e.g. New York (state)
+                elif restriction == 'state':
+                    assume_US = True
+                    geo_options['feature_code'] = 'ADM1'
+                    # NOTE: this is the feature code for states in U.S.
+                    # may need to generalize more to handle other countries
             else:
                 geogname = geog.val
                 restriction = None
@@ -109,11 +118,11 @@ class CodebookGeocoder(object):
                 # use US-biased geocoder if we have hit a threshold where
                 # we want to assume US (with certain exceptions)
                 # FIXME: may well be others like Puerto Rico!
-                geo_options = {}
+
                 if assume_US and geogname != 'Puerto Rico':
                     geo_options['country_bias'] = 'US'
 
-                if assume_US and geogname in us_states:
+                if assume_US and geogname in us_states and not restriction == 'state':
                     geo_options['admin_code1'] = us_states[geogname]
                 elif restriction is not None and restriction in us_states:
                     # if we have a restriction that matches a U.S. state
