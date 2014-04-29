@@ -448,10 +448,11 @@ class CodeBook(XmlModel):
 
     @property
     def us_only(self):
-        '''boolean indicating if this dataset only includes regions inside
-        the U.S.'''
+        '''Boolean indicating if this dataset only includes regions inside
+        the U.S. (For our purposes, records with Puerto Rico coverage will also be
+        considered U.S. only).'''
         return self.geonames_ids and \
-           self.locations.exclude(country_code='US').count() == 0
+           self.locations.exclude(country_code__in=['US', 'PR']).count() == 0
 
     @property
     def us_state_ids(self):
