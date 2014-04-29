@@ -45,15 +45,20 @@ function world_or_us_map(selected_ids, json_urlbase, us_only) {
       .data(regions)
     .enter().insert("path", ".graticule")
       .attr("class", function(d, i) {
-        if (selected_ids.indexOf(d.id) > -1) { return 'region selected'; }
+        // when U.S. only but no states are specified, select all states
+        if (selected_ids.indexOf(d.id) > -1 || (us_only && selected_ids.length === 0)) { return 'region selected'; }
         else { return 'region'; }
        })
       .attr("d", path);
 
-  svg.insert("path", ".graticule")
+
+  // when U.S. only but no states are specified, don't draw boundaries
+  if (! (us_only && selected_ids.length === 0)) {
+    svg.insert("path", ".graticule")
       .datum(topojson.mesh(data, mesh_data, function(a, b) { return a !== b; }))
       .attr("class", "region-boundary")
       .attr("d", path);
+    }
 
   });  // end d3.json
 
