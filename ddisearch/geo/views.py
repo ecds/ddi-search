@@ -9,7 +9,7 @@ from ddisearch.ddi.views import _sort_results
 from ddisearch.geo.models import Location, GeonamesContinent, GeonamesCountry
 
 
-def resources_by_location(request, geonames_id=None, geo_coverage=None,
+def resources_by_location(request, geonames_ids=None, geo_coverage=None,
                           per_page=10, sort='title'):
     '''Helper method to find DDI resources that explicitly reference
     the specified place. Expects one and only one of geonames_id or
@@ -19,8 +19,12 @@ def resources_by_location(request, geonames_id=None, geo_coverage=None,
     :param geo_coverage: geographic name
     '''
     resources = CodeBook.objects.all()
-    if geonames_id is not None:
-        resources = resources.filter(geo_coverage__id='geonames:%d' % geonames_id)
+    if geonames_ids is not None:
+        # NOTE: currently only supports *two* locations at once
+        geo_ids = ['geonames:%d' % i for i in geonames_ids]
+        # geo_ids = ['geonames:%d' % i for i in geonames_ids]
+        # resources = resources.or_filter(geo_coverage__id=geo_ids[0], geo_coverage__id__exact=geo_ids[1])
+        resources = resources.or_filter(geo_coverage__id__in=geo_ids)
     if geo_coverage is not None:
         resources = resources.filter(geo_coverage=geo_coverage)
 
@@ -58,9 +62,10 @@ def browse(request, continent=None, country=None, state=None,
     # if no continent specified, get a list of all continents
     # that are represented by the data
     current_place = None
+    current_place_ids = None
     places = None
     hierarchy = []
-    resource_filter = {}
+    alternate_names = []
 
     # if continent is not set, display top-level geography browse page;
     # list of continents, global resources
@@ -95,8 +100,21 @@ def browse(request, continent=None, country=None, state=None,
 
     # find country if set
     if country is not None:
+        # NOTE: could be multiple countries for one country code (i.e. historic)
         country = get_object_or_404(GeonamesCountry, code=country,
             continent=continent)
+
+        # if there are multiple versions of this country code
+        # (e.g. Czech Republic and Czechoslovakia), get any alternate
+        # - list for display
+        alternate_names = Location.objects.filter(country_code=country.code,
+            feature_code__startswith='PCL').exclude(geonames_id=country.geonames_id)
+
+        # - ids for document lookup
+        current_place_ids = Location.objects.filter(country_code=country.code,
+            feature_code__startswith='PCL').values_list('geonames_id', flat=True)
+            # NOTE: possibly should also include TERR, PPLC ?
+
         hierarchy.append(country)
         current_place = country
 
@@ -145,12 +163,16 @@ def browse(request, continent=None, country=None, state=None,
         results = resources_by_location(request, geo_coverage='Global',
             per_page=per_page, sort=sort)
     else:
+        if not current_place_ids:
+            current_place_ids = [current_place.geonames_id]
         results = resources_by_location(request,
-                                        geonames_id=current_place.geonames_id,
+                                        geonames_ids=current_place_ids,
                                         per_page=per_page, sort=sort)
 
     return render(request, 'geo/browse.html',
                   {'places': places, 'results': results,
-                   'current_place': current_place, 'hierarchy': hierarchy,
-                   'form': form, 'url_params': urlencode(url_args)})
+                   'current_place': current_place,
+                   'alternate_names': alternate_names,
+                   'hierarchy': hierarchy, 'form': form,
+                   'url_params': urlencode(url_args)})
 
