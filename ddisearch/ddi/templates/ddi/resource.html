@@ -279,8 +279,8 @@
                        <p>For off-campus access, go to <a href="http://web.library.emory.edu/library-materials/databases-ebooks-ejournals/databases/index.php">Databases@Emory</a></p>
                        {% endifequal %}
                     {% else %}
-                       <p>{{ avail.access_place }}</p>
-                   {% endif %}
+                       <p>{{ avail.access_place }} [{{ avail.media }}]</p>
+                      {% endif %}
                  {% endfor %}
 
                 {% if da.use %} {# use statement #}
