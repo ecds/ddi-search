@@ -104,12 +104,6 @@ def browse(request, continent=None, country=None, state=None,
         country = get_object_or_404(GeonamesCountry, code=country,
             continent=continent)
 
-        # if there are multiple versions of this country code
-        # (e.g. Czech Republic and Czechoslovakia), get any alternate
-        # - list for display
-        alternate_names = Location.objects.filter(country_code=country.code,
-            feature_code__startswith='PCL').exclude(geonames_id=country.geonames_id)
-
         # - ids for document lookup
         current_place_ids = Location.objects.filter(country_code=country.code,
             feature_code__startswith='PCL').values_list('geonames_id', flat=True)
@@ -123,9 +117,15 @@ def browse(request, continent=None, country=None, state=None,
             places = Location.objects.filter(country_code=country.code, feature_code='ADM1') \
                                      .order_by('name')
 
+            # if there are multiple versions of this country code
+            # (e.g. Czech Republic and Czechoslovakia), get any alternate
+            # - list for display
+            alternate_names = Location.objects.filter(country_code=country.code,
+                feature_code__startswith='PCL').exclude(geonames_id=country.geonames_id)
+
     # find state if set
     if state is not None:
-        state = get_object_or_404(Location, state_code=state, feature_code='ADM1',
+        state = get_object_or_404(Location, state_code=state, feature_code__in=['ADM1', 'RGN'],
             continent_code=continent, country_code=country.code)
 
         hierarchy.append(state)
