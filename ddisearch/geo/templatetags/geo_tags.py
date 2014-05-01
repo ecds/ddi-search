@@ -33,7 +33,7 @@ def location_url(dbloc):
             return ''
 
         # state
-        if dbloc.feature_code == 'ADM1':
+        if dbloc.feature_code in ['ADM1', 'RGN']:
             return reverse('geo:state',
                 kwargs={'continent': dbloc.continent_code, 'country': dbloc.country_code,
                         'state': dbloc.state_code})
