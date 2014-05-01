@@ -1,4 +1,5 @@
 import re
+import logging
 from django.conf import settings
 from django.db.models import Q
 # NOTE: using django SortedDict instaed of collections.OrderedDict to support py2.7
@@ -9,6 +10,10 @@ from eulexistdb.models import XmlModel
 from eulexistdb.manager import Manager
 
 from ddisearch.geo.models import Location, StateCode, GeonamesCountry
+
+
+logger = logging.getLogger(__name__)
+
 
 ### top-level info and descriptive information about the study
 
@@ -463,6 +468,8 @@ class CodeBook(XmlModel):
         if geogCover element has not been geocoded, or matching db record
         could not be found.'''
         dbloc = self.locations
+        logger.debug('%d geogCover terms, %d geonames ids, %d locations' %  \
+                     (len(self.geo_coverage), len(self.geonames_ids), dbloc.count()))
         # generate a dictionary keyed on geonames id to allow matching up with xml
         dbloc_dict = dict([(l.geonames_id, l) for l in dbloc])
         geog_loc = SortedDict()  # preserve order in the xml
