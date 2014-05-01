@@ -4,6 +4,10 @@
 import requests
 
 class GeonamesClient(object):
+    '''Simple GeoNames.org client for searching and geocoding terms.
+
+    :param username
+    '''
 
     api = 'http://api.geonames.org/searchJSON'
 
@@ -11,12 +15,27 @@ class GeonamesClient(object):
         self.username = username
 
     def geocode(self, query=None, name=None, name_equals=None,
-                exactly_one=True, timeout=None,
-                country_bias=None, feature_code=None, feature_class=None,
-                admin_code1=None):
+                exactly_one=True, country_bias=None, feature_code=None,
+                feature_class=None, admin_code1=None):
+        '''Implements the `GeoNames.org search API`_.  Generally, you should
+        supply (only) one of query, name, or name equals, but that is not strictly
+        required (e.g., if you want to look up a state or region by country code and
+        admin code).
 
-        if not any([query, name, name_equals]):
-            raise Exception('One of query, name or name_equals is required')
+        .. _GeoNames.org search API: http://www.geonames.org/export/geonames-search.html
+
+        :param query: search over all attributes of a place
+        :param name:  search by place name only
+        :param name_equals:  search by exact place name
+        :param exactly_one: return only the first match (defaults to true);
+           if false, returns the full list of results
+        :param country_bias: list matches from the specified country first;
+           countries should be specified by two-letter codes
+        :param feature_code: restrict results to one or more GeoNames feature codes
+        :param feature_class: restrict results to one or more GeoNames feature classes
+        :param feature_class: restrict results by the specified admin code (generally
+            should be used with country bias)
+        '''
 
         params = {'username': self.username, 'orderBy': 'relevance'}
 
