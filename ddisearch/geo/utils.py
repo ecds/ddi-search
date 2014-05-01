@@ -99,7 +99,7 @@ class CodebookGeocoder(object):
             # if this place name is in our list of items with known alternate names,
             # lookup as if it were the other name
             if geogname in alternate_names:
-              geogname = alternate_names[geogname]
+                geogname = alternate_names[geogname]
 
             # next check in the db, in case we've looked up before
             country_filter = {}
@@ -113,6 +113,14 @@ class CodebookGeocoder(object):
             if not assume_US and geogname == 'Georgia':
                 # NOTE: we could use similar logic to give a country bias to geocoder
                 db_locations = db_locations.exclude(country_code='US')
+
+            # special case - historic German states
+            if geogname in ['Baden', 'Bavaria', 'Hanover', 'Hesse',
+                            'Mecklenburg', 'Prussia', 'Saxony', 'Wurttemberg']:
+                # make sure they match a state or region in Germany
+                # FIXME: including PPLA for Hanover (matching a city), make sure this is right
+                geo_options.update({'feature_code': ['ADM1', 'RGN', 'PPLA'],
+                                    'country_bias': 'DE'})
 
             # If there is one and only one match, use it; otherwise defer to geocoder
             # to determine which place to use
@@ -203,62 +211,75 @@ class CodebookGeocoder(object):
                          state_code=state_code)
         dbloc.save()
 
-        # TODO: make sure hierarchy above location is present?
-        # - continent, country, state (?)
+        # for cities with state code, make sure the state location is in db
+        # so that browse page will not 404
+        # TODO: other codes that belong here?
+        # FIXME: do we really want ISL ? or probably not?
+        # - perhaps restrict via allowed feature codes on initial geocode request
+        if dbloc.feature_code in ['PPLA', 'PPLA2', 'ISL'] and dbloc.state_code:
+            if not Location.objects.filter(country_code=dbloc.country_code,
+                                       state_code=dbloc.state_code,
+                                       feature_code='ADM1').count():
+                state = self.geonames.geocode(country_bias=dbloc.country_code,
+                                              feature_code='ADM1',
+                                              admin_code1=dbloc.state_code)
+
+                if state:
+                    self.location_from_geoname(state)
 
         return dbloc
 
 
 us_states = {
-   'Alabama': 'AL',
-   'Alaska': 'AK',
-   'Arizona': 'AZ',
-   'Arkansas': 'AR',
-   'California': 'CA',
-   'Colorado': 'CO',
-   'Connecticut': 'CT',
-   'Delaware': 'DE',
-   'District of Columbia': 'DC',
-   'Florida': 'FL',
-   'Georgia': 'GA',
-   'Hawaii': 'HI',
-   'Idaho': 'ID',
-   'Illinois': 'IL',
-   'Indiana': 'IN',
-   'Iowa': 'IA',
-   'Kansas': 'KS',
-   'Kentucky': 'KY',
-   'Louisiana': 'LA',
-   'Maine': 'ME',
-   'Maryland': 'MD',
-   'Massachusetts': 'MA',
-   'Michigan': 'MI',
-   'Minnesota': 'MN',
-   'Mississippi': 'MS',
-   'Missouri': 'MO',
-   'Montana': 'MT',
-   'Nebraska': 'NE',
-   'Nevada': 'NV',
-   'New Hampshire': 'NH',
-   'New Jersey': 'NJ',
-   'New Mexico': 'NM',
-   'New York': 'NY',
-   'North Carolina': 'NC',
-   'North Dakota': 'ND',
-   'Ohio': 'OH',
-   'Oklahoma': 'OK',
-   'Oregon': 'OR',
-   'Pennsylvania': 'PA',
-   'Rhode Island': 'RI',
-   'South Carolina': 'SC',
-   'South Dakota': 'SD',
-   'Tennessee': 'TN',
-   'Texas': 'TX',
-   'Utah': 'UT',
-   'Vermont': 'VT',
-   'Virginia': 'VA',
-   'Washington': 'WA',
-   'West Virginia': 'WV',
-   'Wisconsin': 'WI',
-   'Wyoming': 'WY'
+    'Alabama': 'AL',
+    'Alaska': 'AK',
+    'Arizona': 'AZ',
+    'Arkansas': 'AR',
+    'California': 'CA',
+    'Colorado': 'CO',
+    'Connecticut': 'CT',
+    'Delaware': 'DE',
+    'District of Columbia': 'DC',
+    'Florida': 'FL',
+    'Georgia': 'GA',
+    'Hawaii': 'HI',
+    'Idaho': 'ID',
+    'Illinois': 'IL',
+    'Indiana': 'IN',
+    'Iowa': 'IA',
+    'Kansas': 'KS',
+    'Kentucky': 'KY',
+    'Louisiana': 'LA',
+    'Maine': 'ME',
+    'Maryland': 'MD',
+    'Massachusetts': 'MA',
+    'Michigan': 'MI',
+    'Minnesota': 'MN',
+    'Mississippi': 'MS',
+    'Missouri': 'MO',
+    'Montana': 'MT',
+    'Nebraska': 'NE',
+    'Nevada': 'NV',
+    'New Hampshire': 'NH',
+    'New Jersey': 'NJ',
+    'New Mexico': 'NM',
+    'New York': 'NY',
+    'North Carolina': 'NC',
+    'North Dakota': 'ND',
+    'Ohio': 'OH',
+    'Oklahoma': 'OK',
+    'Oregon': 'OR',
+    'Pennsylvania': 'PA',
+    'Rhode Island': 'RI',
+    'South Carolina': 'SC',
+    'South Dakota': 'SD',
+    'Tennessee': 'TN',
+    'Texas': 'TX',
+    'Utah': 'UT',
+    'Vermont': 'VT',
+    'Virginia': 'VA',
+    'Washington': 'WA',
+    'West Virginia': 'WV',
+    'Wisconsin': 'WI',
+    'Wyoming': 'WY'
 }

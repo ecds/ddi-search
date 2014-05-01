@@ -7,5 +7,9 @@ alternate_names = {
     'Palestine': 'Palestinian Territory',
     'Soviet Union': 'Russia',
     'Zaire': 'Democratic Republic of the Congo',
+    'Hesse, Electorate': 'Hesse',
+    'Hesse, Grand Duchy': 'Hesse',
+    'South Vietnam': 'Vietnam',
+    'North Vietnam': 'Vietnam',
 }
 
