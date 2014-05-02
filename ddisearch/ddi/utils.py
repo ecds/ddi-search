@@ -12,8 +12,9 @@ def ddi_lastmodified(request, agency, id):
     :rtype: :class:`datetime.datetime`
     """
     # get document last modified by
-    res = CodeBook.objects.filter(id__val=id, id__agency=agency).only('last_modified').get()
-    return exist_datetime_with_timezone(res.last_modified)
+    res = CodeBook.objects.filter(id__val=id, id__agency=agency).only('last_modified')
+    if res.count():
+        return exist_datetime_with_timezone(res[0].last_modified)
 
 def ddi_etag(request, agency, id):
     """Generate a DDI Codebook document (specified by agency and id) by
@@ -24,8 +25,10 @@ def ddi_etag(request, agency, id):
     :param id:  id number
     :rtype: string
     """
-    res = CodeBook.objects.filter(id__val=id, id__agency=agency).only('hash').get()
-    return res.hash
+    res = CodeBook.objects.filter(id__val=id, id__agency=agency).only('hash')
+    # don't error if not found, but just let it fall through to view
+    if res.count():
+        return res[0].hash
 
 def collection_lastmodified(request, *args, **kwargs):
     """Get the last modification time for the entire eXist collection.
