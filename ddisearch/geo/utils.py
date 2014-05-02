@@ -178,6 +178,11 @@ class CodebookGeocoder(object):
         based on a location as returned by
         :class:`geopy.geocoders.GeoNames`'''
 
+        # check if requested location is already in the db by geoname id
+        # if already present, do nothing
+        if Location.objects.filter(geonames_id=loc.raw['geonameId']).count():
+            return
+
         # determine continent code based on country
         country_code = loc.raw.get('countryCode', None)
         continent_code = None

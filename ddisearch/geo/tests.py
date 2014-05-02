@@ -78,8 +78,9 @@ class CodebookGeocoderTest(TestCase):
         self.cb.geo_coverage[0].val = 'Africa'
         self.mockgeonames.return_value.geocode.reset_mock()
         self.cbgeocoder.code_locations(self.cb)
-        self.assertEqual(0, self.mockgeonames.return_value.geocode.call_count,
-            'geocode should not be called when term matches a continent')
+        # calls geocode to get information for inserting into the db
+        self.mockgeonames.return_value.geocode.assert_called_with(feature_code='CONT',
+            name_equals='Africa')
         africa = GeonamesContinent.objects.get(name='Africa')
         self.assertEqual('geonames:%s' % africa.geonames_id,
             self.cb.geo_coverage[0].id,
