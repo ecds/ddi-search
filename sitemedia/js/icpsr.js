@@ -1,7 +1,7 @@
 $(function(){
 	$("select[name='per_page'], select[name='sort']").selectpicker({style: 'btn-default', menuStyle: 'dropdown-inverse'});
 	$('.no-js').removeClass('no-js');
-});	
+});
 
 $(document).ready(function(){
 
@@ -44,7 +44,7 @@ $(document).ready(function(){
 			trgt = parts[1],
 			target_offset = $("#"+trgt).offset(),
 			target_top = target_offset.top-spacerH;
-			
+
 			$(window).resize(function(){
 				spacerH = parseInt($(".navbar-fixed-top").height()+ $('.navbar-affix').height());
 			})
@@ -54,7 +54,7 @@ $(document).ready(function(){
 	}
 
 	$('.location-marker .glyphicon').tooltip();
-	
+
 	var q = window.location.search,
 	params = {
 		load_results: 'load=',
@@ -138,7 +138,7 @@ $(document).ready(function(){
 		var topic = getParam(q,params.topic),
 		search = '?topic='+topic+'&amp;'+ getQueryStringFromForm('.browse'),
 		url = window.location.origin + window.location.pathname + search;
-		
+
 		window.location = url;
 	});
 
@@ -165,33 +165,6 @@ $(document).ready(function(){
 		search.get(true);
 	});
 
-	$advOptionsGroup =  $(".adv.group");
-
-	$('.adv.group .controls .btn').bind('click', function(e){
-		e.preventDefault();
-
-		var $this = $(this);
-		if($this.hasClass('submit')){
-			search.get();
-		}
-		else if($this.hasClass('reset')){
-			reset($advOptionsGroup);
-		}
-	});
-
-	function reset(elem){
-		var $elem = $(elem),
-		$inputs = $elem.find('input');
-		$inputs.attr('value','').val('');
-	}
-
-	var $toggleSwitch = $('.toggle.switch');
-	if($toggleSwitch.length>0){
-		$toggleSwitch.on('click',function(e){
-			e.preventDefault();
-			toggleGroup(this);
-		});
-	}
 	var $scrollbar = $('.scrollbar');
 	if($scrollbar.length>0){
 
@@ -205,20 +178,11 @@ $(document).ready(function(){
 	}
 	$("#date-range input").datepicker( {
 		format: "yyyy",
-		viewMode: "years", 
+		viewMode: "years",
 		minViewMode: "years"
 	});
 
 });//end doc.ready
-
-function toggleGroup(elem){
-	var $this = $(elem),
-	group = $this.attr('data-type');
-
-	$this.toggleClass('active');
-	$(".group[data-type='"+ group +"']").stop(false,true).slideToggle(500);
-
-}
 
 var search = {
 	get: getResults,
@@ -268,7 +232,7 @@ function loadResults(request_url){
 	$('.results').animate({'opacity':'0'},300)
 
 	$.get(request_url,function(data){
-		changeLocation(request_url);	
+		changeLocation(request_url);
 	});
 }
 
@@ -296,7 +260,7 @@ function moveElementsForResults(url){
 		$(this).animate({'opacity':'0'},1000,function(){
 			changeLocation(url);
 		})
-		
+
 	});
 }
 function changeLocation(url){
@@ -318,7 +282,7 @@ function getQueryStringFromForm(form){
 					str+='&amp;';
 				}
 				var value = $this.attr('value') || $this.val() || '';
-				
+
 				str+=$this.attr('name')+'='+escape(value);
 			}
 			count++;
@@ -361,11 +325,11 @@ function replaceQueryString(url,param,value) {
 		});
 
 		return this;
-	}; 
+	};
 })( jQuery );
 
 
-//debug 
+//debug
 function log(){
 	console.log.apply(console, arguments);
 }

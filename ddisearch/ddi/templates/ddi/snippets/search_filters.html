@@ -1,0 +1,5 @@
+{% extends "eultheme/snippets/search_filters.html" %}
+{# default search filter template PLUS pagination/sort options #}
+{% block search_options %}
+    {% include 'ddi/snippets/search_options.html' %}  {# per page and sort #}
+{% endblock %}
