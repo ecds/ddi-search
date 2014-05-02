@@ -52,14 +52,15 @@
         </div>
     </header>
     <nav class="navbar navbar-default navbar-static-top navbar-affix" role="navigation">
-      <div class="container">
+      <div class="fluid-container">
           <ul class="nav nav-pills nav-justified animate">
             <li><a href="#abstract">Abstract</a></li>
             <li><a href="#topics">Topics/Keywords</a></li>
             <li><a href="#geo">Coverage</a></li>
             <li><a href="#collection-meta">Study Info</a></li>
             <li><a href="#method-section">Methods</a></li>
-            <li><a href="#data-files">Data</a></li>
+            <li><a href="#data-access">Data Access</a></li>
+            <li><a href="#data-files">Data Files</a></li>
           </ul>
       </div>
     </nav>
@@ -140,7 +141,18 @@
                           {% endif %}
                         {% endfor %}
                     </ul>
-
+                </div>
+                <div class="col-xs-12">
+                    <table class="table table-bordered info-card">
+                        <tr>
+                            <th>Geographic Unit</th>
+                        </tr>
+                        <tr>
+                            <td>
+                                {{resource.geo_unit | join:', '|default:'N/A'}}
+                            </td>
+                        </tr>
+                    </table>
                 </div>
             </div><!-- /row -->
         </div>
@@ -156,7 +168,6 @@
             <table class="table table-bordered info-card">
                 <tr>
                     <th>Time Periods</th>
-                    <th>Nation</th>
                     <th>Unit of Analysis</th>
                     <th>Kind of Data</th>
                 </tr>
@@ -167,15 +178,6 @@
                         <p>{{rd}}</p>
                         {% endif %}
 
-                        {% empty %}
-                        <p class="text-center">---</p>
-                        {% endfor %}
-                    </td>
-                    <td id="nations-list">
-                        {% for n in resource.nations %}
-                        {% if n %}
-                        <p>{{n}}</p>
-                        {% endif %}
                         {% empty %}
                         <p class="text-center">---</p>
                         {% endfor %}
@@ -263,7 +265,7 @@
         </div>
     </section>
 
-    <section id="data-files">
+    <section id="data-access">
         <header>
             <div class="container">
                 <h2>Data Access</h2>
@@ -311,7 +313,17 @@
 
             {% endfor %}
         </div>
+    </section>
+    <section id="data-files">
+        <header>
+            <div class="container">
+                <h2>Data File Descriptions</h2>
+            </div>
+        </header>
         <div class="container">
+            {% if resource.file_descriptions %}
+                
+            {% endif %}
             <dl>
                 {% for fdesc in resource.file_descriptions %}
                    {% for file in fdesc.files %}
