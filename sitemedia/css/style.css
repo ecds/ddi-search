@@ -31,6 +31,12 @@ h3, .h3 {
 	font-size:2.5em;
 }
 
+.fluid-container{
+	max-width:1170px;
+	margin: auto;
+	padding:0 15px;
+}
+
 section,
 body > div.container.footer {
 	float: left;
@@ -257,6 +263,7 @@ header.grey{
 
 .recent .tile {
     float: left;
+    width: 100%;
 }
 .list-group-content {
     float: left;
@@ -282,8 +289,8 @@ header.grey{
 
 .search-bar .form-control,
 .search-bar .input-group-btn button{
-	font-size: 24px;
-	height: 56px;
+	font-size: 20px;
+	height: 45px;
 }
 
 .search-bar .container .tooltip.fade{
@@ -683,7 +690,7 @@ header .lead{
 	border-top-color: #91C8EC;
 }
 
-#data-access {
+#data-access > .container{
     font-size: 12px;
 }
 
@@ -731,10 +738,15 @@ td p{
     min-height:10px;
 }
 .navbar-affix .nav.nav-pills>li>a{
-    margin: 10px 5px;
+    margin: 5px;
     padding: 3px 5px;
     font-size:0.7em;
     color: #3498DB;
+}
+
+.navbar-affix .nav.nav-pills{
+	padding-top:5px;
+	padding-bottom:5px;
 }
 
 .navbar-affix .nav.nav-pills>li{
@@ -761,3 +773,48 @@ td p{
 	color:#FFF;
 }
 
+@media (max-width:480px){
+    .affix {
+        position:relative!important;
+    }
+}
+
+body.fourOhFour:before {
+    content: '404';
+    position: absolute;
+    font-size: 15em;
+    bottom: -45%;
+    margin-top:-0.25em;
+    right:0;
+    text-align:right;
+    z-index:-1;
+    height:100%;
+    width:100%;
+    overflow:hidden;
+    color: #FFFFFF;
+    font-weight:bold;
+    letter-spacing:-0.1em;
+    line-height:1;
+}
+
+@media(min-width:480px){
+    body.fourOhFour:before {
+        font-size:20em;
+        bottom:-30%;
+    
+        color: #FFF;
+}
+}
+
+@media(min-width:767px){
+    body.fourOhFour:before {
+        font-size:30em;
+    }
+}
+
+@media(min-width:1100px){
+    body.fourOhFour:before {
+        font-size:40em;
+        bottom:-10%
+    }
+}
