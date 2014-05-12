@@ -22,6 +22,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.sitemaps',
     'django.contrib.humanize',
+    'widget_tweaks',
     'eulexistdb',
     'eulcommon.searchutil',
     'eultheme',
