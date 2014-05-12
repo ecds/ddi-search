@@ -115,12 +115,13 @@ class CodebookGeocoder(object):
                 db_locations = db_locations.exclude(country_code='US')
 
             # special case - historic German states
-            if geogname in ['Baden', 'Bavaria', 'Hanover', 'Hesse',
-                            'Mecklenburg', 'Prussia', 'Saxony', 'Wurttemberg']:
-                # make sure they match a state or region in Germany
-                # FIXME: including PPLA for Hanover (matching a city), make sure this is right
-                geo_options.update({'feature_code': ['ADM1', 'RGN', 'PPLA'],
-                                    'country_bias': 'DE'})
+            # NOTE: now handled via altnames, coded at country level
+            # if geogname in ['Baden', 'Bavaria', 'Hanover', 'Hesse',
+            #                 'Mecklenburg', 'Prussia', 'Saxony', 'Wurttemberg']:
+            #     # make sure they match a state or region in Germany
+            #     # FIXME: including PPLA for Hanover (matching a city), make sure this is right
+            #     geo_options.update({'feature_code': ['ADM1', 'RGN', 'PPLA'],
+            #                         'country_bias': 'DE'})
 
             # If there is one and only one match, use it; otherwise defer to geocoder
             # to determine which place to use
@@ -185,6 +186,15 @@ class CodebookGeocoder(object):
 
         # determine continent code based on country
         country_code = loc.raw.get('countryCode', None)
+
+        # special case: for historic places without country code in geonames
+        # where we have added local country codes, pull from country db
+        geonames_id = int(loc.raw['geonameId'])
+        # USSR, Yugoslavia
+        if geonames_id in [8354411, 8505035]:
+            country = GeonamesCountry.objects.get(geonames_id=geonames_id)
+            country_code = country.code
+
         continent_code = None
         if country_code is not None:
             try:
