@@ -10,12 +10,16 @@ body,
 .st-container,
 .st-pusher,
 .st-content {
-	height: 100%;
+	/* height: 100%; */
 }
 
 
 body.st-menu-open{
 	overflow: hidden;
+}
+
+body.st-menu-open .navbar{
+	z-index: 0;
 }
 
 .st-content {
@@ -38,12 +42,13 @@ body.st-menu-open .st-menu{
 	position: fixed;
 	top: 0;
 	padding-bottom: 200px;
+	z-index: 999;
 }
 .st-pusher {
 	position: relative;
 	left: 0;
 	z-index: 99;
-	height: 100%;
+	height: auto;
 	-webkit-transition: -webkit-transform 0.5s;
 	transition: transform 0.5s;
 }
@@ -121,6 +126,7 @@ body.st-menu-open .st-pusher{
 	padding-left: 2em;
 	padding-right: 2em;
 	padding-bottom: 200px;
+	border-bottom: 1px solid #D3D3D3;
 }
 
 /* content style */
@@ -190,8 +196,8 @@ body.st-menu-open .st-pusher{
 /* Effect 7: 3D rotate in */
 
 .st-effect-7.st-container {
-	-webkit-perspective: 1500px;
-	perspective: 1500px;
+	-webkit-perspective: 20000em;
+	perspective: 20000em;
 	-webkit-perspective-origin: 0% 50%;
 	perspective-origin: 0% 50%;
 }

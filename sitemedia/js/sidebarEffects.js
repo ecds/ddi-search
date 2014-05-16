@@ -43,7 +43,7 @@
 				return $(child).parents(parent).length>0;
 			},
 			openMenu = function(content){
-				var scrollTop = $(window).scrollTop(),
+				var scrollTop = $(window).scrollTop()-52,
 				html = content;
 
 				$('#menu-7 .content').html(html);

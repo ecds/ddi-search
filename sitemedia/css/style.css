@@ -4,7 +4,6 @@ html, body{
 
 body {
 	font-family: 'Open Sans', sans-serif;
-	padding-top: 50px;
 	background-color: #F7F7F7;
 	color:#525C66;
 }
@@ -17,6 +16,9 @@ h1 small, h2 small, h3 small, h4 small, h5 small, h6 small, .h1 small, .h2 small
 	color: #B1B4B9;
 }
 
+.navbar{
+	margin-bottom:0;
+}
 
 h2, .h2 {
     font-size: 1.65em;
@@ -43,6 +45,7 @@ body > div.container.footer {
 	width: 100%;
 	min-height: 250px;
 	padding-top: 50px;
+	z-index: -1;
 }
 
 .navbar-affix+section{
@@ -188,6 +191,7 @@ header.grey{
 	width: 100%;
 	max-width: 500px;
 	padding-bottom: 15px;
+	padding-left: 15px;
 }
 
 .filter .page-options,
@@ -667,7 +671,7 @@ header .lead{
 }
 
 
-.callout {
+.callout{
 	margin: 20px 0;
 	padding: 5px 20px 20px;
 	border: 1px solid #E8E9F5;
@@ -675,9 +679,21 @@ header .lead{
 	border-top-left-radius: 10px;
 }
 
-.callout-danger {
+.callout-danger, .errorlist {
 	background-color: #FDF7F7;
 	border-color: #D9534F;
+}
+
+.errorlist{
+	list-style: none;
+	border-width: 0px;
+	border-left-width: 2px;
+	border-style: solid;
+	width: 64%;
+	margin: 0 auto 1em;
+	padding: 10px;
+	font-size: 0.75em;
+	border-radius: 0px;
 }
 
 .callout-warning {
