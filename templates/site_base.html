@@ -3,6 +3,8 @@
 {% block nav-title %}EDC Dataset Search{% endblock %}
 {% block page-title %}EDC Dataset Search{% block page-subtitle %}{% endblock %}{% endblock %}
 
+{% block nav_class %}navbar-static-top navbar-inverse{% endblock %}
+
 {% block navlinks %}
     <li><a href="{% url 'ddi:browse-terms' mode='topics' %}">Browse by Topic</a></li>
     <li><a href="{% url 'geo:browse' %}">Browse by Geography</a></li>
@@ -22,7 +24,6 @@
 <script type="text/javascript" src="{% static 'js/bootstrap-select-picker.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/scroller.min.js' %}"></script>
 <script type="text/javascript" src="{% static 'eultheme/js/bootstrap-datepicker.js' %}"></script>
-<script type="text/javascript" src="{% static 'eultheme/js/eultheme.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/icpsr.js' %}"></script>
 {% endblock %}
 
