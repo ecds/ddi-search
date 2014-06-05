@@ -130,6 +130,7 @@ def browse(request, continent=None, country=None, state=None,
 
         hierarchy.append(state)
         current_place = state
+        current_place_ids = [current_place.geonames_id]
 
         # if no sub-state location is specified, browse the state
         if geonames_id is None:
@@ -142,6 +143,7 @@ def browse(request, continent=None, country=None, state=None,
             continent_code=continent, country_code=country.code)
         hierarchy.append(location)
         current_place = location
+        current_place_ids = [current_place.geonames_id]
 
     form = SearchOptions(request.GET)
 
@@ -163,8 +165,6 @@ def browse(request, continent=None, country=None, state=None,
         results = resources_by_location(request, geo_coverage='Global',
             per_page=per_page, sort=sort)
     else:
-        if not current_place_ids:
-            current_place_ids = [current_place.geonames_id]
         results = resources_by_location(request,
                                         geonames_ids=current_place_ids,
                                         per_page=per_page, sort=sort)
