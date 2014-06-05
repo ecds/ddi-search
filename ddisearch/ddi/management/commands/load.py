@@ -23,7 +23,7 @@ logger = logging.getLogger(__name__)
 class Command(BaseCommand):
     args = '<filename filename filename ...>'
     help = '''Loads XML files into the configured eXist collection.
-    The local copy will be *removed* after it is successfully loaded.'''
+The local copy will be *removed* after it is successfully loaded.'''
 
     option_list = BaseCommand.option_list + (
         make_option('--dry-run', '-n',
