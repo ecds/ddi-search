@@ -102,7 +102,8 @@
                     <ul class="tagsinput">
                         {% for t in resource.local_topics %}
                         <li class="tag">
-                            <a href="{% url 'ddi:browse-terms' mode='topics' %}?topic={{ t|urlencode }}">{{ t }}
+                            {{ t }}
+                            <a class="tagsinput-link" href="{% url 'ddi:browse-terms' mode='topics' %}?topic={{ t|urlencode }}">
                                 <span class="glyphicon glyphicon-chevron-right"></span>
                             </a>
                         </li>
