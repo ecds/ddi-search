@@ -120,11 +120,12 @@ body.st-menu-open .st-pusher{
 
 .st-menu .content{
 	overflow-y: scroll;
-	height: 100%;
+	height: 125%;
 	float: left;
 	width: 100%;
 	padding-left: 2em;
 	padding-right: 2em;
+	padding-top: 0px;
 	padding-bottom: 200px;
 	border-bottom: 1px solid #D3D3D3;
 }
