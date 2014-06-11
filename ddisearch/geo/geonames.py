@@ -9,13 +9,14 @@ class GeonamesClient(object):
     :param username
     '''
 
-    api = 'http://api.geonames.org/searchJSON'
+    base_url = 'http://api.geonames.org'
 
     def __init__(self, username):
         self.username = username
 
     def geocode(self, query=None, name=None, name_equals=None,
-                exactly_one=True, country_bias=None, feature_code=None,
+                exactly_one=True, country_bias=None,
+                country=None, feature_code=None,
                 feature_class=None, admin_code1=None):
         '''Implements the `GeoNames.org search API`_.  Generally, you should
         supply (only) one of query, name, or name equals, but that is not strictly
@@ -31,12 +32,14 @@ class GeonamesClient(object):
            if false, returns the full list of results
         :param country_bias: list matches from the specified country first;
            countries should be specified by two-letter codes
+        :param country: only return matches from the country;
+           countries should be specified by two-letter codes
         :param feature_code: restrict results to one or more GeoNames feature codes
         :param feature_class: restrict results to one or more GeoNames feature classes
         :param feature_class: restrict results by the specified admin code (generally
             should be used with country bias)
         '''
-
+        api_url =  '%s/searchJSON' % self.base_url
         params = {'username': self.username, 'orderBy': 'relevance'}
 
         # query term (really only expect one of these)
@@ -51,6 +54,8 @@ class GeonamesClient(object):
             params['maxRows'] = 1
         if country_bias:
             params['countryBias'] = country_bias
+        if country:
+            params['country'] = country
         if admin_code1:
             params['adminCode1'] = admin_code1
         if feature_code:
@@ -59,13 +64,24 @@ class GeonamesClient(object):
         if feature_class:
             params['featureClass'] = feature_class
 
-        r = requests.get(self.api, params=params)
+        r = requests.get(api_url, params=params)
         result = r.json()
         if result['totalResultsCount']:
             if exactly_one:
                 return GeonamesResult(result['geonames'][0])
             else:
                 return [GeonamesResult(res) for res in result['geonames']]
+
+    def get_by_id(self, geonames_id):
+        '''Get information about a specific GeoNames ID.
+
+        :param geonames_id: geonames identifier to lookup
+        :returns: :class:`GeonamesResult`
+        '''
+        params = {'username': self.username, 'geonameId': geonames_id}
+        api_url =  '%s/getJSON' % self.base_url
+        r = requests.get(api_url, params=params)
+        return GeonamesResult(r.json())
 
 
 class GeonamesResult(object):

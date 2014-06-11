@@ -16,15 +16,11 @@ class CodebookGeocoder(object):
     id is added to the xml.
     '''
 
-    name_paren_re = re.compile('^(?P<name>[A-Z][a-zA-Z ]+) \((?P<restriction>[A-Za-z]+)\)$')
+    name_paren_re = re.compile('^(?P<name>[A-Z][a-zA-Z ]+) \((?P<restriction>[A-Za-z ]+)\)$')
 
     def __init__(self):
         # initialize the geocoder for reuse
         self.geonames = GeonamesClient(username=settings.GEONAMES_USERNAME)
-        # TODO: maybe also add a us-geonames initialized with a US-country
-        # bias, for use when we determine we are looking at US states?
-        # self.us_geonames = GeoNames(username=settings.GEONAMES_USERNAME,
-        #     country_bias='US')
 
         # save the continents for easy lookup
         continents = GeonamesContinent.objects.all()
@@ -40,23 +36,36 @@ class CodebookGeocoder(object):
         # FIXME: this isn't working well enough; preload state names
         # and check that some number (three?) match, then assume US?
 
+        # check if geographic coverage includes "global" (indicates not US-only)
+        is_global = any([geog.val.lower() == 'global' for geog in cb.geo_coverage])
+        includes_us = any([geog.val == 'United States' for geog in cb.geo_coverage])
+
+
         # check if there are at least three US states in this record,
         # to help determine if we should assume US
-        us_state_count = sum([1 for geog in cb.geo_coverage if geog.val in us_states])
+        current_us_states = [geog.val for geog in cb.geo_coverage if geog.val in us_states]
+        # FIXME: do we want geog.val here or full geog?
+
+        # If not global and includes U.S. and at least one state
+        # OR if not global and includes more than three states,
+        # restrict geocoded results to U.S. locations
+        if (not is_global and includes_us and current_us_states) \
+          or (not is_global and len(current_us_states) >= 3):
+            assume_US = True
+        else:
+            assume_US = False
+        # assuming US should either be true or false for all coverage terms
+        # in a single document
 
         # loop through geographical coverage terms and look them up,
         # setting geonames id on the geogCover element
         for geog in cb.geo_coverage:
-            # for each location, don't assume US unless we have reason
-            assume_US = False
-
-            logger.info('geogCover %s' % geog.val)
-            if us_state_count >= 3:
-                assume_US = True
 
             # skip coverage of global - nothing to code
             if geog.val == 'Global':
                 continue
+
+            logger.info('geogCover %s' % geog.val)
 
             # special case: first check if we have a continent
             # (geonames not looking these up so well; for some reason
@@ -76,6 +85,7 @@ class CodebookGeocoder(object):
             # clean names that are formatted this way:
             #   Portland (Maine)
             #   Hiroshima (prefecture)
+            #   New York (state)
             # if (###) is a state, use it to filter; otherwise ignore
             match = self.name_paren_re.match(geog.val)
             if match:
@@ -87,8 +97,7 @@ class CodebookGeocoder(object):
                     assume_US = True
 
                 # sometimes used to clarify ambiguous names, e.g. New York (state)
-                elif restriction == 'state':
-                    assume_US = True
+                elif restriction == 'state' and assume_US:
                     geo_options['feature_code'] = 'ADM1'
                     # NOTE: this is the feature code for states in U.S.
                     # may need to generalize more to handle other countries
@@ -101,61 +110,49 @@ class CodebookGeocoder(object):
             if geogname in alternate_names:
                 geogname = alternate_names[geogname]
 
-            # next check in the db, in case we've looked up before
-            country_filter = {}
-            # if conditions are met where we want to assume US, restrict to
-            # country code US except for Puerto Rico
-            if assume_US and geogname != 'Puerto Rico':
-                country_filter['country_code'] = 'US'
-            db_locations = Location.objects.filter(name=geogname, **country_filter)
-            # if we *don't* have reason to assume US and we get Georgia,
-            # look for non-US match
-            if not assume_US and geogname == 'Georgia':
-                # NOTE: we could use similar logic to give a country bias to geocoder
-                db_locations = db_locations.exclude(country_code='US')
+            # first check if the name is in the country list
+            # (except for assume US, to avoid coding Georgia, US as Republic of Georgia)
+            dbloc = None
+            if not assume_US:
+                dbloc = self.lookup_country(geogname)
 
-            # special case - historic German states
-            # NOTE: now handled via altnames, coded at country level
-            # if geogname in ['Baden', 'Bavaria', 'Hanover', 'Hesse',
-            #                 'Mecklenburg', 'Prussia', 'Saxony', 'Wurttemberg']:
-            #     # make sure they match a state or region in Germany
-            #     # FIXME: including PPLA for Hanover (matching a city), make sure this is right
-            #     geo_options.update({'feature_code': ['ADM1', 'RGN', 'PPLA'],
-            #                         'country_bias': 'DE'})
+            # next check in the db, in case we've already looked this place up
+            # NOTE: skipping this even though it will require more geocoding,
+            # because adding duplicate logic here to restrict by location,
+            # admin code, etc. seems problematic
+            # FIXME: can we do both?
+            # if dbloc is None:
+            #     dbloc = self.lookup_location(geogname, assume_US=assume_US)
 
-            # If there is one and only one match, use it; otherwise defer to geocoder
-            # to determine which place to use
-            if db_locations.count() == 1:
-                # store db location so we can put geonames id into the xml
-                dbloc = db_locations[0]
-
-            else:
+            # if we still don't have a location, use the geocoder
+            if dbloc is None:
                 # use US-biased geocoder if we have hit a threshold where
                 # we want to assume US (with certain exceptions)
                 # FIXME: may well be others like Puerto Rico!
 
                 if assume_US and geogname != 'Puerto Rico':
-                    geo_options['country_bias'] = 'US'
+                    geo_options['country'] = 'US'
 
                 if assume_US and geogname in us_states and not restriction == 'state':
+                    # FIXME: what is this doing?
                     geo_options['admin_code1'] = us_states[geogname]
                 elif restriction is not None and restriction in us_states:
                     # if we have a restriction that matches a U.S. state
                     # (e.g. "Portland (Maine"), pass that along to the geocoder
                     geo_options['admin_code1'] = us_states[restriction]
 
-                # TODO: could be helpful to restrict by feature codes
-                # to the types of entities we expect to get
-                # - continents, countries, states, counties, cities
-                # first try for exact match
-                loc = self.geonames.geocode(name_equals=geogname, **geo_options)
+                # special case: if record includes U.S. and only one state,
+                # and current place is neither of those, look within the state first
+                elif includes_us and len(current_us_states) == 1 and \
+                  geogname != 'United States' and geogname not in current_us_states:
+                    geo_options['admin_code1'] = us_states[current_us_states[0]]
+
+                loc = self.lookup_name(geogname, geo_options)
+                # if no location was found, warn and skip
                 if not loc:
-                    # if that doesn't work, try a looser name match
-                    loc = self.geonames.geocode(name=geogname, **geo_options)
-                    # if that still fails, error
-                    if not loc:
-                        logger.warn('No geonames result found for %s' % geogname)
-                        continue
+                    logger.warn('No geonames result found for %s' % geogname)
+                    continue
+
                 logger.debug('geonames result: %s' % unicode(loc))
                 logger.debug(loc.raw)
 
@@ -173,6 +170,72 @@ class CodebookGeocoder(object):
                         (geog.id, dbloc.name, dbloc.country_code,
                          dbloc.continent_code))
 
+    def lookup_country(self, geogname):
+        # lookup a name to see if matches one of our known countries
+        countries = GeonamesCountry.objects.filter(name=geogname)
+        if countries.count():
+            loc = self.geonames.get_by_id(countries[0].geonames_id)
+            logger.debug('Found a country match for %s, using geonames %s' % \
+                         (geogname, countries[0].geonames_id))
+            dbloc = self.location_from_geoname(loc)
+            return dbloc
+
+    def lookup_location(self, geogname, assume_US=False):
+        # lookup a name to see if it matches a location in the database
+        country_filter = {}
+        # if conditions are met where we want to assume US, restrict to
+        # country code US except for Puerto Rico
+        if assume_US and geogname != 'Puerto Rico':
+            country_filter['country_code'] = 'US'
+        db_locations = Location.objects.filter(name=geogname, **country_filter)
+        # if we *don't* have reason to assume US and we get Georgia,
+        # look for non-US match
+        # NOTE: possibly redundant with new lookup_country logic?
+        if not assume_US and geogname == 'Georgia':
+            # NOTE: we could use similar logic to give a country bias to geocoder
+            db_locations = db_locations.exclude(country_code='US')
+
+        # NOTE: historic German and Italian states are handled
+        # via alternate names list, and coded at country level
+
+        # If there is one and only one match, use it; otherwise defer to geocoder
+        # to determine which place to use
+        if db_locations.count() == 1:
+            # store db location so we can put geonames id into the xml
+            dbloc = db_locations[0]
+
+            logger.debug('Found a location match for %s, using %s' % \
+                (geogname, dbloc))
+
+            return dbloc
+
+
+    def lookup_name(self, geogname, geo_options):
+        # attempt to geocode the geographic name
+
+        # first try for exact match, with feature class of A (country, state, region)
+        loc = self.geonames.geocode(name_equals=geogname, feature_class='A',
+                                    **geo_options)
+
+
+        # if that doesn't work, try with exact name and broader feature class (P = city, village)
+        if not loc:
+            loc = self.geonames.geocode(name_equals=geogname, feature_class=['A', 'P'],
+                                        **geo_options)
+
+        # if that doesn't work, try with looser name match but smaller feature class
+        if not loc:
+            loc = self.geonames.geocode(name=geogname, feature_class='A',
+                                        **geo_options)
+
+        # if that still fails, try a looser name match
+        if not loc:
+            loc = self.geonames.geocode(name=geogname, feature_class=['A', 'P'],
+                                        **geo_options)
+
+        # could return none if no match
+        return loc
+
 
     def location_from_geoname(self, loc):
         '''Create and return a :class:`ddisearch.geo.models.Location`
@@ -181,8 +244,9 @@ class CodebookGeocoder(object):
 
         # check if requested location is already in the db by geoname id
         # if already present, do nothing
-        if Location.objects.filter(geonames_id=loc.raw['geonameId']).count():
-            return
+        dbloc = Location.objects.filter(geonames_id=loc.raw['geonameId'])
+        if dbloc:
+            return dbloc[0]
 
         # determine continent code based on country
         country_code = loc.raw.get('countryCode', None)
@@ -231,11 +295,11 @@ class CodebookGeocoder(object):
         # TODO: other codes that belong here?
         # FIXME: do we really want ISL ? or probably not?
         # - perhaps restrict via allowed feature codes on initial geocode request
-        if dbloc.feature_code in ['PPLA', 'PPLA2', 'ISL'] and dbloc.state_code:
+        if dbloc.feature_code in ['PPLA', 'PPLA2', 'ISL', 'ADM2'] and dbloc.state_code:
             if not Location.objects.filter(country_code=dbloc.country_code,
                                        state_code=dbloc.state_code,
                                        feature_code='ADM1').count():
-                state = self.geonames.geocode(country_bias=dbloc.country_code,
+                state = self.geonames.geocode(country=dbloc.country_code,
                                               feature_code='ADM1',
                                               admin_code1=dbloc.state_code)
 
