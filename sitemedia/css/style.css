@@ -9,6 +9,10 @@ body {
 	font-size: 14px;
 }
 
+div.logo-container+div.container {
+	background: #43465A;
+}
+
 .main, #st-container{
 	background-color: #F7F7F7;
 }
@@ -753,14 +757,14 @@ td p{
     }
 }
 
-
-.navbar-affix.affix {
-	top: 50px;
-	width: 100%;
-}
-
-.navbar-affix.affix+section{
-	padding-top:60px;
+@media(min-width:480px){
+	.navbar-affix.affix {
+		top: 90px;
+		width: 100%;
+	}
+	.navbar-affix.affix+section{
+		padding-top:60px;
+	}
 }
 
 .navbar-affix{
