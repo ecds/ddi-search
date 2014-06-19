@@ -277,8 +277,7 @@ header.grey{
 }
 .list-group-content {
     float: left;
-    width: 74%;
-    font-size: 0.8em;
+    width: 73%;
     text-align: left;
 }
 .list-group-item {
@@ -287,7 +286,10 @@ header.grey{
 }
 .list-group-item>.badge {
     background-color: #BDC3C7;
+    width: 25%;
     color: #FFF;
+    white-space: normal;
+    line-height: 1.2;
 }
 .list-group-item {
     border-color: #E9E9E9;
@@ -759,11 +761,11 @@ td p{
 
 @media(min-width:480px){
 	.navbar-affix.affix {
-		top: 90px;
+		top: 50px;
 		width: 100%;
 	}
 	.navbar-affix.affix+section{
-		padding-top:60px;
+		padding-top: 10px;
 	}
 }
 
