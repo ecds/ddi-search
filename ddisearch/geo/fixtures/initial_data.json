@@ -3308,7 +3308,7 @@
   }
 },
 {
-  "pk": 250,
+  "pk": 251,
   "model": "geo.geonamescountry",
   "fields": {
     "geonames_id": 8354411,
@@ -3319,7 +3319,7 @@
   }
 },
 {
-  "pk": 250,
+  "pk": 252,
   "model": "geo.geonamescountry",
   "fields": {
     "geonames_id": 8505035,
@@ -3327,6 +3327,17 @@
     "continent": "EU",
     "name": "Yugoslavia",
     "numeric_code": 890
+  }
+},
+{
+  "pk": 253,
+  "model": "geo.geonamescountry",
+  "fields": {
+    "geonames_id": 8505033,
+    "code": "CS",
+    "continent": "EU",
+    "name": "Serbia and Montenegro",
+    "numeric_code": 891
   }
 }
 ]
