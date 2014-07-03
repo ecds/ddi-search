@@ -5,7 +5,7 @@
 
 alternate_names = {
     'Palestine': 'Palestinian Territory',
-    'West Bank and Gaza': 'Palestinian Territory',
+    'West Bank and Gaza Strip': 'Palestinian Territory',
     # Venezuela
     'Venezuela, RB': 'Venezuela',
     # USSR now handled separately (added old country code to geonames data)
