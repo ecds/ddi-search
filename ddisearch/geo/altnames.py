@@ -4,7 +4,7 @@
 # as a different value
 
 alternate_names = {
-    'Palestine': 'Palestinian Territory,
+    'Palestine': 'Palestinian Territory',
     'West Bank and Gaza': 'Palestinian Territory',
     # Venezuela
     'Venezuela, RB': 'Venezuela',
