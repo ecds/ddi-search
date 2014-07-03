@@ -12,9 +12,13 @@ alternate_names = {
     'Venezuela, RB': 'Venezuela',
     # USSR now handled separately (added old country code to geonames data)
     # 'Soviet Union': 'Russia',
+    # DRC
     'Zaire': 'Democratic Republic of the Congo',
+    # The Vietnams, Past and Present
     'South Vietnam': 'Vietnam',
+    'Vietnam Republic': 'Vietnam',
     'North Vietnam': 'Vietnam',
+    "Vietnam People's Rep": 'Vietnam',
     # map historic german states to Germany proper because there are
     # no contemporary equivalents close enough to be accurate
     'Hesse, Electorate': 'Germany',
@@ -98,6 +102,33 @@ alternate_names = {
     'Timor-Leste': 'East Timor',
     # Virgin Islands
     'Virgin Islands': 'U.S. Virgin Islands',
+    # Cyprus
+    'Cyprus, Greek': 'Cyprus',
+    'Cyprus, Turkey': 'Cyprus',
+    # Somaliland
+    'Somaliland': 'Somalia',
+    # The Yemens
+    'Yemen Arab Republic': 'Yemen',
+    'North Yemen': 'Yemen',
+    "Yemen People's Democratic Republic": 'Yemen',
+    "South Yemen": 'Yemen',
+    # Tanzania
+    'Zanzibar': 'Tanzania',
     
+    # The following entities will be not be geocoded for various reasons:
+    # hardly any data sources will have coverage of them
+    # they won't show up on any map
+    # they are not sovereign states
+    #
+    # Bophuthatswana - wouldn't show up in any map, and I don't feel the need to 
+    # suggest any legitimacy for relics of apartheid
+    # Channel Islands
+    # Ciskei - another South African Bantustan
+    # Jersey, Channel Islands
+    # Netherlands Antilles
+    # Netherlands Antilles (Former)
+    # Senegambia - a short-lived union between Senegal and the Gambia
+    # Transkei - another South African Bantustan
+    # Venda - another South African Bantustan
 }
 
