@@ -4,8 +4,10 @@
 # as a different value
 
 alternate_names = {
+    # Palestinian Territory
     'Palestine': 'Palestinian Territory',
     'West Bank and Gaza Strip': 'Palestinian Territory',
+    'West Bank and Gaza': 'Palestinian Territory',
     # Venezuela
     'Venezuela, RB': 'Venezuela',
     # USSR now handled separately (added old country code to geonames data)
@@ -40,5 +42,62 @@ alternate_names = {
     # map West Germany and variants thereof to Germany
     'Federal Republic of Germany': 'Germany',
     'West Germany': 'Germany',
+    # Bahamas
+    'Bahamas, The': 'Bahamas',
+    # Bahrain
+    'Bahrain, Kingdom of': 'Bahrain',
+    # Bosnia-Herzegovina
+    'Bosnia': 'Bosnia and Herzegovina',
+    'Bosnia-Herzegovina': 'Bosnia and Herzegovina',
+    'Bosnia-Hercegovina': 'Bosnia and Herzegovina',
+    # Brunei
+    'Brunei Darussalam': 'Brunei',
+    # Burma/Myanmar
+    'Burma': 'Myanmar',
+    # Cape Verde
+    'Cabo Verde': 'Cape Verde',
+    # Comoros/Comoro Islands
+    'Comoro Islands': 'Comoros',
+    'Anjouan': 'Comoros
+    # Ivory Coast
+    "Cote D'Ivoire": 'Ivory Coast',
+    # Egypt
+    'Egypt, Arab Rep.': 'Egypt',
+    # Faroe Islands
+    'Faeroe Islands': 'Faroe Islands',
+    # Gambia
+    'Gambia, The': 'Gambia',
+    # Guinea-Bissau
+    'Guinea Bissau': 'Guinea-Bissau',
+    # The Vatican
+    'Holy See (Vatican City)': 'Vatican',
+    # Kyrgyzstan
+    'Kyrgyz Republic': 'Kyrgyzstan',
+    # Macedonia
+    'Macedonia, FYR': 'Macedonia',
+    # Micronesia
+    'Micronesia, Fed. Sts.': 'Micronesia',
+    # Republic of the Congo
+    'Republic of Congo': 'Republic of the Congo',
+    # Saint Kitts and Nevis
+    'St. Kitts And Nevis': 'Saint Kitts and Nevis',
+    # Saint Lucia
+    'St. Lucia': 'Saint Lucia',
+    # Saint Martin (French)
+    'St. Martin (French part)': 'Saint Martin',
+    # Saint Vincent and the Grenadines
+    'St. Vincent And The Grenadines': 'Saint Vincent and the Grenadines',
+    # Slovakia
+    'Slovak Republic': 'Slovakia',
+    # USSR
+    'Soviet Union': 'Union of Soviet Socialist Republics',
+    'USSR': 'Union of Soviet Socialist Republics',
+    # Syria
+    'Syrian Arab Republic': 'Syria',
+    # East Timor
+    'Timor-Leste': 'East Timor',
+    # Virgin Islands
+    'Virgin Islands': 'U.S. Virgin Islands',
+    
 }
 
