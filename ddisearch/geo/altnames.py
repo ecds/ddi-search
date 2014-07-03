@@ -4,7 +4,10 @@
 # as a different value
 
 alternate_names = {
-    'Palestine': 'Palestinian Territory',
+    'Palestine': 'Palestinian Territory,
+    'West Bank and Gaza': 'Palestinian Territory',
+    # Venezuela
+    'Venezuela, RB': 'Venezuela',
     # USSR now handled separately (added old country code to geonames data)
     # 'Soviet Union': 'Russia',
     'Zaire': 'Democratic Republic of the Congo',
@@ -22,8 +25,20 @@ alternate_names = {
     'Saxony': 'Germany',
     'Wurttemberg': 'Germany',
     # code pre-unification Italian states at the country level as well
+    'Modena': 'Italy',
     'Papal States': 'Italy',
+    'Parma': 'Italy',
     'Sardinia': 'Italy',
     'Two Sicilies': 'Italy',
+    'Tuscany': 'Italy',
+    # map variant names of the Habsburg Empire to current-day Austria
+    'Austria-Hungary': 'Austria',
+    'Austrian Empire': 'Austria',
+    # map East Germany and variants thereof to Germany
+    'German Democratic Republic': 'Germany',
+    'East Germany': 'Germany',
+    # map West Germany and variants thereof to Germany
+    'Federal Republic of Germany': 'Germany',
+    'West Germany': 'Germany',
 }
 
