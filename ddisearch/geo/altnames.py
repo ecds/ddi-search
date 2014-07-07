@@ -7,7 +7,9 @@ alternate_names = {
     # Palestinian Territory
     'Palestine': 'Palestinian Territory',
     'West Bank and Gaza Strip': 'Palestinian Territory',
+    'West Bank And Gaza Strip': 'Palestinian Territory',
     'West Bank and Gaza': 'Palestinian Territory',
+    'West Bank And Gaza': 'Palestinian Territory',
     # Venezuela
     'Venezuela, RB': 'Venezuela',
     # USSR now handled separately (added old country code to geonames data)
@@ -86,12 +88,14 @@ alternate_names = {
     'Republic of Congo': 'Republic of the Congo',
     # Saint Kitts and Nevis
     'St. Kitts And Nevis': 'Saint Kitts and Nevis',
+    'St. Kitts and Nevis': 'Saint Kitts and Nevis',
     # Saint Lucia
     'St. Lucia': 'Saint Lucia',
     # Saint Martin (French)
     'St. Martin (French part)': 'Saint Martin',
     # Saint Vincent and the Grenadines
     'St. Vincent And The Grenadines': 'Saint Vincent and the Grenadines',
+    'St. Vincent and the Grenadines': 'Saint Vincent and the Grenadines',
     # Slovakia
     'Slovak Republic': 'Slovakia',
     # USSR
