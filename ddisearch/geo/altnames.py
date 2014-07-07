@@ -65,6 +65,7 @@ alternate_names = {
     'Anjouan': 'Comoros
     # Ivory Coast
     "Cote D'Ivoire": 'Ivory Coast',
+    "Cote d'Ivoire": 'Ivory Coast',
     # Egypt
     'Egypt, Arab Rep.': 'Egypt',
     # Faroe Islands
