@@ -64,7 +64,7 @@ alternate_names = {
     'Cabo Verde': 'Cape Verde',
     # Comoros/Comoro Islands
     'Comoro Islands': 'Comoros',
-    'Anjouan': 'Comoros
+    'Anjouan': 'Comoros',
     # Ivory Coast
     "Cote D'Ivoire": 'Ivory Coast',
     "Cote d'Ivoire": 'Ivory Coast',
@@ -119,14 +119,14 @@ alternate_names = {
     "South Yemen": 'Yemen',
     # Tanzania
     'Zanzibar': 'Tanzania',
-    
+
     # The following entities will be not be geocoded for various reasons:
-    # hardly any data sources will have coverage of them
-    # they won't show up on any map
-    # they are not sovereign states
+    # - hardly any data sources will have coverage of them
+    # - they won't show up on any map
+    # - they are not sovereign states
     #
-    # Bophuthatswana - wouldn't show up in any map, and I don't feel the need to 
-    # suggest any legitimacy for relics of apartheid
+    # Bophuthatswana - wouldn't show up in any map, and I don't feel the need to
+    #   suggest any legitimacy for relics of apartheid
     # Channel Islands
     # Ciskei - another South African Bantustan
     # Jersey, Channel Islands
