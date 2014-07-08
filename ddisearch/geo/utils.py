@@ -109,6 +109,8 @@ class CodebookGeocoder(object):
             # lookup as if it were the other name
             if geogname in alternate_names:
                 geogname = alternate_names[geogname]
+            elif geog.val in alternate_names:
+                geogname = alternate_names[geog.val]
 
             # first check if the name is in the country list
             # (except for assume US, to avoid coding Georgia, US as Republic of Georgia)
@@ -253,9 +255,11 @@ class CodebookGeocoder(object):
 
         # special case: for historic places without country code in geonames
         # where we have added local country codes, pull from country db
+        # OR where we have overridden country code
+        # (i.e. to differentiate Serbia and Montenegro from Serbia)
         geonames_id = int(loc.raw['geonameId'])
-        # USSR, Yugoslavia
-        if geonames_id in [8354411, 8505035]:
+        # USSR, Yugoslavia, Serbia and Montenegro
+        if geonames_id in [8354411, 8505035, 8505033]:
             country = GeonamesCountry.objects.get(geonames_id=geonames_id)
             country_code = country.code
 
