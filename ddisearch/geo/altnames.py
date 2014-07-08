@@ -96,6 +96,7 @@ alternate_names = {
     # Saint Vincent and the Grenadines
     'St. Vincent And The Grenadines': 'Saint Vincent and the Grenadines',
     'St. Vincent and the Grenadines': 'Saint Vincent and the Grenadines',
+    'St. Vincent and Grenadines': 'Saint Vincent and the Grenadines' ,
     # Slovakia
     'Slovak Republic': 'Slovakia',
     # USSR
@@ -107,9 +108,11 @@ alternate_names = {
     'Timor-Leste': 'East Timor',
     # Virgin Islands
     'Virgin Islands': 'U.S. Virgin Islands',
+    'Virgin Islands (U.S.)': 'U.S. Virgin Islands',
     # Cyprus
     'Cyprus, Greek': 'Cyprus',
     'Cyprus, Turkey': 'Cyprus',
+    'Cyprus, Turkish': 'Cyprus',
     # Somaliland
     'Somaliland': 'Somalia',
     # The Yemens
@@ -117,6 +120,7 @@ alternate_names = {
     'North Yemen': 'Yemen',
     "Yemen People's Democratic Republic": 'Yemen',
     "South Yemen": 'Yemen',
+    'Yemen, Rep.': 'Yemen',
     # Tanzania
     'Zanzibar': 'Tanzania',
 
@@ -135,5 +139,8 @@ alternate_names = {
     # Senegambia - a short-lived union between Senegal and the Gambia
     # Transkei - another South African Bantustan
     # Venda - another South African Bantustan
+    #
+    # Belgium-Luxembourg - this refers to the economic/customs union between the two countries
+    # Korea in the CNTS data - refers to the unified Korea that existed prior to Japanese annexation
 }
 
