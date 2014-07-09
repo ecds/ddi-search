@@ -8,12 +8,6 @@ $(document).ready(function(){
 	var $navbarAffix = $('.navbar-affix');
 
 	if($navbarAffix.length>0){
-
-		anchorTags();
-		$(window).resize(function(){
-			anchorTags();
-		})
-
 		function anchorTags(){
 
 			var $navbarAffix = $('.navbar-affix'),
@@ -30,6 +24,11 @@ $(document).ready(function(){
 			});
 			$('body').scrollspy({ target: '.navbar-affix', offset: 2*$navbarAffix.height()+$navbarFixedTop.height()})
 		}
+		anchorTags();
+		$(window).resize(function(){
+			anchorTags();
+		})
+
 	}
 
 	var $animateScrollLinks = $(".nav.animate li a");
