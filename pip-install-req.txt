@@ -2,9 +2,7 @@ Django>=1.6
 eulxml>=0.20.1
 eulexistdb>=0.19
 eulcommon
-
-# development version of eultheme
--e git://github.com/emory-libraries/django-eultheme@develop#egg=django_eultheme
+-e git://github.com/emory-libraries/django-eultheme@0.5#egg=django_eultheme
 progressbar
 requests
 python-dateutil
