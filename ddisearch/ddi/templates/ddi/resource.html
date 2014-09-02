@@ -1,0 +1,359 @@
+{% extends "site_base.html" %}
+{% load humanize %} {% load static %} {% load geo_tags %}
+
+{% block body_class %}resource{% endblock %}
+
+{% block page-subtitle %}| {{ resource.title }}{% endblock %}
+
+{% block css %}
+   {{ block.super }}
+   <link href="{% static 'css/map.css' %}" rel="stylesheet"/>
+{% endblock %}
+
+{% block javascript %}
+  {{ block.super}} {# additional javascript for d3/topojson maps #}
+  <script src="{% static 'js/d3.v3.min.js' %}"></script>
+  <script src="{% static 'js/topojson.v1.min.js' %}"></script>
+  <script src="{% static 'js/map.js' %}"></script>
+{% endblock %}
+
+{% block content %}
+
+<article>
+    <header>
+        <div class="container">
+            <h1>
+                {% ifequal resource.id.agency "ICPSR" %}
+                <small class="muted-text">ICPSR {{resource.id}}</small><br/>
+                {% endifequal %}
+                <span class="resource-title">{{ resource.title }}</span>
+            </h1>
+            {% if resource.doi %}
+            <p><a href="{{ resource.doi_url }}">{{ resource.doi }}</a></p>
+            {% endif %}
+
+            {% if resource.authors %}
+            <h2 class="h3">Principal Investigator{{ resource.authors|pluralize }}</h2>
+
+            <p class="lead">{{ resource.authors|join:'; ' }}</p>
+            {% endif %}
+
+            <h2 class="h3">Version</h2>
+            <p class="lead">
+                {% if resource.version %}
+                {{ resource.version}}
+                {% else %}
+                N/A
+                {% endif %}
+            </p>
+            {% if resource.version_notes %}
+                <p class="small">{{ resource.version_notes | first }}</p>
+            {% endif %}
+        </div>
+    </header>
+    <nav class="navbar navbar-default navbar-static-top navbar-affix" role="navigation">
+      <div class="fluid-container">
+          <ul class="nav nav-pills nav-justified animate">
+            <li><a href="#abstract">Abstract</a></li>
+            <li><a href="#topics">Topics/Keywords</a></li>
+            <li><a href="#geo">Coverage</a></li>
+            <li><a href="#collection-meta">Study Info</a></li>
+            <li><a href="#method-section">Methods</a></li>
+            <li><a href="#data-access">Data Access</a></li>
+            <li><a href="#data-files">Data Files</a></li>
+          </ul>
+      </div>
+    </nav>
+    <section id="abstract">
+        <div class="container">
+            <h2>Abstract</h2>
+            {% for abs in resource.abstract_list %}
+                {% if abs.p %}
+                    {% for p in abs.p %}
+                        <p>{{ p }}</p>
+                    {% endfor %}
+                {% else %}
+                    <p>{{ abs }}</p>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </section>
+    <section id="topics">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h2>Keywords</h2>
+                    <ul class="tagsinput">
+                        {% for kw in resource.keywords %}
+                        <li class="tag">
+                            {{ kw }}
+                            <a class="tagsinput-link" href="{% url 'ddi:browse-terms' mode='keywords' %}?keyword={{ kw|urlencode }}">
+                                <span class="glyphicon glyphicon-chevron-right"></span>
+                            </a>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div class="clearfix visible-xs"></div>
+                <div class="col-md-6">
+                    {# display topics if any - borrowed formatting from keywords #}
+                    {% if resource.local_topics %}
+                    <h2>Topics</h2>
+                    <ul class="tagsinput">
+                        {% for t in resource.local_topics %}
+                        <li class="tag">
+                            {{ t }}
+                            <a class="tagsinput-link" href="{% url 'ddi:browse-terms' mode='topics' %}?topic={{ t|urlencode }}">
+                                <span class="glyphicon glyphicon-chevron-right"></span>
+                            </a>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="geo">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    <h2>Geographic Coverage</h2>
+                </div>
+                <div class="col-xs-12">
+                    {% include 'ddi/snippets/resource_map.html' %}
+                </div>
+                <div class="col-xs-12">
+                    <ul class="tagsinput">
+                        {% for geog, loc in resource.geocoverage_locations.iteritems %}
+                        <li class="tag">
+                            {{ geog }} {# display label from xml #}
+                            {% with  loc|location_url as loc_url %}
+                              <a class="tagsinput-link" href="{% if loc_url %}{{ loc_url }}{% else %}{% url 'ddi:search' %}?location={{ geog|urlencode }}{% endif %}">
+                                <span class="glyphicon glyphicon-chevron-right"></span>
+                             </a>
+                            {% endwith %}
+                        </li>
+                        {% empty %}
+                          {% if not resource.global_coverage %}
+                          <li class="tag">
+                            Not Designated
+                          </li>
+                          {% endif %}
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div class="col-xs-12">
+                    <table class="table table-bordered info-card">
+                        <tr>
+                            <th>Geographic Unit</th>
+                        </tr>
+                        <tr>
+                            <td>
+                                {{resource.geo_unit | join:', '|default:'N/A'}}
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div><!-- /row -->
+        </div>
+    </section>
+
+    <section id="collection-meta">
+        <header>
+            <div class="container">
+                <h2>Study Info</h2>
+            </div>
+        </header>
+        <div class="container">
+            <table class="table table-bordered info-card">
+                <tr>
+                    <th>Time Periods</th>
+                    <th>Unit of Analysis</th>
+                    <th>Kind of Data</th>
+                </tr>
+                <tr>
+                    <td>
+                        {% for rd in resource.dates %}
+                        {% if rd %}
+                        <p>{{rd}}</p>
+                        {% endif %}
+
+                        {% empty %}
+                        <p class="text-center">---</p>
+                        {% endfor %}
+                    </td>
+                    <td>
+                        {% for au in resource.analysis_unit %}
+                        <p>{{au}}</p>
+                        {% empty %}
+                        <p class="text-center">---</p>
+                        {% endfor %}
+                    </td>
+                    <td>
+                        {% for kd in resource.kind_of_data %}
+                        <p>{{kd}}</p>
+                        {% empty %}
+                        <p class="text-center">---</p>
+                        {% endfor %}
+                    </td>
+                </tr>
+            </table>
+
+            {% if resource.study_notes.0 %}
+            <h3>Study Notes</h3>
+            {{resource.study_notes.0}}
+            {% endif %}
+        </div>
+
+    </section>
+    <section id="method-section">
+        <header>
+            <div class="container">
+                <h2>Methods</h2>
+            </div>
+        </header>
+        <div class="container">
+            <table class="table table-bordered info-card">
+                <tr>
+                    <th>Time Methods</th>
+                    <th>Frequency</th>
+                    <th>Collection Modes</th>
+                </tr>
+                {% for method in resource.methods %}
+                   {% for data_coll in method.data_collection %}
+                <tr>
+                    <td>
+                        {{ data_coll.time_methods|join:', '|default:'---' }}
+                    </td>
+                    <td>
+                        {{ data_coll.frequency|join:', '|default:'---' }}
+                    </td>
+                    <td>
+                        {{ data_coll.methods|join:', '|default:'---' }}
+                    </td>
+                </tr>
+                <tr>
+                    <th colspan="3">Sources</th>
+                </tr>
+                <tr>
+                    <td colspan="3">
+                        {% for src in data_coll.sources %}
+                           {% for data_src in src.data_sources %}
+                              <p class="small">{{ data_src }}</p>
+                           {% endfor %}
+                        {% endfor %}
+                    </td>
+
+                </tr>
+
+                   {% endfor %}
+                {% endfor %}
+
+            </table>
+
+        </div>
+        <div class="container">
+            {% for method in resource.methods %}
+                {% if method.notes %}
+                {% ifchanged %}<h3>Method Notes</h3>{% endifchanged %}
+                {# only display heading once even if multiple method sections #}
+                    {% for n in method.notes %}
+                        <p>{{ n }}</p>
+                    {% endfor %}
+                {% endif %}
+            {% endfor %}
+        </div>
+    </section>
+
+    <section id="data-access">
+        <header>
+            <div class="container">
+                <h2>Data Access</h2>
+            </div>
+        </header>
+        <div class="container" id="data-access">
+            {% for da in resource.data_access %}
+                {% for avail in da.availability %}
+                     {% if avail.media|lower == "online" or avail.media|lower == "on-line" %}
+                       <p><a href="{{ avail.access_uri }}">{{ avail.access_place }}</a></p>
+
+                       {% ifequal resource.id.agency "ICPSR" %}
+                       <p>For off-campus access, go to <a href="http://web.library.emory.edu/library-materials/databases-ebooks-ejournals/databases/index.php">Databases@Emory</a></p>
+                       {% endifequal %}
+                    {% else %}
+                       <p>{{ avail.access_place }} [{{ avail.media }}]</p>
+                      {% endif %}
+                 {% endfor %}
+
+                {% if da.use %} {# use statement #}
+                <div>
+                    {% if da.use.special_perms %}
+                        <h4>Special Permissions</h4>
+                        <p>{{ da.use.special_perms }}</p>
+                    {% endif %}
+                    {% if da.use.restriction %}
+                        <h4>Restriction</h4>
+                        <p>{{ da.use.restriction }}</p>
+                    {% endif %}
+                    {% if da.use.conditions %}
+                        <div class="callout callout-warning">
+                            <h4 class="h3">Conditions</h4>
+                            <p>{{ da.use.conditions|safe }}</p>
+                        </div>
+                    {% endif %}
+                    {% if da.use.disclaimer %}
+                       <h4>Disclaimer</h4>
+                       <p>{{ da.use.disclaimer }}</p>
+                   {% endif %}
+               </div>
+               {% endif %}
+               {% for n in da.notes %}
+                 <p class="small">{{ n }}</p>
+               {% endfor %}
+
+            {% endfor %}
+        </div>
+    </section>
+    <section id="data-files">
+        <header>
+            <div class="container">
+                <h2>Data File Descriptions</h2>
+            </div>
+        </header>
+        <div class="container">
+            {% if resource.file_descriptions %}
+                
+            {% endif %}
+            <dl>
+                {% for fdesc in resource.file_descriptions %}
+                   {% for file in fdesc.files %}
+                      {% if file.name %}
+                         {% if file.external_link %} {# file has a link, use name as link text #}
+                         <dt><a href="{{ file.external_link }}">{{ file.name }}</a></dt>
+                         {% else %}
+                         <dt>{{ file.name }}</dt>
+                         {% endif %}
+                      {% endif %}
+                      <dd class="small">{{ file.type }}</dd>
+                      {# if file has a link other than top-level URI and no name, display #}
+                      {% if file.external_link and not file.name and file.external_link != fdesc.uri %}
+                         <a href="{{ file.external_link }}">{{ file.external_link }}</a>
+                      {% else %}
+                   {% endif %}
+                   {% endfor %}
+                   {% for note in fdesc.notes %}
+                     <dd class="small">{{ note }}</dd>
+                   {% endfor %}
+                   {% if fdesc.uri %}
+                   <a href="{{ fdesc.uri }}">{{ fdesc.uri }}</a>
+                   {% endif %}
+                {% endfor %}
+            </dl>
+        </div>
+    </section>
+
+</article>
+
+
+{% endblock %}

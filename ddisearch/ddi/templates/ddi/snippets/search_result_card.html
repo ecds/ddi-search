@@ -1,0 +1,50 @@
+{% extends 'eultheme/snippets/card_with_preview.html' %}
+
+{% block result-header %}
+    <h3><a href="{% url 'ddi:resource' id=r.id agency=r.id.agency %}">{{ r.title }}</a></h3>
+
+    {% if r.authors %}
+    <h4>Principal Investigator{{ r.authors|pluralize }}: <span>{{ r.authors|join:'; '}}</span></h4>
+    {% endif %}
+    <h4>Date{{ r.dates|pluralize }}:<span> {{ r.dates|join:'; '|default:'(not specified)' }}</span></h4>
+{% endblock %}
+
+{% block result-info %}
+    {% if r.fulltext_score and r.fulltext_score != '0' %}  {# 0 indicates no relevance score (no fulltext query) #}
+    {# display numerical score in debug mode #}
+    {% if debug %}<p>{{ r.fulltext_score }}</p>{% endif %}
+    <div class="progress">
+        <div class="progress-bar" role="progressbar" aria-valuenow="{{ r.fulltext_score }}" aria-valuemin="0" aria-valuemax="1.5" style="width:{% widthratio r.fulltext_score 1 90 %}%"> </div>
+
+    </div>
+    {% endif %}
+{% endblock %}
+
+{% block result-content %}
+    <p>{{ r.abstract|truncatewords:20 }}</p>
+    {% if r.keywords %}
+    <p><strong>Keywords:</strong> {{ r.keywords|join:'; '|truncatewords:10 }}</p>
+    {% endif %}
+{% endblock %}
+
+{% block result-preview %}
+    <h3><a href="{% url 'ddi:resource' id=r.id agency=r.id.agency %}" >{{ r.title }}</a></h3>
+
+    {% if r.authors %}
+    <h4>Principal Investigator{{ r.authors|pluralize }}: <span>{{ r.authors|join:'; '}}</span></h4>
+    <p><strong>Date{{ r.dates|pluralize }}:</strong> {{ r.dates|join:'; '|default:'(not specified)' }}</p>
+    {% endif %}
+    <p>{{ r.abstract|truncatewords:150 }}</p>
+    {% if r.keywords %}
+    <p><strong>Keywords:</strong> {{ r.keywords|join:'; ' }}</p>
+    {% endif %}
+    {{ r.geo_coverage|join:'; ' }}
+
+    {% if r.geo_coverage %}
+    <p><strong>Geographical coverage or scope of the data</strong> {{ r.geo_coverage|join:'; ' }}</p>
+    {% endif %}
+
+    <p class="centered">
+        <a class="btn btn-primary" href="{% url 'ddi:resource' id=r.id agency=r.id.agency %}" >Open Resource</a>
+    </p>
+{% endblock %}

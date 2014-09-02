@@ -1,0 +1,60 @@
+{% extends "site_base.html" %}
+{# template to browse list of keywords or topics #}
+{# OR browse documents by a single keyword or topic #}
+{% load humanize %}
+
+{% block page-subtitle %}| {{ label }}{% if term %} | {{ term }}{% endif %}{% endblock %}
+
+{% block content %}
+<div id="st-container">
+    <div class="st-pusher">
+        {% include 'eultheme/snippets/preview_aside.html' %}
+        <div class="st-content"><!-- this is the wrapper for the content -->
+            <div class="main clearfix">
+                <header class="grey">
+                    <div class="container">
+                        <h1>{{ label }}{% if term %} : {{ term }}{% endif %}</h1>
+                    </div>
+                </header>
+                {# display resources matching a single term #}
+                {% if term %}
+                <div class="filter browse">
+                    <div class="page-options">
+                        <div class="container">
+                            {# include any hidden fields on the form (i.e. pass keyword/topic) #}
+                            {% for f in form.hidden_fields %} {{ f }} {% endfor %}
+                            {% include 'ddi/snippets/search_options.html' %}  {# per page & sort #}
+
+                        </div>
+                    </div>
+                </div>
+                <div class="container">
+                    {% include 'ddi/snippets/search_results.html' %}
+                </div>
+                {% else %} {# display list of keywords or topics #}
+                <div class="container">
+                    <div class="col-sm-8 col-md-6 col-lg-5 topic-list">
+                        <div class="list-group">
+                            {% for t in results.object_list %}
+                            {# t.text / t.count for topics #}
+                            {% if t.text and t.count %}
+                            <a class="list-group-item" href="?{{ fltr }}={{ t.text|urlencode }}">
+                                <span class='list-group-content'>{{ t.text }} </span>
+                                <span class="badge">{{ t.count|intcomma }}</span>
+                            </a>
+                            {% else %} {# value only for keywords #}
+                            <a class="list-group-item" href="?{{ fltr }}={{ t }}">
+                                <span class='list-group-content'>{{ t }}</span>
+                            </a>
+                            {% endif %}
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div><!-- /main -->
+        </div><!-- /st-content-inner -->
+    </div><!-- /st-content -->
+</div><!-- /st-pusher -->
+</div>
+{% endblock %}

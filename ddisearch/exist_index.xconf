@@ -1,0 +1,54 @@
+<collection xmlns="http://exist-db.org/collection-config/1.0">
+    <!-- <validation mode="no" /> -->
+    <!-- NOTE: disabling validation for now; need schema reference to validate -->
+
+    <index>
+        <!-- Disable the standard full text index -->
+        <fulltext default="none" attributes="false"/>
+        <!-- configure Lucene index -->
+        <lucene>
+            <analyzer class="org.apache.lucene.analysis.standard.StandardAnalyzer"/>
+            <!-- index everything for full-text keyword search at codebook level  -->
+            <text qname="codeBook" boost="0.5">
+                <ignore qname="docDscr"/>
+                <ignore qname="prodStmt"/>
+                <ignore qname="distStmt"/>
+                <ignore qname="serStmt"/>
+                <ignore qname="biblCit"/>
+                <ignore qname="holdings"/>
+                <ignore qname="method"/>
+                <ignore qname="dataAccs"/>
+                <ignore qname="othrStdyMat"/>
+                <ignore qname="fileDscr"/>
+                <ignore qname="dataDscr"/>
+                <ignore qname="otherMat"/>
+            </text>
+
+             <!-- boost more important fields -->
+            <text qname="titl" boost="0.7"/>
+            <text qname="abstract" boost="0.7"/>
+            <text qname="geogCover" boost="0.7"/>
+            <text qname="nation"/>
+            <text qname="universe"/>
+            <text qname="AuthEnty"/>
+            <text qname="topcClas"/>
+            <text qname="keyword"/>
+
+            <!-- xpath for advanced search fields (currently using full paths) -->
+            <text xpath="stdyDscr/citation/titlStmt/titl"/>
+            <text xpath="stdyDscr/stdyInfo/abstract"/>
+            <text xpath="stdyDscr/citation/rspStmt/AuthEnty"/>
+
+        </lucene>
+
+        <!-- Range indexes -->
+        <range>
+            <!-- needed for browse by topic -->
+            <create qname="topcClass" type="xs:string"/>
+            <create qname="keyword" type="xs:string"/>
+            <!-- might improve date range searching ? -->
+            <!-- <create qname="@date" type="xs:string"/> -->
+        </range>
+
+    </index>
+</collection>

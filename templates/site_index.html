@@ -1,0 +1,32 @@
+{% extends "site_base.html" %}
+{% load humanize %}
+
+{% block body_class %}home{% endblock %}
+
+{% block content %}
+<div class="container" id="search">
+	<h1>Search our Data Resources.</h1>
+	{% include 'ddi/snippets/search_form.html' %}
+</div><!-- /.container -->
+{% include 'ddi/snippets/loading.html' %}
+<div class="wrapper recent">
+	<div class="container">
+		<div class="col-sm-offset-2 col-sm-8">
+			<div class="tile">
+				<h3>New Additions</h3>
+				<div class="list-group"> 
+					{% for res in new_resources %}
+					<a class="list-group-item" href="{% url 'ddi:resource' id=res.id agency=res.id.agency %}">
+
+							<span class="badge">{{ res.document_version.date|naturalday }}</span>
+							<span class='list-group-content'>{{ res.title }}</span>
+					</a>
+					{% empty %}
+					<a class="list-group-item" href="#">No resources have been added since {{ new_since|naturalday }}.</a>
+					{% endfor %}
+				</div>
+			</div>
+		</div>
+	</div><!-- /.container -->
+</div><!-- /.wrapper -->
+{% endblock %}

@@ -1,0 +1,58 @@
+[
+{
+  "pk": 1,
+  "model": "geo.location",
+  "fields": {
+    "name": "Israel",
+    "geonames_id": 294640,
+    "longitude": 34.75,
+    "feature_code": "PCLI",
+    "continent_code": "AS",
+    "country_code": "IL",
+    "latitude": 31.5,
+    "state_code": null
+  }
+},
+{
+  "pk": 2,
+  "model": "geo.location",
+  "fields": {
+    "name": "North America",
+    "geonames_id": 6255149,
+    "longitude": -100.54688,
+    "feature_code": "CONT",
+    "continent_code": "NA",
+    "country_code": null,
+    "latitude": 46.07323,
+    "state_code": null
+  }
+},
+{
+  "pk": 3,
+  "model": "geo.location",
+  "fields": {
+    "name": "Michigan",
+    "geonames_id": 5001836,
+    "longitude": -85.50033,
+    "feature_code": "ADM1",
+    "continent_code": "NA",
+    "country_code": "US",
+    "latitude": 44.25029,
+    "state_code": "MI"
+  }
+},
+{
+  "pk": 4,
+  "model": "geo.location",
+  "fields": {
+    "name": "Detroit",
+    "geonames_id": 4990729,
+    "longitude": -83.04575,
+    "feature_code": "PPLA2",
+    "continent_code": "NA",
+    "country_code": "US",
+    "latitude": 42.33143,
+    "state_code": "MI"
+  }
+}
+]

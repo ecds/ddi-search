@@ -1,0 +1,36 @@
+{% extends "eultheme/site_base.html" %}
+{% load static %}
+{% block nav-title %}Data Services{% endblock %}
+{% block page-title %}Data Services{% block page-subtitle %}{% endblock %}{% endblock %}
+
+{% block nav_class %}navbar-fixed-top navbar-inverse{% endblock %}
+
+{% block navlinks %}
+    <li><a href="{% url 'ddi:browse-terms' mode='topics' %}">Browse by Topic</a></li>
+    <li><a href="{% url 'geo:browse' %}">Browse by Geography</a></li>
+{% endblock %}
+
+
+{% block css %}
+<!--css-->
+<link href="{% static 'css/flat-ui.css' %}" rel="stylesheet"/>
+<link href="{% static 'css/component.css' %}" rel="stylesheet"/>
+<link href="{% static 'css/style.css' %}" rel="stylesheet"/>
+<script type="text/javascript" src="{% static 'js/jquery.js' %}"></script>
+{% endblock %}
+{% block javascript %}
+<!--js-->
+<script type="text/javascript" src="{% static 'js/sidebarEffects.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/bootstrap-select-picker.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/scroller.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'eultheme/js/bootstrap-datepicker.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/icpsr.js' %}"></script>
+{% endblock %}
+
+{% block footer-content %}
+  {# display eXist query times (when present) in debug mode only #}
+  {% if querytime and debug %}
+    <div class="query-time dev-note">quer{{ querytime|pluralize:"y,ies" }} took
+      {{ querytime|join:", " }} ms</div>
+  {% endif %}
+{% endblock %}

@@ -1,0 +1,8 @@
+Django>=1.6
+eulxml>=0.20.1
+eulexistdb>=0.19
+eulcommon
+-e git://github.com/emory-libraries/django-eultheme.git@0.5#egg=django_eultheme
+progressbar
+requests
+python-dateutil

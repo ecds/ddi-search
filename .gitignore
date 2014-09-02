@@ -26,6 +26,7 @@ pip-log.txt
 .coverage
 .tox
 nosetests.xml
+coverage.xml
 
 # Translations
 *.mo
@@ -34,3 +35,13 @@ nosetests.xml
 .mr.developer.cfg
 .project
 .pydevproject
+
+# local project-specific items
+localsettings.py
+*.sqlite3
+doc/_build
+parser.out
+parsetab.py
+
+
+*.log

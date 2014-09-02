@@ -1,0 +1,17 @@
+.land{
+	fill:#ECF0F1;
+}
+
+.region {
+  fill: #D1D1D8;
+}
+
+.region-boundary {
+  fill: none;
+  stroke: #F7F7F7;
+  stroke-linejoin: round;
+}
+
+.selected {
+    fill: #1ABC9C;
+}

@@ -1,0 +1,28 @@
+{% extends "site_base.html" %}
+{% load humanize %} {% load static %}
+
+{% block body_class %}no-js{% endblock %}
+
+{# <title>{% block page-title %}{% block page-subtitle %}{% endblock %}{% endblock %}</title> #}
+{% block content %}
+<div id="st-container">
+    {# always display search form; initial search, or revise current search #}
+    <!-- content push wrapper -->
+    <div class="st-pusher">
+        {% include 'eultheme/snippets/preview_aside.html' %}
+        <div class="container" id="search">
+            {% include 'ddi/snippets/search_form.html' %}
+        </div>
+        <div class="st-content"><!-- this is the wrapper for the content -->
+            <div class="main clearfix">
+                {% include 'ddi/snippets/loading.html' %}
+                <div class="wrapper results">
+                    {% include 'ddi/snippets/search_results.html' %}
+                </div><!-- /wrapper -->
+            </div><!-- /main -->
+        </div><!-- /st-content-inner -->
+    </div><!-- /st-content -->
+</div><!-- /st-pusher -->
+</div>
+
+{% endblock %}

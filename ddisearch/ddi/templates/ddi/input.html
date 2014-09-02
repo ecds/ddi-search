@@ -1,0 +1,42 @@
+<label class="sr-only" for="id_keyword">Keyword:</label>
+
+		<div class="row search-bar">
+			<div class="container">
+				<div class="col-xs-12 col-sm-offset-1 col-sm-10 col-md-offset-2 col-md-8">
+					<div class="input-group">
+						<input class="form-control" id="id_keyword" name="keyword" type="text" value="" />
+						<span class="input-group-btn">
+							<button id="submit" class="btn btn-primary" type="button"><span class="glyphicon glyphicon-search"></span></button>
+						</span>
+					</div><!-- /input-group -->
+				</div>
+
+				<div class="col-xs-12 col-sm-offset-1 col-sm-10 col-md-offset-2 col-md-8">
+					<p class="text-muted inverse">One or more keywords; can include wildcards * and ?, and exact phrases in quotes.</p>
+				</div>
+			</div><!--/.container-->
+		</div>
+		<div class="row filter">
+			<div class="container">
+				<fieldset>
+					<div class="option">
+						<label for="id_per_page"><span>Results per page</span></label>
+						<select id="id_per_page" name="per_page">
+							<option value="10" selected="selected">10</option>
+							<option value="25">25</option>
+							<option value="50">50</option>
+							<option value="100">100</option>
+						</select>
+					</div>
+					<div class="option">
+						<label for="id_sort"><span>Sort by</span></label>
+						<select id="id_sort" name="sort">
+							<option value="relevance" selected="selected">relevance</option>
+							<option value="title">title</option>
+							<option value="date (recent)">date (recent)</option>
+							<option value="date (oldest)">date (oldest)</option>
+						</select>
+					</div>
+				</fieldset>
+			</div><!--/.container-->
+		</div>

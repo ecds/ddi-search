@@ -1,0 +1,65 @@
+[
+{
+  "pk": 1, 
+  "model": "geo.geonamescontinent", 
+  "fields": {
+    "code": "AF", 
+    "geonames_id": 6255146, 
+    "name": "Africa"
+  }
+},
+{
+  "pk": 2, 
+  "model": "geo.geonamescontinent", 
+  "fields": {
+    "code": "AS", 
+    "geonames_id": 6255147, 
+    "name": "Asia"
+  }
+},
+{
+  "pk": 3, 
+  "model": "geo.geonamescontinent", 
+  "fields": {
+    "code": "EU", 
+    "geonames_id": 6255148, 
+    "name": "Europe"
+  }
+},
+{
+  "pk": 4, 
+  "model": "geo.geonamescontinent", 
+  "fields": {
+    "code": "NA", 
+    "geonames_id": 6255149, 
+    "name": "North America"
+  }
+},
+{
+  "pk": 5, 
+  "model": "geo.geonamescontinent", 
+  "fields": {
+    "code": "OC", 
+    "geonames_id": 6255151, 
+    "name": "Oceania"
+  }
+},
+{
+  "pk": 6, 
+  "model": "geo.geonamescontinent", 
+  "fields": {
+    "code": "SA", 
+    "geonames_id": 6255150, 
+    "name": "South America"
+  }
+},
+{
+  "pk": 7, 
+  "model": "geo.geonamescontinent", 
+  "fields": {
+    "code": "AN", 
+    "geonames_id": 6255152, 
+    "name": "Antarctica"
+  }
+}
+]

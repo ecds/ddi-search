@@ -1,0 +1,68 @@
+{% extends "site_base.html" %}
+{% load humanize %} {% load geo_tags %}
+
+{% block page-subtitle %}| Browse by Geography{% endblock %}
+
+{% block content %}
+<div id="st-container">
+ <div class="st-pusher">
+  {% include 'ddi/snippets/preview_aside.html' %}
+  <div class="st-content"><!-- this is the wrapper for the content -->
+    <div class="container">
+      <h1>Browse {{ current_place.name|default:'by Geography' }}</h1>
+
+      {% if alternate_names %}
+      <p>(Alternate names:
+        {% for a in alternate_names %}
+        {{ a.name }}{% if not forloop.last %}; {% endif %}{% endfor %})</p>
+      {% endif %}
+
+      {% if hierarchy %}
+      <ol class="breadcrumb">
+        <li><a href="{% url 'geo:browse' %}">Global</a></li>
+        {% for place in hierarchy %}
+          {% if place == current_place %}
+          <li class="active">{{ place.name }}</li>
+          {% else %}
+          <li><a href="{{ place|location_url }}">{{ place.name }}</a></li>
+          {% endif %}
+        {% endfor %}
+      </ol>
+      {% endif %}
+
+      <ul class="regions">
+        {% for p in places %}
+          <li>
+            <a href="{{ p|location_url }}">
+              <span class="glyphicon glyphicon-folder-close"></span>
+              <span>{{ p.name }}</span>
+            </a>
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+    <div class="container">
+      <div class="filter browse">
+        <div class="page-options">
+          <div class="container">
+            {# include any hidden fields on the form (i.e. pass keyword/topic) #}
+            {% for f in form.hidden_fields %} {{ f }} {% endfor %}
+            {% include 'ddi/snippets/search_options.html' %}  {# per page & sort #}
+          </div>
+        </div>
+      </div>
+
+        {% if current_place %}
+          {% with resource_label="with "|add:current_place.name|default:'Global'|add:" coverage" %}
+            {% include 'ddi/snippets/search_results.html' %}
+          {% endwith %}
+        {% else %}
+          {% include 'ddi/snippets/search_results.html' with resource_label="with Global coverage" %}
+        {% endif %}
+    </div>
+  </div>
+
+</div>
+</div>
+{% endblock %}
+

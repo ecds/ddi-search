@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: http://dataresources.digitalscholarship.emory.edu/data/sitemap.xml

@@ -1,0 +1,15 @@
+{% extends "site_base.html" %}
+{% load humanize %}
+
+{% block body_class %}fourOhFour{% endblock %}
+
+{% block content %}
+<div class="container">
+	<h1>Sorry, this page doesn't exist.</h1>
+	<p class="lead">The page you are looking for has either been moved or deleted.</p>
+	<p class="text-centered">
+		<a class="btn btn-warning" href="/">You can try a new Search Here.</a>
+	</p>
+</div><!-- /.container -->
+{% include 'ddi/snippets/loading.html' %}
+{% endblock %}
