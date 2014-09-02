@@ -47,41 +47,41 @@ class CodebookGeocoder(object):
 
         # in theory this could give us some help, but is often not set
         if cb.geo_unit:
-            logger.debug('geogUnit = %s' % '; '.join(cb.geo_unit))
-
-        # FIXME: this isn't working well enough; preload state names
-        # and check that some number (three?) match, then assume US?
+            logger.debug('geogUnit = %s', '; '.join(cb.geo_unit))
 
         # check if geographic coverage includes "global" (indicates not US-only)
         is_global = any([geog.val.lower() == 'global' for geog in cb.geo_coverage])
         includes_us = any([geog.val == 'United States' for geog in cb.geo_coverage])
 
-
         # check if there are at least three US states in this record,
         # to help determine if we should assume US
         current_us_states = [geog.val for geog in cb.geo_coverage if geog.val in us_states]
-        # FIXME: do we want geog.val here or full geog?
 
         # If not global and includes U.S. and at least one state
         # OR if not global and includes more than three states,
         # restrict geocoded results to U.S. locations
+
+        # set a flag for whether assume US is true for *entire* document
         if (not is_global and includes_us and current_us_states) \
           or (not is_global and len(current_us_states) >= 3):
-            assume_US = True
+            doc_assume_US = True
         else:
-            assume_US = False
-        # assuming US should either be true or false for all coverage terms
-        # in a single document
+            doc_assume_US = False
 
         # loop through geographical coverage terms and look them up,
         # setting geonames id on the geogCover element
         for geog in cb.geo_coverage:
 
+            # reset assume US flag to whatever the document assumption about US is,
+            # since it could potentially change for individual locations with
+            # U.S. states mentioned
+            assume_US = doc_assume_US
+
             # skip coverage of global - nothing to code
             if geog.val == 'Global':
                 continue
 
-            logger.info('geogCover %s' % geog.val)
+            logger.info('geogCover %s', geog.val)
 
             # special case: first check if we have a continent
             # (geonames not looking these up so well; for some reason
@@ -138,15 +138,12 @@ class CodebookGeocoder(object):
             # NOTE: skipping this even though it will require more geocoding,
             # because adding duplicate logic here to restrict by location,
             # admin code, etc. seems problematic
-            # FIXME: can we do both?
-            # if dbloc is None:
-            #     dbloc = self.lookup_location(geogname, assume_US=assume_US)
 
             # if we still don't have a location, use the geocoder
             if dbloc is None:
                 # use US-biased geocoder if we have hit a threshold where
                 # we want to assume US (with certain exceptions)
-                # FIXME: may well be others like Puerto Rico!
+                # NOTE: there may well be other locations like Puerto Rico!
 
                 if assume_US and geogname != 'Puerto Rico':
                     geo_options['country'] = 'US'
@@ -168,10 +165,10 @@ class CodebookGeocoder(object):
                 loc = self.lookup_name(geogname, geo_options)
                 # if no location was found, warn and skip
                 if not loc:
-                    logger.warn('No geonames result found for %s' % geogname)
+                    logger.warn('No geonames result found for %s', geogname)
                     continue
 
-                logger.debug('geonames result: %s' % unicode(loc))
+                logger.debug('geonames result: %s', unicode(loc))
                 logger.debug(loc.raw)
 
                 # check if geonames id is already in the db
@@ -184,17 +181,17 @@ class CodebookGeocoder(object):
 
             # set geonames id in the xml
             geog.id = 'geonames:%d' % dbloc.geonames_id
-            logger.info('setting geonames id to %s (%s, %s, %s)' % \
-                        (geog.id, dbloc.name, dbloc.country_code,
-                         dbloc.continent_code))
+            logger.info('setting geonames id to %s (%s, %s, %s)',
+                        geog.id, dbloc.name, dbloc.country_code,
+                         dbloc.continent_code)
 
     def lookup_country(self, geogname):
         # lookup a name to see if matches one of our known countries
         countries = GeonamesCountry.objects.filter(name=geogname)
         if countries.count():
             loc = self.geonames.get_by_id(countries[0].geonames_id)
-            logger.debug('Found a country match for %s, using geonames %s' % \
-                         (geogname, countries[0].geonames_id))
+            logger.debug('Found a country match for %s, using geonames %s',
+                         geogname, countries[0].geonames_id)
             dbloc = self.location_from_geoname(loc)
             return dbloc
 
@@ -222,8 +219,8 @@ class CodebookGeocoder(object):
             # store db location so we can put geonames id into the xml
             dbloc = db_locations[0]
 
-            logger.debug('Found a location match for %s, using %s' % \
-                (geogname, dbloc))
+            logger.debug('Found a location match for %s, using %s',
+                geogname, dbloc)
 
             return dbloc
 
@@ -234,7 +231,6 @@ class CodebookGeocoder(object):
         # first try for exact match, with feature class of A (country, state, region)
         loc = self.geonames.geocode(name_equals=geogname, feature_class='A',
                                     **geo_options)
-
 
         # if that doesn't work, try with exact name and broader feature class (P = city, village)
         if not loc:

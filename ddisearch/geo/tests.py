@@ -65,13 +65,14 @@ class CodebookGeocoderTest(TestCase):
     def test_code_locations(self):
         mocklocation = self._mocklocation()
         self.mockgeonames.return_value.geocode.return_value = mocklocation
+        self.mockgeonames.return_value.get_by_id.return_value = mocklocation
         # make sure id is not set
         del self.cb.geo_coverage[0].id
         self.cbgeocoder.code_locations(self.cb)
 
-        self.mockgeonames.return_value.geocode.assert_called_with(name_equals=self.cb.geo_coverage[0].val)
-        self.assertEqual(1, self.mockgeonames.return_value.geocode.call_count,
-            'geocode should only be called once (one geogCover term and one global)')
+        self.mockgeonames.return_value.get_by_id.assert_called_with(294640)
+        self.assertEqual(1, self.mockgeonames.return_value.get_by_id.call_count,
+            'get_by_id should be called when match is found in countries table')
 
         self.assertEqual('geonames:%s' % mocklocation.raw['geonameId'],
             self.cb.geo_coverage[0].id,
@@ -113,44 +114,40 @@ class CodebookGeocoderTest(TestCase):
         with patch('ddisearch.geo.utils.Location') as mockdbloc:
             mockdbloc.objects.filter.return_value.count.return_value = 0
             self.cbgeocoder.code_locations(self.cb)
-            mockdbloc.objects.filter.assert_any_call(name=self.cb.geo_coverage[0].val,
-                country_code='US')
-            mockdbloc.objects.filter.assert_any_call(name=self.cb.geo_coverage[1].val,
-                country_code='US')
-            mockdbloc.objects.filter.assert_any_call(name=self.cb.geo_coverage[2].val,
-                country_code='US')
-            # no US for Puerto Rico
-            mockdbloc.objects.filter.assert_any_call(name=self.cb.geo_coverage[3].val)
+
             self.mockgeonames.return_value.geocode.assert_any_call(name_equals=self.cb.geo_coverage[0].val,
-                country_bias='US', admin_code1='CA')
+                country='US', admin_code1='CA', feature_class='A')
             self.mockgeonames.return_value.geocode.assert_any_call(name_equals=self.cb.geo_coverage[1].val,
-                country_bias='US', admin_code1='AK')
+                country='US', admin_code1='AK', feature_class='A')
             self.mockgeonames.return_value.geocode.assert_any_call(name_equals=self.cb.geo_coverage[2].val,
-                country_bias='US', admin_code1='GA')
-            self.mockgeonames.return_value.geocode.assert_any_call(name_equals=self.cb.geo_coverage[3].val)
+                country='US', admin_code1='GA', feature_class='A')
+            self.mockgeonames.return_value.geocode.assert_any_call(name_equals=self.cb.geo_coverage[3].val,
+                feature_class='A')
 
             # Georgia when context doesn't suggest US
-            self.cb.geo_coverage[0].val = 'Romania'
-            self.cb.geo_coverage[1].val = 'Ukraine'
-            # 2 = Georgia, 4 = Puerto Rico
-            self.mockgeonames.return_value.geocode.reset_mock()
-            mockdbloc.objects.filter.return_value.count.return_value = 0
-            mockdbloc.objects.filter.return_value.exclude.return_value.count.return_value = 0
-            self.cbgeocoder.code_locations(self.cb)
-            mockdbloc.objects.filter.assert_any_call(name='Georgia')
-            # db lookup should explicitly exclude US if context doesn't suggest Georgia is a state
-            mockdbloc.objects.filter.return_value.exclude.assert_any_call(country_code='US')
+            # self.cb.geo_coverage[0].val = 'Romania'
+            # self.cb.geo_coverage[1].val = 'Ukraine'
+            # # 2 = Georgia, 4 = Puerto Rico
+            # self.mockgeonames.return_value.geocode.reset_mock()
+            # mockdbloc.objects.filter.return_value.count.return_value = 0
+            # mockdbloc.objects.filter.return_value.exclude.return_value.count.return_value = 0
+            # self.cbgeocoder.code_locations(self.cb)
+
+            # NOTE: no longer using db lookup first, but searching by feature class
+            # in narrowing scope (country first).
+            # not sure how to test this for Georgia (country) lookup logic
 
         # formatted names
+        # - U.S. state
         self.mockgeonames.return_value.geocode.reset_mock()
         self.cb.geo_coverage[0].val = 'Portland (Maine)'
+        # non-U.S. state
         self.cb.geo_coverage[1].val = 'Hiroshima (prefecture)'
         del self.cb.geo_coverage[-1]
         del self.cb.geo_coverage[-1]
         self.cbgeocoder.code_locations(self.cb)
         self.mockgeonames.return_value.geocode.assert_any_call(name_equals='Portland',
-                country_bias='US', admin_code1='ME')
-        self.mockgeonames.return_value.geocode.assert_any_call(name_equals='Hiroshima')
-
-
-
+                country='US', admin_code1='ME', feature_class='A')
+        print self.mockgeonames.return_value.geocode.call_args_list
+        self.mockgeonames.return_value.geocode.assert_any_call(name_equals='Hiroshima',
+            feature_class='A')
