@@ -8,6 +8,11 @@ Aids application.  New features in each version should be listed, with the most
 recent version first.  Upgrade or deployment notes should be found in
 :ref:`DEPLOYNOTES`.
 
+1.0.1
+-----
+
+* bugfix: DOI detection now also works on DOI URLs in the bibliographic citation.
+
 1.0
 ---
 

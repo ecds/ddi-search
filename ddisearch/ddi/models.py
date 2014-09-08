@@ -441,7 +441,10 @@ class CodeBook(XmlModel):
 
     # simple DOI regex (does not handle full complexity of DOI spec, but hopefully
     # should work for ICPSR dois )
-    doi_re = re.compile('^.*\s(?P<DOI>doi:10\.[0-9]{4,}/\S+)$', flags=re.MULTILINE)
+    doi_re = re.compile(r'^.*\b(doi:|http://doi.org/)(?P<DOI>10\.[0-9]{4,}/\S+)$', flags=re.MULTILINE)
+    # Needs to match either of these formats:
+    # doi:10.3886/ICPSR02988
+    # http://doi.org/10.3886/ICPSR34941.v1
 
     _doi = None
 
@@ -449,10 +452,11 @@ class CodeBook(XmlModel):
     def doi(self):
         if self._doi is None:
             # ICPSR records contain a doi within the citation; if present, extract
-            if self.bibligraphic_citation and 'doi:' in self.bibligraphic_citation:
+            if self.bibligraphic_citation and 'doi:' in self.bibligraphic_citation \
+              or 'http://doi.org' in self.bibligraphic_citation:
                 match = self.doi_re.match(self.bibligraphic_citation)
                 if match:
-                    self._doi = match.groupdict()['DOI']
+                    self._doi = 'doi:%s' % match.groupdict()['DOI']
         return self._doi
 
     @property

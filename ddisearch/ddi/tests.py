@@ -142,6 +142,11 @@ class CodeBookTest(TestCase):
         self.assertEqual('doi:10.3886/ICPSR02988', self.cb.doi)
         self.assertEqual('http://dx.doi.org/10.3886/ICPSR02988', self.cb.doi_url)
 
+        self.cb.bibligraphic_citation = 'http://doi.org/10.3886/ICPSR34941.v1'
+        self.cb._doi = None
+        self.assertEqual('doi:10.3886/ICPSR34941.v1', self.cb.doi)
+        self.assertEqual('http://dx.doi.org/10.3886/ICPSR34941.v1', self.cb.doi_url)
+
 
 class KeywordSearchTest(TestCase):
     # test keyword search form class
