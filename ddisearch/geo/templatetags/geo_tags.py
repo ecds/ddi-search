@@ -16,8 +16,8 @@
 
 from django import template
 from django.core.urlresolvers import reverse
-from django.utils import simplejson
 from django.utils.safestring import mark_safe
+import json
 
 from ddisearch.geo.models import Location, GeonamesContinent, \
     GeonamesCountry
@@ -71,4 +71,4 @@ def location_url(dbloc):
 
 @register.filter
 def as_json(val):
-    return mark_safe(simplejson.dumps(val))
+    return mark_safe(json.dumps(val))
