@@ -14,11 +14,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from django.conf.urls import patterns, url
+from django.conf.urls import url
 
 from ddisearch.geo import views
 
-urlpatterns = patterns('',
+urlpatterns = [
     url(r'^$', views.browse, name='browse'),
     url(r'^(?P<continent>[A-Z]{2})/$', views.browse, name='continent'),
     url(r'^(?P<continent>[A-Z]{2})/(?P<country>[A-Z]{2})/$', views.browse,
@@ -27,4 +27,4 @@ urlpatterns = patterns('',
         views.browse, name='state'),
     url(r'^(?P<continent>[A-Z]{2})/(?P<country>[A-Z]{2})/(?P<state>[A-Z0-9]{1,3})/(?P<geonames_id>[0-9]+)/$',
         views.browse, name='substate'),
-)
+]
