@@ -544,9 +544,10 @@ _collection = u'collection("/db/%s")' % settings.EXISTDB_ROOT_COLLECTION.lstrip(
 # xpath to get the total number of documents with this topic or keyword
 # - has to use ft:query or else it is much too slow
 _count_xpath_template = '''count(%s/codeBook[ft:query(%s,
-        <query><phrase>{%%(xq_var)s}</phrase></query>)])'''
-# NOTE: this is not exact... will probably match partials (not great for keywords)
-# <regex>^{$n}$</regex> should be possible, but returns count of 0
+        <query><term>{%%(xq_var)s}</term></query>)])'''
+# NOTE: under existdb2.2 using query/phrase only works for single words,
+# but query/term works for everything.
+
 
 class DistinctKeywords(XmlModel):
     'xml model to allow searching for distinct keywords'
@@ -554,6 +555,7 @@ class DistinctKeywords(XmlModel):
     count_xpath = _count_xpath_template % (_collection, './/keyword')
     text = xmlmap.StringField('text()')
     text_xpath = '%(xq_var)s'
+
 
 class DistinctTopics(XmlModel):
     'xml model to allow searching for distinct local topics'
