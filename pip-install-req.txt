@@ -1,5 +1,7 @@
-Django>=1.8,<1.9
-eulxml>=0.20.1
+Django>=1.9,<1.10
+#eulxml>=0.20.1
+# bugfix in eulxml.xpath affecting topic xquery
+-e git://github.com/emory-libraries/eulxml.git@develop#egg=eulxml
 eulexistdb>=0.19
 eulcommon
 -e git://github.com/emory-libraries/django-eultheme.git@0.5#egg=django_eultheme

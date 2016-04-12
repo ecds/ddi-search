@@ -255,7 +255,7 @@ def resource_xml(request, agency, id):
         raise Http404
 
     xml = res.serialize(pretty=True)
-    response = HttpResponse(xml, mimetype='application/xml')
+    response = HttpResponse(xml, content_type='application/xml')
     response['Content-Disposition'] = 'filename="%s"' % res.document_name
     return response
 
