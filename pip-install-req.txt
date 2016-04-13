@@ -3,7 +3,7 @@ Django>=1.9,<1.10
 # bugfix in eulxml.xpath affecting topic xquery
 -e git://github.com/emory-libraries/eulxml.git@develop#egg=eulxml
 # new eulexistdb for existdb 2.2
--e git://github.com/emory-libraries/eulexistdb.git@chunked#egg=eulexistdb
+-e git://github.com/emory-libraries/eulexistdb.git@feature/chunked-results#egg=eulexistdb
 #eulexistdb>=0.19
 eulcommon
 -e git://github.com/emory-libraries/django-eultheme.git@0.5#egg=django_eultheme
