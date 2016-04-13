@@ -36,6 +36,7 @@ EXISTDB_SERVER_URL = 'http://localhost:8080/exist/'
 EXISTDB_SERVER_USER = "admin"
 EXISTDB_SERVER_PASSWORD = ""
 EXISTDB_ROOT_COLLECTION = "/ddi_data"
+EXISTDB_TEST_COLLECTION = "/test/rsk_ddi_data"
 # a bug in python xmlrpclib loses the timezone; override it here
 # most likely, you want either tz.tzlocal() or tz.tzutc()
 from dateutil import tz
