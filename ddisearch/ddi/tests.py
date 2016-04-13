@@ -318,7 +318,7 @@ class ViewsTest(eulexistdb_testutil.TestCase):
 
         # single date - partial date match in the fixture (1974-01-15)
         response = self.client.get(search_url,
-            {'per_page': 10, 'sort': 'relevance', 'keyword' : 'israeli election',
+            {'per_page': 10, 'sort': 'relevance', 'keyword': 'israeli election',
             'start_date': 1974, 'end_date': 1974})
         self.assertEqual(1, response.context['results'].paginator.count,
             'expected one result from date search on 1974')
@@ -330,40 +330,40 @@ class ViewsTest(eulexistdb_testutil.TestCase):
             'expected one result from date search on 1974 without keyword')
         # single date that does not match
         response = self.client.get(search_url,
-            {'per_page': 10, 'sort': 'relevance', 'keyword' : 'israeli election',
+            {'per_page': 10, 'sort': 'relevance', 'keyword': 'israeli election',
             'start_date': 1975, 'end_date': 1975})
         self.assertEqual(0, response.context['results'].paginator.count,
             'expected no results from date search on 1975')
         # after date
         response = self.client.get(search_url,
-            {'per_page': 10, 'sort': 'relevance', 'keyword' : 'israeli election',
+            {'per_page': 10, 'sort': 'relevance', 'keyword': 'israeli election',
             'start_date': 1960})
         self.assertEqual(1, response.context['results'].paginator.count,
             'expected one result from date search on items after 1960')
         response = self.client.get(search_url,
-            {'per_page': 10, 'sort': 'relevance', 'keyword' : 'israeli election',
+            {'per_page': 10, 'sort': 'relevance', 'keyword': 'israeli election',
             'start_date': 1980})
         self.assertEqual(0, response.context['results'].paginator.count,
             'expected no results from date search on items after 1980')
         # before date
         response = self.client.get(search_url,
-            {'per_page': 10, 'sort': 'relevance', 'keyword' : 'israeli election',
+            {'per_page': 10, 'sort': 'relevance', 'keyword': 'israeli election',
             'end_date': 1974})
         self.assertEqual(1, response.context['results'].paginator.count,
             'expected one result from date search on items before 1974')
         response = self.client.get(search_url,
-            {'per_page': 10, 'sort': 'relevance', 'keyword' : 'israeli election',
+            {'per_page': 10, 'sort': 'relevance', 'keyword': 'israeli election',
             'end_date': 1972})
         self.assertEqual(0, response.context['results'].paginator.count,
             'expected no results from date search on items before 1972')
         # date range
         response = self.client.get(search_url,
-            {'per_page': 10, 'sort': 'relevance', 'keyword' : 'israeli election',
+            {'per_page': 10, 'sort': 'relevance', 'keyword': 'israeli election',
             'start_date': 1960, 'end_date': 2000})
         self.assertEqual(1, response.context['results'].paginator.count,
             'expected one result from date search on items from 1960-2000')
         response = self.client.get(search_url,
-            {'per_page': 10, 'sort': 'relevance', 'keyword' : 'israeli election',
+            {'per_page': 10, 'sort': 'relevance', 'keyword': 'israeli election',
             'start_date': 1960, 'end_date': 1972})
         self.assertEqual(0, response.context['results'].paginator.count,
             'expected no results from date search on items from 1960-1972')
@@ -371,7 +371,7 @@ class ViewsTest(eulexistdb_testutil.TestCase):
     def test_resource(self):
         # single document display
         resource_url = reverse('ddi:resource',
-            kwargs={'id': self.cb.id, 'agency': self.cb.id.agency })
+            kwargs={'id': self.cb.id, 'agency': self.cb.id.agency})
         response = self.client.get(resource_url)
         self.assertContains(response, '<span class="resource-title">%s</span>' \
             % self.cb.title, html=True)
@@ -386,12 +386,54 @@ class ViewsTest(eulexistdb_testutil.TestCase):
 
         # bogus id should 404
         resource_url = reverse('ddi:resource',
-            kwargs={'id': '12345678', 'agency': self.cb.id.agency })
+            kwargs={'id': '12345678', 'agency': self.cb.id.agency})
         response = self.client.get(resource_url)
         expected, got = 404, response.status_code
         self.assertEqual(expected, got,
-            'expected status code %s for %s with bogus id, got %s' % \
+            'expected status code %s for %s with bogus id, got %s' %
             (expected, resource_url, got))
+
+    def test_topics(self):
+        # NOTE: the topics xqueries reference the collection directly;
+        # update the xpaths so it runs against the test database
+        ddixml.DistinctTopics.objects.xpath = ddixml.DistinctTopics. \
+            objects.xpath.replace(settings.EXISTDB_ROOT_COLLECTION_REAL,
+                                  settings.EXISTDB_ROOT_COLLECTION)
+        ddixml.DistinctTopics.count_xpath = ddixml.DistinctTopics. \
+            count_xpath.replace(settings.EXISTDB_ROOT_COLLECTION_REAL,
+                                settings.EXISTDB_ROOT_COLLECTION)
+        topic_url = reverse('ddi:browse-terms', kwargs={'mode': 'topics'})
+        response = self.client.get(topic_url)
+        self.assertContains(response, 'Topics')
+        # fixture has no local topic
+        self.assertContains(response, 'No results')
+
+        # update the fixture with a local topic for testing
+        topic = 'International Relations'
+        self.cb.topics.append(ddixml.Topic(val=topic, vocab='local'))
+        dbpath = settings.EXISTDB_ROOT_COLLECTION + "/" + self.fixture_filename
+        db = ExistDB()
+        db.load(self.cb.serialize(), dbpath, overwrite=True)
+
+        response = self.client.get(topic_url)
+        self.assertContains(response, topic,
+            msg_prefix='Local topic should be listed on browse topics page')
+        self.assertContains(response, '<span class="badge">1</span>',
+            msg_prefix='topic count should be displayed')
+        # NOTE: should be using html=True here, but page isn't currently valid
+        # xml (incorrect nesting divs? unclosed favicon in eultheme)
+
+        # list resources by topic
+        response = self.client.get(topic_url, {'topic': topic})
+        self.assertContains(response, 'Topics : %s' % topic,
+            msg_prefix='Single topic page should display topic')
+        self.assertContains(response, 'Found <strong>1</strong> resource',
+            msg_prefix='Single topic page should display resource count')
+        self.assertContains(response, self.cb.title,
+            msg_prefix='Single topic page should display matching item title')
+        self.assertContains(response, reverse('ddi:resource',
+            kwargs={'id': self.cb.id, 'agency': self.cb.id.agency}),
+            msg_prefix='single topic page should link to matching item')
 
 
 @patch('ddisearch.ddi.management.commands.load.CodebookGeocoder')

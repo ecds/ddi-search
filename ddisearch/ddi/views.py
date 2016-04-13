@@ -269,7 +269,7 @@ def browse_terms(request, mode):
     .. Note::
 
       Browse by keyword is **deprecated** because there are so many
-      keywords that
+      keywords that it is not useful.
 
     :param mode: keywords or topics
     '''
