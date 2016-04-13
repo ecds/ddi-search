@@ -1,6 +1,25 @@
 README
 ======
 
+.. image:: https://img.shields.io/github/license/emory-libraries/ddi-search.svg
+  :alt: License
+
+.. image:: https://travis-ci.org/emory-libraries/ddi-search.svg?branch=feature/django-upgrade
+  :target: https://travis-ci.org/emory-libraries/ddi-search
+  :alt: travis-ci build
+
+.. image:: https://coveralls.io/repos/github/emory-libraries/ddi-search/badge.svg?branch=feature/django-upgrade
+  :target: https://coveralls.io/github/emory-libraries/ddi-search?branch=feature/django-upgrade
+  :alt: Code Coverage
+
+.. image:: https://codeclimate.com/github/emory-libraries/ddi-search/badges/gpa.svg
+  :target: https://codeclimate.com/github/emory-libraries/ddi-search
+  :alt: Code Climate
+
+.. image:: https://requires.io/github/emory-libraries/ddi-search/requirements.svg?branch=feature/django-upgrade
+  :target: https://requires.io/github/emory-libraries/ddi-search/requirements/?branch=feature/django-upgrade
+  :alt: Requirements Status
+
 DDI Search
 ^^^^^^^^^^
 
