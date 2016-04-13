@@ -30,7 +30,7 @@ before_script:
   - ci/start-existdb.sh
 
 script:
-  nosetests test/ --with-coverage --cover-package=eulexistdb --cover-xml --with-xunit
+  python manage.py test --with-coverage --cover-package=ddisearch --cover-xml --with-xunit
 
 after_success:
   - coveralls
