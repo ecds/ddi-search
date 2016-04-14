@@ -22,6 +22,7 @@ from django.core.paginator import Paginator, EmptyPage, InvalidPage
 from django.views.decorators.http import condition
 from urllib import urlencode
 from eulexistdb.exceptions import DoesNotExist
+from eulexistdb.query import XmlQuery
 
 from ddisearch.ddi import forms
 from ddisearch.ddi.models import CodeBook, DistinctKeywords, DistinctTopics
@@ -310,9 +311,10 @@ def browse_terms(request, mode):
             # make sure to only browse against *local* topics
             search_field = 'local_topics__fulltext_terms'
 
-        results = CodeBook.objects.filter(**{search_field: '"%s"' % term}) \
-                    .only('title', 'abstract', 'keywords', 'topics',
-                          'authors', 'time_periods', 'id')
+        results = CodeBook.objects \
+            .filter(**{search_field: XmlQuery(term=term)}) \
+            .only('title', 'abstract', 'keywords', 'topics',
+                  'authors', 'time_periods', 'id')
 
         # sort the queryset based on the requested sort option
         results = _sort_results(results, sort)
@@ -344,7 +346,6 @@ def browse_terms(request, mode):
     except (EmptyPage, InvalidPage):
         page = paginator.num_pages
         results = paginator.page(paginator.num_pages)
-
 
     context.update({'results': results, 'url_params': urlencode(url_args),
                     'querytime': [results.object_list.queryTime()]})
