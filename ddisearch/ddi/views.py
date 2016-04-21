@@ -31,6 +31,13 @@ from ddisearch.ddi.utils import ddi_lastmodified, ddi_etag, collection_lastmodif
 
 logger = logging.getLogger(__name__)
 
+
+# NOTE: exist query time reporting is disabled for now; as of
+# eulexistdb 0.20 it is not available, but leaving the lines commented out
+# because it may be enabled again for future versions of eXist.
+# In the meantime, it is recommended to use django-debug-toolbar instead.
+
+
 @condition(last_modified_func=collection_lastmodified)
 def site_index(request):
     'Site index page; currently just displays the search form.'
@@ -203,7 +210,7 @@ def search(request):
 
         context.update({'keywords': search_opts.get('keywords', ''),
             'results': results,
-            'querytime': [results.object_list.queryTime()],
+            # 'querytime': [results.object_list.queryTime()],
             'url_params': url_params,
             'per_page': int(per_page),
             'rechunk_params': rechunk_params,
@@ -347,7 +354,7 @@ def browse_terms(request, mode):
         page = paginator.num_pages
         results = paginator.page(paginator.num_pages)
 
-    context.update({'results': results, 'url_params': urlencode(url_args),
-                    'querytime': [results.object_list.queryTime()]})
+    context.update({'results': results, 'url_params': urlencode(url_args)})
+                    # 'querytime': [results.object_list.queryTime()]})
 
     return render(request, 'ddi/browse_terms.html', context)
