@@ -139,7 +139,7 @@ if django_nose is not None:
     NOSE_ARGS = ['--with-existdbsetup']
 
 # enable django-debug-toolbar when available & in debug/dev modes
-if DEBUG or DEV_ENV:
+if DEBUG:
     try:
         import debug_toolbar
         INSTALLED_APPS.append('debug_toolbar')
