@@ -4,3 +4,4 @@ coverage
 unittest2
 mock
 django-nose>1.4
+django-debug-toolbar
