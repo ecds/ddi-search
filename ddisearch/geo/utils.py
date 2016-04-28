@@ -197,9 +197,11 @@ class CodebookGeocoder(object):
                              geogname, country.geonames_id)
                 dbloc = self.location_from_geoname(loc)
                 return dbloc
-            except GeonamesException:
-                # possible to get an error if geonames id no longer exists
-                pass
+            except GeonamesException as err:
+                # it's possible to get an error if geonames id no
+                # longer exists
+                logger.warn('Failed to load Geonames %s id %s: %s',
+                            geogname, country.geonames_id, err)
 
     def lookup_location(self, geogname, assume_US=False):
         # lookup a name to see if it matches a location in the database
