@@ -103,6 +103,9 @@ class GeonamesClient(object):
         params = {'username': self.username, 'geonameId': geonames_id}
         api_url = '%s/getJSON' % self.base_url
         resp = requests.get(api_url, params=params)
+        if resp.status_code != requests.codes.ok:
+            raise GeonamesException('Error retrieving GeoNames %s: %s' % \
+                                    (geonames_id, resp.content))
         # geonames returns 200 for not found, have to check contents
         data = resp.json()
         if 'status' in data and data['status']['value'] == 15:
