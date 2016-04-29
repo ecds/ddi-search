@@ -14,11 +14,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from django.conf.urls import patterns, url
-
+from django.conf.urls import url
 from ddisearch.ddi import views
 
-urlpatterns = patterns('',
+
+urlpatterns = [
     url(r'^search/$', views.search, name='search'),
     url(r'^resources/(?P<agency>[a-zA-Z0-9]+):(?P<id>[0-9_]+)/$',
         views.resource, name='resource'),
@@ -26,4 +26,4 @@ urlpatterns = patterns('',
         views.resource_xml, name='xml'),
     url(r'^(?P<mode>(topics|keywords))/$', views.browse_terms,
         name='browse-terms'),
-)
+]

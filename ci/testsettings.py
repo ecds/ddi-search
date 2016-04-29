@@ -18,7 +18,7 @@ ALLOWED_HOSTS = []
 
 # SECURITY WARNING: keep the secret key used in production secret!
 # You can generate one here: http://www.miniwebtool.com/django-secret-key-generator/
-SECRET_KEY = ''
+SECRET_KEY = ']:7=:|]*AEI@+vHN%hQM-Kv_PKFXM:>8J*tiJKI5{kR}#`cO&H'
 
 # Database
 # https://docs.djangoproject.com/en/1.6/ref/settings/#databases
@@ -31,11 +31,12 @@ DATABASES = {
 }
 
 # Exist DB Settings
-# TBD: site may be able to run as guest
-#EXISTDB_SERVER_USER = 'user'
-#EXISTDB_SERVER_PASSWORD = 'pass'
-EXISTDB_SERVER_URL = "http://localhost:8080/exist"
+EXISTDB_SERVER_URL = 'http://localhost:8080/exist/'
+# exist admin account for testing
+EXISTDB_SERVER_USER = "admin"
+EXISTDB_SERVER_PASSWORD = ""
 EXISTDB_ROOT_COLLECTION = "/ddi_data"
+EXISTDB_TEST_COLLECTION = "/test/rsk_ddi_data"
 # a bug in python xmlrpclib loses the timezone; override it here
 # most likely, you want either tz.tzlocal() or tz.tzutc()
 from dateutil import tz
@@ -55,38 +56,14 @@ LOGGING = {
             'datefmt': '%d/%b/%Y %H:%M:%S',
         },
     },
-    'filters': {
-        'require_debug_false': {
-            '()': 'django.utils.log.RequireDebugFalse'
-        }
-    },
     'handlers': {
-        'console':{
+        'console': {
             'level': 'DEBUG',
             'class': 'logging.StreamHandler',
             'formatter': 'basic'
         },
-        'mail_admins': {
-            'level': 'ERROR',
-            'class': 'django.utils.log.AdminEmailHandler',
-            'filters': ['require_debug_false'],
-            'include_html': True
-        },
-        'file': {
-            'level': 'INFO',
-            'class': 'logging.handlers.RotatingFileHandler',
-            'filename': '/home/httpd/sites/ddisearch/logs/django.log',
-            'maxBytes': 1024*1024*5,
-            'backupCount': 3,
-            'formatter': 'basic',
-        },
     },
     'loggers': {
-        'django.request': {
-            'handlers': ['mail_admins'],
-            'level': 'ERROR',
-            'propagate': False,
-        },
         'ddisearch': {
             'handlers': ['console'],
             'level': 'INFO',

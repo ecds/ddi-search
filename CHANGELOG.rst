@@ -8,6 +8,15 @@ Aids application.  New features in each version should be listed, with the most
 recent version first.  Upgrade or deployment notes should be found in
 :ref:`DEPLOYNOTES`.
 
+1.1
+---
+
+* Upgrade to eXist-db 2.2
+* Upgrade to Django 1.9
+* bugfix: error handling for unrecognized geonames id when loading documents
+* Configured for testing on Travis-CI
+* Configured to use django-debug-toolbar with eulexistdb for development
+
 1.0.1
 -----
 

@@ -69,7 +69,7 @@ The local copy will be *removed* after it is successfully loaded.'''
         if total >= 10 and os.isatty(sys.stderr.fileno()):
             widgets = [Percentage(), ' (', SimpleProgress(), ')',
                        Bar(), ETA()]
-            pbar = ProgressBar(widgets = widgets, maxval=total).start()
+            pbar = ProgressBar(widgets=widgets, maxval=total).start()
 
         errored = 0
         loaded = 0

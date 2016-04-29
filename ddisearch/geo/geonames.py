@@ -1,3 +1,4 @@
+
 # file ddisearch/geo/geonames.py
 #
 # Copyright 2014 Emory University
@@ -18,6 +19,11 @@
 # the geopy client is too limited and doesn't expose all OPTIONS:
 
 import requests
+
+
+class GeonamesException(Exception):
+    pass
+
 
 class GeonamesClient(object):
     '''Simple GeoNames.org client for searching and geocoding terms.
@@ -95,9 +101,17 @@ class GeonamesClient(object):
         :returns: :class:`GeonamesResult`
         '''
         params = {'username': self.username, 'geonameId': geonames_id}
-        api_url =  '%s/getJSON' % self.base_url
-        r = requests.get(api_url, params=params)
-        return GeonamesResult(r.json())
+        api_url = '%s/getJSON' % self.base_url
+        resp = requests.get(api_url, params=params)
+        if resp.status_code != requests.codes.ok:
+            raise GeonamesException('Error retrieving GeoNames %s: %s' % \
+                                    (geonames_id, resp.content))
+        # geonames returns 200 for not found, have to check contents
+        data = resp.json()
+        if 'status' in data and data['status']['value'] == 15:
+            raise GeonamesException('Error retreving GeoNames %s: %s' % \
+                            (geonames_id, data['status']['message']))
+        return GeonamesResult(data)
 
 
 class GeonamesResult(object):

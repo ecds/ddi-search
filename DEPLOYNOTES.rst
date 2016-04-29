@@ -24,8 +24,14 @@ Bootstrapping a development environment
 ---------------------------------------
 
 * Copy ``ddisearch/localsettings.py.dist`` to ``ddisearch/localsettings.py``
-  and configure any local settings: **DATABASES**, **EXIST_**, **SECRET_KEY**,
-  customize **LOGGING**, **GEONAMES_USERNAME**, etc.
+  and configure your local settings:
+  - **DATABASES** - sql database, used for browse by geography
+  - **EXIST_** database configuration, server url and collection where DDI
+    xml data will be loaded
+  - Django **SECRET_KEY**
+  - **LOGGING** (if using file logger, ensure path exists and is writable)
+  - **GEONAMES_USERNAME** - `GeoNames.org webservice account <http://www.geonames.org/export/web-services.html>`_,
+    for use in geocoding locations when loading data
 * Create a new virtualenv and activate it.
 * Install fabric: ``pip install fabric``
 * Use fabric to run a local build, which will install python dependencies in
@@ -53,4 +59,17 @@ reindex the data::
   or reindexing content.
 
 ICPSR and any local DDI XML files should be loaded to the appropriate eXist
-collection using the Java client, WebDAV, or similar.
+collection using the Java client, WebDAV, or similar.  For testing purposes,
+you can load a `sample CodeBook <http://www.icpsr.umich.edu/icpsrweb/ICPSR/ddi2/studies/4245>`_
+provided as a `markup example <http://www.ddialliance.org/resources/markup-examples>`_,
+or you may load the fixture included for unit tests in `ddisearch.ddi.fixtures`.
+
+If you want your DDI documents geocoded for display in the geographical browse,
+use the load command ``python manage.py load``; this requires a
+valid **GEONAMES_USERNAME** configured in localsettings.  You may also
+need to configure credentials for an **EXISTDB_SERVER_USER**
+and **EXISTDB_SERVER_PASSWORD** with access to add files to your configured
+collection.  Also, be aware that the script is designed to remove the local
+copy of any files that are successfully loaded.
+
+

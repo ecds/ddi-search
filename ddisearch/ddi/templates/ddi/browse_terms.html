@@ -6,6 +6,7 @@
 {% block page-subtitle %}| {{ label }}{% if term %} | {{ term }}{% endif %}{% endblock %}
 
 {% block content %}
+
 <div id="st-container">
     <div class="st-pusher">
         {% include 'eultheme/snippets/preview_aside.html' %}
@@ -47,6 +48,8 @@
                                 <span class='list-group-content'>{{ t }}</span>
                             </a>
                             {% endif %}
+                            {% empty %}
+                            <p>No results</p>
                             {% endfor %}
                         </div>
                         {% endif %}
