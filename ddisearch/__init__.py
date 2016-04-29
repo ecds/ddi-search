@@ -21,7 +21,7 @@ eXist-db for powerful full text searching.
 
 '''
 
-__version_info__ = (1, 1, 0, 'dev')
+__version_info__ = (1, 1, 0, None)
 
 # Dot-connect all but the last. Last is dash-connected if not None.
 __version__ = '.'.join(str(i) for i in __version_info__[:-1])
