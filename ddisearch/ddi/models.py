@@ -16,10 +16,9 @@
 
 import re
 import logging
+from collections import OrderedDict
 from django.conf import settings
 from django.db.models import Q
-# NOTE: using django SortedDict instaed of collections.OrderedDict to support py2.7
-from django.utils.datastructures import SortedDict
 from eulxml import xmlmap
 
 from eulexistdb.models import XmlModel
@@ -492,7 +491,7 @@ class CodeBook(XmlModel):
                      (len(self.geo_coverage), len(self.geonames_ids), dbloc.count()))
         # generate a dictionary keyed on geonames id to allow matching up with xml
         dbloc_dict = dict([(l.geonames_id, l) for l in dbloc])
-        geog_loc = SortedDict()  # preserve order in the xml
+        geog_loc = OrderedDict()  # preserve order in the xml
         for geo in self.geo_coverage:
             val = None
             if geo.id is not None:
@@ -539,15 +538,16 @@ class CodeBook(XmlModel):
 
 # collection prefix normally added by queryset; has to be added explicitly
 # here becuase we are including distinct in the primary xpath
-_collection = 'collection("/db/%s")' % settings.EXISTDB_ROOT_COLLECTION.lstrip('/')
+_collection = u'collection("/db/%s")' % settings.EXISTDB_ROOT_COLLECTION.lstrip('/')
 
 # template for count xpath: takes collection and xpath (topic or keyword)
 # xpath to get the total number of documents with this topic or keyword
 # - has to use ft:query or else it is much too slow
 _count_xpath_template = '''count(%s/codeBook[ft:query(%s,
-        <query><phrase>{%%(xq_var)s}</phrase></query>)])'''
-# NOTE: this is not exact... will probably match partials (not great for keywords)
-# <regex>^{$n}$</regex> should be possible, but returns count of 0
+        <query><term>{%%(xq_var)s}</term></query>)])'''
+# NOTE: under existdb2.2 using query/phrase only works for single words,
+# but query/term works for everything.
+
 
 class DistinctKeywords(XmlModel):
     'xml model to allow searching for distinct keywords'
@@ -556,9 +556,11 @@ class DistinctKeywords(XmlModel):
     text = xmlmap.StringField('text()')
     text_xpath = '%(xq_var)s'
 
+
 class DistinctTopics(XmlModel):
     'xml model to allow searching for distinct local topics'
     objects = Manager('distinct-values(%s//topcClas[@vocab="local"])' % _collection)
+    # objects = Manager('distinct-values(//topcClas[@vocab="local"])' % _collection)
     count_xpath = _count_xpath_template % (_collection, './/topcClas[@vocab="local"]')
     text = xmlmap.StringField('text()')
     text_xpath = '%(xq_var)s'

@@ -22,6 +22,7 @@ from django.core.paginator import Paginator, EmptyPage, InvalidPage
 from django.views.decorators.http import condition
 from urllib import urlencode
 from eulexistdb.exceptions import DoesNotExist
+from eulexistdb.query import XmlQuery
 
 from ddisearch.ddi import forms
 from ddisearch.ddi.models import CodeBook, DistinctKeywords, DistinctTopics
@@ -29,6 +30,13 @@ from ddisearch.ddi.utils import ddi_lastmodified, ddi_etag, collection_lastmodif
 
 
 logger = logging.getLogger(__name__)
+
+
+# NOTE: exist query time reporting is disabled for now; as of
+# eulexistdb 0.20 it is not available, but leaving the lines commented out
+# because it may be enabled again for future versions of eXist.
+# In the meantime, it is recommended to use django-debug-toolbar instead.
+
 
 @condition(last_modified_func=collection_lastmodified)
 def site_index(request):
@@ -202,7 +210,7 @@ def search(request):
 
         context.update({'keywords': search_opts.get('keywords', ''),
             'results': results,
-            'querytime': [results.object_list.queryTime()],
+            # 'querytime': [results.object_list.queryTime()],
             'url_params': url_params,
             'per_page': int(per_page),
             'rechunk_params': rechunk_params,
@@ -255,7 +263,7 @@ def resource_xml(request, agency, id):
         raise Http404
 
     xml = res.serialize(pretty=True)
-    response = HttpResponse(xml, mimetype='application/xml')
+    response = HttpResponse(xml, content_type='application/xml')
     response['Content-Disposition'] = 'filename="%s"' % res.document_name
     return response
 
@@ -269,7 +277,7 @@ def browse_terms(request, mode):
     .. Note::
 
       Browse by keyword is **deprecated** because there are so many
-      keywords that
+      keywords that it is not useful.
 
     :param mode: keywords or topics
     '''
@@ -310,9 +318,10 @@ def browse_terms(request, mode):
             # make sure to only browse against *local* topics
             search_field = 'local_topics__fulltext_terms'
 
-        results = CodeBook.objects.filter(**{search_field: '"%s"' % term}) \
-                    .only('title', 'abstract', 'keywords', 'topics',
-                          'authors', 'time_periods', 'id')
+        results = CodeBook.objects \
+            .filter(**{search_field: XmlQuery(term=term)}) \
+            .only('title', 'abstract', 'keywords', 'topics',
+                  'authors', 'time_periods', 'id')
 
         # sort the queryset based on the requested sort option
         results = _sort_results(results, sort)
@@ -345,8 +354,7 @@ def browse_terms(request, mode):
         page = paginator.num_pages
         results = paginator.page(paginator.num_pages)
 
-
-    context.update({'results': results, 'url_params': urlencode(url_args),
-                    'querytime': [results.object_list.queryTime()]})
+    context.update({'results': results, 'url_params': urlencode(url_args)})
+                    # 'querytime': [results.object_list.queryTime()]})
 
     return render(request, 'ddi/browse_terms.html', context)

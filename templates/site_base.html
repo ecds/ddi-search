@@ -29,8 +29,10 @@
 
 {% block footer-content %}
   {# display eXist query times (when present) in debug mode only #}
+  {% comment %} {# Not available in eulexistdb 0.20, but may be added back later #}
   {% if querytime and debug %}
     <div class="query-time dev-note">quer{{ querytime|pluralize:"y,ies" }} took
       {{ querytime|join:", " }} ms</div>
   {% endif %}
+  {% endcomment %}
 {% endblock %}

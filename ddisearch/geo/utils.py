@@ -18,10 +18,12 @@ import logging
 import re
 from django.conf import settings
 from ddisearch.geo.models import Location, GeonamesCountry, GeonamesContinent
-from ddisearch.geo.geonames import GeonamesClient
+from ddisearch.geo.geonames import GeonamesClient, GeonamesException
 from ddisearch.geo.altnames import alternate_names
 
+
 logger = logging.getLogger(__name__)
+
 
 class CodebookGeocoder(object):
     '''Utility class to geocode the geographical coverage terms in
@@ -187,13 +189,19 @@ class CodebookGeocoder(object):
 
     def lookup_country(self, geogname):
         # lookup a name to see if matches one of our known countries
-        countries = GeonamesCountry.objects.filter(name=geogname)
-        if countries.count():
-            loc = self.geonames.get_by_id(countries[0].geonames_id)
-            logger.debug('Found a country match for %s, using geonames %s',
-                         geogname, countries[0].geonames_id)
-            dbloc = self.location_from_geoname(loc)
-            return dbloc
+        country = GeonamesCountry.objects.filter(name=geogname).first()
+        if country:
+            try:
+                loc = self.geonames.get_by_id(country.geonames_id)
+                logger.debug('Found a country match for %s, using geonames %s',
+                             geogname, country.geonames_id)
+                dbloc = self.location_from_geoname(loc)
+                return dbloc
+            except GeonamesException as err:
+                # it's possible to get an error if geonames id no
+                # longer exists
+                logger.warn('Failed to load Geonames %s id %s: %s',
+                            geogname, country.geonames_id, err)
 
     def lookup_location(self, geogname, assume_US=False):
         # lookup a name to see if it matches a location in the database

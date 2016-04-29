@@ -14,7 +14,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from django.conf.urls import patterns, include, url
+from django.conf.urls import include, url
 from django.contrib import admin
 from django.contrib.sitemaps import views as sitemaps_views
 from django.views.generic import TemplateView
@@ -24,7 +24,7 @@ from ddisearch.ddi.sitemaps import sitemap_cfg
 admin.autodiscover()
 
 
-urlpatterns = patterns('',
+urlpatterns = [
     # Examples:
     # url(r'^$', 'ddisearch.views.home', name='home'),
      url(r'^robots\.txt$', TemplateView.as_view(template_name='robots.txt',
@@ -36,7 +36,8 @@ urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
 
     # xml sitemaps for search-engine discovery
-    (r'^sitemap\.xml$', sitemaps_views.index, {'sitemaps': sitemap_cfg}),
-    (r'^sitemap-(?P<section>.+)\.xml$', sitemaps_views.sitemap,
-         {'sitemaps': sitemap_cfg}),
-)
+    url(r'^sitemap\.xml$', sitemaps_views.index, {'sitemaps': sitemap_cfg},
+        name='django.contrib.sitemaps.views.sitemap'),
+    url(r'^sitemap-(?P<section>.+)\.xml$', sitemaps_views.sitemap,
+        {'sitemaps': sitemap_cfg}),
+]
