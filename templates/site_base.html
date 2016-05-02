@@ -35,4 +35,8 @@
       {{ querytime|join:", " }} ms</div>
   {% endif %}
   {% endcomment %}
+
+  {% if not debug %} {# google analytics tracking code #}
+    {% include 'snippets/google_analytics.html' %}
+  {% endif %}
 {% endblock %}
